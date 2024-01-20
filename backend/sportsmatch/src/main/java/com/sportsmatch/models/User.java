@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -34,7 +34,7 @@ public class User {
 
     @Column(name = "date_of_birth")
     @DateTimeFormat(pattern = "dd-MM-yyyy")
-    private Date dateOfBirth;
+    private LocalDate dateOfBirth;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private Set<SportUser> sportUsers = new HashSet<>();
@@ -42,4 +42,11 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "player")
     private Set<EventPlayer> eventsPlayed = new HashSet<>();
 
+    public User(String email, String password, String username, Gender gender, LocalDate dateOfBirth) {
+        this.email = email;
+        this.password = password;
+        this.username = username;
+        this.gender = gender;
+        this.dateOfBirth = dateOfBirth;
+    }
 }

@@ -1,7 +1,6 @@
 package com.sportsmatch.models;
 
 import jakarta.persistence.*;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,4 +26,7 @@ public class EventPlayer {
 
     @ManyToOne
     private User player;
+
+    @ManyToOne
+    private Event event;
 }

@@ -24,4 +24,7 @@ public class Sport {
 
     @OneToMany(mappedBy = "sport")
     private Set<SportUser> sportUsers = new HashSet<>();
+
+    @OneToMany(mappedBy = "sport")
+    private Set<Event> events = new HashSet<>();
 }

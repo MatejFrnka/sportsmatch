@@ -6,8 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.swing.border.EmptyBorder;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -25,11 +24,11 @@ public class Event {
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "date_start")
-    private Date dateStart;
+    private LocalDate dateStart;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "date_end")
-    private Date dateEnd;
+    private LocalDate dateEnd;
 
     private String location;
 
@@ -41,7 +40,7 @@ public class Event {
 
     private String title;
 
-    @OneToMany(mappedBy = "event")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "event")
     private Set<EventPlayer> players = new HashSet<>();
 
     @ManyToOne

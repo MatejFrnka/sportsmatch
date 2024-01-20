@@ -36,7 +36,10 @@ public class User {
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private Date dateOfBirth;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private Set<SportUser> sportUsers = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "player")
+    private Set<EventPlayer> eventsPlayed = new HashSet<>();
 
 }

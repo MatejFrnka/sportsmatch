@@ -22,9 +22,13 @@ public class Sport {
 
     private String name;
 
-    @OneToMany(mappedBy = "sport")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sport")
     private Set<SportUser> sportUsers = new HashSet<>();
 
-    @OneToMany(mappedBy = "sport")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sport")
     private Set<Event> events = new HashSet<>();
+
+    public Sport(String name) {
+        this.name = name;
+    }
 }

@@ -8,6 +8,8 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -33,5 +35,8 @@ public class User {
     @Column(name = "date_of_birth")
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private Date dateOfBirth;
+
+    @OneToMany(mappedBy = "user")
+    private Set<SportUser> sportUsers = new HashSet<>();
 
 }

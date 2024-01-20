@@ -29,4 +29,11 @@ public class EventPlayer {
 
     @ManyToOne
     private Event event;
+
+    public EventPlayer(Integer myScore, Integer opponentScore, User player, Event event) {
+        this.myScore = myScore;
+        this.opponentScore = opponentScore;
+        this.player = player;
+        this.event = event;
+    }
 }

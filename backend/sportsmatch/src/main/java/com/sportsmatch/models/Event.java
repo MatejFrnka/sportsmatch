@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,13 +23,11 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "date_start")
-    private LocalDate dateStart;
+    private LocalDateTime dateStart;
 
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "date_end")
-    private LocalDate dateEnd;
+    private LocalDateTime dateEnd;
 
     private String location;
 
@@ -46,4 +45,13 @@ public class Event {
     @ManyToOne
     private Sport sport;
 
+    public Event(LocalDateTime dateStart, LocalDateTime dateEnd, String location, Integer minElo, Integer maxElo, String title, Sport sport) {
+        this.dateStart = dateStart;
+        this.dateEnd = dateEnd;
+        this.location = location;
+        this.minElo = minElo;
+        this.maxElo = maxElo;
+        this.title = title;
+        this.sport = sport;
+    }
 }

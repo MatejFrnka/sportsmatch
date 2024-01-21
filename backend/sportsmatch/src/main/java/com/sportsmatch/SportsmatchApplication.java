@@ -1,13 +1,10 @@
 package com.sportsmatch;
 
-<<<<<<< HEAD
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
-=======
 import com.sportsmatch.models.*;
 import com.sportsmatch.repos.*;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
->>>>>>> 7b413cd2aae6abef434578b98f285f6cfaa85a8a
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -19,11 +16,8 @@ import java.util.List;
 
 @AllArgsConstructor
 @SpringBootApplication
-<<<<<<< HEAD
 @OpenAPIDefinition
 @EnableWebMvc
-public class SportsmatchApplication {
-=======
 public class SportsmatchApplication implements CommandLineRunner {
 
     private final UserRepository userRepo;
@@ -31,7 +25,6 @@ public class SportsmatchApplication implements CommandLineRunner {
     private final SportUserRepository sportUserRepo;
     private final EventPlayerRepository eventPlayerRepo;
     private final EventRepository eventRepo;
->>>>>>> 7b413cd2aae6abef434578b98f285f6cfaa85a8a
 
     public static void main(String[] args) {
         SpringApplication.run(SportsmatchApplication.class, args);

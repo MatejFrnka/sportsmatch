@@ -2,6 +2,7 @@ package com.sportsmatch;
 
 import com.sportsmatch.models.*;
 import com.sportsmatch.repos.*;
+import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -10,6 +11,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@AllArgsConstructor
 @SpringBootApplication
 public class SportsmatchApplication implements CommandLineRunner {
 
@@ -19,18 +21,6 @@ public class SportsmatchApplication implements CommandLineRunner {
     private final EventPlayerRepository eventPlayerRepo;
     private final EventRepository eventRepo;
 
-    public SportsmatchApplication(UserRepository userRepo,
-                                  SportRepository sportRepo,
-                                  SportUserRepository sportUserRepo,
-                                  EventPlayerRepository eventPlayerRepo,
-                                  EventRepository eventRepo) {
-        this.userRepo = userRepo;
-        this.sportRepo = sportRepo;
-        this.sportUserRepo = sportUserRepo;
-        this.eventPlayerRepo = eventPlayerRepo;
-        this.eventRepo = eventRepo;
-    }
-
     public static void main(String[] args) {
         SpringApplication.run(SportsmatchApplication.class, args);
     }
@@ -38,7 +28,6 @@ public class SportsmatchApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         addData();
-
     }
 
     public void addData() {

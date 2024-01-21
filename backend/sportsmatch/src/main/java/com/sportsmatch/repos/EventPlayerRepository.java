@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface EventPlayerRepository extends JpaRepository<EventPlayer, Long> {
+
+    EventPlayer findEventPlayerById(Long id);
 }

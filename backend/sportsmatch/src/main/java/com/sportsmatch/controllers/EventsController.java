@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
+
 @RestController
 @RequestMapping("/api/v1")
 public class EventsController {
@@ -34,12 +36,16 @@ public class EventsController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid data");
         }
     }
-//     todo Post
-//    @PostMapping("/event")
-//    public ResponseEntity<?> addEvent(){
-//
-//        return new ResponseEntity<>();
-//    }
+    // todo Post
+    @PostMapping("/event")
+    public ResponseEntity<?> addEvent(@RequestBody EventDTO eventDTO){
+        try {
+            Event newEvent = eventService.createEvent(eventDTO);
+            return ResponseEntity.status(HttpStatus.CREATED).body(eventService.getAllEvents());
+        } catch (Exception e){
+            return ResponseEntity.badRequest().body("Invalid data. Event was not created.");
+        }
+    }
 //      todo Delete
 //    @DeleteMapping("/event/{id}")
 //    public ResponseEntity<?> deleteEvent(){

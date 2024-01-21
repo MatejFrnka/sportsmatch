@@ -30,8 +30,8 @@ public class EventDTO {
 
     private String title;
 
-    private String player1;
-    private String player2;
+    private Long player1Id;
+    private Long player2Id;
 
     private String sport;
 
@@ -44,8 +44,8 @@ public class EventDTO {
         this.minElo = event.getMinElo();
         this.maxElo = event.getMaxElo();
         this.title = event.getTitle();
-        this.player1 = players.get(0).getPlayer().getUsername();
-        this.player2 = players.get(1).getPlayer().getUsername();
+        this.player1Id = players.get(0).getPlayer().getId();
+        this.player2Id = players.get(1).getPlayer().getId();
         this.sport = event.getSport().getName();
     }
 }

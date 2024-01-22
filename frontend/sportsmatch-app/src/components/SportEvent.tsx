@@ -1,4 +1,4 @@
-import '../SportEvent.css';
+import '../styles/SportEvent.css';
 
 interface SportEventProps {
     Event: {
@@ -16,13 +16,13 @@ interface SportEventProps {
 function SportEvent({ Event }: SportEventProps) {
     return (
         <>
-            <div className="container-sm"> // in the future should be dynamic depending on user's screen size
+            <div className="container-sm">
                 <div className="event-card">
                     <div className="left">
                     <ul>
-                        <li>{Event.location}</li>
-                        <li>{Event.minElo} - {Event.maxElo}</li>
-                        <li>{Event.dateStart} - {Event.dateEnd}</li>
+                        <li>📍{Event.location}</li>
+                        <li>🏅{Event.minElo} - {Event.maxElo}</li>
+                        <li>📆{Event.dateStart} : {Event.dateEnd}</li>
                     </ul>
                     </div>
                     <div className="right">

@@ -10,7 +10,7 @@ function App() {
     location: "sports center, prague",
     minElo: 1500,
     maxElo: 1800,
-    sport: "Tennis",
+    sport: "Bowling",
     playerOne: "playerOneName",
   }
 

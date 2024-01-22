@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;900&display=swap');
+
+.event-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-width: 361px;
+    min-height: 106px;
+    margin: 16px;
+    font-size: 10px;
+    font-family: 'Inter', sans-serif;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.05);
+    border-radius: 2px;
+}
+
+.left {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 9px;
+  }
+  
+.right {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    background:linear-gradient(0deg, rgba(232, 95, 41, 0.25), rgba(232, 95, 41, 0.25)), url(https://images.pexels.com/photos/7429604/pexels-photo-7429604.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1);
+    background-size: cover;
+    color: #fff; 
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.05);
+    border-bottom-right-radius: 2px;
+    border-top-right-radius: 2px;
+    padding-right: 9px;
+  }
+
+  .right h3 {
+    font-weight: 900;
+    font-size: 24px;
+  }
+  
+.event-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+.event-card ul li {
+    color: #393939;
+}

@@ -4,11 +4,8 @@ import com.sportsmatch.dtos.EventDTO;
 import com.sportsmatch.models.Event;
 import com.sportsmatch.services.EventService;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.net.URI;
 
 @RestController
 @RequestMapping("/api/v1")

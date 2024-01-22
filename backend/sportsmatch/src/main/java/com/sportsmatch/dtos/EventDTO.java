@@ -46,8 +46,6 @@ public class EventDTO {
         this.title = event.getTitle();
         this.player1Id = eventPlayers.get(0).getPlayer().getId();
         this.player2Id = eventPlayers.get(1).getPlayer().getId();
-//        this.player1Id = eventPlayers.get(0).getId();
-//        this.player2Id = eventPlayers.get(1).getId();
         this.sport = event.getSport().getName();
     }
 }

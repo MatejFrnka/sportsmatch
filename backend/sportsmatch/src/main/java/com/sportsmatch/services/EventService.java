@@ -7,7 +7,6 @@ import com.sportsmatch.repos.EventRepository;
 import com.sportsmatch.repos.SportRepository;
 import com.sportsmatch.repos.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.ScrollPosition;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -21,7 +20,7 @@ public class EventService {
     private EventRepository eventRepository;
     private SportRepository sportRepository;
     private EventPlayerRepository eventPlayerRepository;
-    private UserRepository userRepositor;
+    private UserRepository userRepository;
 
     @Autowired
     public EventService(EventRepository eventRepository,
@@ -31,7 +30,7 @@ public class EventService {
         this.eventRepository = eventRepository;
         this.sportRepository = sportRepository;
         this.eventPlayerRepository = eventPlayerRepository;
-        this.userRepositor = userRepository;
+        this.userRepository = userRepository;
     }
 
     public Event getEventById(Long id) {
@@ -67,8 +66,8 @@ public class EventService {
     private void addEventPlayersToNewEvent(EventDTO eventDTO, Event newEvent) {
         EventPlayer eventPlayer1 = new EventPlayer();
         EventPlayer eventPlayer2 = new EventPlayer();
-        eventPlayer1.setPlayer(userRepositor.findUserById(eventDTO.getPlayer1Id()));
-        eventPlayer2.setPlayer(userRepositor.findUserById(eventDTO.getPlayer2Id()));
+        eventPlayer1.setPlayer(userRepository.findUserById(eventDTO.getPlayer1Id()));
+        eventPlayer2.setPlayer(userRepository.findUserById(eventDTO.getPlayer2Id()));
         Set<EventPlayer> players = new HashSet<>();
         players.add(eventPlayer1);
         players.add(eventPlayer2);
@@ -105,13 +104,9 @@ public class EventService {
         if (sportRepository.findSportByName(eventDTO.getSport()) == null) {
             return false;
         }
-        if (eventPlayerRepository.findEventPlayerByPlayer(userRepositor.findUserById(eventDTO.getPlayer1Id())) == null ||
-            eventPlayerRepository.findEventPlayerByPlayer(userRepositor.findUserById(eventDTO.getPlayer2Id())) == null)
+        if (eventPlayerRepository.findEventPlayerByPlayer(userRepository.findUserById(eventDTO.getPlayer1Id())) == null ||
+            eventPlayerRepository.findEventPlayerByPlayer(userRepository.findUserById(eventDTO.getPlayer2Id())) == null)
             return false;
-//        if (eventPlayerRepository.findEventPlayerById(eventDTO.getPlayer1Id()) == null ||
-//                eventPlayerRepository.findEventPlayerById(eventDTO.getPlayer2Id()) == null) {
-//            return false;
-//        }
         return true;
     }
 }

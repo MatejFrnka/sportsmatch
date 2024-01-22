@@ -43,12 +43,22 @@ public class EventsController {
             return ResponseEntity.badRequest().body("Invalid data. Event was not created.");
         }
     }
-//      todo Delete
-//    @DeleteMapping("/event/{id}")
-//    public ResponseEntity<?> deleteEvent(){
-//
-//        return new ResponseEntity<>();
-//    }
+
+    @DeleteMapping("/event/{id}")
+    public ResponseEntity<?> deleteEvent(@PathVariable ("id") Long id){
+
+        try {
+            Event eventById = eventService.getEventById(id);
+            if(eventById != null){
+                eventService.deleteEventFromDatabase(eventById);
+                return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+            }
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Event not found");
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid value");
+    }
+
 //      todo Put
 //    @PutMapping("/event/{id}")
 //    public ResponseEntity<?> updateEvent(){

@@ -109,4 +109,8 @@ public class EventService {
             return false;
         return true;
     }
+
+    public void deleteEventFromDatabase(Event eventById) {
+        eventRepository.deleteById(eventById.getId());
+    }
 }

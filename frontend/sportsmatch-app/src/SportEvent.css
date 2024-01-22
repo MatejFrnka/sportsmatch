@@ -1,0 +1,10 @@
+.event-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    max-width: 361px;
+    max-height: 106px;
+    margin: 16px;
+    padding:  9px;
+    background-color: red;
+    font-size: 10px;
+}

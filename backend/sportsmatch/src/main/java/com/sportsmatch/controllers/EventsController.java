@@ -59,7 +59,7 @@ public class EventsController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid value");
     }
 
-//      todo Put
+//      todo Put - what values should be updated?
 //    @PutMapping("/event/{id}")
 //    public ResponseEntity<?> updateEvent(){
 //

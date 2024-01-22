@@ -1,4 +1,4 @@
-import React from "react";
+import '../SportEvent.css';
 
 interface SportEventProps {
     Event: {
@@ -7,20 +7,29 @@ interface SportEventProps {
         location: string;
         minElo: number;
         maxElo: number;
-        title: string;
+        sport: string;
         playerOne: string;
         playerTwo?: string;
     }
 }
 
-function SportEvent({Event}: SportEventProps) {    
+function SportEvent({ Event }: SportEventProps) {
     return (
         <>
-            <p>{Event.title}</p>
-            <p>{Event.location}</p>
-            <p>{Event.minElo} - {Event.maxElo}</p>
-            <p>{Event.dateStart} - {Event.dateEnd}</p>
-            <p>{Event.playerOne}</p>
+            <div className="container-sm"> // in the future should be dynamic depending on user's screen size
+                <div className="event-card">
+                    <div className="left">
+                    <ul>
+                        <li>{Event.location}</li>
+                        <li>{Event.minElo} - {Event.maxElo}</li>
+                        <li>{Event.dateStart} - {Event.dateEnd}</li>
+                    </ul>
+                    </div>
+                    <div className="right">
+                    <h3>{Event.sport}</h3>
+                    </div>
+                </div>
+            </div>
         </>
     );
 }

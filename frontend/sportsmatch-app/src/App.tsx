@@ -19,7 +19,7 @@ function App() {
 
   return (
     <>
-      <SportEvent Event={sampleEvent} />
+      <SportEvent event={sampleEvent} />
     </>
   );
 }

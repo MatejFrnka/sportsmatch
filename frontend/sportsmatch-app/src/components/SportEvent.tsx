@@ -1,7 +1,7 @@
 import '../styles/SportEvent.css';
 
 interface SportEventProps {
-    Event: {
+    event: {
         id: number;
         maxElo: number;
         minElo: number;
@@ -16,20 +16,20 @@ interface SportEventProps {
     }
 }
 
-function SportEvent({ Event }: SportEventProps) {
+function SportEvent({ event }: SportEventProps) {
     return (
         <>
             <div className="container-sm">
                 <div className="event-card">
                     <div className="left">
                     <ul>
-                        <li>📍{Event.location}</li>
-                        <li>🏅{Event.minElo} - {Event.maxElo}</li>
-                        <li>📆{Event.dateStart} to {Event.dateEnd}</li>
+                        <li>📍{event.location}</li>
+                        <li>🏅{event.minElo} - {event.maxElo}</li>
+                        <li>📆{event.dateStart} to {event.dateEnd}</li>
                     </ul>
                     </div>
                     <div className="right">
-                    <h3>{Event.title}</h3>
+                    <h3>{event.title}</h3>
                     </div>
                 </div>
             </div>

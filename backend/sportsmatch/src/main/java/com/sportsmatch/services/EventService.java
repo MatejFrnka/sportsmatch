@@ -1,12 +1,11 @@
 package com.sportsmatch.services;
 
 import com.sportsmatch.dtos.EventDTO;
-import com.sportsmatch.models.Event;
-import com.sportsmatch.models.EventPlayer;
-import com.sportsmatch.models.Sport;
+import com.sportsmatch.models.*;
 import com.sportsmatch.repos.EventPlayerRepository;
 import com.sportsmatch.repos.EventRepository;
 import com.sportsmatch.repos.SportRepository;
+import com.sportsmatch.repos.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.ScrollPosition;
 import org.springframework.stereotype.Service;
@@ -22,15 +21,17 @@ public class EventService {
     private EventRepository eventRepository;
     private SportRepository sportRepository;
     private EventPlayerRepository eventPlayerRepository;
+    private UserRepository userRepositor;
 
     @Autowired
     public EventService(EventRepository eventRepository,
                         SportRepository sportRepository,
-                        EventPlayerRepository eventPlayerRepository) {
+                        EventPlayerRepository eventPlayerRepository,
+                        UserRepository userRepository) {
         this.eventRepository = eventRepository;
         this.sportRepository = sportRepository;
         this.eventPlayerRepository = eventPlayerRepository;
-
+        this.userRepositor = userRepository;
     }
 
     public Event getEventById(Long id) {
@@ -55,17 +56,31 @@ public class EventService {
             newEvent.setMinElo(eventDTO.getMinElo());
             newEvent.setMaxElo(eventDTO.getMaxElo());
             newEvent.setTitle(eventDTO.getTitle());
-            Sport sport = sportRepository.findSportByName(eventDTO.getSport());
-            newEvent.setSport(sport);
-            EventPlayer eventPlayer1 = eventPlayerRepository.findEventPlayerById(eventDTO.getPlayer1Id());
-            EventPlayer eventPlayer2 = eventPlayerRepository.findEventPlayerById(eventDTO.getPlayer2Id());
-            Set<EventPlayer> players = new HashSet<>();
-            players.add(eventPlayer1);
-            players.add(eventPlayer2);
-            newEvent.setPlayers(players);
+            addSportToNewEvent(eventDTO, newEvent);
+            addEventPlayersToNewEvent(eventDTO, newEvent);
             eventRepository.save(newEvent);
+            return newEvent;
         }
-        return newEvent;
+       return null;
+    }
+
+    private void addEventPlayersToNewEvent(EventDTO eventDTO, Event newEvent) {
+        EventPlayer eventPlayer1 = new EventPlayer();
+        EventPlayer eventPlayer2 = new EventPlayer();
+        eventPlayer1.setPlayer(userRepositor.findUserById(eventDTO.getPlayer1Id()));
+        eventPlayer2.setPlayer(userRepositor.findUserById(eventDTO.getPlayer2Id()));
+        Set<EventPlayer> players = new HashSet<>();
+        players.add(eventPlayer1);
+        players.add(eventPlayer2);
+        newEvent.setPlayers(players);
+        eventRepository.save(newEvent);
+        eventPlayer1.setEvent(newEvent);
+        eventPlayer2.setEvent(newEvent);
+    }
+
+    private void addSportToNewEvent(EventDTO eventDTO, Event newEvent) {
+        Sport sport = sportRepository.findSportByName(eventDTO.getSport());
+        newEvent.setSport(sport);
     }
 
     public boolean isValid(EventDTO eventDTO) {
@@ -90,10 +105,13 @@ public class EventService {
         if (sportRepository.findSportByName(eventDTO.getSport()) == null) {
             return false;
         }
-        if (eventPlayerRepository.findEventPlayerById(eventDTO.getPlayer1Id()) == null ||
-                eventPlayerRepository.findEventPlayerById(eventDTO.getPlayer2Id()) == null) {
+        if (eventPlayerRepository.findEventPlayerByPlayer(userRepositor.findUserById(eventDTO.getPlayer1Id())) == null ||
+            eventPlayerRepository.findEventPlayerByPlayer(userRepositor.findUserById(eventDTO.getPlayer2Id())) == null)
             return false;
-        }
+//        if (eventPlayerRepository.findEventPlayerById(eventDTO.getPlayer1Id()) == null ||
+//                eventPlayerRepository.findEventPlayerById(eventDTO.getPlayer2Id()) == null) {
+//            return false;
+//        }
         return true;
     }
 }

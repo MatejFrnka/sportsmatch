@@ -36,7 +36,7 @@ public class EventDTO {
     private String sport;
 
     public EventDTO(Event event){
-        List<EventPlayer> players = event.getPlayers().stream().toList();
+        List<EventPlayer> eventPlayers = event.getPlayers().stream().toList();
         this.id = event.getId();
         this.dateStart = event.getDateStart();
         this.dateEnd = event.getDateEnd();
@@ -44,8 +44,10 @@ public class EventDTO {
         this.minElo = event.getMinElo();
         this.maxElo = event.getMaxElo();
         this.title = event.getTitle();
-        this.player1Id = players.get(0).getPlayer().getId();
-        this.player2Id = players.get(1).getPlayer().getId();
+        this.player1Id = eventPlayers.get(0).getPlayer().getId();
+        this.player2Id = eventPlayers.get(1).getPlayer().getId();
+//        this.player1Id = eventPlayers.get(0).getId();
+//        this.player2Id = eventPlayers.get(1).getId();
         this.sport = event.getSport().getName();
     }
 }

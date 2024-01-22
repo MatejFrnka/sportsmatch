@@ -24,18 +24,21 @@
     flex-direction: column;
     justify-content: flex-end;
     align-items: flex-end;
-    background:linear-gradient(0deg, rgba(232, 95, 41, 0.25), rgba(232, 95, 41, 0.25)), url(https://images.pexels.com/photos/7429604/pexels-photo-7429604.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1);
+    background:linear-gradient(0deg, rgba(232, 95, 41, 0.25), rgba(232, 95, 41, 0.25)), url(https://images.pexels.com/photos/8007406/pexels-photo-8007406.jpeg);
     background-size: cover;
+    background-position: bottom;
     color: #fff; 
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.05);
     border-bottom-right-radius: 2px;
     border-top-right-radius: 2px;
-    padding-right: 9px;
+    padding: 0 9px;
   }
 
   .right h3 {
     font-weight: 900;
     font-size: 24px;
+    text-transform: uppercase;
+    text-align: right;
   }
   
 .event-card ul {

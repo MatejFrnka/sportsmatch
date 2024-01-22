@@ -5,13 +5,16 @@ function App() {
 
   
   const sampleEvent = {
-    dateStart: "21-Jan-24",
-    dateEnd: "21-Jan-24",
-    location: "sports center, prague",
-    minElo: 1500,
-    maxElo: 1800,
-    sport: "Bowling",
-    playerOne: "playerOneName",
+    id: 1,
+    maxElo: 2000,
+    minElo: 1200,
+    dateEnd: "2024-05-01",
+    dateStart: "2024-05-01",
+    location: "Prague, Stadium A",
+    title: "Badminton match",
+    sport: "Badminton",
+    playerOne: "johndoe87",
+    playerTwo: "jess_ward"
   }
 
   return (

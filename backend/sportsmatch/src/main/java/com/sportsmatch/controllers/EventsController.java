@@ -22,17 +22,9 @@ public class EventsController {
 
     @GetMapping("/event/{id}")
     public ResponseEntity<?> getEvent(@PathVariable("id") Long id) {
-        try {
-            Event event = eventService.getEventById(id);
-            if (event != null) {
-                EventDTO eventDTO = new EventDTO(event);
-                return ResponseEntity.ok().body(eventDTO);
-            } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Event not found");
-            }
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid data");
-        }
+        Event event = eventService.getEventById(id);
+        EventDTO eventDTO = new EventDTO(event);
+        return ResponseEntity.ok().body(eventDTO);
     }
 
     // todo Post

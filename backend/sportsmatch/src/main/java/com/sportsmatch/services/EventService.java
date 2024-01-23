@@ -23,7 +23,8 @@ public class EventService {
     private UserRepository userRepository;
 
     public Event getEventById(Long id) {
-        return eventRepository.findEventById(id);
+        return eventRepository.findEventById(id).orElseThrow(() -> new ResponseStatusException(
+            HttpStatus.BAD_REQUEST));
     }
 
     public List<EventDTO> getAllEvents() {

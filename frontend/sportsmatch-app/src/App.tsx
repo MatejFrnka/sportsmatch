@@ -1,25 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import SportEvent from './components/SportEvent';
 
 function App() {
+
+  
+  const sampleEvent = {
+    id: 1,
+    maxElo: 2000,
+    minElo: 1200,
+    dateEnd: "2024-05-01",
+    dateStart: "2024-05-01",
+    location: "Prague, Stadium A",
+    title: "Badminton match",
+    sport: "Badminton",
+    playerOne: "johndoe87",
+    playerTwo: "jess_ward"
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <SportEvent event={sampleEvent} />
+    </>
   );
 }
 

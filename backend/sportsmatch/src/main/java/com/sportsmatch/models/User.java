@@ -1,10 +1,7 @@
 package com.sportsmatch.models;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -18,6 +15,7 @@ import java.util.Set;
 
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -56,6 +54,7 @@ public class User implements UserDetails {
         this.username = username;
         this.gender = gender;
         this.dateOfBirth = dateOfBirth;
+        this.role = Role.USER;
     }
 
     @Override

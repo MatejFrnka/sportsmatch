@@ -26,14 +26,10 @@ public class SecurityConfig {
             };
     private final JwtAuthFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
-
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception { // set which endpoints are authenticated and not
         http
                 .csrf(AbstractHttpConfigurer::disable)
-                .csrf(c -> c.ignoringRequestMatchers(toH2Console()))
-                .authorizeHttpRequests(r -> r.requestMatchers(toH2Console()).permitAll())
                 .headers(h -> h.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
                 .authorizeHttpRequests(r -> r.requestMatchers(WHITE_LIST_URL)
                         .permitAll()

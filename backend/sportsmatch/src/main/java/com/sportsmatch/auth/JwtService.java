@@ -30,11 +30,14 @@ public class JwtService {
     return claimsResolver.apply(claims);
   }
 
-  public String generateToken(UserDetails userDetails) { // Generates JWT Token with only userDetails
-      return generateToken(new HashMap<>(), userDetails);
+  public String generateToken(
+      UserDetails userDetails) { // Generates JWT Token with only userDetails
+    return generateToken(new HashMap<>(), userDetails);
   }
 
-  public String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) { // Generates JWT Token with additional Claims
+  public String generateToken(
+      Map<String, Object> extraClaims,
+      UserDetails userDetails) { // Generates JWT Token with additional Claims
     return Jwts.builder()
         .claims(extraClaims)
         .subject(userDetails.getUsername())
@@ -45,6 +48,19 @@ public class JwtService {
                     + 1000 * 60 * 60 * 24)) // JWT Token valid 24h from time issued
         .signWith(getVerificationKey(), Jwts.SIG.HS256)
         .compact();
+  }
+
+  public boolean isTokenValid(String token, UserDetails userDetails) {
+    final String userName = extractUserName(token);
+    return (userName.equals(userDetails.getUsername()) && !isTokenExpired(token));
+  }
+
+  private boolean isTokenExpired(String token) {
+    return extractExpiration(token).before(new Date());
+  }
+
+  private Date extractExpiration(String token) {
+    return extractClaim(token, Claims::getExpiration);
   }
 
   private Claims extractAllClaims(String token) { // Takes all the claims from JWT Token

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
@@ -29,7 +30,11 @@ public class JwtService {
     return claimsResolver.apply(claims);
   }
 
-  public String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
+  public String generateToken(UserDetails userDetails) { // Generates JWT Token with only userDetails
+      return generateToken(new HashMap<>(), userDetails);
+  }
+
+  public String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) { // Generates JWT Token with additional Claims
     return Jwts.builder()
         .claims(extraClaims)
         .subject(userDetails.getUsername())

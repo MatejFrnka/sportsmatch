@@ -2,6 +2,7 @@ package com.sportsmatch.controllers;
 
 import com.sportsmatch.auth.AuthService;
 import com.sportsmatch.dtos.RequestDTO;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +17,7 @@ public class AuthController {
 
   private final AuthService authService;
 
+  //todo add @Valid to work with validation annotations
   @PostMapping("/register")
   public ResponseEntity<?> register(@RequestBody RequestDTO requestDTO) {
     return ResponseEntity.ok(authService.register(requestDTO));

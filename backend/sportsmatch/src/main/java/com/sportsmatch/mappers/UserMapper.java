@@ -28,13 +28,14 @@ public class UserMapper {
         .build();
   }
 
-  // Validations
+  // todo delete this check
   private boolean isNullEmailOrPassword(RequestDTO requestDTO) {
     return requestDTO.getEmail() == null
         || requestDTO.getPassword() == null
         || requestDTO.getPassword().trim().isEmpty();
   }
 
+  // todo use @Email annotation
   private boolean isInvalidEmail(String email) {
     String regexPattern =
         "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";

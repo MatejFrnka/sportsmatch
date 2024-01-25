@@ -12,10 +12,13 @@ import lombok.*;
 public class RequestDTO {
 
     // register & login response
+    // todo rename this class AuthRequestDTO
+    // todo Create new class for status and token "AuthResponseDTO"
     private String status;
     private String token;
 
 
+    // todo use spring validation @Email @NotNull
     private Long id;
     private String email;
     private String password;

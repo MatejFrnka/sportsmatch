@@ -31,7 +31,8 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .headers(h -> h.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable)) // remove in production
-                .authorizeHttpRequests(r -> r.requestMatchers(WHITE_LIST_URL)
+                .authorizeHttpRequests(r -> r
+                        .requestMatchers(WHITE_LIST_URL)
                         .permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(s -> s.sessionCreationPolicy(STATELESS))

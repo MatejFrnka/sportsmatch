@@ -21,7 +21,7 @@ public class SecurityConfig {
 
     private static final String[] WHITE_LIST_URL = {
             "/api/v1/auth/**",
-            "/h2-console/**"
+            "/h2-console/**" // remove in production or have admin role to access
             // add endpoints that are not authenticated
             };
     private final JwtAuthFilter jwtAuthFilter;
@@ -30,7 +30,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception { // set which endpoints are authenticated and not
         http
                 .csrf(AbstractHttpConfigurer::disable)
-                .headers(h -> h.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
+                .headers(h -> h.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable)) // remove in production
                 .authorizeHttpRequests(r -> r.requestMatchers(WHITE_LIST_URL)
                         .permitAll()
                         .anyRequest().authenticated())

@@ -10,6 +10,6 @@ public class APIController {
 
     @GetMapping("/hello")
     public String hello() {
-        return "Hello World";
+        return "Welcome to Secured Endpoint";
     }
 }

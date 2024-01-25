@@ -1,26 +1,28 @@
-import './App.css';
-import SportEvent from './components/SportEvent';
+import {
+  BrowserRouter,
+  Route,  
+  Routes,  
+} from "react-router-dom";
+import "./App.css";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Test from "./pages/Test";
+
 
 function App() {
-
-  
-  const sampleEvent = {
-    id: 1,
-    maxElo: 2000,
-    minElo: 1200,
-    dateEnd: "2024-05-01",
-    dateStart: "2024-05-01",
-    location: "Prague, Stadium A",
-    title: "Badminton match",
-    sport: "Badminton",
-    playerOne: "johndoe87",
-    playerTwo: "jess_ward"
-  }
-
   return (
-    <>
-      <SportEvent event={sampleEvent} />
-    </>
+    <BrowserRouter>
+    <div>
+    <Routes>
+      <Route path="login" element={<Login />} />
+      <Route path="test" element={<Test />} >
+        <Route index element={<Test/>} />
+        <Route path=":testId" element={<Test/>} />
+        </Route>
+      <Route path="/" element={<Home />} />
+    </Routes>
+    </div>
+    </BrowserRouter>
   );
 }
 

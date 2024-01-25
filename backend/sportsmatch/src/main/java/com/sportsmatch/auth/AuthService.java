@@ -2,16 +2,12 @@ package com.sportsmatch.auth;
 
 import com.sportsmatch.dtos.RequestDTO;
 import com.sportsmatch.mappers.UserMapper;
-import com.sportsmatch.models.Role;
 import com.sportsmatch.models.User;
 import com.sportsmatch.repos.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
-import java.util.regex.Pattern;
 
 @Service
 @RequiredArgsConstructor
@@ -42,7 +38,7 @@ public class AuthService {
     String jwtToken = jwtService.generateToken(user);
     return RequestDTO.builder()
         .email(requestDTO.getEmail())
-        .status("Login Successfully")
+        .status("Logged in successfully")
         .token(jwtToken)
         .build();
   }

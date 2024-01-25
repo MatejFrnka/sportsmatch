@@ -21,7 +21,10 @@ public class SecurityConfig {
 
     private static final String[] WHITE_LIST_URL = {
             "/api/v1/auth/**",
-            "/h2-console/**" // remove in production or have admin role to access
+            "/h2-console/**",
+            "/v3/api-docs",
+            "/v3/api-docs/**",
+            "/swagger-ui/**"
             // add endpoints that are not authenticated
             };
     private final JwtAuthFilter jwtAuthFilter;

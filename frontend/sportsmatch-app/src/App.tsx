@@ -15,7 +15,10 @@ function App() {
     <div>
     <Routes>
       <Route path="login" element={<Login />} />
-      <Route path="test" element={<Test />} />
+      <Route path="test" element={<Test />} >
+        <Route index element={<Test/>} />
+        <Route path=":testId" element={<Test/>} />
+        </Route>
       <Route path="/" element={<Home />} />
     </Routes>
     </div>

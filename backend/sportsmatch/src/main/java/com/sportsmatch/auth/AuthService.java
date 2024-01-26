@@ -1,13 +1,19 @@
 package com.sportsmatch.auth;
 
-import com.sportsmatch.dtos.RequestDTO;
+import com.sportsmatch.dtos.AuthRequestDTO;
+import com.sportsmatch.dtos.AuthResponseDTO;
 import com.sportsmatch.mappers.UserMapper;
 import com.sportsmatch.models.User;
 import com.sportsmatch.repos.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpStatusCodeException;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 @RequiredArgsConstructor
@@ -18,27 +24,17 @@ public class AuthService {
   private final UserRepository userRepository;
   private final AuthenticationManager authenticationManager;
 
-  public RequestDTO register(RequestDTO requestDTO) {
-    User user = userMapper.registerToUser(requestDTO);
-    if (user == null) {
-      return RequestDTO.builder().status("Invalid User Data").build();
-    }
-    user.setUsername("myUserName");
+  public void register(AuthRequestDTO authRequestDTO) {
+    User user = userMapper.registerToUser(authRequestDTO);
     userRepository.save(user);
-    return RequestDTO.builder()
-        .email(requestDTO.getEmail())
-        .status("Registered Successfully")
-        .build();
   }
 
-  public RequestDTO authenticate(RequestDTO requestDTO) {
+  public AuthResponseDTO authenticate(AuthRequestDTO authRequestDTO) {
     authenticationManager.authenticate(
-        new UsernamePasswordAuthenticationToken(requestDTO.getEmail(), requestDTO.getPassword()));
-    User user = userRepository.findByEmail(requestDTO.getEmail()).orElseThrow();
+        new UsernamePasswordAuthenticationToken(authRequestDTO.getEmail(), authRequestDTO.getPassword()));
+    User user = userRepository.findByEmail(authRequestDTO.getEmail()).orElseThrow();
     String jwtToken = jwtService.generateToken(user);
-    return RequestDTO.builder()
-        .email(requestDTO.getEmail())
-        .status("Logged in successfully")
+    return AuthResponseDTO.builder()
         .token(jwtToken)
         .build();
   }

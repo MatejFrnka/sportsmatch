@@ -40,11 +40,4 @@ public class EventsController {
         eventService.deleteEventFromDatabase(eventById);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
-
-//      todo Put - what values should be updated?
-//    @PutMapping("/event/{id}")
-//    public ResponseEntity<?> updateEvent(){
-//
-//        return new ResponseEntity<>();
-//    }
 }

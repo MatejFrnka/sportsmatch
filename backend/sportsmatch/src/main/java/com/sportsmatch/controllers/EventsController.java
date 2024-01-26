@@ -36,17 +36,9 @@ public class EventsController {
 
     @DeleteMapping("/event/{id}")
     public ResponseEntity<?> deleteEvent(@PathVariable("id") Long id) {
-
-        try {
-            Event eventById = eventService.getEventById(id);
-            if (eventById != null) {
-                eventService.deleteEventFromDatabase(eventById);
-                return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-            }
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Event not found");
-        }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid value");
+        Event eventById = eventService.getEventById(id);
+        eventService.deleteEventFromDatabase(eventById);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
 //      todo Put - what values should be updated?

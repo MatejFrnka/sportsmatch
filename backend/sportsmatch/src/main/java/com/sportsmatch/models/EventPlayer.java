@@ -14,26 +14,24 @@ import lombok.Setter;
 @AllArgsConstructor
 public class EventPlayer {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @Column(name = "my_score")
-    private Integer myScore;
+  @Column(name = "my_score")
+  private Integer myScore;
 
-    @Column(name = "opponent_score")
-    private Integer opponentScore;
+  @Column(name = "opponent_score")
+  private Integer opponentScore;
 
-    @ManyToOne
-    private User player;
+  @ManyToOne private User player;
 
-    @ManyToOne
-    private Event event;
+  @ManyToOne private Event event;
 
-    public EventPlayer(Integer myScore, Integer opponentScore, User player, Event event) {
-        this.myScore = myScore;
-        this.opponentScore = opponentScore;
-        this.player = player;
-        this.event = event;
-    }
+  public EventPlayer(Integer myScore, Integer opponentScore, User player, Event event) {
+    this.myScore = myScore;
+    this.opponentScore = opponentScore;
+    this.player = player;
+    this.event = event;
+  }
 }

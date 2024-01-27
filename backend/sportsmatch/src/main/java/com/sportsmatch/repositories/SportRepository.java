@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface SportRepository extends JpaRepository<Sport, Long> {
 
-    Optional<Sport> findSportByName(String name);
+  Optional<Sport> findSportByName(String name);
 }

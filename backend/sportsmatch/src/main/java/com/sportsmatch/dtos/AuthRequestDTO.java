@@ -14,7 +14,7 @@ public class AuthRequestDTO {
 
   private Long id;
 
-  @NotNull
+  @NotNull(message = "Email address is required.")
   @Email(message = "Please provide a valid email address")
   private String email;
 

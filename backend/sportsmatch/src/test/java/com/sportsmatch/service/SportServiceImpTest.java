@@ -30,7 +30,7 @@ class SportServiceImpTest {
     private SportServiceImp sportService;
 
     @Test
-    void getAllSports() {
+    void getAllSportsShouldReturnAllSportsWhenRequired() {
         // Arrange
         Pageable pageable = Mockito.mock(Pageable.class);
 

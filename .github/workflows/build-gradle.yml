@@ -20,7 +20,7 @@
      runs-on: ubuntu-latest
      defaults:
        run:
-         working-directory: .backend/sportsmatch
+         working-directory: ./backend/sportsmatch
 
      steps:
      - uses: actions/checkout@v3

@@ -68,7 +68,9 @@ public class User implements UserDetails {
   }
 
   /**
-   * @return this.email instead of this.name
+   * Gets the email associated with User.
+   *
+   * @return this.email instead of this.name   *
    */
   @Override
   public String getUsername() {

@@ -39,7 +39,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
     final String authHeader = request.getHeader("Authorization");
 
-    if (isBearerTokenPresent(authHeader)) {
+    if (isBearerTokenNotPresent(authHeader)) {
       filterChain.doFilter(request, response);
       return;
     }
@@ -62,9 +62,9 @@ public class JwtAuthFilter extends OncePerRequestFilter {
    * @param authHeader holds the JWT Token
    * @return True if a valid token is present; false otherwise.
    */
-  public boolean isBearerTokenPresent(String authHeader) {
+  public boolean isBearerTokenNotPresent(String authHeader) {
     if (authHeader == null) {
-      return false;
+      return true;
     }
     String[] tokenParts = authHeader.split(" ");
     return !authHeader.startsWith("Bearer ") || tokenParts.length != 2;

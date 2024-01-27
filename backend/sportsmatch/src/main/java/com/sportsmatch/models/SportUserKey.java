@@ -15,26 +15,30 @@ import java.util.Objects;
 @Embeddable
 public class SportUserKey implements Serializable {
 
-    @Column(name = "user_id")
-    private Long userId;
+  @Column(name = "user_id")
+  private Long userId;
 
-    @Column(name = "sport_id")
-    private Long sportId;
+  @Column(name = "sport_id")
+  private Long sportId;
 
-    public SportUserKey(Long userId, Long sportId) {
-        this.userId = userId;
-        this.sportId = sportId;
+  public SportUserKey(Long userId, Long sportId) {
+    this.userId = userId;
+    this.sportId = sportId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof SportUserKey that)) return false;
-        return Objects.equals(userId, that.userId) && Objects.equals(sportId, that.sportId);
+    if (!(o instanceof SportUserKey that)) {
+      return false;
     }
+    return Objects.equals(userId, that.userId) && Objects.equals(sportId, that.sportId);
+  }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(userId, sportId);
-    }
+  @Override
+  public int hashCode() {
+    return Objects.hash(userId, sportId);
+  }
 }

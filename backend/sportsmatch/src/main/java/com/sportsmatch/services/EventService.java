@@ -1,6 +1,7 @@
 package com.sportsmatch.services;
 
 import com.sportsmatch.dtos.EventDTO;
+import com.sportsmatch.mappers.EventMapper;
 import com.sportsmatch.models.*;
 import com.sportsmatch.repos.EventRepository;
 import com.sportsmatch.repos.SportRepository;
@@ -20,12 +21,18 @@ import org.springframework.web.server.ResponseStatusException;
 @AllArgsConstructor
 public class EventService {
     private EventRepository eventRepository;
-    private SportRepository sportRepository;
-    private UserRepository userRepository;
+    private EventMapper eventMapper;
 
     public Event getEventById(Long id) {
         return eventRepository.findEventById(id).orElseThrow(() -> new ResponseStatusException(
                 HttpStatus.BAD_REQUEST));
+    }
+
+    public EventDTO getEventDTObyEventId(Long id){
+        Event event = eventRepository.findEventById(id).orElseThrow(() -> new ResponseStatusException(
+                HttpStatus.BAD_REQUEST));
+        EventDTO eventDTO = eventMapper.convertEventToEventDTO(event);
+        return eventDTO;
     }
 
     public List<EventDTO> getAllEvents() {
@@ -38,46 +45,9 @@ public class EventService {
     }
 
     public Event createEvent(EventDTO eventDTO) {
-        Event newEvent = new Event();
-        newEvent.setDateStart(eventDTO.getDateStart());
-        newEvent.setDateEnd(eventDTO.getDateEnd());
-        newEvent.setLocation(eventDTO.getLocation());
-        newEvent.setMinElo(eventDTO.getMinElo());
-        newEvent.setMaxElo(eventDTO.getMaxElo());
-        newEvent.setTitle(eventDTO.getTitle());
-        addSportToNewEvent(eventDTO, newEvent);
-        addEventPlayersToNewEvent(eventDTO, newEvent);
+        Event newEvent = eventMapper.convertEventDTOtoEvent(eventDTO);
         eventRepository.save(newEvent);
         return newEvent;
-    }
-
-    private void addEventPlayersToNewEvent(EventDTO eventDTO, Event newEvent) {
-        Set<EventPlayer> players = new HashSet<>();
-        if (eventDTO.getPlayer1Id() != null) {
-            EventPlayer eventPlayer1 = createEventPlayer(eventDTO.getPlayer1Id(), newEvent);
-            players.add(eventPlayer1);
-        }
-        if (eventDTO.getPlayer2Id() != null) {
-            EventPlayer eventPlayer2 = createEventPlayer(eventDTO.getPlayer2Id(), newEvent);
-            players.add(eventPlayer2);
-        }
-        newEvent.setPlayers(players);
-    }
-
-    private EventPlayer createEventPlayer(Long playerId, Event newEvent) {
-        EventPlayer eventPlayer = new EventPlayer();
-        eventPlayer.setPlayer(
-                userRepository.findUserById(playerId).orElseThrow(() -> new ResponseStatusException(
-                        HttpStatus.BAD_REQUEST)));
-        eventPlayer.setEvent(newEvent);
-        return eventPlayer;
-    }
-
-    private void addSportToNewEvent(EventDTO eventDTO, Event newEvent) {
-        Sport sport = sportRepository.findSportByName(eventDTO.getSport())
-                .orElseThrow(() -> new ResponseStatusException(
-                        HttpStatus.BAD_REQUEST));
-        newEvent.setSport(sport);
     }
 
     public void deleteEventFromDatabase(Event eventById) {

@@ -22,12 +22,10 @@ public class EventsController {
 
     @GetMapping("/event/{id}")
     public ResponseEntity<?> getEvent(@PathVariable("id") Long id) {
-        Event event = eventService.getEventById(id);
-        EventDTO eventDTO = new EventDTO(event);
+        EventDTO eventDTO = eventService.getEventDTObyEventId(id);
         return ResponseEntity.ok().body(eventDTO);
     }
 
-    // todo Post
     @PostMapping("/event")
     public ResponseEntity<?> addEvent(@RequestBody @Valid EventDTO eventDTO) {
         Event newEvent = eventService.createEvent(eventDTO);

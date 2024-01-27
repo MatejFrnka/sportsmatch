@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 import org.springframework.web.server.ResponseStatusException;
 
 @Service
@@ -24,7 +25,7 @@ public class EventService {
 
     public Event getEventById(Long id) {
         return eventRepository.findEventById(id).orElseThrow(() -> new ResponseStatusException(
-            HttpStatus.BAD_REQUEST));
+                HttpStatus.BAD_REQUEST));
     }
 
     public List<EventDTO> getAllEvents() {
@@ -66,16 +67,16 @@ public class EventService {
     private EventPlayer createEventPlayer(Long playerId, Event newEvent) {
         EventPlayer eventPlayer = new EventPlayer();
         eventPlayer.setPlayer(
-            userRepository.findUserById(playerId).orElseThrow(() -> new ResponseStatusException(
-                HttpStatus.BAD_REQUEST)));
+                userRepository.findUserById(playerId).orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.BAD_REQUEST)));
         eventPlayer.setEvent(newEvent);
         return eventPlayer;
     }
 
     private void addSportToNewEvent(EventDTO eventDTO, Event newEvent) {
         Sport sport = sportRepository.findSportByName(eventDTO.getSport())
-            .orElseThrow(() -> new ResponseStatusException(
-                HttpStatus.BAD_REQUEST));
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.BAD_REQUEST));
         newEvent.setSport(sport);
     }
 

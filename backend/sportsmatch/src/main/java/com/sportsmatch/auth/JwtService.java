@@ -73,34 +73,34 @@ public class JwtService {
         .compact();
   }
 
-/**
- * Validates the provided JWT token against the given UserDetails.
- *
- * @param token The JWT token to be validated.
- * @param userDetails The UserDetails against which to validate the token.
- * @return True if the token is valid for the provided UserDetails; false otherwise.
-*/
+  /**
+   * Validates the provided JWT token against the given UserDetails.
+   *
+   * @param token The JWT token to be validated.
+   * @param userDetails The UserDetails against which to validate the token.
+   * @return True if the token is valid for the provided UserDetails; false otherwise.
+   */
   public boolean isTokenValid(String token, UserDetails userDetails) {
     final String userName = extractUserName(token);
     return (userName.equals(userDetails.getUsername()) && !isTokenExpired(token));
   }
 
-/**
- * Checks if the provided JWT token has expired.
- *
- * @param token The JWT token to check for expiration.
- * @return True if the token has expired; false otherwise.
-*/
+  /**
+   * Checks if the provided JWT token has expired.
+   *
+   * @param token The JWT token to check for expiration.
+   * @return True if the token has expired; false otherwise.
+   */
   private boolean isTokenExpired(String token) {
     return extractExpiration(token).before(new Date());
   }
 
-/**
- * Extracts the expiration date from the provided JWT token.
- *
- * @param token The JWT token from which to extract the expiration date.
- * @return The expiration date extracted from the token.
-*/
+  /**
+   * Extracts the expiration date from the provided JWT token.
+   *
+   * @param token The JWT token from which to extract the expiration date.
+   * @return The expiration date extracted from the token.
+   */
   private Date extractExpiration(String token) {
     return extractClaim(token, Claims::getExpiration);
   }
@@ -119,11 +119,11 @@ public class JwtService {
         .getPayload();
   }
 
-/**
- * Retrieves the secret key used for verifying and signing JWT tokens.
- *
- * @return The SecretKey used for JWT token operations.
-*/
+  /**
+   * Retrieves the secret key used for verifying and signing JWT tokens.
+   *
+   * @return The SecretKey used for JWT token operations.
+   */
   private SecretKey getVerificationKey() { // Sign JWT Token base from secret
     byte[] keyBytes = Decoders.BASE64URL.decode(SECRET_KEY);
     return Keys.hmacShaKeyFor(keyBytes);

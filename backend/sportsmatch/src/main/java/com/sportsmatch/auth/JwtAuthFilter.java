@@ -22,14 +22,13 @@ public class JwtAuthFilter extends OncePerRequestFilter {
   private final JwtService jwtService;
   private final UserDetailsService userDetailsService;
 
-/**
-*
- * @param request The HttpServletRequest object.
- * @param response The HttpServletRequest object.
- * @param filterChain The FilterChain for processing the request and response.
- * @throws ServletException If a servlet-related exception occurs.
- * @throws IOException If an I/O-related exception occurs.
-*/
+  /**
+   * @param request The HttpServletRequest object.
+   * @param response The HttpServletRequest object.
+   * @param filterChain The FilterChain for processing the request and response.
+   * @throws ServletException If a servlet-related exception occurs.
+   * @throws IOException If an I/O-related exception occurs.
+   */
   @Override
   protected void doFilterInternal(
       @NonNull HttpServletRequest request,
@@ -80,15 +79,16 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     return userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null;
   }
 
-/**
-* Updates the security context with the authenticated user details.
- * @param request The HttpServletRequest associated with the authentication request.
- * @param userDetails The UserDetails representing the authenticated user.
-*/
+  /**
+   * Updates the security context with the authenticated user details.
+   *
+   * @param request The HttpServletRequest associated with the authentication request.
+   * @param userDetails The UserDetails representing the authenticated user.
+   */
   public void updateSecurityContext(HttpServletRequest request, UserDetails userDetails) {
-    UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+    UsernamePasswordAuthenticationToken authToken =
+        new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
     authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
     SecurityContextHolder.getContext().setAuthentication(authToken);
   }
-
 }

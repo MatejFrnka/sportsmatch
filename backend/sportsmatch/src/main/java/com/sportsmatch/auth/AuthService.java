@@ -13,6 +13,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class AuthService {
@@ -45,16 +47,33 @@ public class AuthService {
             authRequestDTO.getEmail(), authRequestDTO.getPassword()));
     User user = userRepository.findByEmail(authRequestDTO.getEmail()).orElseThrow();
     String jwtToken = jwtService.generateToken(user);
+    revokeAllUserTokens(user);
     saveUserToken(user, jwtToken);
     return AuthResponseDTO.builder().token(jwtToken).build();
   }
 
-/**
- * Saves the user's JWT token to the token repository.
- *
- * @param user The user associated with the token.
- * @param jwtToken The JWT token to be saved.
-*/
+  /**
+   * Revokes all valid tokens associated with the provided user.
+   *
+   * @param user The user for whom to revoke tokens.
+   */
+  private void revokeAllUserTokens(User user) {
+    List<Token> validUserToken = tokenRepository.findAllValidTokensByUser(user.getId());
+    if (!validUserToken.isEmpty()) {
+      for (Token t : validUserToken) {
+        t.setExpired(true);
+        t.setRevoked(true);
+      }
+    }
+    tokenRepository.saveAll(validUserToken);
+  }
+
+  /**
+   * Saves the user's JWT token to the token repository.
+   *
+   * @param user The user associated with the token.
+   * @param jwtToken The JWT token to be saved.
+   */
   private void saveUserToken(User user, String jwtToken) {
     tokenRepository.save(
         Token.builder()

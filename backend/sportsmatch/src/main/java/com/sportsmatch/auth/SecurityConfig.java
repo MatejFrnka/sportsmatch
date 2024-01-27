@@ -29,11 +29,19 @@ public class SecurityConfig {
             };
     private final JwtAuthFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
+
+/**
+ * Configures and returns a SecurityFilterChain for HTTP security.
+ *
+ * @param http The HttpSecurity instance to configure.
+ * @return SecurityFilterChain instance.
+ * @throws Exception If an exception occurs during configuration.
+*/
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception { // set which endpoints are authenticated and not
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
-                .headers(h -> h.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable)) // remove in production
+                .headers(h -> h.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
                 .authorizeHttpRequests(r -> r
                         .requestMatchers(WHITE_LIST_URL)
                         .permitAll()

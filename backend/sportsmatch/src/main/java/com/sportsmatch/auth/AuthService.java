@@ -19,11 +19,22 @@ public class AuthService {
   private final UserRepository userRepository;
   private final AuthenticationManager authenticationManager;
 
+/**
+ * Registers a new user based on the provided authentication request DTO.
+ *
+ * @param authRequestDTO The authentication request DTO containing user details.
+*/
   public void register(AuthRequestDTO authRequestDTO) {
     User user = userMapper.registerToUser(authRequestDTO);
     userRepository.save(user);
   }
 
+/**
+ * Authenticates a user based on the provided authentication request DTO.
+ *
+ * @param authRequestDTO The authentication request DTO containing user credentials.
+ * @return AuthResponseDTO with a generated JWT token upon successful authentication.
+*/
   public AuthResponseDTO authenticate(AuthRequestDTO authRequestDTO) {
     authenticationManager.authenticate(
         new UsernamePasswordAuthenticationToken(

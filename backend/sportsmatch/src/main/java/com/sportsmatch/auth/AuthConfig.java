@@ -19,6 +19,11 @@ public class AuthConfig {
 
   private final UserRepository userRepository;
 
+/**
+* Returns a UserDetailsService that fetches user details by email from a UserRepository.
+ * @return UserDetailsService instance.
+ * @throws UsernameNotFoundException If the user is not found.
+*/
   @Bean
   public UserDetailsService userDetailsService() {
     return username ->
@@ -27,6 +32,11 @@ public class AuthConfig {
             .orElseThrow(() -> new UsernameNotFoundException("User not found"));
   }
 
+/**
+ * Returns an AuthenticationProvider configured with a custom UserDetailsService
+ * and password encoder for authentication.
+ * @return AuthenticationProvider instance.
+*/
   @Bean
   public AuthenticationProvider authenticationProvider() {
     DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
@@ -35,12 +45,24 @@ public class AuthConfig {
     return authProvider;
   }
 
+/**
+ * Returns an AuthenticationManager based on the provided AuthenticationConfiguration.
+ *
+ * @param config The AuthenticationConfiguration to configure the AuthenticationManager.
+ * @return AuthenticationManager instance.
+ * @throws Exception If an exception occurs during configuration.
+*/
   @Bean
   public AuthenticationManager authenticationManager(AuthenticationConfiguration config)
       throws Exception {
     return config.getAuthenticationManager();
   }
 
+/**
+ * Returns a BCryptPasswordEncoder for password hashing.
+ *
+ * @return PasswordEncoder instance using BCrypt algorithm.
+*/
   @Bean
   public PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();

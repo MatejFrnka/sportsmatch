@@ -4,7 +4,7 @@ import com.sportsmatch.dtos.AuthRequestDTO;
 import com.sportsmatch.dtos.AuthResponseDTO;
 import com.sportsmatch.mappers.UserMapper;
 import com.sportsmatch.models.User;
-import com.sportsmatch.repos.UserRepository;
+import com.sportsmatch.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;

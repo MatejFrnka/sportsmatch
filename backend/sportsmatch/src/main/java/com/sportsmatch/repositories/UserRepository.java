@@ -1,4 +1,4 @@
-package com.sportsmatch.repos;
+package com.sportsmatch.repositories;
 
 import com.sportsmatch.models.User;
 import java.util.Optional;

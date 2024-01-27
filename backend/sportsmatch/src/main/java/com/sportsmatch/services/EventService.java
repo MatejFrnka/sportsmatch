@@ -3,17 +3,13 @@ package com.sportsmatch.services;
 import com.sportsmatch.dtos.EventDTO;
 import com.sportsmatch.mappers.EventMapper;
 import com.sportsmatch.models.*;
-import com.sportsmatch.repos.EventRepository;
-import com.sportsmatch.repos.SportRepository;
-import com.sportsmatch.repos.UserRepository;
+import com.sportsmatch.repositories.EventRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.web.server.ResponseStatusException;
 

@@ -2,7 +2,7 @@ package com.sportsmatch;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import com.sportsmatch.models.*;
-import com.sportsmatch.repos.*;
+import com.sportsmatch.repositories.*;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;

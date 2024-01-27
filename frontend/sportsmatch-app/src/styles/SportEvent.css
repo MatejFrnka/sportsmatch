@@ -1,5 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;900&display=swap');
 
+
+.container {
+  display: flex;
+  justify-content: center;
+  margin-top: 5%;
+
+}
 .event-card {
     display: grid;
     grid-template-columns: 1fr 1fr;

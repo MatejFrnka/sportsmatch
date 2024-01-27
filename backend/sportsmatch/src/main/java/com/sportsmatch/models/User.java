@@ -71,9 +71,9 @@ public class User implements UserDetails {
   }
 
   /**
-   * Gets the email associated with User.
+   * Returns the user's email as the username.
    *
-   * @return this.email instead of this.name   *
+   * @return The email address.
    */
   @Override
   public String getUsername() {

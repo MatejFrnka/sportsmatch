@@ -18,8 +18,8 @@ public class Token {
 
     @Enumerated(EnumType.STRING)
     private TokenType tokenType;
-    private Boolean expired;
-    private Boolean revoked;
+    private boolean isExpired;
+    private boolean isRevoked;
 
     @ManyToOne
     private User user;

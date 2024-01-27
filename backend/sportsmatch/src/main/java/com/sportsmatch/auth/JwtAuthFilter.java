@@ -1,5 +1,6 @@
 package com.sportsmatch.auth;
 
+import com.sportsmatch.repos.TokenRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,6 +22,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
   private final JwtService jwtService;
   private final UserDetailsService userDetailsService;
+  private final TokenRepository tokenRepository;
 
   /**
    * @param request The HttpServletRequest object.
@@ -48,11 +50,24 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
     if (isUserAuthenticated(userEmail)) {
       UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
-      if (jwtService.isTokenValid(jwt, userDetails)) {
+      if (jwtService.isTokenValid(jwt, userDetails) && isTokenValid(jwt)) {
         updateSecurityContext(request, userDetails);
       }
     }
     filterChain.doFilter(request, response);
+  }
+
+  /**
+   * Checks if the provided JWT token is valid by verifying its status in the token repository.
+   *
+   * @param jwt The JWT token to check for validity.
+   * @return True if the token is valid (not revoked and not expired); false otherwise.
+   */
+  private boolean isTokenValid(String jwt) {
+    return tokenRepository
+        .findByToken(jwt)
+        .map(t -> !t.isRevoked() && !t.isExpired())
+        .orElse(false);
   }
 
   /**

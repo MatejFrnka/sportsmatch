@@ -9,10 +9,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/event")
 public class EventsController {
 
-    private EventService eventService;
+    private final EventService eventService;
 
 
     public EventsController(EventService eventService) {
@@ -20,19 +20,19 @@ public class EventsController {
 
     }
 
-    @GetMapping("/event/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<?> getEvent(@PathVariable("id") Long id) {
         EventDTO eventDTO = eventService.getEventDTObyEventId(id);
         return ResponseEntity.ok().body(eventDTO);
     }
 
-    @PostMapping("/event")
+    @PostMapping("")
     public ResponseEntity<?> addEvent(@RequestBody @Valid EventDTO eventDTO) {
         Event newEvent = eventService.createEvent(eventDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(eventService.getEventDTObyEventId(newEvent.getId()));
     }
 
-    @DeleteMapping("/event/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteEvent(@PathVariable("id") Long id) {
         Event eventById = eventService.getEventById(id);
         eventService.deleteEventFromDatabase(eventById);

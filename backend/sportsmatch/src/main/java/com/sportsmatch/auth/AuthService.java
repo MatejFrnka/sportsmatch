@@ -8,12 +8,11 @@ import com.sportsmatch.models.TokenType;
 import com.sportsmatch.models.User;
 import com.sportsmatch.repos.TokenRepository;
 import com.sportsmatch.repos.UserRepository;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -61,8 +60,8 @@ public class AuthService {
     List<Token> validUserToken = tokenRepository.findAllValidTokensByUser(user.getId());
     if (!validUserToken.isEmpty()) {
       for (Token t : validUserToken) {
-        t.setExpired(true);
         t.setRevoked(true);
+        t.setExpired(true);
       }
     }
     tokenRepository.saveAll(validUserToken);
@@ -80,8 +79,8 @@ public class AuthService {
             .user(user)
             .token(jwtToken)
             .tokenType(TokenType.BEARER)
-            .revoked(false)
-            .expired(false)
+            .isExpired(false)
+            .isRevoked(false)
             .build());
   }
 }

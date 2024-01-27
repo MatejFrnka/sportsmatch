@@ -1,5 +1,7 @@
 package com.sportsmatch.controllers;
 
+import com.sportsmatch.models.User;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,7 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class APIController {
 
     @GetMapping("/hello")
-    public String hello() {
-        return "Hello World";
+    public String hello(Authentication authentication) {
+        User user = (User) authentication.getPrincipal();
+        return "Welcome "+ user.getName() + " to Secured Endpoint ";
     }
 }

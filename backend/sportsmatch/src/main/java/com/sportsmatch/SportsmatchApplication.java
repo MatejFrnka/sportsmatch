@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 
@@ -26,6 +27,7 @@ public class SportsmatchApplication implements CommandLineRunner {
     private final SportUserRepository sportUserRepository;
     private final EventPlayerRepository eventPlayerRepository;
     private final EventRepository eventRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public static void main(String[] args) {
         SpringApplication.run(SportsmatchApplication.class, args);
@@ -102,9 +104,14 @@ public class SportsmatchApplication implements CommandLineRunner {
     }
 
     public List<User> addUsers() {
-        userRepository.save(new User("john.doe@example.com",
-                "pass123", "johndoe87",
-                Gender.MALE, LocalDate.of(1990, 5, 15)));
+
+        userRepository.save(
+                new User(
+                        "john.doe@example.com",
+                        passwordEncoder.encode("pass123"),
+                        "johndoe87",
+                        Gender.MALE,
+                        LocalDate.of(1990, 5, 15)));
         userRepository.save(new User("alice.smith@example.com",
                 "securePass", "alice.smith",
                 Gender.FEMALE, LocalDate.of(1985, 11, 22)));

@@ -39,7 +39,7 @@ public class EventService {
         List<Event> eventList = eventRepository.findAll();
         List<EventDTO> eventDTOList = new ArrayList<>();
         for (Event event : eventList) {
-            eventDTOList.add(new EventDTO(event));
+            eventDTOList.add(getEventDTObyEventId(event.getId()));
         }
         return eventDTOList;
     }

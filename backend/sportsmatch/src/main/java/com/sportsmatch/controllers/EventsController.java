@@ -29,7 +29,7 @@ public class EventsController {
     @PostMapping("/event")
     public ResponseEntity<?> addEvent(@RequestBody @Valid EventDTO eventDTO) {
         Event newEvent = eventService.createEvent(eventDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(new EventDTO(newEvent));
+        return ResponseEntity.status(HttpStatus.CREATED).body(eventService.getEventDTObyEventId(newEvent.getId()));
     }
 
     @DeleteMapping("/event/{id}")

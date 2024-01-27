@@ -1,4 +1,4 @@
-package com.sportsmatch.repos;
+package com.sportsmatch.repositories;
 
 import com.sportsmatch.models.SportUser;
 import com.sportsmatch.models.SportUserKey;

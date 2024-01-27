@@ -3,6 +3,8 @@ package com.sportsmatch.auth;
 import com.sportsmatch.dtos.AuthRequestDTO;
 import com.sportsmatch.dtos.AuthResponseDTO;
 import com.sportsmatch.mappers.UserMapper;
+import com.sportsmatch.models.Token;
+import com.sportsmatch.models.TokenType;
 import com.sportsmatch.models.User;
 import com.sportsmatch.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +20,7 @@ public class AuthService {
   private final JwtService jwtService;
   private final UserRepository userRepository;
   private final AuthenticationManager authenticationManager;
+  private final TokenRepository tokenRepository;
 
 /**
  * Registers a new user based on the provided authentication request DTO.

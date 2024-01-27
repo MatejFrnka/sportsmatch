@@ -18,6 +18,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.eq;
 
 @SpringBootTest
 class SportServiceImpTest {
@@ -46,10 +47,6 @@ class SportServiceImpTest {
 
         // Mocking repository
         Mockito.when(sportRepository.findAll(Mockito.any(Pageable.class))).thenReturn(sportsPage);
-
-        // Mocking mapper
-        Mockito.when(SportMapper.toDTO(sport1)).thenReturn(sportDTO1);
-        Mockito.when(SportMapper.toDTO(sport2)).thenReturn(sportDTO2);
 
         // Act
         List<SportDTO> result = sportService.getAllSports(pageable);

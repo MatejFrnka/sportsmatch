@@ -38,21 +38,4 @@ public class EventDTO {
     @NotBlank
     private String sport;
 
-    public EventDTO(Event event) {
-        List<EventPlayer> eventPlayers = event.getPlayers().stream().toList();
-        this.id = event.getId();
-        this.dateStart = event.getDateStart();
-        this.dateEnd = event.getDateEnd();
-        this.location = event.getLocation();
-        this.minElo = event.getMinElo();
-        this.maxElo = event.getMaxElo();
-        this.title = event.getTitle();
-        if (eventPlayers.size() > 0) {
-            this.player1Id = eventPlayers.get(0).getPlayer().getId();
-        }
-        if (eventPlayers.size() > 1) {
-            this.player2Id = eventPlayers.get(1).getPlayer().getId();
-        }
-        this.sport = event.getSport().getName();
-    }
 }

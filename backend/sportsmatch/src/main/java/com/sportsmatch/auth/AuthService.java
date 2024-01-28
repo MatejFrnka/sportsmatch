@@ -29,7 +29,7 @@ public class AuthService {
     userRepository.save(user);
   }
 
-  public AuthResponseDTO authenticate(AuthRequestDTO authRequestDTO) {
+  public AuthResponseDTO login(AuthRequestDTO authRequestDTO) {
     authenticationManager.authenticate(
         new UsernamePasswordAuthenticationToken(
             authRequestDTO.getEmail(), authRequestDTO.getPassword()));

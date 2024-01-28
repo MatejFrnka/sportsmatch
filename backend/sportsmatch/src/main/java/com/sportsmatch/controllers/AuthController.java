@@ -42,16 +42,16 @@ public class AuthController {
     }
   }
 
-  @PostMapping("/authenticate")
-  @Tag(name = "Authenticate")
+  @PostMapping("/login")
+  @Tag(name = "Login")
   @Operation(
-      summary = "Authenticate user",
-      description = "Authenticate a user by providing their email and username.")
-  public ResponseEntity<?> authenticate(
+      summary = "Login user",
+      description = "Login a user by providing their email and username.")
+  public ResponseEntity<?> login(
       @RequestBody @Valid AuthRequestDTO authRequestDTO, BindingResult bindingResult) {
     if (bindingResult.hasErrors()) {
       return ResponseEntity.badRequest().body(validationService.getAllErrors(bindingResult));
     }
-    return ResponseEntity.ok(authService.authenticate(authRequestDTO));
+    return ResponseEntity.ok(authService.login(authRequestDTO));
   }
 }

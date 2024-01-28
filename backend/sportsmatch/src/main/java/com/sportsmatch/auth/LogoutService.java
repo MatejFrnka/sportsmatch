@@ -16,13 +16,6 @@ public class LogoutService implements LogoutHandler {
   private final JwtAuthFilter authFilter;
   private final TokenRepository tokenRepository;
 
-  /**
-   * Handles the logout process by invalidating the JWT token associated with the request.
-   *
-   * @param request The HttpServletRequest.
-   * @param response The HttpServletResponse.
-   * @param authentication The Authentication object representing the authenticated user.
-   */
   @Override
   public void logout(
       HttpServletRequest request, HttpServletResponse response, Authentication authentication) {

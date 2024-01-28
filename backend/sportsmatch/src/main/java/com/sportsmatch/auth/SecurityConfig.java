@@ -27,13 +27,6 @@ public class SecurityConfig {
   private final AuthenticationProvider authenticationProvider;
   private final LogoutHandler logoutHandler;
 
-  /**
-   * Configures and returns a SecurityFilterChain for HTTP security.
-   *
-   * @param http The HttpSecurity instance to configure.
-   * @return SecurityFilterChain instance.
-   * @throws Exception If an exception occurs during configuration.
-   */
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http.csrf(AbstractHttpConfigurer::disable)

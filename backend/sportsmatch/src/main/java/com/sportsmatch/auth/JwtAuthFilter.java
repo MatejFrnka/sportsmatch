@@ -24,13 +24,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
   private final UserDetailsService userDetailsService;
   private final TokenRepository tokenRepository;
 
-  /**
-   * @param request The HttpServletRequest object.
-   * @param response The HttpServletRequest object.
-   * @param filterChain The FilterChain for processing the request and response.
-   * @throws ServletException If a servlet-related exception occurs.
-   * @throws IOException If an I/O-related exception occurs.
-   */
   @Override
   protected void doFilterInternal(
       @NonNull HttpServletRequest request,
@@ -57,12 +50,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     filterChain.doFilter(request, response);
   }
 
-  /**
-   * Checks if the provided JWT token is valid by verifying its status in the token repository.
-   *
-   * @param jwt The JWT token to check for validity.
-   * @return True if the token is valid (not revoked and not expired); false otherwise.
-   */
   private boolean isTokenValid(String jwt) {
     return tokenRepository
         .findByToken(jwt)
@@ -70,12 +57,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         .orElse(false);
   }
 
-  /**
-   * Checks if a valid Bearer token is present in the provided authorization header.
-   *
-   * @param authHeader holds the JWT Token
-   * @return True if a valid token is present; false otherwise.
-   */
   public boolean isBearerTokenNotPresent(String authHeader) {
     if (authHeader == null) {
       return true;
@@ -84,22 +65,10 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     return !authHeader.startsWith("Bearer ") || tokenParts.length != 2;
   }
 
-  /**
-   * Checks if a user with the specified email is authenticated.
-   *
-   * @param userEmail The email of the user to check.
-   * @return true if the user is authenticated; false otherwise.
-   */
   public boolean isUserAuthenticated(String userEmail) {
     return userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null;
   }
 
-  /**
-   * Updates the security context with the authenticated user details.
-   *
-   * @param request The HttpServletRequest associated with the authentication request.
-   * @param userDetails The UserDetails representing the authenticated user.
-   */
   public void updateSecurityContext(HttpServletRequest request, UserDetails userDetails) {
     UsernamePasswordAuthenticationToken authToken =
         new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());

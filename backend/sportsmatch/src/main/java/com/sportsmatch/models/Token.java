@@ -11,15 +11,15 @@ import lombok.*;
 @AllArgsConstructor
 public class Token {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String token;
-    private Boolean isValid;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @Enumerated(EnumType.STRING)
-    private TokenType tokenType;
+  private String token;
+  private Boolean isValid;
 
-    @ManyToOne
-    private User user;
+  @Enumerated(EnumType.STRING)
+  private TokenType tokenType;
+
+  @ManyToOne private User user;
 }

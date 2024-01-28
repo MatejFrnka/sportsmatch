@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1")
 public class APIController {
 
-    @GetMapping("/hello")
-    @Tag(name = "ex.secured endpoint")
-    public String hello(Authentication authentication) {
-        User user = (User) authentication.getPrincipal();
-        return "Welcome "+ user.getName() + " to Secured Endpoint ";
-    }
+  @GetMapping("/hello")
+  @Tag(name = "ex.secured endpoint")
+  public String hello(Authentication authentication) {
+    User user = (User) authentication.getPrincipal();
+    return "Welcome " + user.getName() + " to Secured Endpoint ";
+  }
 }

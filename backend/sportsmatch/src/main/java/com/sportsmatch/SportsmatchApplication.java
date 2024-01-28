@@ -1,6 +1,5 @@
 package com.sportsmatch;
 
-import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import com.sportsmatch.models.*;
 import com.sportsmatch.repositories.*;
 import lombok.AllArgsConstructor;

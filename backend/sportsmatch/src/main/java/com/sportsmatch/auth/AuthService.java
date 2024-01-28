@@ -25,11 +25,6 @@ public class AuthService {
   private final AuthenticationManager authenticationManager;
   private final TokenRepository tokenRepository;
 
-/**
- * Registers a new user based on the provided authentication request DTO.
- *
- * @param authRequestDTO The authentication request DTO containing user details.
-*/
   public void register(AuthRequestDTO authRequestDTO) {
     User user = userMapper.registerToUser(authRequestDTO);
     userRepository.save(user);
@@ -50,36 +45,25 @@ public class AuthService {
     return AuthResponseDTO.builder().token(jwtToken).build();
   }
 
-  /**
-   * Revokes all valid tokens associated with the provided user.
-   *
-   * @param user The user for whom to revoke tokens.
-   */
   private void revokeAllUserTokens(User user) {
     List<Token> validUserToken = tokenRepository.findAllValidTokensByUser(user.getId());
     if (!validUserToken.isEmpty()) {
       for (Token t : validUserToken) {
-        t.setExpired(true);
         t.setRevoked(true);
+        t.setExpired(true);
       }
     }
     tokenRepository.saveAll(validUserToken);
   }
 
-  /**
-   * Saves the user's JWT token to the token repository.
-   *
-   * @param user The user associated with the token.
-   * @param jwtToken The JWT token to be saved.
-   */
   private void saveUserToken(User user, String jwtToken) {
     tokenRepository.save(
         Token.builder()
             .user(user)
             .token(jwtToken)
             .tokenType(TokenType.BEARER)
-            .revoked(false)
-            .expired(false)
+            .isExpired(false)
+            .isRevoked(false)
             .build());
   }
 }

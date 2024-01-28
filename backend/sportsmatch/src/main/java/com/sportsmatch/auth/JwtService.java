@@ -28,8 +28,7 @@ public class JwtService {
     return claimsResolver.apply(claims);
   }
 
-  public String generateToken(
-      UserDetails userDetails) { // Generates JWT Token with only userDetails
+  public String generateToken(UserDetails userDetails) {
     return generateToken(new HashMap<>(), userDetails);
   }
 
@@ -56,7 +55,7 @@ public class JwtService {
     return extractClaim(token, Claims::getExpiration);
   }
 
-  private Claims extractAllClaims(String token) { // Takes all the claims from JWT Token
+  private Claims extractAllClaims(String token) {
     return Jwts.parser()
         .verifyWith(getVerificationKey())
         .build()
@@ -64,7 +63,7 @@ public class JwtService {
         .getPayload();
   }
 
-  private SecretKey getVerificationKey() { // Sign JWT Token base from secret
+  private SecretKey getVerificationKey() {
     byte[] keyBytes = Decoders.BASE64URL.decode(SECRET_KEY);
     return Keys.hmacShaKeyFor(keyBytes);
   }

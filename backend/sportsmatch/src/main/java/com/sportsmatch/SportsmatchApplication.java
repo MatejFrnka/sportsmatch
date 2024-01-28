@@ -16,7 +16,6 @@ import java.util.List;
 
 @AllArgsConstructor
 @SpringBootApplication
-@OpenAPIDefinition
 @EnableWebMvc
 public class SportsmatchApplication implements CommandLineRunner {
 

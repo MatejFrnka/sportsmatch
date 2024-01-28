@@ -1,5 +1,5 @@
-import "../styles/LoginComponent.css";
-import { FaLock, FaMailBulk } from "react-icons/fa";
+import '../styles/LoginComponent.css'
+import { FaLock, FaMailBulk } from 'react-icons/fa'
 
 function SignupComponent() {
   return (
@@ -18,7 +18,11 @@ function SignupComponent() {
         </div>
         <div className="input-box">
           <label htmlFor="confirm-password"></label>
-          <input type="confirm-password" placeholder="confirm password" required required />
+          <input
+            type="confirm-password"
+            placeholder="confirm password"
+            required
+          />
           <FaLock className="icon" />
         </div>
         <div className="remember-forgot">
@@ -28,7 +32,7 @@ function SignupComponent() {
         <button type="submit">Sign up</button>
       </form>
     </div>
-  );
+  )
 }
 
-export default SignupComponent;
+export default SignupComponent

@@ -1,5 +1,5 @@
-import "../styles/LoginComponent.css";
-import { FaMailBulk, FaLock, FaGoogle, FaFacebook } from "react-icons/fa";
+import '../styles/LoginComponent.css'
+import { FaMailBulk, FaLock, FaGoogle, FaFacebook } from 'react-icons/fa'
 
 function LoginComponent() {
   return (
@@ -19,7 +19,7 @@ function LoginComponent() {
         <div className="remember-forgot">
           <label>
             <input type="checkbox" />
-            Remember me{" "}
+            Remember me{' '}
           </label>
           <a href="#">Forgot password</a>
         </div>
@@ -27,7 +27,7 @@ function LoginComponent() {
         <button type="submit">Log in</button>
         <div className="register-link">
           <p>
-            Don't have an account <a href="signup">Register</a>
+            Dont have an account <a href="signup">Register</a>
           </p>
         </div>
         <p className="alt-login-text">Or log in using</p>
@@ -42,7 +42,7 @@ function LoginComponent() {
         </div>
       </form>
     </div>
-  );
+  )
 }
 
-export default LoginComponent;
+export default LoginComponent

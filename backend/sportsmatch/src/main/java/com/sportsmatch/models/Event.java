@@ -18,39 +18,45 @@ import java.util.Set;
 @AllArgsConstructor
 public class Event {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @Column(name = "date_start")
-    private LocalDateTime dateStart;
+  @Column(name = "date_start")
+  private LocalDateTime dateStart;
 
-    @Column(name = "date_end")
-    private LocalDateTime dateEnd;
+  @Column(name = "date_end")
+  private LocalDateTime dateEnd;
 
-    private String location;
+  private String location;
 
-    @Column(name = "min_elo")
-    private Integer minElo;
+  @Column(name = "min_elo")
+  private Integer minElo;
 
-    @Column(name = "max_elo")
-    private Integer maxElo;
+  @Column(name = "max_elo")
+  private Integer maxElo;
 
-    private String title;
+  private String title;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "event")
-    private Set<EventPlayer> players = new HashSet<>();
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "event")
+  private Set<EventPlayer> players = new HashSet<>();
 
-    @ManyToOne
-    private Sport sport;
+  @ManyToOne private Sport sport;
 
-    public Event(LocalDateTime dateStart, LocalDateTime dateEnd, String location, Integer minElo, Integer maxElo, String title, Sport sport) {
-        this.dateStart = dateStart;
-        this.dateEnd = dateEnd;
-        this.location = location;
-        this.minElo = minElo;
-        this.maxElo = maxElo;
-        this.title = title;
-        this.sport = sport;
-    }
+  public Event(
+      LocalDateTime dateStart,
+      LocalDateTime dateEnd,
+      String location,
+      Integer minElo,
+      Integer maxElo,
+      String title,
+      Sport sport) {
+    this.dateStart = dateStart;
+    this.dateEnd = dateEnd;
+    this.location = location;
+    this.minElo = minElo;
+    this.maxElo = maxElo;
+    this.title = title;
+    this.sport = sport;
+  }
 }

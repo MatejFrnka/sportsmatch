@@ -15,11 +15,10 @@ public class Token {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String token;
+    private Boolean isValid;
 
     @Enumerated(EnumType.STRING)
     private TokenType tokenType;
-    private boolean isExpired;
-    private boolean isRevoked;
 
     @ManyToOne
     private User user;

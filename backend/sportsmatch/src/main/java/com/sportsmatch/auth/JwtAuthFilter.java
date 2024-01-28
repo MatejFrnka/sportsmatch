@@ -43,18 +43,11 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
     if (isUserAuthenticated(userEmail)) {
       UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
-      if (jwtService.isTokenValid(jwt, userDetails) && isTokenValid(jwt)) {
+      if (jwtService.isTokenValid(jwt, userDetails) && !tokenRepository.existsByToken(jwt)) {
         updateSecurityContext(request, userDetails);
       }
     }
     filterChain.doFilter(request, response);
-  }
-
-  private boolean isTokenValid(String jwt) {
-    return tokenRepository
-        .findByToken(jwt)
-        .map(t -> !t.isRevoked() && !t.isExpired())
-        .orElse(false);
   }
 
   public boolean isBearerTokenNotPresent(String authHeader) {

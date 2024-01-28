@@ -1,4 +1,4 @@
-package com.sportsmatch.repos;
+package com.sportsmatch.repositories;
 
 import com.sportsmatch.models.Token;
 import org.springframework.data.jpa.repository.JpaRepository;

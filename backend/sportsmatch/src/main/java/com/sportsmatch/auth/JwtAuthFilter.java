@@ -1,6 +1,6 @@
 package com.sportsmatch.auth;
 
-import com.sportsmatch.repos.TokenRepository;
+import com.sportsmatch.repositories.TokenRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

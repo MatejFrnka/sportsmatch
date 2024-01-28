@@ -5,8 +5,6 @@ import com.sportsmatch.dtos.AuthResponseDTO;
 import com.sportsmatch.mappers.UserMapper;
 import com.sportsmatch.models.User;
 import com.sportsmatch.repositories.UserRepository;
-import com.sportsmatch.repos.TokenRepository;
-import com.sportsmatch.repos.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;

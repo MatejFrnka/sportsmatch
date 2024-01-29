@@ -24,7 +24,7 @@ public class AuthService {
   public void register(AuthRequestDTO authRequestDTO) {
     User user = userMapper.registerToUser(authRequestDTO);
     if (userRepository.existsByEmail(user.getEmail())) {
-      throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+      throw new ResponseStatusException(HttpStatus.CONFLICT);
     }
     userRepository.save(user);
   }

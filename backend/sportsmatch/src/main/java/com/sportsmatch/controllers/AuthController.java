@@ -38,7 +38,7 @@ public class AuthController {
       authService.register(authRequestDTO);
       return ResponseEntity.ok().build();
     } catch (ResponseStatusException e) {
-      return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+      return ResponseEntity.status(e.getStatusCode()).build();
     }
   }
 

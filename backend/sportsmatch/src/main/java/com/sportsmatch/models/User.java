@@ -48,6 +48,9 @@ public class User implements UserDetails {
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "player")
   private Set<EventPlayer> eventsPlayed = new HashSet<>();
 
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+  private Set<Token> tokens = new HashSet<>();
+
   public User(String email, String password, String name, Gender gender, LocalDate dateOfBirth) {
     this.email = email;
     this.password = password;
@@ -68,9 +71,9 @@ public class User implements UserDetails {
   }
 
   /**
-   * Gets the email associated with User.
+   * Returns the user's email as the username.
    *
-   * @return this.email instead of this.name   *
+   * @return The email address.
    */
   @Override
   public String getUsername() {

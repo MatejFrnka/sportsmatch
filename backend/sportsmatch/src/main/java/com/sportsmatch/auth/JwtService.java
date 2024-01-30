@@ -4,15 +4,14 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Service;
-
-import javax.crypto.SecretKey;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
+import javax.crypto.SecretKey;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Service;
 
 @Service
 public class JwtService {
@@ -24,28 +23,21 @@ public class JwtService {
     return extractClaim(token, Claims::getSubject);
   }
 
-  public <T> T extractClaim(
-      String token, Function<Claims, T> claimsResolver) { // Takes Single Claim from JWT Token
+  public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
     final Claims claims = extractAllClaims(token);
     return claimsResolver.apply(claims);
   }
 
-  public String generateToken(
-      UserDetails userDetails) { // Generates JWT Token with only userDetails
+  public String generateToken(UserDetails userDetails) {
     return generateToken(new HashMap<>(), userDetails);
   }
 
-  public String generateToken(
-      Map<String, Object> extraClaims,
-      UserDetails userDetails) { // Generates JWT Token with additional Claims
+  public String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
     return Jwts.builder()
         .claims(extraClaims)
         .subject(userDetails.getUsername())
         .issuedAt(new Date(System.currentTimeMillis()))
-        .expiration(
-            new Date(
-                System.currentTimeMillis()
-                    + 1000 * 60 * 60 * 24)) // JWT Token valid 24h from time issued
+        .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24))
         .signWith(getVerificationKey(), Jwts.SIG.HS256)
         .compact();
   }
@@ -63,7 +55,7 @@ public class JwtService {
     return extractClaim(token, Claims::getExpiration);
   }
 
-  private Claims extractAllClaims(String token) { // Takes all the claims from JWT Token
+  private Claims extractAllClaims(String token) {
     return Jwts.parser()
         .verifyWith(getVerificationKey())
         .build()
@@ -71,7 +63,7 @@ public class JwtService {
         .getPayload();
   }
 
-  private SecretKey getVerificationKey() { // Sign JWT Token base from secret
+  private SecretKey getVerificationKey() {
     byte[] keyBytes = Decoders.BASE64URL.decode(SECRET_KEY);
     return Keys.hmacShaKeyFor(keyBytes);
   }

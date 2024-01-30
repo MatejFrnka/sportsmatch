@@ -1,9 +1,11 @@
 package com.sportsmatch.auth;
 
+import com.sportsmatch.repositories.TokenRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -14,14 +16,13 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import java.io.IOException;
-
 @Component
 @RequiredArgsConstructor
 public class JwtAuthFilter extends OncePerRequestFilter {
 
   private final JwtService jwtService;
   private final UserDetailsService userDetailsService;
+  private final TokenRepository tokenRepository;
 
   @Override
   protected void doFilterInternal(
@@ -30,31 +31,41 @@ public class JwtAuthFilter extends OncePerRequestFilter {
       @NonNull FilterChain filterChain)
       throws ServletException, IOException {
 
-    final String authHeader = request.getHeader("Authorization"); // header that contains JWT Token
-    final String jwt;
-    final String userEmail;
+    final String authHeader = request.getHeader("Authorization");
 
-    if (authHeader == null
-        || !authHeader.startsWith("Bearer ")) { // check header if contains JWT Token
+    if (isBearerTokenNotPresent(authHeader)) {
       filterChain.doFilter(request, response);
       return;
     }
 
-    jwt = authHeader.substring(7); // takes JWT Token from header, index from "Bearer "
-    userEmail = jwtService.extractUserName(jwt); // takes userEmail from JWT Token
+    final String jwt = authHeader.substring(7);
+    final String userEmail = jwtService.extractUserName(jwt);
 
-    if (userEmail != null
-        && SecurityContextHolder.getContext().getAuthentication()
-            == null) { // check if user is authenticated
+    if (isUserAuthenticated(userEmail)) {
       UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
-      if (jwtService.isTokenValid(jwt, userDetails)) {
-        UsernamePasswordAuthenticationToken authToken =
-            new UsernamePasswordAuthenticationToken(
-                userDetails, null, userDetails.getAuthorities());
-        authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-        SecurityContextHolder.getContext().setAuthentication(authToken);
+      if (jwtService.isTokenValid(jwt, userDetails) && !tokenRepository.existsByToken(jwt)) {
+        updateSecurityContext(request, userDetails);
       }
     }
     filterChain.doFilter(request, response);
+  }
+
+  public boolean isBearerTokenNotPresent(String authHeader) {
+    if (authHeader == null) {
+      return true;
+    }
+    String[] tokenParts = authHeader.split(" ");
+    return !authHeader.startsWith("Bearer ") || tokenParts.length != 2;
+  }
+
+  public boolean isUserAuthenticated(String userEmail) {
+    return userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null;
+  }
+
+  public void updateSecurityContext(HttpServletRequest request, UserDetails userDetails) {
+    UsernamePasswordAuthenticationToken authToken =
+        new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+    authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+    SecurityContextHolder.getContext().setAuthentication(authToken);
   }
 }

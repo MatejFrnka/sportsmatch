@@ -3,6 +3,8 @@ package com.sportsmatch.controllers;
 import com.sportsmatch.auth.AuthService;
 import com.sportsmatch.dtos.AuthRequestDTO;
 import com.sportsmatch.services.ValidationService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @AllArgsConstructor
@@ -20,40 +23,34 @@ public class AuthController {
   private final AuthService authService;
   private final ValidationService validationService;
 
-  /**
-   * Registers a user based on the provided credentials.
-   *
-   * @param authRequestDTO The authentication request containing user details.
-   * @param bindingResult The result of the validation process.
-   * @return ResponseEntity indicating the success or failure of the registration. Returns a 400 Bad
-   *     Request with validation errors List&lt;String&gt; if input is invalid. Returns a 200 OK
-   *     if registration is successful.
-   */
   @PostMapping("/register")
+  @Tag(name = "Register")
+  @Operation(
+      summary = "Register new user",
+      description = "Register a new user by providing their email and username.")
   public ResponseEntity<?> register(
       @RequestBody @Valid AuthRequestDTO authRequestDTO, BindingResult bindingResult) {
     if (bindingResult.hasErrors()) {
       return ResponseEntity.badRequest().body(validationService.getAllErrors(bindingResult));
     }
-    authService.register(authRequestDTO);
-    return ResponseEntity.ok().build();
+    try {
+      authService.register(authRequestDTO);
+      return ResponseEntity.ok().build();
+    } catch (ResponseStatusException e) {
+      return ResponseEntity.status(e.getStatusCode()).build();
+    }
   }
 
-  /**
-   * Authenticates a user based on the provided credentials.
-   *
-   * @param authRequestDTO The authentication request containing user credentials.
-   * @param bindingResult The result of the validation process.
-   * @return ResponseEntity indicating the success or failure of the authentication. Returns a 400
-   *     Bad Request with validation errors if input is invalid. Returns a 200 OK with
-   *     authentication details if authentication is successful.
-   */
-  @PostMapping("/authenticate")
-  public ResponseEntity<?> authenticate(
+  @PostMapping("/login")
+  @Tag(name = "Login")
+  @Operation(
+      summary = "Login user",
+      description = "Login a user by providing their email and username.")
+  public ResponseEntity<?> login(
       @RequestBody @Valid AuthRequestDTO authRequestDTO, BindingResult bindingResult) {
     if (bindingResult.hasErrors()) {
       return ResponseEntity.badRequest().body(validationService.getAllErrors(bindingResult));
     }
-    return ResponseEntity.ok(authService.authenticate(authRequestDTO));
+    return ResponseEntity.ok(authService.login(authRequestDTO));
   }
 }

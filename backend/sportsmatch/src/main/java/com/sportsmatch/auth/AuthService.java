@@ -6,9 +6,11 @@ import com.sportsmatch.mappers.UserMapper;
 import com.sportsmatch.models.User;
 import com.sportsmatch.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 @RequiredArgsConstructor
@@ -21,10 +23,13 @@ public class AuthService {
 
   public void register(AuthRequestDTO authRequestDTO) {
     User user = userMapper.registerToUser(authRequestDTO);
+    if (userRepository.existsByEmail(user.getEmail())) {
+      throw new ResponseStatusException(HttpStatus.CONFLICT);
+    }
     userRepository.save(user);
   }
 
-  public AuthResponseDTO authenticate(AuthRequestDTO authRequestDTO) {
+  public AuthResponseDTO login(AuthRequestDTO authRequestDTO) {
     authenticationManager.authenticate(
         new UsernamePasswordAuthenticationToken(
             authRequestDTO.getEmail(), authRequestDTO.getPassword()));

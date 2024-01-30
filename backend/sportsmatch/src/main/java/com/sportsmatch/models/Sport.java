@@ -13,19 +13,19 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Sport {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    private String name;
+  private String name;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sport")
-    private Set<SportUser> sportUsers = new HashSet<>();
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "sport")
+  private Set<SportUser> sportUsers = new HashSet<>();
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sport")
-    private Set<Event> events = new HashSet<>();
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "sport")
+  private Set<Event> events = new HashSet<>();
 
-    public Sport(String name) {
-        this.name = name;
-    }
+  public Sport(String name) {
+    this.name = name;
+  }
 }

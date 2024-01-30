@@ -19,28 +19,33 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private static final String[] WHITE_LIST_URL = {
-            "/api/v1/auth/**",
-            "/h2-console/**",
-            "/v3/api-docs",
-            "/v3/api-docs/**",
-            "/swagger-ui/**"
-            // add endpoints that are not authenticated
-            };
-    private final JwtAuthFilter jwtAuthFilter;
-    private final AuthenticationProvider authenticationProvider;
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception { // set which endpoints are authenticated and not
-        http
-                .csrf(AbstractHttpConfigurer::disable)
-                .headers(h -> h.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable)) // remove in production
-                .authorizeHttpRequests(r -> r
-                        .requestMatchers(WHITE_LIST_URL)
-                        .permitAll()
-                        .anyRequest().authenticated())
-                .sessionManagement(s -> s.sessionCreationPolicy(STATELESS))
-                .authenticationProvider(authenticationProvider)
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
-        return http.build();
-    }
+  private static final String[] WHITE_LIST_URL = {
+    "/api/v1/auth/**",
+    "/h2-console/**",
+    "/v3/api-docs",
+    "/v3/api-docs/**",
+    "/swagger-ui/**",
+    "/api/v1/event/{id}",
+    "/api/v1/event/upcoming-events",
+    "/api/v1/event/",
+    // add endpoints that are not authenticated
+  };
+  private final JwtAuthFilter jwtAuthFilter;
+  private final AuthenticationProvider authenticationProvider;
+
+  @Bean
+  public SecurityFilterChain securityFilterChain(HttpSecurity http)
+      throws Exception { // set which endpoints are authenticated and not
+    http.csrf(AbstractHttpConfigurer::disable)
+        .headers(
+            h ->
+                h.frameOptions(
+                    HeadersConfigurer.FrameOptionsConfig::disable)) // remove in production
+        .authorizeHttpRequests(
+            r -> r.requestMatchers(WHITE_LIST_URL).permitAll().anyRequest().authenticated())
+        .sessionManagement(s -> s.sessionCreationPolicy(STATELESS))
+        .authenticationProvider(authenticationProvider)
+        .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+    return http.build();
+  }
 }

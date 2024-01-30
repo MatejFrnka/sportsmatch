@@ -4,7 +4,7 @@ import com.sportsmatch.dtos.AuthRequestDTO;
 import com.sportsmatch.dtos.AuthResponseDTO;
 import com.sportsmatch.mappers.UserMapper;
 import com.sportsmatch.models.User;
-import com.sportsmatch.repos.UserRepository;
+import com.sportsmatch.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -31,11 +31,10 @@ public class AuthService {
 
   public AuthResponseDTO authenticate(AuthRequestDTO authRequestDTO) {
     authenticationManager.authenticate(
-        new UsernamePasswordAuthenticationToken(authRequestDTO.getEmail(), authRequestDTO.getPassword()));
+        new UsernamePasswordAuthenticationToken(
+            authRequestDTO.getEmail(), authRequestDTO.getPassword()));
     User user = userRepository.findByEmail(authRequestDTO.getEmail()).orElseThrow();
     String jwtToken = jwtService.generateToken(user);
-    return AuthResponseDTO.builder()
-        .token(jwtToken)
-        .build();
+    return AuthResponseDTO.builder().token(jwtToken).build();
   }
 }

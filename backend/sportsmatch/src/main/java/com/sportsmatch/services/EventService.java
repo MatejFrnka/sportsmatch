@@ -22,65 +22,79 @@ import org.springframework.web.server.ResponseStatusException;
 @Service
 @AllArgsConstructor
 public class EventService {
-    private EventRepository eventRepository;
-    private EventMapper eventMapper;
-    private UserRepository userRepository;
-    private SportRepository sportRepository;
-    private EventPlayerRepository eventPlayerRepository;
+  private EventRepository eventRepository;
+  private EventMapper eventMapper;
+  private UserRepository userRepository;
+  private SportRepository sportRepository;
+  private EventPlayerRepository eventPlayerRepository;
 
-    public Event getEventById(Long id) {
-        return eventRepository.findEventById(id).orElseThrow(() -> new ResponseStatusException(
-            HttpStatus.BAD_REQUEST));
+  public Event getEventById(Long id) {
+    return eventRepository
+        .findEventById(id)
+        .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
+  }
+
+  public EventDTO getEventDTObyEventId(Long id) {
+    Event event =
+        eventRepository
+            .findEventById(id)
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
+    EventDTO eventDTO = eventMapper.convertEventToEventDTO(event);
+    return eventDTO;
+  }
+
+  public List<EventDTO> getAllEvents() {
+    List<Event> eventList = eventRepository.findAll();
+    List<EventDTO> eventDTOList = new ArrayList<>();
+    for (Event event : eventList) {
+      eventDTOList.add(getEventDTObyEventId(event.getId()));
+    }
+    return eventDTOList;
+  }
+
+  public List<EventDTO> getEventsBySports(List<Long> sportsIds) {
+    List<EventDTO> eventDTOList = new ArrayList<>();
+    List<Event> eventListBySport = eventRepository.findAllBySportIdIn(sportsIds);
+    for (Event event : eventListBySport) {
+      eventDTOList.add(getEventDTObyEventId(event.getId()));
+    }
+    return eventDTOList;
+  }
+
+  public EventPlayer addPlayerToEvent(Long playerId, Long eventId) {
+    EventPlayer eventPlayer = new EventPlayer();
+    eventPlayer.setPlayer(
+        userRepository
+            .findUserById(playerId)
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST)));
+    eventPlayer.setEvent(
+        eventRepository
+            .findEventById(eventId)
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST)));
+    return eventPlayerRepository.save(eventPlayer);
+  }
+
+  public Event createEvent(EventDTO eventDTO) {
+    Event newEvent = eventMapper.convertEventDTOtoEvent(eventDTO);
+    newEvent.setSport(
+        sportRepository
+            .findSportByName(eventDTO.getSport())
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST)));
+    newEvent = eventRepository.save(newEvent);
+
+    Set<EventPlayer> players = new HashSet<>();
+    if (eventDTO.getPlayer1Id() != null) {
+      players.add(addPlayerToEvent(eventDTO.getPlayer1Id(), newEvent.getId()));
+    }
+    if (eventDTO.getPlayer2Id() != null) {
+      players.add(addPlayerToEvent(eventDTO.getPlayer2Id(), newEvent.getId()));
     }
 
-    public EventDTO getEventDTObyEventId(Long id) {
-        Event event =
-            eventRepository.findEventById(id).orElseThrow(() -> new ResponseStatusException(
-                HttpStatus.BAD_REQUEST));
-        EventDTO eventDTO = eventMapper.convertEventToEventDTO(event);
-        return eventDTO;
-    }
+    newEvent.setPlayers(players);
+    return newEvent;
+  }
 
-    public List<EventDTO> getAllEvents() {
-        List<Event> eventList = eventRepository.findAll();
-        List<EventDTO> eventDTOList = new ArrayList<>();
-        for (Event event : eventList) {
-            eventDTOList.add(getEventDTObyEventId(event.getId()));
-        }
-        return eventDTOList;
-    }
-
-    public EventPlayer addPlayerToEvent(Long playerId, Long eventId) {
-        EventPlayer eventPlayer = new EventPlayer();
-        eventPlayer.setPlayer(
-            userRepository.findUserById(playerId).orElseThrow(() -> new ResponseStatusException(
-                HttpStatus.BAD_REQUEST)));
-        eventPlayer.setEvent(
-            eventRepository.findEventById(eventId).orElseThrow(() -> new ResponseStatusException(
-                HttpStatus.BAD_REQUEST))
-        );
-        return eventPlayerRepository.save(eventPlayer);
-    }
-
-    public Event createEvent(EventDTO eventDTO) {
-        Event newEvent = eventMapper.convertEventDTOtoEvent(eventDTO);
-        newEvent.setSport(sportRepository.findSportByName(eventDTO.getSport()).orElseThrow(
-            () -> new ResponseStatusException(HttpStatus.BAD_REQUEST)));
-        newEvent = eventRepository.save(newEvent);
-
-        Set<EventPlayer> players = new HashSet<>();
-        if (eventDTO.getPlayer1Id() != null) {
-            players.add(addPlayerToEvent(eventDTO.getPlayer1Id(), newEvent.getId()));
-        }
-        if (eventDTO.getPlayer2Id() != null) {
-            players.add(addPlayerToEvent(eventDTO.getPlayer2Id(), newEvent.getId()));
-        }
-
-        newEvent.setPlayers(players);
-        return newEvent;
-    }
-
-    public void deleteEventFromDatabase(Event eventById) {
-        eventRepository.deleteById(eventById.getId());
-    }
+  public void deleteEventFromDatabase(Event eventById) {
+    eventRepository.deleteById(eventById.getId());
+  }
 }

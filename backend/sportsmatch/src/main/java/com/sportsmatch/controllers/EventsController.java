@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/event")
 public class EventsController {
@@ -36,5 +38,11 @@ public class EventsController {
     Event eventById = eventService.getEventById(id);
     eventService.deleteEventFromDatabase(eventById);
     return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+  }
+
+  @GetMapping("/upcoming-events")
+  public ResponseEntity<?> getUpcomingEvents(@RequestBody List<Long> sportsIds) {
+    List<EventDTO> listOfEvents = eventService.getEventsBySports(sportsIds);
+    return ResponseEntity.ok().body(listOfEvents);
   }
 }

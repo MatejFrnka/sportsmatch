@@ -51,6 +51,15 @@ public class EventService {
     return eventDTOList;
   }
 
+  public List<EventDTO> getEventsBySports(List<Long> sportsIds) {
+    List<EventDTO> eventDTOList = new ArrayList<>();
+    List<Event> eventListBySport = eventRepository.findAllBySportIdIn(sportsIds);
+    for (Event event : eventListBySport) {
+      eventDTOList.add(getEventDTObyEventId(event.getId()));
+    }
+    return eventDTOList;
+  }
+
   public EventPlayer addPlayerToEvent(Long playerId, Long eventId) {
     EventPlayer eventPlayer = new EventPlayer();
     eventPlayer.setPlayer(

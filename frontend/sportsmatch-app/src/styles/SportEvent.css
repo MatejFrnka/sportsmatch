@@ -1,59 +1,71 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;900&display=swap');
 
+* {
+  font-family: 'Inter', sans-serif;
+}
 
-.container {
+body {
+  background-color: #F9F8F5;
+}
+
+.event .row {
+  padding: 0.75em;
+  height: 6.625em;
+}
+
+.event .col.left {
   display: flex;
-  justify-content: center;
-  margin-top: 5%;
-
-}
-.event-card {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    min-width: 361px;
-    min-height: 106px;
-    margin: 16px;
-    font-size: 10px;
-    font-family: 'Inter', sans-serif;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.05);
-    border-radius: 2px;
+  flex-direction: column;
+  justify-content: flex-end;
+  border-top-left-radius: 0.125em;
+  border-bottom-left-radius: 0.125em;
 }
 
-.left {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 9px;
-  }
-  
-.right {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: flex-end;
-    background:linear-gradient(0deg, rgba(232, 95, 41, 0.25), rgba(232, 95, 41, 0.25)), url(https://images.pexels.com/photos/8007406/pexels-photo-8007406.jpeg);
-    background-size: cover;
-    background-position: bottom;
-    color: #fff; 
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.05);
-    border-bottom-right-radius: 2px;
-    border-top-right-radius: 2px;
-    padding: 0 9px;
-  }
+.event .col.right {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  text-align: right;
+  background:linear-gradient(0deg, rgba(232, 95, 41, 0.25), rgba(232, 95, 41, 0.25)), url(https://images.pexels.com/photos/8007406/pexels-photo-8007406.jpeg);
+  background-size: cover;
+  background-position: bottom;
+  border-bottom-right-radius: 0.125em;
+  border-top-right-radius: 0.125em;
+}
 
-  .right h3 {
-    font-weight: 900;
-    font-size: 24px;
-    text-transform: uppercase;
-    text-align: right;
-  }
-  
-.event-card ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
+.event .col.right h3 {
+  font-weight: 900;
+  font-size: 1.5em;
+  text-transform: uppercase;
+  text-align: right;
+  color: #fff;
+}
 
-.event-card ul li {
-    color: #393939;
+
+.event ul{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+
+}
+
+.event ul li {
+  color: #393939;
+  font-size: 0.78em;
+}
+
+.host {
+  margin-top: 4em;
+
+}
+
+.host .row {
+  margin: 0.75em 0;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.05);
+  background:linear-gradient(0deg, rgba(232, 95, 41, 0.25), rgba(232, 95, 41, 0.25)), url(./assets/InProgress.png);
+  background-clip: content-box;
+  background-size: cover;
+  border-radius: 2px;
+  min-height: 395px;
 }

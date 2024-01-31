@@ -19,8 +19,9 @@ function SportEvent({ event }: SportEventProps) {
   return (
     <>
       <div className="container-sm">
-        <div className="event-card">
-          <div className="left">
+        <div className="event">
+          <div className="row">
+            <div className="col left">
             <ul>
               <li>📍{event.location}</li>
               <li>
@@ -30,9 +31,10 @@ function SportEvent({ event }: SportEventProps) {
                 📆{event.dateStart} to {event.dateEnd}
               </li>
             </ul>
-          </div>
-          <div className="right">
+            </div>
+            <div className="col right">
             <h3>{event.title}</h3>
+            </div>
           </div>
         </div>
       </div>

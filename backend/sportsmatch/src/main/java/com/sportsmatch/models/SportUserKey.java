@@ -28,12 +28,8 @@ public class SportUserKey implements Serializable {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (!(o instanceof SportUserKey that)) {
-      return false;
-    }
+    if (this == o) return true;
+    if (!(o instanceof SportUserKey that)) return false;
     return Objects.equals(userId, that.userId) && Objects.equals(sportId, that.sportId);
   }
 

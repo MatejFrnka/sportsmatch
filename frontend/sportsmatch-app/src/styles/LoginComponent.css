@@ -1,0 +1,169 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.wrapper {
+  width: 330px;
+  background: #fff;
+  border: 2px solid rgba(65, 58, 58, 0.2);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(30px);
+  color: #ccc;
+  border-radius: 10px;
+  padding: 30px 20px;
+}
+
+.wrapper h1 {
+  color: #e85f29;
+  font-size: 36px;
+  text-align: center;
+}
+
+.wrapper .input-box {
+  position: relative;
+  width: 100%;
+  height: 40px;
+  margin: 30px 0;
+}
+
+.input-box input {
+  width: 100%;
+  height: 100%;
+  border: 1px solid rgba(65, 58, 58, 0.2);
+  border-radius: 40px;
+  font-size: 13px;
+  padding: 20px 45px 20px 20px;
+}
+
+.input-box input::placeholder {
+  color: #ccc;
+}
+
+.input-box input:focus {
+  outline-color: #e85f29;
+}
+
+.input-box .icon {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+}
+
+.wrapper .remember-forgot {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  margin: -15px 0 15px;
+}
+
+.remember-forgot label input {
+  accent-color: #ccc;
+  margin-right: 4px;
+}
+
+.remember-forgot a {
+  color: #ccc;
+  text-decoration: none;
+}
+
+.remember-forgot a:hover {
+  text-decoration: underline;
+}
+
+.wrapper button {
+  width: 100%;
+  height: 45px;
+  background: #e85f29;
+  border: none;
+  outline: none;
+  border-radius: 40px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  font-size: 16px;
+  color: #fff;
+  font-weight: 700;
+}
+
+.wrapper button:hover {
+  transform: scale(1.05);
+}
+
+.wrapper .register-link {
+  font-size: 14px;
+  text-align: center;
+  margin: 20px 0 15px;
+}
+
+.register-link p a {
+  color: #ccc;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.register-link p a:hover {
+  text-decoration: underline;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #e9e6e6;
+  background-size: cover;
+  background-position: center;
+}
+
+.alt-login {
+  width: 100%;
+  height: 3em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.alt-login div {
+  width: 45%;
+  height: 90%;
+  border-radius: 40px;
+  background-color: #e85f29;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  justify-content: center;
+}
+
+.alt-login div:hover {
+  transform: scale(1.05);
+}
+
+.g-icon {
+  color: #fff;
+  position: relative;
+  top: 17px;
+  left: 40%;
+  transform: translateY(-50%);
+  font-size: 22px;
+}
+
+.fb-icon {
+  color: #fff;
+  position: relative;
+  top: 20px;
+  left: 40%;
+  transform: translateY(-50%);
+  font-size: 25px;
+}
+
+.alt-login-text {
+  color: #e85f29;
+  text-decoration: none;
+  text-align: center;
+}

@@ -13,5 +13,5 @@ public interface EventRepository extends JpaRepository<Event, Long> {
 
   Optional<Event> findEventById(Long id);
 
-  List<Event> findAllBySportIdIn(List<Long> sport_id);
+  List<Event> findAllBySportIdIn(List<Long> sportId);
 }

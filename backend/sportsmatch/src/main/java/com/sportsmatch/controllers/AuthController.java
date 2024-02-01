@@ -23,13 +23,6 @@ public class AuthController {
   private final AuthService authService;
   private final ValidationService validationService;
 
-  /**
-   * @param authRequestDTO The authentication request containing user details.
-   * @param bindingResult The result of the validation process.
-   * @return ResponseEntity indicating the success or failure of the registration. Returns a 400 Bad
-   *     Request with validation errors (List<String>) if input is invalid. Returns a 200 OK if
-   *     registration is successful.
-   */
   @PostMapping("/register")
   @Tag(name = "Register")
   @Operation(
@@ -48,13 +41,6 @@ public class AuthController {
     }
   }
 
-  /**
-   * @param authRequestDTO The authentication request containing user credentials.
-   * @param bindingResult The result of the validation process.
-   * @return ResponseEntity indicating the success or failure of the authentication. Returns a 400
-   *     Bad Request with validation errors if input is invalid. Returns a 200 OK with
-   *     authentication details if authentication is successful.
-   */
   @PostMapping("/authenticate")
   public ResponseEntity<?> authenticate(
       @RequestBody @Valid AuthRequestDTO authRequestDTO, BindingResult bindingResult) {

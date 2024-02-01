@@ -1,4 +1,4 @@
-package com.sportsmatch.service;
+package com.sportsmatch.services;
 
 import com.sportsmatch.dtos.SportDTO;
 import org.springframework.data.domain.Pageable;

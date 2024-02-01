@@ -1,8 +1,9 @@
-package com.sportsmatch.service;
+package com.sportsmatch.services;
 
 import com.sportsmatch.dtos.SportDTO;
 import com.sportsmatch.mappers.SportMapper;
 import com.sportsmatch.repositories.SportRepository;
+import com.sportsmatch.services.SportService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;

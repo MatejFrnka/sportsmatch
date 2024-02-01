@@ -1,7 +1,7 @@
 package com.sportsmatch.controllers;
 
 import com.sportsmatch.dtos.SportDTO;
-import com.sportsmatch.service.SportService;
+import com.sportsmatch.services.SportService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -44,8 +44,8 @@ public class AuthController {
   @PostMapping("/login")
   @Tag(name = "Login")
   @Operation(
-      summary = "Login user",
-      description = "Login a user by providing their email and username.")
+          summary = "Login user",
+          description = "Login a user by providing their email and username.")
   public ResponseEntity<?> login(
       @RequestBody @Valid AuthRequestDTO authRequestDTO, BindingResult bindingResult) {
     if (bindingResult.hasErrors()) {

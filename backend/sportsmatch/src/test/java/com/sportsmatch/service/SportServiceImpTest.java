@@ -1,9 +1,8 @@
 package com.sportsmatch.service;
 
 import com.sportsmatch.dtos.SportDTO;
-import com.sportsmatch.mappers.SportMapper;
 import com.sportsmatch.models.Sport;
-import com.sportsmatch.repos.SportRepository;
+import com.sportsmatch.repositories.SportRepository;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -13,12 +12,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
-
 import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.eq;
 
 @SpringBootTest
 class SportServiceImpTest {

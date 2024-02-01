@@ -41,8 +41,12 @@ public class AuthController {
     }
   }
 
-  @PostMapping("/authenticate")
-  public ResponseEntity<?> authenticate(
+  @PostMapping("/login")
+  @Tag(name = "Login")
+  @Operation(
+          summary = "Login user",
+          description = "Login a user by providing their email and username.")
+  public ResponseEntity<?> login(
       @RequestBody @Valid AuthRequestDTO authRequestDTO, BindingResult bindingResult) {
     if (bindingResult.hasErrors()) {
       return ResponseEntity.badRequest().body(validationService.getAllErrors(bindingResult));

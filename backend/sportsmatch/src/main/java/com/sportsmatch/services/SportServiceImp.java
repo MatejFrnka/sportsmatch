@@ -14,19 +14,20 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class SportServiceImp implements SportService {
 
-    private final SportRepository sportRepository;
-    private final SportMapper sportMapper;
+  private final SportRepository sportRepository;
+  private final SportMapper sportMapper;
 
 
-    /**
-     * This method returns a paginated list of SportsDTO.
-     *
-     * @param pageable contains the page and size values for pagination.
-     * @return paginated list of SportDTO.
-     */
-    public List<SportDTO> getAllSports(final Pageable pageable) {
-        return sportRepository.findAll(pageable).stream()
-                .map(sportMapper::toDTO)
-                .collect(Collectors.toList());
-    }
+  /**
+   * This method returns a paginated list of SportsDTO.
+   *
+   * @param pageable contains the page and size values for pagination.
+   * @return paginated list of SportDTO.
+   */
+  public List<SportDTO> getAllSports(final Pageable pageable) {
+    return sportRepository.findAll(pageable)
+        .stream()
+        .map(sportMapper::toDTO)
+        .collect(Collectors.toList());
+  }
 }

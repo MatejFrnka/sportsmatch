@@ -21,35 +21,35 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest
 class SportServiceImpTest {
 
-    @Mock
-    private SportRepository sportRepository;
+  @Mock
+  private SportRepository sportRepository;
 
-    @InjectMocks
-    private SportServiceImp sportService;
+  @InjectMocks
+  private SportServiceImp sportService;
 
-    @Test
-    void getAllSportsShouldReturnAllSportsWhenRequired() {
-        // Arrange
-        Pageable pageable = Mockito.mock(Pageable.class);
+  @Test
+  void getAllSportsShouldReturnAllSportsWhenRequired() {
+    // Arrange
+    Pageable pageable = Mockito.mock(Pageable.class);
 
-        Sport sport1 = new Sport("Football");
-        Sport sport2 = new Sport("Basketball");
+    Sport sport1 = new Sport("Football");
+    Sport sport2 = new Sport("Basketball");
 
-        List<Sport> sports = Arrays.asList(sport1, sport2);
-        Page<Sport> sportsPage = new PageImpl<>(sports, pageable, sports.size());
+    List<Sport> sports = Arrays.asList(sport1, sport2);
+    Page<Sport> sportsPage = new PageImpl<>(sports, pageable, sports.size());
 
-        SportDTO sportDTO1 = new SportDTO("Football");
-        SportDTO sportDTO2 = new SportDTO("Basketball");
+    SportDTO sportDTO1 = new SportDTO("Football");
+    SportDTO sportDTO2 = new SportDTO("Basketball");
 
-        List<SportDTO> expectedSportDTOs = Arrays.asList(sportDTO1, sportDTO2);
+    List<SportDTO> expectedSportDTOs = Arrays.asList(sportDTO1, sportDTO2);
 
-        // Mocking repository
-        Mockito.when(sportRepository.findAll(Mockito.any(Pageable.class))).thenReturn(sportsPage);
+    // Mocking repository
+    Mockito.when(sportRepository.findAll(Mockito.any(Pageable.class))).thenReturn(sportsPage);
 
-        // Act
-        List<SportDTO> result = sportService.getAllSports(pageable);
+    // Act
+    List<SportDTO> result = sportService.getAllSports(pageable);
 
-        // Assert
-        assertEquals(expectedSportDTOs, result);
-    }
+    // Assert
+    assertEquals(expectedSportDTOs, result);
+  }
 }

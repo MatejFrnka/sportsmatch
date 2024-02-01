@@ -13,15 +13,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class SportMapper {
 
-    /**
-     * Converts a Sport entity to a SportDTO.
-     *
-     * @param entity The Sport entity to be converted.
-     * @return SportDTO containing information from the Sport entity.
-     */
-    public SportDTO toDTO(Sport entity) {
-        return SportDTO.builder()
-                .name(entity.getName())
-                .build();
-    }
+  /**
+   * Converts a Sport entity to a SportDTO.
+   *
+   * @param entity The Sport entity to be converted.
+   * @return SportDTO containing information from the Sport entity.
+   */
+  public SportDTO toDTO(Sport entity) {
+    return SportDTO.builder()
+        .name(entity.getName())
+        .build();
+  }
 }

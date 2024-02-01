@@ -3,7 +3,6 @@ package com.sportsmatch.services;
 import com.sportsmatch.dtos.SportDTO;
 import com.sportsmatch.mappers.SportMapper;
 import com.sportsmatch.repositories.SportRepository;
-import com.sportsmatch.services.SportService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -27,7 +26,7 @@ public class SportServiceImp implements SportService {
      */
     public List<SportDTO> getAllSports(final Pageable pageable) {
         return sportRepository.findAll(pageable).stream()
-                .map(SportMapper::toDTO)
+                .map(sportMapper::toDTO)
                 .collect(Collectors.toList());
     }
 }

@@ -15,7 +15,6 @@ import java.util.stream.Collectors;
 public class SportServiceImp implements SportService {
 
   private final SportRepository sportRepository;
-  private final SportMapper sportMapper;
 
 
   /**
@@ -27,7 +26,7 @@ public class SportServiceImp implements SportService {
   public List<SportDTO> getAllSports(final Pageable pageable) {
     return sportRepository.findAll(pageable)
         .stream()
-        .map(sportMapper::toDTO)
+        .map(SportMapper::toDTO)
         .collect(Collectors.toList());
   }
 }

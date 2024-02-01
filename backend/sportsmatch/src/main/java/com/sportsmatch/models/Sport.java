@@ -12,6 +12,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class Sport {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

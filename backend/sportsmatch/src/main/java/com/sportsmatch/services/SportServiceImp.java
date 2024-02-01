@@ -19,7 +19,7 @@ public class SportServiceImp implements SportService {
 
 
   /**
-   * This method returns a paginated list of SportsDTO.
+   * {@summary <p>This method returns a paginated list of SportsDTO.</p>}
    *
    * @param pageable contains the page and size values for pagination.
    * @return paginated list of SportDTO.

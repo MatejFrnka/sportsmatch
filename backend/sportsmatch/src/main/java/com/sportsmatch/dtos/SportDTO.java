@@ -7,9 +7,9 @@ import lombok.Data;
 @Builder
 public class SportDTO {
 
-    public SportDTO(String name) {
-        this.name = name;
-    }
+  public String name;
 
-    public String name;
+  public SportDTO(String name) {
+    this.name = name;
+  }
 }

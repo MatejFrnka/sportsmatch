@@ -18,7 +18,7 @@ function Home() {
 
   return (
     <>
-      <MatchInProgress event={sampleEvent}/>
+      <MatchInProgress event={sampleEvent} />
       <MatchUpComing event={sampleEvent} />
       <SportEvent event={sampleEvent} />
     </>

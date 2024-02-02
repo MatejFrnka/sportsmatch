@@ -22,18 +22,18 @@ function SportEvent({ event }: SportEventProps) {
         <div className="event">
           <div className="row">
             <div className="col left">
-            <ul>
-              <li>📍{event.location}</li>
-              <li>
-                🏅{event.minElo} - {event.maxElo}
-              </li>
-              <li>
-                📆{event.dateStart} to {event.dateEnd}
-              </li>
-            </ul>
+              <ul>
+                <li>📍{event.location}</li>
+                <li>
+                  🏅{event.minElo} - {event.maxElo}
+                </li>
+                <li>
+                  📆{event.dateStart} to {event.dateEnd}
+                </li>
+              </ul>
             </div>
             <div className="col right">
-            <h3>{event.title}</h3>
+              <h3>{event.title}</h3>
             </div>
           </div>
         </div>

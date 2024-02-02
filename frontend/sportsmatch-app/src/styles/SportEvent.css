@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@700&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css');
 
 * {
   font-family: 'Inter', sans-serif;
@@ -11,7 +12,7 @@ body {
 
 .event .row {
   padding: 0.75em;
-  height: 6.625em;
+  min-height: 6.625em;
 }
 
 .event .col.left {
@@ -27,9 +28,9 @@ body {
   flex-direction: column;
   justify-content: flex-end;
   text-align: right;
-  background:linear-gradient(0deg, rgba(232, 95, 41, 0.25), rgba(232, 95, 41, 0.25)), url(https://images.pexels.com/photos/8007406/pexels-photo-8007406.jpeg);
+  background:linear-gradient(0deg, rgba(232, 95, 41, 0.25), rgba(232, 95, 41, 0.25)), url('/assets/img-event-card-badminton.png');
   background-size: cover;
-  background-position: bottom;
+  background-position: top;
   border-bottom-right-radius: 0.125em;
   border-top-right-radius: 0.125em;
 }

@@ -12,7 +12,7 @@
     "test": "vitest",
     "format": "prettier --check ./src",
     "format:fix": "prettier --write ./src",
-    "generate": "openapi --input http://localhost:8080/v3/api-docs --output ./api"
+    "generate": "openapi --input http://localhost:8080/v3/api-docs --output ./src/generated/api"
   },
   "dependencies": {
     "bootstrap": "^5.3.2",

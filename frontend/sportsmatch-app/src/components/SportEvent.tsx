@@ -24,17 +24,17 @@ function SportEvent({ event }: SportEventProps) {
           <div className="row">
             <div className="col left">
               <ul>
-                <li>
+                <li data-testid="luMapPin">
                   <LuMapPin /> {event.location}
                 </li>
-                <li>
+                <li data-testid="luMedal">
                   <LuMedal /> {event.minElo} - {event.maxElo}
                 </li>
-                <li>
+                <li data-testid="luCalendarCheck">
                   <LuCalendarCheck />
                   {event.dateStart}
                 </li>
-                <li>
+                <li data-testid="luCalendarX">
                   <LuCalendarX />
                   {event.dateEnd}
                 </li>

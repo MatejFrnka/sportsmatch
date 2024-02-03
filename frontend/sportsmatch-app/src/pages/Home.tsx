@@ -1,6 +1,5 @@
-import MatchInProgress from '../components/MatchInProgress'
+import Match from '../components/Match'
 import SportEvent from '../components/SportEvent'
-import MatchUpComing from '../components/MatchUpComing'
 
 function Home() {
   const sampleEvent = {
@@ -13,13 +12,12 @@ function Home() {
     title: 'Badminton match',
     sport: 'Badminton',
     playerOne: 'johndoe87',
-    playerTwo: 'jess_ward',
+    playerTwo: 'jess_ward'
   }
 
   return (
     <>
-      <MatchInProgress event={sampleEvent} />
-      <MatchUpComing event={sampleEvent} />
+      <Match event={sampleEvent} />
       <SportEvent event={sampleEvent} />
     </>
   )

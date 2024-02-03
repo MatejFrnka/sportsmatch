@@ -12,7 +12,7 @@ function Home() {
     title: 'Badminton match',
     sport: 'Badminton',
     playerOne: 'johndoe87',
-    playerTwo: 'jess_ward'
+    playerTwo: 'jess_ward',
   }
 
   return (

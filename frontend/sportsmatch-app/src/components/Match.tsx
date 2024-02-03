@@ -1,5 +1,12 @@
 import '../styles/Match.css'
-import { LuSwords, LuMapPin, LuMedal, LuCalendarCheck, LuCalendarX, LuSettings2  } from "react-icons/lu";
+import {
+  LuSwords,
+  LuMapPin,
+  LuMedal,
+  LuCalendarCheck,
+  LuCalendarX,
+  LuSettings2,
+} from 'react-icons/lu'
 
 interface InProgressProps {
   event: {
@@ -29,20 +36,39 @@ function InProgress({ event }: InProgressProps) {
               >
                 <LuSettings2 />
               </a>
-              {event.playerTwo === null ?
-                <h1>Matchmaking<br /> in progress</h1> : <h1>Upcoming<br /> match</h1>
-              }
+              {event.playerTwo === null ? (
+                <h1>
+                  Matchmaking
+                  <br /> in progress
+                </h1>
+              ) : (
+                <h1>
+                  Upcoming
+                  <br /> match
+                </h1>
+              )}
               <ul>
-                <li><LuSwords /> {event.playerTwo === null ? 'Awaiting opponent...' : event.playerTwo}</li>
-                <li><LuMapPin />{event.location}</li>
                 <li>
-                <LuMedal />{event.minElo} - {event.maxElo}
+                  <LuSwords />{' '}
+                  {event.playerTwo === null
+                    ? 'Awaiting opponent...'
+                    : event.playerTwo}
                 </li>
                 <li>
-                <LuCalendarCheck />{event.dateStart}
+                  <LuMapPin />
+                  {event.location}
                 </li>
                 <li>
-                <LuCalendarX />{event.dateEnd}
+                  <LuMedal />
+                  {event.minElo} - {event.maxElo}
+                </li>
+                <li>
+                  <LuCalendarCheck />
+                  {event.dateStart}
+                </li>
+                <li>
+                  <LuCalendarX />
+                  {event.dateEnd}
                 </li>
               </ul>
             </div>

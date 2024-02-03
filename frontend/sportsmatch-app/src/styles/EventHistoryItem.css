@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;900&display=swap');
+
+
+
+
+.colon {
+    display: block;
+    color: #FC4C02;
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+    grid-column: 2;
+    margin: auto;
+}
+
+.event-history-item {
+    display: grid;
+    grid-template-columns: 6fr 0.5fr 6fr;
+    min-width: 361px;
+    min-height: 106px;
+    margin: 16px;
+    font-size: 10px;
+    font-family: 'Inter', sans-serif;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.05);
+    border: 2px solid #FC4C02;
+    border-radius: 10px;
+}
+  
+.user-side {
+    grid-column: 1;
+    display: grid;
+    grid-template-columns: 5fr 1fr;
+    padding: 9px;
+    text-align: center;
+    margin-top: 10%;
+}
+
+.opponent-side {
+    grid-column: 3;
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    padding: 9px;
+    text-align: center;
+    margin-top: 10%;
+}
+
+.user-score {
+    text-align: right;
+    color: #FC4C02;
+    font-weight: bold;
+    font-size: 16px;
+    grid-column: 2;
+}
+
+.opponent-score {
+    text-align: left;
+    color: #FC4C02;
+    font-weight: bold;
+    font-size: 16px;
+    grid-column: 1;
+}
+
+.user-name {
+    color: #FC4C02;
+    grid-column: 1;
+}
+
+.opponent-name {
+    color: #FC4C02;
+    grid-column: 2;
+}
+
+
+.user-avatar {
+    border: 2px solid #FC4C02;
+    display: block;
+    grid-column: 1;
+}
+
+.opponent-avatar {
+    border: 2px solid #FC4C02;
+    display: block;
+    grid-column: 2;
+}
+
+.match-status {
+    color: #FC4C02;
+    font-weight: bold;
+    position: absolute;
+    padding: 4px;
+}

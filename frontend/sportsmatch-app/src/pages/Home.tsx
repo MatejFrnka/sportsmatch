@@ -1,4 +1,6 @@
 import SportEvent from '../components/SportEvent'
+import EventHistoryItem from '../components/EventHistoryItem'
+
 
 function Home() {
   const sampleEvent = {
@@ -13,10 +15,16 @@ function Home() {
     playerOne: 'johndoe87',
     playerTwo: 'jess_ward',
   }
+  const sampleHistoryDTO= {
+    userScore: 1,
+    opponentScore: 2,
+    opponent: {name: 'Opponent'},
+  }
 
   return (
     <>
       <SportEvent event={sampleEvent} />
+      <EventHistoryItem eventHistoryDTO={sampleHistoryDTO}/>
     </>
   )
 }

@@ -1,6 +1,7 @@
 package com.sportsmatch.controllers;
 
 import com.sportsmatch.dtos.EventDTO;
+import com.sportsmatch.dtos.EventHistoryDTO;
 import com.sportsmatch.models.Event;
 import com.sportsmatch.services.EventService;
 import jakarta.validation.Valid;
@@ -44,5 +45,12 @@ public class EventsController {
   public ResponseEntity<?> getUpcomingEvents(@RequestBody List<Long> sportsIds) {
     List<EventDTO> listOfEvents = eventService.getEventsBySports(sportsIds);
     return ResponseEntity.ok().body(listOfEvents);
+  }
+
+  // todo this is placeholder for frontend - it doesn't do anything yet
+  @GetMapping("/event-history")
+  public EventHistoryDTO getEventsHistory(){
+    EventHistoryDTO eventHistoryDTO = new EventHistoryDTO();
+    return eventHistoryDTO;
   }
 }

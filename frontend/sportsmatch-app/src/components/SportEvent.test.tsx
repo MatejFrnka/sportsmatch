@@ -18,14 +18,19 @@ describe('SportEvent', async () => {
     render(<SportEvent event={mockEvent} />)
 
     // Assert that the rendered component contains the expected data
-    expect(screen.getByText(`📍${mockEvent.location}`)).toBeInTheDocument()
+    expect(screen.getByText(`Test Location`)).toBeInTheDocument()
     expect(
-      screen.getByText(`🏅${mockEvent.minElo} - ${mockEvent.maxElo}`),
+      screen.getByText(`${mockEvent.minElo} - ${mockEvent.maxElo}`),
     ).toBeInTheDocument()
-    expect(
-      screen.getByText(`📆${mockEvent.dateStart} to ${mockEvent.dateEnd}`),
-    ).toBeInTheDocument()
+    expect(screen.getByText(`${mockEvent.dateStart}`)).toBeInTheDocument()
+    expect(screen.getByText(`${mockEvent.dateEnd}`)).toBeInTheDocument()
     expect(screen.getByText(mockEvent.title)).toBeInTheDocument()
+
+    // Check for the presence of react-icons
+    expect(screen.getByTestId('luMapPin')).toBeInTheDocument()
+    expect(screen.getByTestId('luMedal')).toBeInTheDocument()
+    expect(screen.getByTestId('luCalendarCheck')).toBeInTheDocument()
+    expect(screen.getByTestId('luCalendarX')).toBeInTheDocument()
   })
 
   it('renders the component without playerTwo when it is not provided', () => {

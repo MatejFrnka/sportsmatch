@@ -11,7 +11,8 @@
     "preview": "vite preview",
     "test": "vitest",
     "format": "prettier --check ./src",
-    "format:fix": "prettier --write ./src"
+    "format:fix": "prettier --write ./src",
+    "generate": "openapi --input http://localhost:8080/v3/api-docs --output ./src/generated/api"
   },
   "dependencies": {
     "bootstrap": "^5.3.2",
@@ -44,6 +45,7 @@
     "husky": "^9.0.6",
     "jsdom": "^24.0.0",
     "lint-staged": "^15.2.0",
+    "openapi-typescript-codegen": "^0.27.0",
     "prettier": "^3.2.4",
     "typescript": "^5.2.2",
     "vite": "^5.0.8",

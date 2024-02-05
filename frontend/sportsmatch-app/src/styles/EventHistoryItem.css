@@ -10,12 +10,12 @@
     font-size: 16px;
     text-align: center;
     grid-column: 2;
-    margin: auto;
+    padding: 9px;
 }
 
 .event-history-item {
     display: grid;
-    grid-template-columns: 6fr 0.5fr 6fr;
+    grid-template-columns: 8fr 0.5fr 8fr;
     min-width: 361px;
     min-height: 106px;
     margin: 16px;
@@ -32,7 +32,7 @@
     grid-template-columns: 5fr 1fr;
     padding: 9px;
     text-align: center;
-    margin-top: 10%;
+    grid-template-rows: 2fr 1fr;
 }
 
 .opponent-side {
@@ -41,7 +41,7 @@
     grid-template-columns: 1fr 5fr;
     padding: 9px;
     text-align: center;
-    margin-top: 10%;
+    grid-template-rows: 2fr 1fr;
 }
 
 .user-score {
@@ -50,6 +50,7 @@
     font-weight: bold;
     font-size: 16px;
     grid-column: 2;
+    grid-row: 1;
 }
 
 .opponent-score {
@@ -58,34 +59,56 @@
     font-weight: bold;
     font-size: 16px;
     grid-column: 1;
+    grid-row: 1;
 }
 
 .user-name {
     color: #FC4C02;
     grid-column: 1;
+    grid-row: 2;
+    margin-left: auto;
 }
 
 .opponent-name {
     color: #FC4C02;
     grid-column: 2;
+    grid-row: 2;
+    margin-right: auto;
+
 }
 
 
 .user-avatar {
     border: 2px solid #FC4C02;
-    display: block;
     grid-column: 1;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-image: url("pictures\jeffrey-keenan-pUhxoSapPFA-unsplash.jpg");
+    background-size: cover;
+    background-position: center center;
+    grid-row: 1;
+    margin-left: auto;
 }
 
 .opponent-avatar {
     border: 2px solid #FC4C02;
-    display: block;
     grid-column: 2;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-image: url("pictures\michael-dam-mEZ3PoFGs_k-unsplash.jpg");
+    background-size: cover;
+    background-position: center center;
+    object-fit: cover;
+    grid-row: 1;
+    margin-right: auto;
 }
 
 .match-status {
     color: #FC4C02;
     font-weight: bold;
-    position: absolute;
+    position: relative;
     padding: 4px;
 }
+

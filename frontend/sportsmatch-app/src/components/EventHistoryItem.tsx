@@ -15,7 +15,7 @@ function EventHistoryItem({ eventHistoryDTO }: EventHistoryProps) {
           <div className="user-side">
             <div className="user-avatar">
               <Avatar
-                src="C:\Users\Johna\IdeaProjects\untitled\greenfox\sportsmatch\pictures\jeffrey-keenan-pUhxoSapPFA-unsplash.jpg"
+                src=""
                 alt="User"
               />
             </div>
@@ -31,7 +31,7 @@ function EventHistoryItem({ eventHistoryDTO }: EventHistoryProps) {
             </div>
             <div className="opponent-avatar">
               <Avatar
-                src="C:\Users\Johna\IdeaProjects\untitled\greenfox\sportsmatch\pictures\michael-dam-mEZ3PoFGs_k-unsplash.jpg"
+                src=""
                 alt="Opponent"
               />
             </div>

@@ -1,31 +1,31 @@
-import '../styles/LoginComponent.css'
+import '../styles/SignupComponent.css'
 import { FaLock, FaMailBulk } from 'react-icons/fa'
 
 function SignupComponent() {
   return (
-    <div className="wrapper">
+    <div className="signup-wrapper">
       <form action="">
         <h1>Sign up</h1>
-        <div className="input-box">
+        <div className="signup-input-box">
           <label htmlFor="email"></label>
           <input type="email" placeholder="E-mail addres" required />
-          <FaMailBulk className="icon" />
+          <FaMailBulk className="signup-icon" />
         </div>
-        <div className="input-box">
+        <div className="signup-input-box">
           <label htmlFor="password"></label>
           <input type="password" placeholder="password" required />
-          <FaLock className="icon" />
+          <FaLock className="signup-icon" />
         </div>
-        <div className="input-box">
+        <div className="signup-input-box">
           <label htmlFor="confirm-password"></label>
           <input
             type="confirm-password"
             placeholder="confirm password"
             required
           />
-          <FaLock className="icon" />
+          <FaLock className="signup-icon" />
         </div>
-        <div className="remember-forgot">
+        <div className="signup-remember-forgot">
           <a href="login">Allready have an account? Log in here.</a>
         </div>
 

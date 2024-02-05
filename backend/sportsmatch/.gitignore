@@ -38,3 +38,4 @@ out/
 
 ### h2 database ###
 ./sportsmatch
+*.db

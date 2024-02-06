@@ -1,16 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;900&display=swap');
 
 
-
-
 .colon {
-    display: block;
+    display: grid;
     color: #FC4C02;
     font-weight: bold;
     font-size: 16px;
     text-align: center;
     grid-column: 2;
-    padding: 9px;
+    padding: 9px 9px 0 9px;
+    height: 41px;
+}
+
+.colon span {
+    margin: auto;
 }
 
 .event-history-item {
@@ -21,12 +24,11 @@
     margin: 16px;
     font-size: 10px;
     background-color: #F7F7F7;
-    font-family: 'Inter', sans-serif;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.05);
     border: 2px solid #FC4C02;
     border-radius: 10px;
 }
-  
+
 .user-side {
     grid-column: 1;
     display: grid;
@@ -53,28 +55,28 @@
     grid-column: 2;
 }
 
-.user-score {
-    align-items: center;
-    display: flex;
+
+.score {
     height: 35px;
-    text-align: right;
     color: #FC4C02;
     font-weight: bold;
     font-size: 16px;
-    grid-column: 3;
     grid-row: 1;
+    display: grid;
+}
+
+.score span {
+    margin: auto 0;
+}
+
+.user-score {
+    grid-column: 3;
+    text-align: right;
 }
 
 .opponent-score {
-    align-items: center;
-    display: flex;
-    height: 35px;
-    text-align: left;
-    color: #FC4C02;
-    font-weight: bold;
-    font-size: 16px;
     grid-column: 1;
-    grid-row: 1;
+    text-align: left;
 }
 
 .user-name {
@@ -92,26 +94,15 @@
 
 
 .user-avatar {
-    border: 2px solid #FC4C02;
     width: 35px;
     height: 35px;
-    border-radius: 50%;
-    background-image: url("pictures\jeffrey-keenan-pUhxoSapPFA-unsplash.jpg");
-    background-size: cover;
-    background-position: center center;
     grid-row: 1;
     margin: auto;
 }
 
 .opponent-avatar {
-    border: 2px solid #FC4C02;
     width: 35px;
     height: 35px;
-    border-radius: 50%;
-    background-image: url("pictures\michael-dam-mEZ3PoFGs_k-unsplash.jpg");
-    background-size: cover;
-    background-position: center center;
-    object-fit: cover;
     grid-row: 1;
     margin: auto;
 }

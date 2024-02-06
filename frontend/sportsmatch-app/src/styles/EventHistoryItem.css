@@ -20,6 +20,7 @@
     min-height: 106px;
     margin: 16px;
     font-size: 10px;
+    background-color: #F7F7F7;
     font-family: 'Inter', sans-serif;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.05);
     border: 2px solid #FC4C02;
@@ -66,14 +67,14 @@
     color: #FC4C02;
     grid-column: 1;
     grid-row: 2;
-    margin-left: auto;
+    margin: auto;
 }
 
 .opponent-name {
     color: #FC4C02;
     grid-column: 2;
     grid-row: 2;
-    margin-right: auto;
+    margin: auto;
 
 }
 
@@ -88,7 +89,7 @@
     background-size: cover;
     background-position: center center;
     grid-row: 1;
-    margin-left: auto;
+    margin: auto;
 }
 
 .opponent-avatar {
@@ -102,7 +103,7 @@
     background-position: center center;
     object-fit: cover;
     grid-row: 1;
-    margin-right: auto;
+    margin: auto;
 }
 
 .match-status {

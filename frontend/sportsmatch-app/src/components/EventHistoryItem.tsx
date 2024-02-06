@@ -10,18 +10,15 @@ function EventHistoryItem({ eventHistoryDTO }: EventHistoryProps) {
     <>
       <div className="container-sm">
         <div className="event-history-item">
-        
           <div className="match-status">VICTORY (uncorfirmed)</div>
           <div className="user-side">
             <div className="user-avatar">
-              <Avatar
-                src=""
-                alt="User"
-              />
+              <Avatar src="" alt="User" />
+              <div className="user-name">You</div>
             </div>
-            <div className="user-score">{eventHistoryDTO.userScore}</div>
-            <div className="user-name">You</div>
           </div>
+          <div className="user-score">{eventHistoryDTO.userScore}</div>
+
           <div className="colon">
             <p>:</p>
           </div>
@@ -30,13 +27,10 @@ function EventHistoryItem({ eventHistoryDTO }: EventHistoryProps) {
               {eventHistoryDTO.opponentScore}
             </div>
             <div className="opponent-avatar">
-              <Avatar
-                src=""
-                alt="Opponent"
-              />
-            </div>
-            <div className="opponent-name">
-              {eventHistoryDTO.opponent?.name}
+              <Avatar src="" alt="Opponent" />
+              <div className="opponent-name">
+                {eventHistoryDTO.opponent?.name}
+              </div>
             </div>
           </div>
         </div>

@@ -45,16 +45,30 @@
     grid-template-rows: 2fr 1fr;
 }
 
+.user-profile {
+    grid-column: 2;
+}
+
+.opponent-profile {
+    grid-column: 2;
+}
+
 .user-score {
+    align-items: center;
+    display: flex;
+    height: 35px;
     text-align: right;
     color: #FC4C02;
     font-weight: bold;
     font-size: 16px;
-    grid-column: 2;
+    grid-column: 3;
     grid-row: 1;
 }
 
 .opponent-score {
+    align-items: center;
+    display: flex;
+    height: 35px;
     text-align: left;
     color: #FC4C02;
     font-weight: bold;
@@ -65,14 +79,12 @@
 
 .user-name {
     color: #FC4C02;
-    grid-column: 1;
     grid-row: 2;
     margin: auto;
 }
 
 .opponent-name {
     color: #FC4C02;
-    grid-column: 2;
     grid-row: 2;
     margin: auto;
 
@@ -81,7 +93,6 @@
 
 .user-avatar {
     border: 2px solid #FC4C02;
-    grid-column: 1;
     width: 35px;
     height: 35px;
     border-radius: 50%;
@@ -94,7 +105,6 @@
 
 .opponent-avatar {
     border: 2px solid #FC4C02;
-    grid-column: 2;
     width: 35px;
     height: 35px;
     border-radius: 50%;

@@ -23,3 +23,24 @@
   --sm-h2-size: 1em;
   --sm-text-size: 1em;
 }
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+svg {
+  color: var(--sm-white);
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: var(--sm-primary-bg);
+  background-size: cover;
+  background-position: center;
+}

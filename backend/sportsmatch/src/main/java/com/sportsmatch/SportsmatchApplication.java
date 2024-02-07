@@ -32,7 +32,14 @@ public class SportsmatchApplication implements CommandLineRunner {
 
   @Override
   public void run(String... args) throws Exception {
-    addData();
+    checkRecords();
+  }
+
+  private void checkRecords() {
+    List<User> users = userRepository.findAll();
+    if (users.isEmpty()) {
+      addData();
+    }
   }
 
   public void addData() {

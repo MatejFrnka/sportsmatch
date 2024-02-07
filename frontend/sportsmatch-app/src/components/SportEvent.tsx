@@ -1,4 +1,5 @@
 import '../styles/SportEvent.css'
+import { LuMapPin, LuMedal, LuCalendarCheck, LuCalendarX } from 'react-icons/lu'
 
 interface SportEventProps {
   event: {
@@ -19,20 +20,29 @@ function SportEvent({ event }: SportEventProps) {
   return (
     <>
       <div className="container-sm">
-        <div className="event-card">
-          <div className="left">
-            <ul>
-              <li>📍{event.location}</li>
-              <li>
-                🏅{event.minElo} - {event.maxElo}
-              </li>
-              <li>
-                📆{event.dateStart} to {event.dateEnd}
-              </li>
-            </ul>
-          </div>
-          <div className="right">
-            <h3>{event.title}</h3>
+        <div className="event">
+          <div className="row">
+            <div className="col left">
+              <ul>
+                <li data-testid="luMapPin">
+                  <LuMapPin /> {event.location}
+                </li>
+                <li data-testid="luMedal">
+                  <LuMedal /> {event.minElo} - {event.maxElo}
+                </li>
+                <li data-testid="luCalendarCheck">
+                  <LuCalendarCheck />
+                  {event.dateStart}
+                </li>
+                <li data-testid="luCalendarX">
+                  <LuCalendarX />
+                  {event.dateEnd}
+                </li>
+              </ul>
+            </div>
+            <div className="col right">
+              <h3>{event.title}</h3>
+            </div>
           </div>
         </div>
       </div>

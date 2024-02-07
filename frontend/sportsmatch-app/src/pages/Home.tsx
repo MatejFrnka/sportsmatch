@@ -1,3 +1,4 @@
+import Match from '../components/Match'
 import SportEvent from '../components/SportEvent'
 import EventHistoryItem from '../components/EventHistoryItem'
 
@@ -7,7 +8,7 @@ function Home() {
     id: 1,
     maxElo: 2000,
     minElo: 1200,
-    dateEnd: '2024-05-01',
+    dateEnd: '2024-05-02',
     dateStart: '2024-05-01',
     location: 'Prague, Stadium A',
     title: 'Badminton match',
@@ -23,6 +24,7 @@ function Home() {
 
   return (
     <>
+      <Match event={sampleEvent} />
       <SportEvent event={sampleEvent} />
       <EventHistoryItem eventHistoryDTO={sampleHistoryDTO}/>
     </>

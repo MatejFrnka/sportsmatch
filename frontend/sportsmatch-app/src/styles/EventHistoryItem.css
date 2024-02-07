@@ -33,7 +33,7 @@
     grid-column: 1;
     display: grid;
     grid-template-columns: 3fr 1fr 1fr;
-    padding: 9px;
+    padding: 9px 9px 0 9px;
     text-align: center;
     grid-template-rows: 2fr 1fr;
 }
@@ -42,19 +42,10 @@
     grid-column: 3;
     display: grid;
     grid-template-columns: 1fr 1fr 3fr;
-    padding: 9px;
+    padding: 9px 9px 0 9px;
     text-align: center;
     grid-template-rows: 2fr 1fr;
 }
-
-.user-profile {
-    grid-column: 2;
-}
-
-.opponent-profile {
-    grid-column: 2;
-}
-
 
 .score {
     height: 35px;
@@ -79,25 +70,23 @@
     text-align: left;
 }
 
-.user-name {
+.profile {
+    grid-column: 2;
     color: #FC4C02;
-    grid-row: 2;
     margin: auto;
+}
+.user-name {
+    grid-row: 2;
 }
 
 .opponent-name {
-    color: #FC4C02;
     grid-row: 2;
-    margin: auto;
-
 }
-
 
 .user-avatar {
     width: 35px;
     height: 35px;
     grid-row: 1;
-    margin: auto;
 }
 
 .opponent-avatar {
@@ -110,7 +99,9 @@
 .match-status {
     color: #FC4C02;
     font-weight: bold;
+    font-size: 12px;;
     position: relative;
-    padding: 4px;
+    padding: 4px 4px 8px 8px;
+    letter-spacing: 10%;
 }
 

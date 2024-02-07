@@ -4,6 +4,7 @@ import Home from './pages/Home'
 import Test from './pages/Test'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
+import { AllSportsList } from './pages/AllSportsList'
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Routes>
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<Signup />} />
+          <Route path="allSports" element={<AllSportsList />} />
           <Route path="test" element={<Test />}>
             <Route index element={<Test />} />
             <Route path=":testId" element={<Test />} />

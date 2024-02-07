@@ -49,7 +49,7 @@ public class EventsController {
 
   // todo this is placeholder for frontend - it doesn't do anything yet
   @GetMapping("/event-history")
-  public EventHistoryDTO getEventsHistory(){
+  public EventHistoryDTO getEventsHistory() {
     EventHistoryDTO eventHistoryDTO = new EventHistoryDTO();
     return eventHistoryDTO;
   }

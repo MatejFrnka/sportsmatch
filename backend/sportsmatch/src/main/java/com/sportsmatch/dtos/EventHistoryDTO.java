@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class EventHistoryDTO {
 
-    private Integer userScore;
-    private Integer opponentScore;
-    private UserDTO opponent;
+  private Integer userScore;
+  private Integer opponentScore;
+  private UserDTO opponent;
 }

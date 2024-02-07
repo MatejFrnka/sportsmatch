@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@700&display=swap');
 
 * {
   font-family: 'Inter', sans-serif;
@@ -29,8 +28,8 @@ body {
   text-align: right;
   background: linear-gradient(
       0deg,
-      rgba(232, 95, 41, 0.25),
-      rgba(232, 95, 41, 0.25)
+      var(--sm-orange-overlay),
+      var(--sm-orange-overlay)
     ),
     url('/assets/img-event-card-badminton.png');
   background-size: cover;

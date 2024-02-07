@@ -1,38 +1,25 @@
-.App {
-  text-align: center;
-}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@700&display=swap');
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
+:root {
+  --sm-primary-font: 'Inter', sans-serif;
+  --sm-secondary-font: 'Manrope', sans-serif;
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
+  --sm-primary-bg: #f9f8f5;
+  --sm-orange: #e85f29;
+  --sm-dark: #4a494f;
+  --sm-white: #ffffff;
+  --sm-txt-dark: #393939;
+  --sm-secondary-orange: #fc4c02;
+  --sm-orange-overlay: rgba(232, 95, 41, 0.25);
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
+  --sm-border-shadow: 0px 0px 5px rgba(0, 0, 0, 0.05);
+  --sm-border-radius: 2px;
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  --sm-btn-size-regular: 3.125em;
+  --sm-btn-size-small: 1.875em;
+  
+  --sm-h1-size: 3em;
+  --sm-h2-size: 1em;
+  --sm-text-size: 1em;
 }

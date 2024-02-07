@@ -23,7 +23,6 @@ function EventHistoryItem({ eventHistoryDTO }: EventHistoryProps) {
               <span>{eventHistoryDTO.userScore}</span>
             </div>
           </div>
-
           <div className="colon">
             <span>:</span>
           </div>

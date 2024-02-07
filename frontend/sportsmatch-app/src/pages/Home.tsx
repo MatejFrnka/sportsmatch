@@ -2,7 +2,6 @@ import Match from '../components/Match'
 import SportEvent from '../components/SportEvent'
 import EventHistoryItem from '../components/EventHistoryItem'
 
-
 function Home() {
   const sampleEvent = {
     id: 1,
@@ -16,17 +15,17 @@ function Home() {
     playerOne: 'johndoe87',
     playerTwo: 'jess_ward',
   }
-  const sampleHistoryDTO= {
+  const sampleHistoryDTO = {
     userScore: 1,
     opponentScore: 2,
-    opponent: {name: 'Opponent'},
+    opponent: { name: 'Opponent' },
   }
 
   return (
     <>
       <Match event={sampleEvent} />
       <SportEvent event={sampleEvent} />
-      <EventHistoryItem eventHistoryDTO={sampleHistoryDTO}/>
+      <EventHistoryItem eventHistoryDTO={sampleHistoryDTO} />
     </>
   )
 }

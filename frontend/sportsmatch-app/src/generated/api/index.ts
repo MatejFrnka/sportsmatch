@@ -9,8 +9,11 @@ export type { OpenAPIConfig } from './core/OpenAPI';
 
 export type { AuthRequestDTO } from './models/AuthRequestDTO';
 export type { EventDTO } from './models/EventDTO';
+export type { Pageable } from './models/Pageable';
+export type { SportDTO } from './models/SportDTO';
 
 export { EventsControllerService } from './services/EventsControllerService';
 export { ExSecuredEndpointService } from './services/ExSecuredEndpointService';
 export { LoginService } from './services/LoginService';
 export { RegisterService } from './services/RegisterService';
+export { SportControllerService } from './services/SportControllerService';

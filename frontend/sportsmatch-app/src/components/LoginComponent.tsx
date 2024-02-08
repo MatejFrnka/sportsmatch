@@ -27,7 +27,7 @@ function LoginComponent() {
         <button type="submit">Log in</button>
         <div className="login-register-link">
           <p>
-            Dont have an account <a href="signup">REEGISTER</a>
+            Dont have an account <a href="signup">REGISTER</a>
           </p>
         </div>
         <p className="alt-login-text">Or log in using</p>

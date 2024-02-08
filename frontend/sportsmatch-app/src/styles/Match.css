@@ -1,25 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@700&display=swap');
-
-svg {
-  color: #fff;
-}
-
 .match {
   margin-top: 4em;
 }
 
 .match .row {
   margin: 0.75em 0;
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.05);
-  background: linear-gradient(
-      0deg,
-      rgba(232, 95, 41, 0.25),
-      rgba(232, 95, 41, 0.25)
-    ),
-    url(./assets/InProgress.png);
+  box-shadow: var(--sm-border-shadow);
+  background: linear-gradient(0deg,var(--sm-orange-overlay),var(--sm-orange-overlay)),url(./assets/InProgress.png);
   background-clip: content-box;
   background-size: cover;
-  border-radius: 2px;
+  border-radius: var(--sm-border-radius);
   min-height: 395px;
 }
 
@@ -42,12 +31,10 @@ svg {
 }
 
 .match h1 {
-  font-family: 'Manrope', sans-serif;
+  font-family: var(--sm-secondary-font);
   font-size: 2.5em !important;
   font-weight: 900;
-  font-size: 1em;
-
-  color: #fff;
+  color: var(--sm-white);
 }
 
 .match .overlap {

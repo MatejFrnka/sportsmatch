@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;900&display=swap');
 
 * {
@@ -119,16 +120,6 @@
 
 .login-register-link p a:hover {
   text-decoration: underline;
-}
-
-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background: #e9e6e6;
-  background-size: cover;
-  background-position: center;
 }
 
 .alt-login {

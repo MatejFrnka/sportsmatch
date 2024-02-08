@@ -3,20 +3,20 @@ import { FaMailBulk, FaLock, FaGoogle, FaFacebook } from 'react-icons/fa'
 
 function LoginComponent() {
   return (
-    <div className="wrapper">
+    <div className="wrapper-login">
       <form action="">
         <h1>Log in</h1>
-        <div className="input-box">
+        <div className="login-input-box">
           <label htmlFor="email"></label>
           <input type="email" placeholder="E-mail addres" required />
           <FaMailBulk className="icon" />
         </div>
-        <div className="input-box">
+        <div className="login-input-box">
           <label htmlFor="password"></label>
           <input type="password" placeholder="password" required />
           <FaLock className="icon" />
         </div>
-        <div className="remember-forgot">
+        <div className="login-remember-forgot">
           <label>
             <input type="checkbox" />
             Remember me{' '}
@@ -25,9 +25,9 @@ function LoginComponent() {
         </div>
 
         <button type="submit">Log in</button>
-        <div className="register-link">
+        <div className="login-register-link">
           <p>
-            Dont have an account <a href="signup">Register</a>
+            Dont have an account <a href="signup">REGISTER</a>
           </p>
         </div>
         <p className="alt-login-text">Or log in using</p>

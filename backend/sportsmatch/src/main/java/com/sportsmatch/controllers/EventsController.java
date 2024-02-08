@@ -53,4 +53,11 @@ public class EventsController {
     EventHistoryDTO eventHistoryDTO = new EventHistoryDTO();
     return eventHistoryDTO;
   }
+
+
+  @PostMapping("/addEventScore")
+  public ResponseEntity<?> addEventToHistory(@RequestParam Integer user1Rating,
+                                                @RequestParam Integer user2Rating) {
+    return null;
+  }
 }

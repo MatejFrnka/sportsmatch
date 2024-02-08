@@ -11,6 +11,7 @@ import java.util.HashSet;
 import java.util.Set;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -95,5 +96,10 @@ public class EventService {
 
   public void deleteEventFromDatabase(Event eventById) {
     eventRepository.deleteById(eventById.getId());
+  }
+
+
+  public ResponseEntity<?> addEventToHistory(Integer user1Rating, Integer user2Rating){
+    return null;
   }
 }

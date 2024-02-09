@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { SportComponent } from '../components/SportComponent'
 import { SportDTO } from '../generated/api'
-import 'bootstrap/dist/css/bootstrap.min.css'
 import '../App.css'
 
 import { TbSearch } from 'react-icons/tb'
@@ -28,16 +27,14 @@ export function AllSportsList() {
   const renderSearchBar = (): JSX.Element => {
     return (
       <div className="container">
-        <div className="input-group mb-3">
-          <span className="input-group-text">
-            <TbSearch className="search-icon" />
-            <input
-              type="text"
-              placeholder="Find your sports"
-              className="input-search"
-            />
-          </span>
-        </div>
+        <span className="input-group-text">
+          <TbSearch className="search-icon" />
+          <input
+            type="text"
+            placeholder="Find your sports"
+            className="input-search"
+          />
+        </span>
       </div>
     )
   }
@@ -46,9 +43,14 @@ export function AllSportsList() {
     <>
       <div className="body">
         <div>{renderSearchBar()}</div>
-        <div className="container">{sportList}</div>
-
-        <div>{selectedSports.length}</div>
+        <form action="">
+          <div className="container">{sportList}</div>
+          <div className="container">
+            <button type="submit">
+              Selected sports {selectedSports.length}
+            </button>
+          </div>
+        </form>
       </div>
     </>
   )

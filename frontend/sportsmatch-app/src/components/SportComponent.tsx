@@ -1,13 +1,13 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { SportDTO } from '../generated/api'
 import '../styles/Sport.css'
 
 interface Props {
   sport: SportDTO
-  onClickNext: (isSelected: boolean) => void
+  onChange: () => void
 }
 
-export function SportComponent(p: Props) {
+export const SportComponent = (p: Props) => {
   const [isSelected, setSelected] = useState<boolean>(false)
 
   const [className, setClassName] = useState<string>(`unselected`)
@@ -23,22 +23,24 @@ export function SportComponent(p: Props) {
   const renderSportItem = (): JSX.Element => {
     return (
       <div
-        className={`container text-center ${className}`}
+        className={`container checkbox-wrapper text-center ${className}`}
         style={{
           backgroundImage: `url(./assets/sport-component-boxing.jpg)`,
         }}
       >
-        <div>
-          <a
-            href="#"
-            onClick={() => {
-              isSelected ? setSelected(false) : setSelected(true)
+        <label>
+          <input
+            className="checkbox"
+            id={p.sport.name}
+            type="checkbox"
+            checked={isSelected}
+            onChange={() => {
+              setSelected((prev) => !prev)
               changeClassName()
             }}
-          >
-            {p.sport.name}
-          </a>
-        </div>
+          />
+          <span>{p.sport.name}</span>
+        </label>
       </div>
     )
   }

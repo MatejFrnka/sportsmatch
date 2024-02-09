@@ -1,25 +1,39 @@
-a {
-    text-decoration: none;
-    font-size: 3em;
-    color: inherit;
-    padding-top: 10%;
-    padding-bottom: 10%;
+.checkbox {    
+    appearance: none;       
 }
+
+.checkbox-wrapper{
+  font-size: 3em;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.05);
+  border-radius: 2px; 
+  margin: 0.75em 0;
+}
+
 .selected {
+
 color: #e85f29;
 background: linear-gradient(
     0deg,
     rgba(232, 95, 41, 0.5),
     rgba(232, 95, 41, 0.5)),    
     #FFFFFF;
-box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.05);
-border-radius: 2px;
-margin: 0.75em 0;
+
 }
 
 .unselected {
 color: #FFFFFF;
-box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.05);
-border-radius: 2px;
-margin: 0.75em 0;
 }
+
+.input-search {    
+    border: 1px solid rgba(65, 58, 58, 0.2);
+    border-radius: 40px;
+    font-size: 1.5em;
+    padding: 0.25em 0.5em 0.25em 20px;
+  }
+  
+
+.search-icon {
+    color: #4a494f;
+    height: 100%; 
+    font-size: 1.5em;
+  }

@@ -5,6 +5,7 @@ import Test from './pages/Test'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import NewUser from './pages/NewUser'
+import UserPage from './pages/UserPage'
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
             <Route path=":testId" element={<Test />} />
           </Route>
           <Route path="/" element={<Home />} />
+          <Route path='user' element={<UserPage />}></Route>
         </Routes>
       </div>
     </BrowserRouter>

@@ -20,7 +20,7 @@ export default function UserPage() {
       playerTwo: 'jess_ward',
     },
   }
-  
+
   const sampleAllEventsDTO = [
     {
       id: 1,

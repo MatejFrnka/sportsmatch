@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { SportDTO } from '../generated/api'
 import '../App.css'
 import '../styles/Sport.css'
-
+import { useNavigate } from 'react-router-dom'
 import { TbSearch } from 'react-icons/tb'
 
 export function AllSportsList() {
@@ -19,6 +19,8 @@ export function AllSportsList() {
     sport: SportDTO
     selected: boolean
   }
+
+  const navigate = useNavigate()
 
   const [sportsState, setSportsState] = useState<SportState[]>(
     sampleSports.map((sport) => ({ sport, selected: false })),
@@ -37,6 +39,13 @@ export function AllSportsList() {
     setSportsState(updatedSportsState)
   }
 
+  const handleFinishSelection = () => {
+    const selectedSports = sportsState
+      .filter((s) => s.selected)
+      .map((s) => s.sport)
+    navigate('/test/3', { state: selectedSports })
+  }
+
   const sportList = sportsState
     .filter((s) =>
       s.sport.name?.toLowerCase().includes(searchQuery.toLowerCase()),
@@ -45,7 +54,7 @@ export function AllSportsList() {
       return (
         <div
           key={index}
-          className={`container checkbox-wrapper text-center 
+          className={`row checkbox-wrapper text-center 
         ${currentSport.selected ? 'selected' : 'unselected'}`}
           style={{
             backgroundImage: `url(./assets/sport-component-boxing.jpg)`,
@@ -68,34 +77,32 @@ export function AllSportsList() {
 
   const renderSearchBar = (): JSX.Element => {
     return (
-      <div className="container">
-        <span className="input-group-text">
-          <TbSearch className="search-icon" />
-          <input
-            type="text"
-            placeholder="Find your sports"
-            className="input-search"
-            value={searchQuery}
-            onChange={handleSeacrh}
-          />
-        </span>
+      <div className="row input-search">
+        <TbSearch className="search-icon" />
+        <input
+          type="text"
+          placeholder="Find your sports"
+          className="input-search"
+          value={searchQuery}
+          onChange={handleSeacrh}
+        />
       </div>
     )
   }
 
   return (
     <>
-      <div className="body">
-        <div>{renderSearchBar()}</div>
-        <form action="">
-          <div className="container">{sportList}</div>
-          <div className="container">
-            <button type="submit">
+      <div className="container-sm">
+        <div className="allsports-page">
+          {renderSearchBar()}
+          {sportList}
+          <div className="row">
+            <button type="submit" onClick={handleFinishSelection}>
               Selected sports{' '}
               {sportsState.filter((sport) => sport.selected).length}
             </button>
           </div>
-        </form>
+        </div>
       </div>
     </>
   )

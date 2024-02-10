@@ -10,6 +10,9 @@ export function AllSportsList() {
     { name: 'Badminton' },
     { name: 'Tennis' },
     { name: 'Boxing' },
+    { name: 'Table Tennis' },
+    { name: 'Squash' },
+    { name: 'Bowling' },
   ]
 
   interface SportState {
@@ -20,37 +23,48 @@ export function AllSportsList() {
   const [sportsState, setSportsState] = useState<SportState[]>(
     sampleSports.map((sport) => ({ sport, selected: false })),
   )
+  const [searchQuery, setSearchQuery] = useState('')
 
-  const handleSportSelection = (index: number) => {
+  const handleSeacrh = (e: { target: { value: string } }) => {
+    const query = e.target.value
+    setSearchQuery(query)
+  }
+
+  const handleSportSelection = (sport: SportState) => {
+    const index = sportsState.indexOf(sport)
     const updatedSportsState = [...sportsState]
     updatedSportsState[index].selected = !updatedSportsState[index].selected
     setSportsState(updatedSportsState)
   }
 
-  const sportList = sportsState.map((currentSport, index) => {
-    return (
-      <div
-        key={index}
-        className={`container checkbox-wrapper text-center 
-        ${currentSport.selected ? 'selected' : 'unselected'}`}
-        style={{
-          backgroundImage: `url(./assets/sport-component-boxing.jpg)`,
-        }}
-      >
-        <label>
-          <input
-            className="checkbox"
-            type="checkbox"
-            checked={currentSport.selected}
-            onChange={() => {
-              handleSportSelection(index)
-            }}
-          />
-          <span>{currentSport.sport.name}</span>
-        </label>
-      </div>
+  const sportList = sportsState
+    .filter((s) =>
+      s.sport.name?.toLowerCase().includes(searchQuery.toLowerCase()),
     )
-  })
+    .map((currentSport, index) => {
+      return (
+        <div
+          key={index}
+          className={`container checkbox-wrapper text-center 
+        ${currentSport.selected ? 'selected' : 'unselected'}`}
+          style={{
+            backgroundImage: `url(./assets/sport-component-boxing.jpg)`,
+          }}
+        >
+          <label>
+            <input
+              className="checkbox"
+              type="checkbox"
+              checked={currentSport.selected}
+              onChange={() => {
+                handleSportSelection(currentSport)
+              }}
+            />
+            <span>{currentSport.sport.name}</span>
+          </label>
+        </div>
+      )
+    })
 
   const renderSearchBar = (): JSX.Element => {
     return (
@@ -61,6 +75,8 @@ export function AllSportsList() {
             type="text"
             placeholder="Find your sports"
             className="input-search"
+            value={searchQuery}
+            onChange={handleSeacrh}
           />
         </span>
       </div>

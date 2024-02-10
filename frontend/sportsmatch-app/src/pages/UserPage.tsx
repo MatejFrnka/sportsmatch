@@ -90,8 +90,8 @@ export default function UserPage() {
                 {sampleAllEventsDTO === null ? (
                   <p>No match history</p>
                 ) : (
-                  sampleAllEventsDTO.map((event) => (
-                    <EventHistoryItem key={event.id} eventHistoryDTO={event} />
+                  sampleAllEventsDTO.map((e) => (
+                    <EventHistoryItem key={e.id} eventHistoryDTO={e} />
                   ))
                 )}
               </div>

@@ -20,7 +20,7 @@ function App() {
             <Route path=":testId" element={<Test />} />
           </Route>
           <Route path="/" element={<Home />} />
-          <Route path='user' element={<UserPage />}></Route>
+          <Route path="user" element={<UserPage />}></Route>
         </Routes>
       </div>
     </BrowserRouter>

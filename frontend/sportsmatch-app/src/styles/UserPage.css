@@ -21,8 +21,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 395px;
-  width: 395px;
+  min-height: 24.688em;
+  min-width: 24.688em;
 }
 
 .user-page .view-wrapper p,

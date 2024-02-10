@@ -1,26 +1,54 @@
 import { useState } from 'react'
-import { SportComponent } from '../components/SportComponent'
 import { SportDTO } from '../generated/api'
 import '../App.css'
+import '../styles/Sport.css'
 
 import { TbSearch } from 'react-icons/tb'
 
 export function AllSportsList() {
-  const sampleSport: SportDTO[] = [
+  const sampleSports: SportDTO[] = [
     { name: 'Badminton' },
     { name: 'Tennis' },
     { name: 'Boxing' },
   ]
 
-  const [selectedSports, setSelectedSports] = useState<SportDTO[]>([])
+  interface SportState {
+    sport: SportDTO
+    selected: boolean
+  }
 
-  const sportList = sampleSport.map((currentSport, index) => {
+  const [sportsState, setSportsState] = useState<SportState[]>(
+    sampleSports.map((sport) => ({ sport, selected: false })),
+  )
+
+  const handleSportSelection = (index: number) => {
+    const updatedSportsState = [...sportsState]
+    updatedSportsState[index].selected = !updatedSportsState[index].selected
+    setSportsState(updatedSportsState)
+  }
+
+  const sportList = sportsState.map((currentSport, index) => {
     return (
-      <SportComponent
+      <div
         key={index}
-        sport={currentSport}
-        onChange={() => setSelectedSports([...selectedSports, currentSport])}
-      />
+        className={`container checkbox-wrapper text-center 
+        ${currentSport.selected ? 'selected' : 'unselected'}`}
+        style={{
+          backgroundImage: `url(./assets/sport-component-boxing.jpg)`,
+        }}
+      >
+        <label>
+          <input
+            className="checkbox"
+            type="checkbox"
+            checked={currentSport.selected}
+            onChange={() => {
+              handleSportSelection(index)
+            }}
+          />
+          <span>{currentSport.sport.name}</span>
+        </label>
+      </div>
     )
   })
 
@@ -47,7 +75,8 @@ export function AllSportsList() {
           <div className="container">{sportList}</div>
           <div className="container">
             <button type="submit">
-              Selected sports {selectedSports.length}
+              Selected sports{' '}
+              {sportsState.filter((sport) => sport.selected).length}
             </button>
           </div>
         </form>

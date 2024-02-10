@@ -20,13 +20,7 @@ export default function UserPage() {
       playerTwo: 'jess_ward',
     },
   }
-
-  const sampleUserWithOutEvent = {
-    id: 2,
-    username: `johndoe87`,
-    event: null,
-  }
-
+  
   const sampleAllEventsDTO = [
     {
       id: 1,

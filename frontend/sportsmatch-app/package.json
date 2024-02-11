@@ -21,6 +21,7 @@
     "react-dom": "^18.2.0",
     "react-icons": "^5.0.1",
     "react-router-dom": "^6.21.3",
+    "react-slideshow-image": "^4.3.0",
     "react-social-login-buttons": "^3.9.1",
     "reactjs-social-login": "^2.6.3"
   },

@@ -1,0 +1,190 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;900&display=swap');
+
+.newUser-wrapper h1 {
+  color: #e85f29;
+  font-size: 36px;
+  text-align: center;
+}
+
+.newUser-input-box {
+  position: relative;
+  width: 100%;
+  height: 30px;
+  margin: 20px 0;
+  margin: 0 0 40px 0;
+}
+
+.newUser-input-box input {
+  width: 100%;
+  height: 100%;
+  border: 1px solid rgba(65, 58, 58, 0.2);
+  border-radius: 40px;
+  font-size: 13px;
+  padding: 20px 45px 20px 20px;
+}
+
+.newUser-input-box input::placeholder {
+  color: #ccc;
+  font-size: 15px;
+}
+
+.newUser-input-box input:focus {
+  outline-color: #e85f29;
+}
+
+.newUser-input-box .newUser-icon {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  font-size: 16px;
+  color: #a1a0a0;
+}
+
+.wrapper .gender {
+  font-size: 16px;
+  margin: -15px 0 15px;
+}
+
+.male-female {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  margin: 10px 15px 15px;
+}
+
+.parent-male {
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+.parent-female {
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+.male {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 120px;
+  height: 130px;
+  border-radius: 30px;
+  background: #e85f29;
+  z-index: 1;
+}
+
+.female {
+  width: 120px;
+  height: 130px;
+  border-radius: 30px;
+  background: #e85f29;
+}
+
+.img-male {
+  position: absolute;
+  top: 10px;
+  left: 9px;
+  width: 100px;
+  z-index: 2;
+}
+
+.img-female {
+  position: absolute;
+  top: 10px;
+  left: 9px;
+  width: 100px;
+  z-index: 2;
+}
+
+.wrapper button {
+  width: 100%;
+  height: 45px;
+  background: #e85f29;
+  border: none;
+  outline: none;
+  border-radius: 40px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  font-size: 16px;
+  color: #fff;
+  font-weight: 600;
+  margin: 20px 0;
+}
+
+.sports-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-content: stretch;
+}
+
+.sports-checkbox {
+  display: none;
+}
+
+.sports-button {
+  display: inline-block;
+  padding: 10px;
+  border: none;
+  background-color: #2c2b2b;
+  color: #ffffff;
+  border-radius: 30px;
+  cursor: pointer;
+  margin: 3px;
+}
+
+.sports-checkbox:checked + .sports-button {
+  background-color: #e85f29;
+  color: #fff;
+}
+
+#more-sports-button {
+  width: 80px;
+  display: inline-block;
+  padding: 10px;
+  border: none;
+  background-color: #2c2b2b;
+  color: #ffffff;
+  border-radius: 30px;
+  cursor: pointer;
+  margin: 3px;
+}
+
+.wrapper .parent-male:hover {
+  transform: scale(1.05);
+}
+
+.wrapper .parent-female:hover {
+  transform: scale(1.05);
+}
+
+.wrapper button:hover {
+  transform: scale(1.05);
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #e9e6e6;
+  background-size: cover;
+  background-position: center;
+}
+
+p {
+  margin: 20px 20px 15px 0;
+}
+
+.wrapper-frame {
+  width: 430px;
+  background: #fff;
+  border: 2px solid rgba(65, 58, 58, 0.2);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(30px);
+  color: #ccc;
+  border-radius: 10px;
+  padding: 30px 20px;
+}

@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -47,17 +48,15 @@ public class EventsController {
     return ResponseEntity.ok().body(listOfEvents);
   }
 
-  // todo this is placeholder for frontend - it doesn't do anything yet
+
+  /**
+   * This endpoint returns the history of the finished events by the logged user
+   *
+   * @param pageable it contains the page and size for pagination
+   * @return a list of EventHistoryDTO of the logged user
+   */
   @GetMapping("/event-history")
-  public EventHistoryDTO getEventsHistory() {
-    EventHistoryDTO eventHistoryDTO = new EventHistoryDTO();
-    return eventHistoryDTO;
-  }
-
-
-  @PostMapping("/addEventScore")
-  public ResponseEntity<?> addEventToHistory(@RequestParam Integer user1Rating,
-                                                @RequestParam Integer user2Rating) {
-    return null;
+  public List<EventHistoryDTO> getEventsHistory(final Pageable pageable) {
+    return eventService.getEventsHistory(pageable);
   }
 }

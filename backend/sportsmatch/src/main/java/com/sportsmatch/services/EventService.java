@@ -1,27 +1,31 @@
 package com.sportsmatch.services;
 
 import com.sportsmatch.dtos.EventDTO;
+import com.sportsmatch.dtos.EventHistoryDTO;
 import com.sportsmatch.mappers.EventMapper;
-import com.sportsmatch.models.*;
+import com.sportsmatch.models.Event;
+import com.sportsmatch.models.EventPlayer;
 import com.sportsmatch.repositories.EventPlayerRepository;
 import com.sportsmatch.repositories.EventRepository;
 import com.sportsmatch.repositories.SportRepository;
 import com.sportsmatch.repositories.UserRepository;
-import java.util.HashSet;
-import java.util.Set;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.web.server.ResponseStatusException;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
 public class EventService {
+  private final UserService userService;
   private EventRepository eventRepository;
   private EventMapper eventMapper;
   private UserRepository userRepository;
@@ -99,7 +103,31 @@ public class EventService {
   }
 
 
-  public ResponseEntity<?> addEventToHistory(Integer user1Rating, Integer user2Rating){
+  /**
+   * Retrieves the event history of the logged-in user.
+   *
+   * @param pageable pagination information (page, size)
+   * @return a list of EventHistoryDTOs representing the logged-in user's event history
+   */
+  public List<EventHistoryDTO> getEventsHistory(final Pageable pageable) {
+    return eventRepository.findEventsByUser(userService.getUserFromTheSecurityContextHolder(), LocalDateTime.now(), pageable)
+        .stream()
+        .map(eventMapper::toDTO)
+        .collect(Collectors.toList());
+  }
+
+
+  /**
+   * Returns the checked status of the match (score, voting)
+   *
+   * @param players who entered the event
+   * @return the status of the match
+   * - both users submitted their ratings and it's matches   -> MATCH
+   * - users submitted different rating    -> DISMATCH
+   * - the other users hasn’t submitted rating yet   -> WAITING FOR RATING
+   */
+  public String checkTheStatusOfTheEvent(Set<EventPlayer> players) {
+
     return null;
   }
 }

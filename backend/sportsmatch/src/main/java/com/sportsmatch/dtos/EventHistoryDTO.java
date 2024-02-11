@@ -1,17 +1,20 @@
 package com.sportsmatch.dtos;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class EventHistoryDTO {
 
   private Integer userScore;
   private Integer opponentScore;
   private UserDTO opponent;
+  private LocalDateTime dateOfTheMatch;
+  private String status;
+
 }

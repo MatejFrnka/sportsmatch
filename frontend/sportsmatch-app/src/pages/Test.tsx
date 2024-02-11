@@ -8,7 +8,13 @@ function Test() {
 
   const location = useLocation()
 
-  const sports: SportDTO[] = location.state
+  const [sports, setSports] = useState<SportDTO[]>([])
+
+  useEffect(() => {
+    if (location.state != null) {
+      setSports(location.state)
+    }
+  }, [location.state])
 
   const renderSports = sports.map((sport, index) => {
     return <div key={index}>{sport.name}</div>
@@ -25,7 +31,7 @@ function Test() {
   return (
     <div>
       <h1>{message}</h1>
-      <div>{renderSports}</div>
+      {<div>{renderSports}</div>}
     </div>
   )
 }

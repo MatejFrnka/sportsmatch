@@ -77,7 +77,7 @@ export function AllSportsList() {
 
   const renderSearchBar = (): JSX.Element => {
     return (
-      <div className="row input-search">
+      <div className="container">
         <TbSearch className="search-icon" />
         <input
           type="text"
@@ -95,12 +95,14 @@ export function AllSportsList() {
       <div className="container-sm">
         <div className="allsports-page">
           {renderSearchBar()}
-          {sportList}
-          <div className="row">
-            <button type="submit" onClick={handleFinishSelection}>
-              Selected sports{' '}
-              {sportsState.filter((sport) => sport.selected).length}
-            </button>
+          <div className="container">
+            {sportList}
+            <div className="row button-wrapper">
+              <button type="submit" onClick={handleFinishSelection}>
+                Selected sports{' '}
+                {sportsState.filter((sport) => sport.selected).length}
+              </button>
+            </div>
           </div>
         </div>
       </div>

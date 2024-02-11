@@ -2,53 +2,63 @@
   appearance: none;       
 }
 
-.checkbox-wrapper{
-  font-size: 3em;
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.05);
-  border-radius: 2px; 
-  margin: 0.75em 0;
+.allsports-page {
+  margin-top: 64px;
 }
 
-.selected {
+.checkbox-wrapper{
+  font-size: 1.5rem;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.05);
+  border-radius: 2px; 
+  margin: 0.5rem 0;
+  padding: 0.25rem 0.25;
+}
 
+
+.selected {
 color: #e85f29;
 background: linear-gradient(
-    0deg,
-    rgba(232, 95, 41, 0.5),
-    rgba(232, 95, 41, 0.5)),    
-    #FFFFFF;
-
+      0deg,
+      var(--sm-orange-overlay),
+      var(--sm-orange-overlay)
+    )
 }
 
 .unselected {
 color: #FFFFFF;
 }
 
-.input-search {    
-  
+.input-search { 
+  height: inherit; 
+  width: 100%; 
   border: 1px solid rgba(65, 58, 58, 0.2);
   border-radius: 40px;
-  font-size: 1.5em;
-  padding: 0.25em 0.5em 0.25em 2.5em;
+  font-size: 0.5rem;
+  padding: 0.5rem 0.5rem 0.5rem 1.75rem;
 }
   
 .search-icon {
   position: relative;
-  left: 2em;
-  color: #4a494f;
-  height: 100%; 
-  font-size: 1.5em;
+  top: 1.6rem;
+  left: 0.75rem;
+  color: #4a494f; 
+  font-size: 0.75rem;
 }
 
 button {
   width: 100%;
-  height: 45px;
+  height: 2rem;
   background: #e85f29;
   border: none;
   outline: none;
   border-radius: 40px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   cursor: pointer;
-  font-size: 1.5em;
+  font-size: 0.6rem;  
   color: #fff;  
+}
+
+.button-wrapper{  
+  margin: 0.5rem 0;
+  padding: 0.25rem 0.25;
 }

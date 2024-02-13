@@ -2,30 +2,32 @@ package com.sportsmatch.mappers;
 
 import com.sportsmatch.dtos.EventDTO;
 import com.sportsmatch.dtos.EventHistoryDTO;
-import com.sportsmatch.dtos.UserDTO;
 import com.sportsmatch.models.Event;
 import com.sportsmatch.models.EventPlayer;
-import com.sportsmatch.models.User;
+import com.sportsmatch.services.EventService;
 import com.sportsmatch.services.UserService;
-import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Component
 public class EventMapper {
 
-  private ModelMapper modelMapper;
   private final UserService userService;
+  private final EventService eventService;
+
+  private final UserMapper userMapper;
+  private ModelMapper modelMapper;
 
   @Autowired
-  public EventMapper(ModelMapper modelMapper, UserService userService) {
+  public EventMapper(ModelMapper modelMapper, UserService userService, EventService eventService, UserMapper userMapper) {
     this.modelMapper = modelMapper;
     this.userService = userService;
+    this.eventService = eventService;
+    this.userMapper = userMapper;
     this.modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
   }
 
@@ -47,23 +49,33 @@ public class EventMapper {
     return modelMapper.map(eventDTO, Event.class);
   }
 
-  //TODO: finish the converting method
+  /**
+   * Convert an Event entity to and EventHistoryDTO
+   *
+   * @param event to be converted
+   * @return an EventHistoryDTO based on the given Event
+   */
   public EventHistoryDTO toDTO(Event event) {
 
-    User loggedUser = userService.getUserFromTheSecurityContextHolder();
+    // Get the logged-in EventPlayer
+    EventPlayer loggedPlayer = event.getPlayers().stream()
+        .filter(p -> p.getPlayer().getName().equals(userService.getUserFromTheSecurityContextHolder().getName()))
+        .findFirst()
+        .orElse(null);
 
-    Integer userScore = null;
-    Integer opponentScore = null;
-    UserDTO opponent = null;
-    LocalDateTime dateOfTheMatch = event.getDateEnd();
-    String status = null;
+    // Get the opponent EventPlayer
+    EventPlayer opponentPlayer = event.getPlayers().stream()
+        .filter(p -> !p.getPlayer().getName().equals(userService.getUserFromTheSecurityContextHolder().getName()))
+        .findFirst()
+        .orElse(null);
+
 
     return EventHistoryDTO.builder()
-        .userScore(userScore)
-        .opponentScore(opponentScore)
-        .opponent(opponent)
-        .dateOfTheMatch(dateOfTheMatch)
-        .status(status)
+        .userScore((loggedPlayer != null) ? loggedPlayer.getMyScore() : null)
+        .opponentScore((opponentPlayer != null) ? opponentPlayer.getMyScore() : null)
+        .opponent((opponentPlayer != null) ? userMapper.toDTO(opponentPlayer.getPlayer()) : null)
+        .dateOfTheMatch(event.getDateEnd())
+        .status(eventService.checkScoreMatch(event.getPlayers()))
         .build();
   }
 }

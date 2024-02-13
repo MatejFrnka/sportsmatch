@@ -5,6 +5,7 @@ import com.sportsmatch.dtos.EventHistoryDTO;
 import com.sportsmatch.mappers.EventMapper;
 import com.sportsmatch.models.Event;
 import com.sportsmatch.models.EventPlayer;
+import com.sportsmatch.models.User;
 import com.sportsmatch.repositories.EventPlayerRepository;
 import com.sportsmatch.repositories.EventRepository;
 import com.sportsmatch.repositories.SportRepository;
@@ -16,10 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -106,7 +104,7 @@ public class EventService {
   /**
    * Retrieves the event history of the logged-in user.
    *
-   * @param pageable pagination information (page, size)
+   * @param pageable contains the pagination information (page, size)
    * @return a list of EventHistoryDTOs representing the logged-in user's event history
    */
   public List<EventHistoryDTO> getEventsHistory(final Pageable pageable) {
@@ -116,18 +114,47 @@ public class EventService {
         .collect(Collectors.toList());
   }
 
-
   /**
-   * Returns the checked status of the match (score, voting)
+   * Returns the checked status of the match (check the score is matching or missing)
    *
-   * @param players who entered the event
+   * @param players who entered the event (2 playerEvent)
    * @return the status of the match
-   * - both users submitted their ratings and it's matches   -> MATCH
-   * - users submitted different rating    -> DISMATCH
-   * - the other users hasn’t submitted rating yet   -> WAITING FOR RATING
+   * There is 4 option:
+   * -Invalid Player -> if one of the player don't present.
+   * -Waiting for ratings -> if one of the players doesn't response with the score information.
+   * -Match -> when both player submitted their result and it is match.
+   * -Mismatch -> when both players have submitted their result and it isn't a match.
    */
-  public String checkTheStatusOfTheEvent(Set<EventPlayer> players) {
 
-    return null;
+  public String checkScoreMatch(Set<EventPlayer> players) {
+
+    User loggedUser = userService.getUserFromTheSecurityContextHolder();
+
+    EventPlayer loggedPlayer = players.stream()
+        .filter(p -> p.getPlayer().getName().equals(loggedUser.getName()))
+        .findFirst().orElse(null);
+
+    EventPlayer otherPlayer = players.stream()
+        .filter(p -> !Objects.equals(p.getPlayer().getName(), loggedUser.getName()))
+        .findFirst()
+        .orElse(null);
+
+    if (loggedPlayer == null || otherPlayer == null) {
+      return "Invalid Player";
+    } else if (loggedPlayer.getMyScore() == null || loggedPlayer.getOpponentScore() == null ||
+               otherPlayer.getMyScore() == null || otherPlayer.getOpponentScore() == null) {
+      return "Waiting for ratings";
+    }
+
+    int loggedPlayerOwnScore = loggedPlayer.getMyScore();
+    int loggedPlayerOpponentScore = loggedPlayer.getOpponentScore();
+    int otherPlayerOwnScore = otherPlayer.getMyScore();
+    int otherPlayerLoggedScore = otherPlayer.getOpponentScore();
+
+    if (loggedPlayerOwnScore == otherPlayerLoggedScore && loggedPlayerOpponentScore == otherPlayerOwnScore) {
+      return "Match";
+    } else {
+      return "Dismatch";
+    }
   }
 }

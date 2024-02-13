@@ -5,10 +5,10 @@ import com.sportsmatch.dtos.EventHistoryDTO;
 import com.sportsmatch.models.Event;
 import com.sportsmatch.services.EventService;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -50,10 +50,10 @@ public class EventsController {
 
 
   /**
-   * This endpoint returns the history of the finished events by the logged user
+   * This endpoint returns the history of the finished events by the logged-in user
    *
    * @param pageable it contains the page and size for pagination
-   * @return a list of EventHistoryDTO of the logged user
+   * @return a list of finished EventHistoryDTO of the logged-in user
    */
   @GetMapping("/event-history")
   public List<EventHistoryDTO> getEventsHistory(final Pageable pageable) {

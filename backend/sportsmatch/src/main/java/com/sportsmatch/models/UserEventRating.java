@@ -15,14 +15,9 @@ public class UserEventRating {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @ManyToOne
-  private Rating userRating;
-  @ManyToOne
-  private Rating eventRating;
-  @ManyToOne
-  private User player;
-  @ManyToOne
-  private User opponent;
-  @ManyToOne
-  private Event event;
+  @ManyToOne private Rating userRating;
+  @ManyToOne private Rating eventRating;
+  @ManyToOne private User player;
+  @ManyToOne private User opponent;
+  @ManyToOne private Event event;
 }

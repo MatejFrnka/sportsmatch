@@ -1,6 +1,9 @@
 package com.sportsmatch.controllers;
 
+import com.sportsmatch.dtos.RatingDTO;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -9,15 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class RatingController {
 
     @PostMapping("/add")
-    public String addRating() {
-        // will receive RatingRequestDTO which will @Valid
-        // DTO will contain Ratings text and star.
-        // DTO will contain "my score and "opponent's score"
+    public String addRating(@RequestBody @Valid RatingDTO ratingDTO) {
         // User "rating" is always the authenticated user
         // Opponent "rated"
         // Event "rated" is the event
         // EventRating "rating" is the rating for the game
-
         // Rating will be in one table
 
         return "";

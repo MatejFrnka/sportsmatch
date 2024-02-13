@@ -20,6 +20,6 @@ public class EventRating {
   @Column(name = "star_rating")
   private Integer starRating;
 
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "eventRating")
-  Set<UserEventRating> eventRating = new HashSet<>();
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "eventRating", fetch = FetchType.EAGER)
+  Set<UserEventRating> ratings = new HashSet<>();
 }

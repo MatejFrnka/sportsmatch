@@ -19,6 +19,7 @@ export function AllSportsList() {
     sport: SportDTO
     selected: boolean
   }
+  const backgroundImageUrl = './assets/sport-component-boxing.jpg'
 
   const navigate = useNavigate()
 
@@ -27,7 +28,7 @@ export function AllSportsList() {
   )
   const [searchQuery, setSearchQuery] = useState('')
 
-  const handleSeacrh = (e: { target: { value: string } }) => {
+  const handleSearch = (e: { target: { value: string } }) => {
     const query = e.target.value
     setSearchQuery(query)
   }
@@ -57,7 +58,7 @@ export function AllSportsList() {
           className={`row checkbox-wrapper text-center 
         ${currentSport.selected ? 'selected' : 'unselected'}`}
           style={{
-            backgroundImage: `url(./assets/sport-component-boxing.jpg)`,
+            backgroundImage: `url(${backgroundImageUrl})`,
           }}
         >
           <label>
@@ -84,7 +85,7 @@ export function AllSportsList() {
           placeholder="Find your sports"
           className="input-search"
           value={searchQuery}
-          onChange={handleSeacrh}
+          onChange={handleSearch}
         />
       </div>
     )

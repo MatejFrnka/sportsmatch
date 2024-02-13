@@ -16,13 +16,13 @@ public class UserEventRating {
   private Long id;
 
   @ManyToOne
-  private UserRating userRating;
+  private Rating userRating;
   @ManyToOne
-  private EventRating eventRating;
+  private Rating eventRating;
   @ManyToOne
-  private User playerRating;
+  private User player;
   @ManyToOne
-  private User playerRated;
+  private User opponent;
   @ManyToOne
-  private Event eventRated;
+  private Event event;
 }

@@ -41,7 +41,7 @@ public class Event {
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "event", fetch = FetchType.EAGER)
   private Set<EventPlayer> players = new HashSet<>();
 
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "eventRated", fetch = FetchType.EAGER)
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "event", fetch = FetchType.EAGER)
   private Set<UserEventRating> ratings = new HashSet<>();
 
   @ManyToOne private Sport sport;

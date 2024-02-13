@@ -51,10 +51,10 @@ public class User implements UserDetails {
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
   private Set<Token> tokens = new HashSet<>();
 
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "playerRating", fetch = FetchType.EAGER)
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "player", fetch = FetchType.EAGER)
   private Set<UserEventRating> ratings = new HashSet<>();
 
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "playerRated", fetch = FetchType.EAGER)
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "opponent", fetch = FetchType.EAGER)
   private Set<UserEventRating> rated = new HashSet<>();
 
   public User(String email, String password, String name, Gender gender, LocalDate dateOfBirth) {

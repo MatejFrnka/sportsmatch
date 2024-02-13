@@ -23,10 +23,6 @@ public class SportsmatchApplication implements CommandLineRunner {
   private final SportUserRepository sportUserRepository;
   private final EventPlayerRepository eventPlayerRepository;
   private final EventRepository eventRepository;
-  private final UserEventRatingRepository userEventRatingRepository;
-  private final UserRatingRepository userRatingRepository;
-  private final EventRatingRepository eventRatingRepository;
-
   private final PasswordEncoder passwordEncoder;
 
   public static void main(String[] args) {
@@ -43,28 +39,6 @@ public class SportsmatchApplication implements CommandLineRunner {
     if (users.isEmpty()) {
       addData();
     }
-
-    List<UserEventRating> ratings = userEventRatingRepository.findAll();
-    if (ratings.isEmpty()){
-      addRating();
-    }
-  }
-
-  private void addRating() {
-    List<Event> events = eventRepository.findAll();
-    Event event = events.get(0);
-    UserRating userRating = UserRating.builder().textRating("its okay").starRating(3).build();
-    EventRating eventRating = EventRating.builder().starRating(4).build();
-    UserEventRating userEventRating = UserEventRating.builder()
-            .userRating(userRating)
-            .eventRating(eventRating)
-            .playerRating(event.getPlayers().stream().toList().get(0).getPlayer())
-            .playerRated(event.getPlayers().stream().toList().get(1).getPlayer())
-            .eventRated(event)
-            .build();
-    userRatingRepository.save(userRating);
-    eventRatingRepository.save(eventRating);
-    userEventRatingRepository.save(userEventRating);
   }
 
   public void addData() {

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { SportDTO } from '../generated/api'
 import '../App.css'
 import '../styles/Sport.css'
@@ -47,7 +47,7 @@ export function AllSportsList() {
     navigate('/test/3', { state: selectedSports })
   }
 
-  const sportList = sportsState
+  const sportList: React.ReactElement[] = sportsState
     .filter((s) =>
       s.sport.name?.toLowerCase().includes(searchQuery.toLowerCase()),
     )
@@ -76,7 +76,7 @@ export function AllSportsList() {
       )
     })
 
-  const renderSearchBar = (): JSX.Element => {
+  const renderSearchBar = (): React.ReactElement => {
     return (
       <div className="container">
         <TbSearch className="search-icon" />

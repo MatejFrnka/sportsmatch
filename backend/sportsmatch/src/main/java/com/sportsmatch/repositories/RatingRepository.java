@@ -1,9 +1,9 @@
 package com.sportsmatch.repositories;
 
-import com.sportsmatch.models.EventRating;
+import com.sportsmatch.models.Rating;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface EventRatingRepository extends JpaRepository<EventRating, Long> {
+public interface RatingRepository extends JpaRepository<Rating, Long> {
 }

@@ -12,7 +12,7 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserRating {
+public class Rating {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,5 +23,8 @@ public class UserRating {
   private Integer starRating;
 
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "userRating", fetch = FetchType.EAGER)
-  Set<UserEventRating> ratings = new HashSet<>();
+  private Set<UserEventRating> userRatings = new HashSet<>();
+
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "eventRating", fetch = FetchType.EAGER)
+  private Set<UserEventRating> eventRatings = new HashSet<>();
 }

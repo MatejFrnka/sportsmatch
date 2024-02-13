@@ -15,6 +15,8 @@ export function AllSportsList() {
     { name: 'Bowling' },
   ]
 
+  const url = '/test/3'
+
   interface SportState {
     sport: SportDTO
     selected: boolean
@@ -44,7 +46,7 @@ export function AllSportsList() {
     const selectedSports = sportsState
       .filter((s) => s.selected)
       .map((s) => s.sport)
-    navigate('/test/3', { state: selectedSports })
+    navigate(url, { state: selectedSports })
   }
 
   const sportList: React.ReactElement[] = sportsState
@@ -55,7 +57,7 @@ export function AllSportsList() {
       return (
         <div
           key={index}
-          className={`row checkbox-wrapper text-center 
+          className={`row checkbox-wrapper text-center
         ${currentSport.selected ? 'selected' : 'unselected'}`}
           style={{
             backgroundImage: `url(${backgroundImageUrl})`,
@@ -93,18 +95,14 @@ export function AllSportsList() {
 
   return (
     <>
-      <div className="container-sm">
-        <div className="allsports-page">
-          {renderSearchBar()}
-          <div className="container">
-            {sportList}
-            <div className="row button-wrapper">
-              <button type="submit" onClick={handleFinishSelection}>
-                Selected sports{' '}
-                {sportsState.filter((sport) => sport.selected).length}
-              </button>
-            </div>
-          </div>
+      <div className="container-sm allsports-page">
+        {renderSearchBar()}
+        <div className="container-sm position-relative">
+          {sportList}
+          <button type="submit" onClick={handleFinishSelection}>
+            Selected sports{' '}
+            {sportsState.filter((sport) => sport.selected).length}
+          </button>
         </div>
       </div>
     </>

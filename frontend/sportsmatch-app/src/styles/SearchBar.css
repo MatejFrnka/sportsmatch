@@ -38,10 +38,6 @@
 }
 
 @media (max-width: 768px) {
-  .search-container {
-    margin-top: 20px;
-  }
-
   .search-container-btn {
     width: 55%;
     height: 45px;
@@ -58,15 +54,13 @@
 
   .search-container {
     position: relative;
-    margin-top: 2vh;
+    margin-top: 30vh;
   }
 }
 
-
-
-@media (max-width: 480px) {
+@media (max-width: 400px) {
   .search-container {
     position: relative;
-    margin-top: 24vh;
+    top: 12vh;
   }
 }

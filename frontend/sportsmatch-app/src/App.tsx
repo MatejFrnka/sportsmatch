@@ -6,7 +6,7 @@ import Login from './pages/Login'
 import Signup from './pages/Signup'
 import NewUser from './pages/NewUser'
 import MainPage from './pages/MainPage'
-
+import UserPage from './pages/UserPage'
 
 function App() {
   return (

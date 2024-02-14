@@ -122,7 +122,7 @@
 @media (max-width: 768px) {
   .slider {
     position: absolute;
-    top: 0px;
+    top: 60px;
     left: 0;
     height: 30vh;
   }

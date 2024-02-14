@@ -1,7 +1,7 @@
 import { useState, FormEvent } from 'react'
 import '../styles/LoginComponent.css'
 import { FaMailBulk, FaLock, FaGoogle, FaFacebook } from 'react-icons/fa'
-import { LoginService } from '../generated/api'
+import {LoginService, OpenAPI} from '../generated/api'
 
 function LoginComponent() {
   const [email, setEmail] = useState('')
@@ -14,6 +14,7 @@ function LoginComponent() {
       const response = await LoginService.login({ email: email, password: password })
 
       console.log(response.data)
+      OpenAPI.TOKEN = response.token // this line tells OpenAPI to authenticate with this header
     } catch (error) {
       console.error('The username or password is invalid', error)
     }

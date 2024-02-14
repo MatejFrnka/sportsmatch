@@ -1,0 +1,165 @@
+.slider {
+  position: relative;
+  width: 100%;
+  height: 70vh;
+  overflow: hidden;
+  margin: auto;
+}
+
+.slides {
+  display: flex;
+  transition: transform 0.5s ease;
+  height: 100%;
+}
+
+.slide {
+  flex: 0 0 100vw;
+  position: relative;
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.slides input {
+  display: none;
+}
+
+.navigation-manual {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+}
+
+.manual-btn {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: #e85f29;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.navigation-manual label {
+  border: 2px solid #e85f29(8, 225, 41);
+  padding: 5px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 1s;
+}
+
+.navigation-manual label:not(:last-child) {
+  margin-right: 10px;
+}
+
+.navigation-manual label:hover {
+  background-color: rgb(108, 108, 108);
+}
+
+#radio1:checked ~ .slides .slide-first {
+  margin-left: 0;
+}
+
+#radio2:checked ~ .slides .slide-first {
+  margin-left: -25%;
+}
+
+#radio3:checked ~ .slides .slide-first {
+  margin-left: -50%;
+}
+
+#radio4:checked ~ .slides .slide-first {
+  margin-left: -75%;
+}
+
+.slide-content {
+  position: absolute;
+  left: 5%;
+  bottom: 5%;
+  color: white;
+}
+
+.slide-content h2 {
+  margin: 0;
+  font-size: 34px;
+  font-weight: 600;
+  text-shadow: 5px 5px 20px #e85f29;
+}
+
+.slide-content p {
+  margin: 5px 0;
+  font-size: 24px;
+  text-shadow: 5px 5px 20px #e85f29;
+}
+
+.slide-content button {
+  width: 30%;
+  height: 45px;
+  background: #e85f29;
+  border: none;
+  outline: none;
+  border-radius: 40px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  font-size: 18px;
+  color: #fff;
+  font-weight: 400;
+  margin: 20px 0;
+}
+
+.slide-content button:hover {
+  transform: scale(1.05);
+}
+
+.manual-btn.active {
+  background-color: white;
+}
+
+@media (max-width: 768px) {
+  .slider {
+    position: absolute;
+    top: 0px;
+    left: 0;
+    height: 30vh;
+  }
+
+  .manual-btn {
+    display: none;
+  }
+
+  .slide-content h2 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+  }
+
+  .slide-content p {
+    margin: 5px 0;
+    font-size: 18px;
+  }
+
+  .slide-content button {
+    width: 40%;
+    height: 45px;
+    background: #e85f29;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    font-size: 18px;
+    color: #fff;
+    font-weight: 400;
+    margin: 20px 0;
+  }
+}
+
+@media (min-width: 480px) {
+  .slider {
+    margin-bottom: 10px;
+  }
+}

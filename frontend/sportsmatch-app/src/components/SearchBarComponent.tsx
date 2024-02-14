@@ -1,4 +1,4 @@
-import '../styles/MainPage.css'
+import '../styles/SearchBar.css'
 import { FaSearchLocation } from 'react-icons/fa'
 
 function MainPageSearchBarComponent() {

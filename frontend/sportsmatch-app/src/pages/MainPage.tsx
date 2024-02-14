@@ -1,8 +1,9 @@
-import MainPageSearchBarComponent from '../components/MainPageSearchBarComponent'
+import SearchBarComponent from '../components/SearchBarComponent'
 import MainPageSliderComponent from '../components/MainPageSliderComponent'
-import MainPageSportsBtnComponent from '../components/MainPageSportsBtnComponent'
+import SportsButtonComponent from '../components/SportsButtonComponent'
 import SportEvent from '../components/SportEvent'
 import '../styles/MainPage.css'
+import '../styles/Slider.css'
 
 export default function MainPage() {
   const events = [
@@ -59,8 +60,8 @@ export default function MainPage() {
     <div className="frame">
       <div className="components-container">
         <MainPageSliderComponent />
-        <MainPageSearchBarComponent />
-        <MainPageSportsBtnComponent />
+        <SearchBarComponent />
+        <SportsButtonComponent />
         <p className="mainPage-p">Nearby</p>
         <div className="nearby-events-container">
           {events.map((event, index) => (

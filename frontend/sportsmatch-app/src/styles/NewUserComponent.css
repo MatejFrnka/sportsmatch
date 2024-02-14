@@ -113,44 +113,7 @@
   margin: 20px 0;
 }
 
-.sports-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-  align-content: stretch;
-}
 
-.sports-checkbox {
-  display: none;
-}
-
-.sports-button {
-  display: inline-block;
-  padding: 10px;
-  border: none;
-  background-color: #2c2b2b;
-  color: #ffffff;
-  border-radius: 30px;
-  cursor: pointer;
-  margin: 3px;
-}
-
-.sports-checkbox:checked + .sports-button {
-  background-color: #e85f29;
-  color: #fff;
-}
-
-#more-sports-button {
-  width: 80px;
-  display: inline-block;
-  padding: 10px;
-  border: none;
-  background-color: #2c2b2b;
-  color: #ffffff;
-  border-radius: 30px;
-  cursor: pointer;
-  margin: 3px;
-}
 
 .wrapper .parent-male:hover {
   transform: scale(1.05);

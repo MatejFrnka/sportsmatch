@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import '../styles/NewUserComponent.css'
+import '../styles/SportsBtn.css'
 
 function SportsButtonComponent() {
   const [selectedButtons, setSelectedButtons] = useState<string[]>([])
@@ -17,7 +17,7 @@ function SportsButtonComponent() {
   return (
     <div className="wrapper">
       <form action="">
-        <p>Select your sports</p>
+        <p className="sportBtn-p">Select your sports</p>
         <div className="sports-container">
           <label>
             <input

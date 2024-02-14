@@ -1,0 +1,43 @@
+.sports-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-content: stretch;
+    margin: 0 2vw 0 2vw;
+  }
+  
+  .sports-checkbox {
+    display: none;
+  }
+  
+  .sports-button {
+    display: inline-block;
+    padding: 10px;
+    border: none;
+    background-color: #2c2b2b;
+    color: #ffffff;
+    border-radius: 30px;
+    cursor: pointer;
+    margin: 3px;
+  }
+  
+  .sports-checkbox:checked + .sports-button {
+    background-color: #e85f29;
+    color: #fff;
+  }
+  
+  #more-sports-button {
+    width: 80px;
+    display: inline-block;
+    padding: 10px;
+    border: none;
+    background-color: #2c2b2b;
+    color: #ffffff;
+    border-radius: 30px;
+    cursor: pointer;
+    margin: 3px;
+  }
+
+  .sportBtn-p {
+    margin-left: 8vw;
+  }

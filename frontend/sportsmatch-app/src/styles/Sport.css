@@ -1,63 +1,76 @@
-.checkbox {    
-  appearance: none;       
+.sports-page-wrapper {
+    position: absolute;
+    left:0;
+    top: 1em;
 }
 
-.allsports-page {
-  margin-top: 64px;
-  position: relative;
-
+.checkbox {
+    appearance: none;
 }
 
-.checkbox-wrapper{
-  font-size: 1.5rem;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.05);
-  border-radius: 2px; 
-  margin: 0.5rem 0;
-  padding: 0.25rem 0;
+.checkbox-wrapper .row {
+    margin: 0.75em 0;
+    font-size: 1.5rem;
+    background-clip: content-box;
+    background-size: cover;
+    border-radius: var(--sm-border-radius);
+    min-height: 48px;
+}
+
+.checkbox-wrapper .col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.563em;
 }
 
 
 .selected {
-color: #e85f29;
-background: linear-gradient(
-      0deg,
-      var(--sm-orange-overlay),
-      var(--sm-orange-overlay)
-    )
+    color: var(--sm-orange);
+    background: linear-gradient(0deg, rgba(249, 248, 245, 0.05), rgba(249, 248, 245, 0.05));
+
 }
 
 .unselected {
-color: #FFFFFF;
+    color: var(--sm-white);
 }
 
-.input-search { 
-  height: inherit; 
-  width: 100%; 
-  border: 1px solid rgba(65, 58, 58, 0.2);
-  border-radius: 40px;
-  font-size: 0.5rem;
-  padding: 0.5rem 0.5rem 0.5rem 1.75rem;
+.input-search {
+    height: inherit;
+    width: 100%;
+    border: 1px solid rgba(65, 58, 58, 0.2);
+    border-radius: 40px;
+    font-size: 0.5rem;
+    padding: 0.5rem 0.5rem 0.5rem 1.75rem;
 }
-  
+
 .search-icon {
-  position: relative;
-  top: 1.6rem;
-  left: 0.75rem;
-  color: #4a494f; 
-  font-size: 0.75rem;
+    position: relative;
+    top: 1.6rem;
+    left: 0.75rem;
+    color: #4a494f;
+    font-size: 0.75rem;
+}
+
+.submit-button {
+    position: sticky;
+    bottom: 2rem;
+    left: 0;
 }
 
 button {
-  width: 85%;
-  height: 1.5rem;
-  background: #e85f29;
-  border: none;
-  outline: none;
-  border-radius: 40px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-  font-size: 0.6rem;  
-  color: #fff;
-  position: absolute;
-  bottom: 1rem;
+    width: 100%;
+    height: 1.5rem;
+    background: var(--sm-orange);
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    font-size: 0.6rem;
+    color: var(--sm-white);
+}
+
+.checkbox-wrapper label {
+    width: 13em;
 }

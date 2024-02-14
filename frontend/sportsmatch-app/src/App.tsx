@@ -7,6 +7,7 @@ import Signup from './pages/Signup'
 import NewUser from './pages/NewUser'
 import MainPage from './pages/MainPage'
 
+
 function App() {
   return (
     <BrowserRouter>
@@ -21,6 +22,7 @@ function App() {
             <Route path=":testId" element={<Test />} />
           </Route>
           <Route path="/" element={<Home />} />
+          <Route path="user" element={<UserPage />}></Route>
         </Routes>
       </div>
     </BrowserRouter>

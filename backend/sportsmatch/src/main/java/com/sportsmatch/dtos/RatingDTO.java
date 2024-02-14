@@ -16,21 +16,21 @@ public class RatingDTO {
 
   private String userTextRating;
 
-  @NotNull
-  @Min(0)
-  @Max(5)
+  @NotNull(message = "User star cannot be null")
+  @Min(value = 0, message = "User star rating must be at least 0")
+  @Max(value = 5, message = "User star rating must be at most 5")
   private Integer userStarRating;
 
-  @NotNull
-  @Min(0)
-  @Max(5)
+  @NotNull(message = "Event star cannot be null")
+  @Min(value = 0, message = "Event star rating must be at least 0")
+  @Max(value = 5, message = "Event star rating must be at most 5")
   private Integer eventStarRating;
 
-  @NotNull
-  @Min(0)
+  @NotNull(message = "My score cannot be null")
+  @Min(value = 0, message = "My score must be at least 0")
   private Integer myScore;
 
-  @NotNull
-  @Min(0)
+  @NotNull(message = "Opponent score cannot be null")
+  @Min(value = 0, message = "Opponent score must be at least 0")
   private Integer opponentScore;
 }

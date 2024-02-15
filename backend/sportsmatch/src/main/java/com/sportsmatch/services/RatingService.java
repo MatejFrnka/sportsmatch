@@ -32,7 +32,8 @@ public class RatingService {
     eventPlayer.setMyScore(ratingDTO.getMyScore());
     eventPlayer.setOpponentScore(ratingDTO.getOpponentScore());
 
-    UserEventRating userEventRating = UserEventRating.builder()
+    UserEventRating userEventRating =
+        UserEventRating.builder()
             .userRating(userRating)
             .eventRating(eventRating)
             .player(player)
@@ -47,7 +48,7 @@ public class RatingService {
   private EventPlayer getEventPlayer(User player) {
     Optional<EventPlayer> eventPlayerOptional =
         eventPlayerRepository.findEventPlayerByPlayer(player);
-      return eventPlayerOptional.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    return eventPlayerOptional.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
   }
 
   private User findOpponent(EventPlayer eventPlayer, User player) {
@@ -58,5 +59,13 @@ public class RatingService {
         .filter(p -> !p.getId().equals(player.getId()))
         .findFirst()
         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+  }
+
+  public void saveUserEventRating(Authentication authentication) {
+    User user = (User) authentication.getPrincipal();
+    UserEventRating userEventRating = UserEventRating.builder()
+            .player(user)
+            .build();
+    userEventRatingRepository.save(userEventRating);
   }
 }

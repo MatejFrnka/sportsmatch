@@ -64,7 +64,6 @@ class RatingServiceTest {
 
     when(eventPlayerRepository.findEventPlayersByEvent(event)).thenReturn(eventPlayers);
 
-
     // Mapping
     Rating userRating = mock(Rating.class);
     Rating eventRating = mock(Rating.class);
@@ -74,26 +73,17 @@ class RatingServiceTest {
     // Score
     doNothing().when(eventPlayer).setMyScore(ratingDTO.getMyScore());
     doNothing().when(eventPlayer).setOpponentScore(ratingDTO.getOpponentScore());
+    when(ratingRepository.save(any(Rating.class))).thenReturn(userRating).thenReturn(eventRating);
 
     // Rating
     UserEventRating userEventRating = mock(UserEventRating.class);
-    ratingRepository.save(userRating);
-    ratingRepository.save(eventRating);
-    userEventRatingRepository.save(userEventRating);
+    when(userEventRatingRepository.save(any(UserEventRating.class))).thenReturn(userEventRating);
 
     ratingService.addRating(ratingDTO, authentication);
 
-    verify(ratingRepository, times(1)).save(userRating);
-    verify(ratingRepository, times(1)).save(eventRating);
-    verify(userEventRatingRepository).save(userEventRating);
+    verify(ratingRepository, times(2)).save(any(Rating.class));
+    verify(userEventRatingRepository, times(1)).save(any(UserEventRating.class));
     verify(eventPlayer).setMyScore(ratingDTO.getMyScore());
     verify(eventPlayer).setOpponentScore(ratingDTO.getOpponentScore());
   }
-
-  // TODO:
-  //  Event Player Behaviour - error: status exception 404 Optional is empty
-  //   User Opponent Behaviour
-  //   Mapping Behaviour
-  //   set Score
-  //   Rating Behaviour
 }

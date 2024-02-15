@@ -4,6 +4,7 @@ import com.sportsmatch.dtos.EventDTO;
 import com.sportsmatch.dtos.EventHistoryDTO;
 import com.sportsmatch.models.Event;
 import com.sportsmatch.models.EventPlayer;
+import com.sportsmatch.models.User;
 import com.sportsmatch.services.EventService;
 import com.sportsmatch.services.UserService;
 import org.modelmapper.ModelMapper;
@@ -16,17 +17,12 @@ import java.util.List;
 @Component
 public class EventMapper {
 
-  private final UserService userService;
-  private final EventService eventService;
-
   private final UserMapper userMapper;
   private ModelMapper modelMapper;
 
   @Autowired
-  public EventMapper(ModelMapper modelMapper, UserService userService, EventService eventService, UserMapper userMapper) {
+  public EventMapper(ModelMapper modelMapper, UserMapper userMapper) {
     this.modelMapper = modelMapper;
-    this.userService = userService;
-    this.eventService = eventService;
     this.userMapper = userMapper;
     this.modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
   }
@@ -55,17 +51,17 @@ public class EventMapper {
    * @param event to be converted
    * @return an EventHistoryDTO based on the given Event
    */
-  public EventHistoryDTO toDTO(Event event) {
+  public EventHistoryDTO toDTO(Event event, String loggedUsername, String status) {
 
     // Get the logged-in EventPlayer
     EventPlayer loggedPlayer = event.getPlayers().stream()
-        .filter(p -> p.getPlayer().getName().equals(userService.getUserFromTheSecurityContextHolder().getName()))
+        .filter(p -> p.getPlayer().getName().equals(loggedUsername))
         .findFirst()
         .orElse(null);
 
     // Get the opponent EventPlayer
     EventPlayer opponentPlayer = event.getPlayers().stream()
-        .filter(p -> !p.getPlayer().getName().equals(userService.getUserFromTheSecurityContextHolder().getName()))
+        .filter(p -> !p.getPlayer().getName().equals(loggedUsername))
         .findFirst()
         .orElse(null);
 
@@ -75,7 +71,7 @@ public class EventMapper {
         .opponentScore((opponentPlayer != null) ? opponentPlayer.getMyScore() : null)
         .opponent((opponentPlayer != null) ? userMapper.toDTO(opponentPlayer.getPlayer()) : null)
         .dateOfTheMatch(event.getDateEnd())
-        .status(eventService.checkScoreMatch(event.getPlayers()))
+        .status(status)
         .build();
   }
 }

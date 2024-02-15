@@ -30,6 +30,7 @@ public class EventService {
   private SportRepository sportRepository;
   private EventPlayerRepository eventPlayerRepository;
 
+
   public Event getEventById(Long id) {
     return eventRepository
         .findEventById(id)
@@ -108,9 +109,11 @@ public class EventService {
    * @return a list of EventHistoryDTOs representing the logged-in user's event history
    */
   public List<EventHistoryDTO> getEventsHistory(final Pageable pageable) {
-    return eventRepository.findEventsByUser(userService.getUserFromTheSecurityContextHolder(), LocalDateTime.now(), pageable)
+    String loggedUserName = userService.getUserFromTheSecurityContextHolder().getName();
+
+    return eventRepository.findEventsByUser(loggedUserName, LocalDateTime.now(), pageable)
         .stream()
-        .map(eventMapper::toDTO)
+        .map(event -> eventMapper.toDTO(event, loggedUserName, checkScoreMatch(event.getPlayers())))
         .collect(Collectors.toList());
   }
 

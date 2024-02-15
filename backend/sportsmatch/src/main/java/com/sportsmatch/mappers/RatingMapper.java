@@ -9,16 +9,14 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class RatingMapper {
 
-    public Rating toUserRatingEntity(RatingDTO ratingDTO) {
-        return Rating.builder()
-                .starRating(ratingDTO.getUserStarRating())
-                .textRating(ratingDTO.getUserTextRating())
-                .build();
-    }
+  public Rating toUserRatingEntity(RatingDTO ratingDTO) {
+    return Rating.builder()
+        .starRating(ratingDTO.getUserStarRating())
+        .textRating(ratingDTO.getUserTextRating())
+        .build();
+  }
 
-    public Rating toEventRatingEntity(RatingDTO ratingDTO) {
-        return Rating.builder()
-                .starRating(ratingDTO.getEventStarRating())
-                .build();
-    }
+  public Rating toEventRatingEntity(RatingDTO ratingDTO) {
+    return Rating.builder().starRating(ratingDTO.getEventStarRating()).build();
+  }
 }

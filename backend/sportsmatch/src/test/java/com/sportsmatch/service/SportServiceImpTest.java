@@ -1,8 +1,9 @@
-package com.sportsmatch.services;
+package com.sportsmatch.service;
 
 import com.sportsmatch.dtos.SportDTO;
 import com.sportsmatch.models.Sport;
 import com.sportsmatch.repositories.SportRepository;
+import com.sportsmatch.services.SportServiceImp;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

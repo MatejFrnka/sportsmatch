@@ -1,6 +1,7 @@
 package com.sportsmatch.controllers;
 
 import com.sportsmatch.dtos.EventDTO;
+import com.sportsmatch.dtos.EventHistoryDTO;
 import com.sportsmatch.models.Event;
 import com.sportsmatch.services.EventService;
 import jakarta.validation.Valid;
@@ -55,7 +56,7 @@ public class EventsController {
    * @return a list of finished EventHistoryDTO of the logged-in user
    */
   @GetMapping("/event-history")
-  public ResponseEntity<?> getEventsHistory(final Pageable pageable) {
-    return ResponseEntity.ok(eventService.getEventsHistory(pageable));
+  public List<EventHistoryDTO> getEventsHistory(final Pageable pageable) {
+    return eventService.getEventsHistory(pageable);
   }
 }

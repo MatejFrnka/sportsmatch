@@ -25,7 +25,7 @@ public class UserServiceImp implements UserService {
   public User getUserFromTheSecurityContextHolder() {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     if (authentication != null && authentication.isAuthenticated() && authentication.getPrincipal() instanceof UserDetails userDetails) {
-      return userRepository.getUserByName(userDetails.getUsername()).orElseThrow();
+      return userRepository.findByEmail(userDetails.getUsername()).orElseThrow();
     } else {
       throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User not authenticated");
     }

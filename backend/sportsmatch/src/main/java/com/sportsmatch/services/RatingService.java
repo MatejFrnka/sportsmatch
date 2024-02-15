@@ -60,12 +60,4 @@ public class RatingService {
         .findFirst()
         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
   }
-
-  public void saveUserEventRating(Authentication authentication) {
-    User user = (User) authentication.getPrincipal();
-    UserEventRating userEventRating = UserEventRating.builder()
-            .player(user)
-            .build();
-    userEventRatingRepository.save(userEventRating);
-  }
 }

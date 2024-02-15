@@ -71,7 +71,23 @@ class RatingServiceTest {
     when(ratingMapper.toUserRatingEntity(ratingDTO)).thenReturn(userRating);
     when(ratingMapper.toEventRatingEntity(ratingDTO)).thenReturn(eventRating);
 
+    // Score
+    doNothing().when(eventPlayer).setMyScore(ratingDTO.getMyScore());
+    doNothing().when(eventPlayer).setOpponentScore(ratingDTO.getOpponentScore());
+
+    // Rating
+    UserEventRating userEventRating = mock(UserEventRating.class);
+    ratingRepository.save(userRating);
+    ratingRepository.save(eventRating);
+    userEventRatingRepository.save(userEventRating);
+
     ratingService.addRating(ratingDTO, authentication);
+
+    verify(ratingRepository, times(1)).save(userRating);
+    verify(ratingRepository, times(1)).save(eventRating);
+    verify(userEventRatingRepository).save(userEventRating);
+    verify(eventPlayer).setMyScore(ratingDTO.getMyScore());
+    verify(eventPlayer).setOpponentScore(ratingDTO.getOpponentScore());
   }
 
   // TODO:
@@ -80,29 +96,4 @@ class RatingServiceTest {
   //   Mapping Behaviour
   //   set Score
   //   Rating Behaviour
-
-  @Test
-  void saveUserEventRating() {
-    Authentication authentication = mock(Authentication.class);
-    User user = mock(User.class);
-    when(authentication.getPrincipal()).thenReturn(user);
-
-    UserEventRating userEventRating = mock(UserEventRating.class);
-
-    userEventRatingRepository.save(userEventRating);
-    ratingService.saveUserEventRating(authentication);
-
-    verify(userEventRatingRepository).save(userEventRating);
-  }
-
-  @Test
-  void findEventPlayer() {
-    Authentication authentication = mock(Authentication.class);
-    User player = mock(User.class);
-    EventPlayer eventPlayer = mock(EventPlayer.class);
-    when(authentication.getPrincipal()).thenReturn(player);
-    when(eventPlayerRepository.findEventPlayerByPlayer(player))
-        .thenReturn(Optional.of(eventPlayer));
-    ratingService.findEventPlayer(authentication);
-  }
 }

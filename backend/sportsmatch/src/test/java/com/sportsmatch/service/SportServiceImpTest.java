@@ -36,14 +36,17 @@ class SportServiceImpTest {
     // Arrange
     Pageable pageable = Mockito.mock(Pageable.class);
 
-    Sport sport1 = new Sport("Football", "\uD83E\uDD45", "urlFootball");
-    Sport sport2 = new Sport("Basketball", "\uD83C\uDFC0","urlBasketball");
+    String footballEmoji = "\uD83E\uDD45"; //Goal net emoji
+    String basketballEmoji = "\uD83C\uDFC0"; //basketball emoji orange ball
+
+    Sport sport1 = new Sport("Football", footballEmoji, "urlFootball");
+    Sport sport2 = new Sport("Basketball", basketballEmoji, "urlBasketball");
 
     List<Sport> sports = Arrays.asList(sport1, sport2);
     Page<Sport> sportsPage = new PageImpl<>(sports, pageable, sports.size());
 
-    SportDTO sportDTO1 = new SportDTO("Football","\uD83E\uDD45", "urlFootball");
-    SportDTO sportDTO2 = new SportDTO("Basketball","\uD83C\uDFC0","urlBasketball");
+    SportDTO sportDTO1 = new SportDTO("Football",footballEmoji, "urlFootball");
+    SportDTO sportDTO2 = new SportDTO("Basketball",basketballEmoji,"urlBasketball");
 
     List<SportDTO> expectedSportDTOs = Arrays.asList(sportDTO1, sportDTO2);
 

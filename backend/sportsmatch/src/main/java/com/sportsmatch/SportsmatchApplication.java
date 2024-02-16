@@ -138,63 +138,63 @@ public class SportsmatchApplication implements CommandLineRunner {
     userRepository.save(
         new User(
             "alice.smith@example.com",
-            "securePass",
+            passwordEncoder.encode("securePass"),
             "alice.smith",
             Gender.FEMALE,
             LocalDate.of(1985, 11, 22)));
     userRepository.save(
         new User(
             "bob.jones@example.com",
-            "b0bPass",
+            passwordEncoder.encode("b0bPass"),
             "bobjones22",
             Gender.MALE,
             LocalDate.of(1992, 8, 10)));
     userRepository.save(
         new User(
             "emily.white@example.com",
-            "emilyPass",
+            passwordEncoder.encode("emilyPass"),
             "em_white",
             Gender.FEMALE,
             LocalDate.of(1988, 4, 3)));
     userRepository.save(
         new User(
             "mike.jackson@example.com",
-            "mjPass2020",
+            passwordEncoder.encode("mjPass2020"),
             "mikej",
             Gender.MALE,
             LocalDate.of(1995, 12, 18)));
     userRepository.save(
         new User(
             "lisa.martin@example.com",
-            "lisaPass123",
+            passwordEncoder.encode("lisaPass123"),
             "lisa_m",
             Gender.FEMALE,
             LocalDate.of(1998, 7, 25)));
     userRepository.save(
         new User(
             "chris.brown@example.com",
-            "cbrownPass",
+            passwordEncoder.encode("cbrownPass"),
             "chris_b",
             Gender.MALE,
             LocalDate.of(1983, 9, 14)));
     userRepository.save(
         new User(
             "sarah.green@example.com",
-            "greenSarah",
+            passwordEncoder.encode("greenSarah"),
             "s_green",
             Gender.FEMALE,
             LocalDate.of(1993, 2, 9)));
     userRepository.save(
         new User(
             "ryan.miller@example.com",
-            "ryanPass456",
+            passwordEncoder.encode("ryanPass456"),
             "ryanm",
             Gender.MALE,
             LocalDate.of(1987, 6, 30)));
     userRepository.save(
         new User(
             "jessica.ward@example.com",
-            "jessWard789",
+            passwordEncoder.encode("jessWard789"),
             "jess_ward",
             Gender.FEMALE,
             LocalDate.of(1991, 3, 12)));

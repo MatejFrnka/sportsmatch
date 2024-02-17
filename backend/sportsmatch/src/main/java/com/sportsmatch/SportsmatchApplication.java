@@ -32,14 +32,7 @@ public class SportsmatchApplication implements CommandLineRunner {
 
   @Override
   public void run(String... args) throws Exception {
-    checkRecords();
-  }
-
-  private void checkRecords() {
-    List<User> users = userRepository.findAll();
-    if (users.isEmpty()) {
-      addData();
-    }
+    addData();
   }
 
   public void addData() {
@@ -203,11 +196,17 @@ public class SportsmatchApplication implements CommandLineRunner {
   }
 
   public List<Sport> addSports() {
-    sportRepository.save(new Sport("Badminton"));
-    sportRepository.save(new Sport("Boxing"));
-    sportRepository.save(new Sport("Table Tennis"));
-    sportRepository.save(new Sport("Squash"));
-    sportRepository.save(new Sport("Tennis"));
+    String badmintonEmoji = "\uD83C\uDFF8"; //badminton racket emoji
+    String boxingEmoji = "\uD83E\uDD4A"; //boxing glove emoji
+    String tableTennisEmoji = "\uD83C\uDFD3"; //table tennis racket emoji
+    String tennisEmoji = "\uD83C\uDFBE"; //tennis racket emoji
+    String squashEmoji = "\uD83E\uDD4E"; //green softball emoji
+
+    sportRepository.save(new Sport("Badminton", badmintonEmoji,"./assets/sport-component-badminton.png"));
+    sportRepository.save(new Sport("Boxing", boxingEmoji, "./assets/sport-component-boxing.png"));
+    sportRepository.save(new Sport("Table Tennis", tableTennisEmoji, "./assets/sport-component-table-tennis.png"));
+    sportRepository.save(new Sport("Squash", squashEmoji, "./assets/sport-component-squash.png"));
+    sportRepository.save(new Sport("Tennis", tennisEmoji, "./assets/sport-component-tennis.png"));
 
     return sportRepository.findAll();
   }

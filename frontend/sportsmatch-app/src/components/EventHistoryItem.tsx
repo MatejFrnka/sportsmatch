@@ -9,7 +9,7 @@ interface EventHistoryProps {
 function EventHistoryItem({ eventHistoryDTO }: EventHistoryProps) {
   return (
     <>
-      <div className="container-sm">
+      <div className="container-fluid">
         <div className="event-history-item">
           <div className="match-status">VICTORY (uncorfirmed)</div>
           <div className="user-side">

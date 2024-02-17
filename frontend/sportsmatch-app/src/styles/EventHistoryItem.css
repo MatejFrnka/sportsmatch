@@ -3,7 +3,7 @@
 
 .colon {
     display: grid;
-    color: #FC4C02;
+    color: var(--sm-secondary-orange);
     font-weight: bold;
     font-size: 16px;
     text-align: center;
@@ -19,13 +19,13 @@
 .event-history-item {
     display: grid;
     grid-template-columns: 8fr 0.5fr 8fr;
-    min-width: 361px;
+    width: 100%;
     min-height: 106px;
     margin: 16px;
     font-size: 10px;
-    background-color: #F7F7F7;
+    background-color: var(--sm-primary-bg);
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.05);
-    border: 2px solid #FC4C02;
+    border: 2px solid var(--sm-secondary-orange);
     border-radius: 10px;
 }
 
@@ -49,7 +49,7 @@
 
 .score {
     height: 35px;
-    color: #FC4C02;
+    color: var(--sm-secondary-orange);
     font-weight: bold;
     font-size: 16px;
     grid-row: 1;
@@ -72,7 +72,7 @@
 
 .profile {
     grid-column: 2;
-    color: #FC4C02;
+    color: var(--sm-secondary-orange);
     margin: auto;
 }
 .user-name {
@@ -97,7 +97,7 @@
 }
 
 .match-status {
-    color: #FC4C02;
+    color: var(--sm-secondary-orange);
     font-weight: bold;
     font-size: 12px;;
     position: relative;

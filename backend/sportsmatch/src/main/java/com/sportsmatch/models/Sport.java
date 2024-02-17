@@ -20,10 +20,10 @@ public class Sport {
 
   private String name;
 
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "sport", fetch = FetchType.EAGER)
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "sport")
   private Set<SportUser> sportUsers = new HashSet<>();
 
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "sport", fetch = FetchType.EAGER)
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "sport")
   private Set<Event> events = new HashSet<>();
 
   public Sport(String name) {

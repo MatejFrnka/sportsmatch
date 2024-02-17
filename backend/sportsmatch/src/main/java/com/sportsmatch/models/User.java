@@ -42,19 +42,19 @@ public class User implements UserDetails {
   @DateTimeFormat(pattern = "dd-MM-yyyy")
   private LocalDate dateOfBirth;
 
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
   private Set<SportUser> sportUsers = new HashSet<>();
 
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "player", fetch = FetchType.EAGER)
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "player")
   private Set<EventPlayer> eventsPlayed = new HashSet<>();
 
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
   private Set<Token> tokens = new HashSet<>();
 
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "player", fetch = FetchType.EAGER)
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "player")
   private Set<UserEventRating> ratings = new HashSet<>();
 
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "opponent", fetch = FetchType.EAGER)
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "opponent")
   private Set<UserEventRating> rated = new HashSet<>();
 
   public User(String email, String password, String name, Gender gender, LocalDate dateOfBirth) {

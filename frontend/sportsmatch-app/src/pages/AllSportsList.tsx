@@ -21,7 +21,7 @@ export function AllSportsList() {
     sport: SportDTO
     selected: boolean
   }
-  const backgroundImageUrl = './assets/sport-component-boxing.jpg'
+  const backgroundImageUrl = './assets/sport-component-boxing.png'
 
   const navigate = useNavigate()
 

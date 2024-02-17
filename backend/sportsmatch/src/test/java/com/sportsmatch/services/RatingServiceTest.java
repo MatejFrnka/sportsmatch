@@ -26,6 +26,7 @@ class RatingServiceTest {
   @Mock private UserEventRatingRepository userEventRatingRepository;
   @Mock private EventPlayerRepository eventPlayerRepository;
   @Mock private RatingMapper ratingMapper;
+  @Mock private UserService userService;
   @InjectMocks private RatingService ratingService;
 
   @Test
@@ -40,9 +41,8 @@ class RatingServiceTest {
             .build();
 
     // Authentication and Player
-    Authentication authentication = mock(Authentication.class);
     User player = mock(User.class);
-    when(authentication.getPrincipal()).thenReturn(player);
+    when(userService.getUserFromTheSecurityContextHolder()).thenReturn(player);
 
     // EventPlayer
     EventPlayer eventPlayer = mock(EventPlayer.class);
@@ -79,7 +79,7 @@ class RatingServiceTest {
     UserEventRating userEventRating = mock(UserEventRating.class);
     when(userEventRatingRepository.save(any(UserEventRating.class))).thenReturn(userEventRating);
 
-    ratingService.addRating(ratingDTO, authentication);
+    ratingService.addRating(ratingDTO);
 
     verify(ratingRepository, times(2)).save(any(Rating.class));
     verify(userEventRatingRepository, times(1)).save(any(UserEventRating.class));

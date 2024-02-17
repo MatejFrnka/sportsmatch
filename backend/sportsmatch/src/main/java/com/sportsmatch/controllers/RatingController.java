@@ -30,8 +30,7 @@ public class RatingController {
       return ResponseEntity.badRequest().body(validationService.getAllErrors(bindingResult));
     }
     try {
-      Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-      ratingService.addRating(ratingDTO, authentication);
+      ratingService.addRating(ratingDTO);
       return ResponseEntity.ok().build();
     } catch (ResponseStatusException e) {
       return ResponseEntity.status(e.getStatusCode()).build();

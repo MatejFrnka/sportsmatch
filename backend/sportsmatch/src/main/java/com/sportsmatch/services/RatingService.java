@@ -21,9 +21,10 @@ public class RatingService {
   private final UserEventRatingRepository userEventRatingRepository;
   private final EventPlayerRepository eventPlayerRepository;
   private final RatingMapper ratingMapper;
+  private final UserService userService;
 
-  public void addRating(RatingDTO ratingDTO, Authentication authentication) {
-    User player = (User) authentication.getPrincipal();
+  public void addRating(RatingDTO ratingDTO) {
+    User player = userService.getUserFromTheSecurityContextHolder();
     EventPlayer eventPlayer = getEventPlayer(player);
     User opponent = findOpponent(eventPlayer, player);
     Rating userRating = ratingMapper.toUserRatingEntity(ratingDTO);

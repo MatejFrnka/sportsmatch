@@ -15,7 +15,6 @@
     "generate": "openapi --input http://localhost:8080/v3/api-docs --output ./src/generated/api"
   },
   "dependencies": {
-    "axios": "^1.6.7",
     "bootstrap": "^5.3.2",
     "react": "^18.2.0",
     "react-bootstrap": "^2.10.0",

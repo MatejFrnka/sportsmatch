@@ -1,0 +1,40 @@
+.user-page {
+  margin-top: 64px;
+}
+
+.user-page a {
+  font-size: 1em;
+  color: var(--sm-orange);
+  text-decoration: underline;
+  padding: 0;
+}
+
+.user-page p {
+  margin: 0;
+  color: #ccc;
+}
+
+.user-page .match-wrapper .col,
+.history-wrapper .col,
+.event-wrapper .col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 24.688em;
+  min-width: 24.688em;
+}
+
+.user-page .view-wrapper p,
+.view-wrapper a {
+  color: var(--sm-orange);
+  text-decoration: none;
+}
+
+.user-page .col.view {
+  text-align: right;
+}
+
+.user-page .nearby-wrapper p {
+  color: var(--sm-orange);
+}

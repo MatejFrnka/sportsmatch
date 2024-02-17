@@ -44,7 +44,7 @@ function LoginComponent() {
           />
           <FaMailBulk className="icon" />
         </div>
-        <div className="input-box">
+        <div className="login-input-box">
           <label htmlFor="password"></label>
           <input
             type="password"
@@ -55,7 +55,7 @@ function LoginComponent() {
           />
           <FaLock className="icon" />
         </div>
-        <div className="remember-forgot">
+        <div className="login-remember-forgot">
           <label>
             <input type="checkbox" />
             Remember me{' '}
@@ -63,9 +63,9 @@ function LoginComponent() {
           <a href="#">Forgot password</a>
         </div>
         <button type="submit">Log in</button>
-        <div className="register-link">
+        <div className="login-register-link">
           <p>
-            Dont have an account <a href="signup">Register</a>
+            Dont have an account <a href="signup">REGISTER</a>
           </p>
         </div>
         <p className="alt-login-text">Or log in using</p>

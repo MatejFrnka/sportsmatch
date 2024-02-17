@@ -22,9 +22,9 @@ public class Rating {
   @Column(name = "star_rating")
   private Integer starRating;
 
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "userRating", fetch = FetchType.EAGER)
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "userRating")
   private Set<UserEventRating> userRatings = new HashSet<>();
 
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "eventRating", fetch = FetchType.EAGER)
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "eventRating")
   private Set<UserEventRating> eventRatings = new HashSet<>();
 }

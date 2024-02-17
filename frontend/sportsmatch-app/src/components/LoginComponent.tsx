@@ -2,11 +2,13 @@ import { useState, FormEvent } from 'react'
 import '../styles/LoginComponent.css'
 import { FaMailBulk, FaLock, FaGoogle, FaFacebook } from 'react-icons/fa'
 import { LoginService, OpenAPI } from '../generated/api'
+import { useNavigate } from 'react-router-dom'
 
 function LoginComponent() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
+  const navigate = useNavigate()
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -17,8 +19,10 @@ function LoginComponent() {
         password: password,
       })
 
+      
       console.log(response.data)
       OpenAPI.TOKEN = response.token // this line tells OpenAPI to authenticate with this header
+      navigate("/");
     } catch (error) {
       console.error('Login Error', error)
       setErrorMessage('The email address or password is invalid.')
@@ -59,7 +63,6 @@ function LoginComponent() {
           </label>
           <a href="#">Forgot password</a>
         </div>
-
         <button type="submit">Log in</button>
         <div className="register-link">
           <p>
@@ -79,24 +82,6 @@ function LoginComponent() {
       </form>
     </div>
   )
-}
-
-async function sendForm(
-  e: FormEvent<HTMLFormElement>,
-  email: string,
-  password: string,
-) {
-  e.preventDefault()
-
-  try {
-    const response = await LoginService.login({
-      email: email,
-      password: password,
-    })
-    console.log(response.data)
-  } catch (error) {
-    console.error('The username or password is invalid', error)
-  }
 }
 
 export default LoginComponent

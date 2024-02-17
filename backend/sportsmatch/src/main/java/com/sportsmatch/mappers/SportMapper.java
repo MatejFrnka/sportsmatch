@@ -3,7 +3,6 @@ package com.sportsmatch.mappers;
 import com.sportsmatch.dtos.SportDTO;
 import com.sportsmatch.models.Sport;
 
-
 public class SportMapper {
 
   /**
@@ -15,6 +14,8 @@ public class SportMapper {
   public static SportDTO toDTO(Sport entity) {
     return SportDTO.builder()
         .name(entity.getName())
+        .emoji(entity.getEmoji())
+        .backgroundUImageURL(entity.getBackgroundImageURL())
         .build();
   }
 }

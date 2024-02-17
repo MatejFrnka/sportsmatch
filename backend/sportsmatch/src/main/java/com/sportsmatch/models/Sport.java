@@ -20,6 +20,11 @@ public class Sport {
 
   private String name;
 
+  private String emoji;
+
+  @Column(name = "background_image_url")
+  private String backgroundImageURL;
+
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "sport")
   private Set<SportUser> sportUsers = new HashSet<>();
 
@@ -28,5 +33,11 @@ public class Sport {
 
   public Sport(String name) {
     this.name = name;
+  }
+
+  public Sport(String name, String emoji, String backgroundImageURL) {
+    this.name = name;
+    this.emoji = emoji;
+    this.backgroundImageURL = backgroundImageURL;
   }
 }

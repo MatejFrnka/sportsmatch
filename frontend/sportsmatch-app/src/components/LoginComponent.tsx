@@ -19,10 +19,9 @@ function LoginComponent() {
         password: password,
       })
 
-      
       console.log(response.data)
       OpenAPI.TOKEN = response.token // this line tells OpenAPI to authenticate with this header
-      navigate("/");
+      navigate('/')
     } catch (error) {
       console.error('Login Error', error)
       setErrorMessage('The email address or password is invalid.')

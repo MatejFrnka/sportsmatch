@@ -8,11 +8,31 @@ import Navbar from '../components/Navbar'
 
 export function AllSportsList() {
   const sampleSports: SportDTO[] = [
-    { name: 'Badminton' },
-    { name: 'Tennis' },
-    { name: 'Boxing' },
-    { name: 'Table Tennis' },
-    { name: 'Squash' },
+    {
+      name: 'Badminton',
+      emoji: '🏸',
+      backgroundUImageURL: './assets/sport-component-badminton.png',
+    },
+    {
+      name: 'Tennis',
+      emoji: '🎾',
+      backgroundUImageURL: './assets/sport-component-tennis.png',
+    },
+    {
+      name: 'Boxing',
+      emoji: '🥊',
+      backgroundUImageURL: './assets/sport-component-boxing.png',
+    },
+    {
+      name: 'Table Tennis',
+      emoji: '🏓',
+      backgroundUImageURL: './assets/sport-component-table-tennis.png',
+    },
+    {
+      name: 'Squash',
+      emoji: '🥎',
+      backgroundUImageURL: './assets/sport-component-squash.png',
+    },
   ]
 
   const url = '/test/3'
@@ -21,7 +41,6 @@ export function AllSportsList() {
     sport: SportDTO
     selected: boolean
   }
-  const backgroundImageUrl = './assets/sport-component-boxing.png'
 
   const navigate = useNavigate()
 
@@ -60,7 +79,7 @@ export function AllSportsList() {
           className={`checkbox-wrapper text-center
         `}
           style={{
-            backgroundImage: `url(${backgroundImageUrl})`,
+            backgroundImage: `url(${currentSport.sport.backgroundUImageURL})`,
           }}
         >
           <div className="row">

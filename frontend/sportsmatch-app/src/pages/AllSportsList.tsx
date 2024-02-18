@@ -105,18 +105,16 @@ export function AllSportsList() {
 
   const renderSearchBar = (): React.ReactElement => {
     return (
-      <div className="container">
-        <div className="row">
-          <div className="col">
-            <TbSearch className="search-icon" />
-            <input
-              type="text"
-              placeholder="Find your sports"
-              className="input-search"
-              value={searchQuery}
-              onChange={handleSearch}
-            />
-          </div>
+      <div className="row">
+        <div className="col">
+          <TbSearch className="search-icon" />
+          <input
+            type="text"
+            placeholder="Find your sports"
+            className="input-search"
+            value={searchQuery}
+            onChange={handleSearch}
+          />
         </div>
       </div>
     )
@@ -125,23 +123,19 @@ export function AllSportsList() {
   return (
     <>
       <div className="container-sm  sports-page-wrapper">
-        <div className="container-sm">
-          <div className="row">
-            <div className="col">
-              <Navbar />
-            </div>
+        <div className="row">
+          <div className="col">
+            <Navbar />
           </div>
         </div>
         {renderSearchBar()}
-        <div className="container position-relative">{sportList}</div>
-        <div className="container submit-button">
-          <div className="row-cols-1">
-            <div className="col">
-              <button type="submit" onClick={handleFinishSelection}>
-                Selected sports{' '}
-                {sportsState.filter((sport) => sport.selected).length}
-              </button>
-            </div>
+        {sportList}
+        <div className="row">
+          <div className="col">
+            <button type="submit" onClick={handleFinishSelection}>
+              Selected sports{' '}
+              {sportsState.filter((sport) => sport.selected).length}
+            </button>
           </div>
         </div>
       </div>

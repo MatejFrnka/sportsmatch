@@ -3,8 +3,8 @@ import { SportDTO } from '../generated/api'
 import '../App.css'
 import '../styles/Sport.css'
 import { useNavigate } from 'react-router-dom'
-import { TbSearch } from 'react-icons/tb'
 import Navbar from '../components/Navbar'
+import { SearchBar } from '../components/SearchBar'
 
 export function AllSportsList() {
   const sampleSports: SportDTO[] = [
@@ -48,11 +48,6 @@ export function AllSportsList() {
     sampleSports.map((sport) => ({ sport, selected: false })),
   )
   const [searchQuery, setSearchQuery] = useState('')
-
-  const handleSearch = (e: { target: { value: string } }) => {
-    const query = e.target.value
-    setSearchQuery(query)
-  }
 
   const handleSportSelection = (sport: SportState) => {
     const index = sportsState.indexOf(sport)
@@ -103,23 +98,6 @@ export function AllSportsList() {
       )
     })
 
-  const renderSearchBar = (): React.ReactElement => {
-    return (
-      <div className="row">
-        <div className="col">
-          <TbSearch className="search-icon" />
-          <input
-            type="text"
-            placeholder="Find your sports"
-            className="input-search"
-            value={searchQuery}
-            onChange={handleSearch}
-          />
-        </div>
-      </div>
-    )
-  }
-
   return (
     <>
       <div className="container-sm  sports-page-wrapper">
@@ -128,7 +106,11 @@ export function AllSportsList() {
             <Navbar />
           </div>
         </div>
-        {renderSearchBar()}
+        <SearchBar
+          onChange={(query: string) => {
+            setSearchQuery(query)
+          }}
+        />
         {sportList}
         <div className="row">
           <div className="col">

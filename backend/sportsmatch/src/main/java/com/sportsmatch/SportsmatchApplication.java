@@ -23,7 +23,6 @@ public class SportsmatchApplication implements CommandLineRunner {
   private final SportUserRepository sportUserRepository;
   private final EventPlayerRepository eventPlayerRepository;
   private final EventRepository eventRepository;
-
   private final PasswordEncoder passwordEncoder;
 
   public static void main(String[] args) {

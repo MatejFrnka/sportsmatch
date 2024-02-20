@@ -1,0 +1,12 @@
+.logo-png{
+  width: 110px;
+  margin-left: 17px;
+  margin-top: 16px;
+}
+
+nav{
+  width: 100%;
+  height: 60px;
+  background: rgba(255, 255, 255, 0.5);;
+  border-radius: 10px;
+}

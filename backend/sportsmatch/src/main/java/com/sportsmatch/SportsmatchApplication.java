@@ -1,11 +1,13 @@
 package com.sportsmatch;
 
+import com.sportsmatch.configs.InitProperties;
 import com.sportsmatch.models.*;
 import com.sportsmatch.repositories.*;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
@@ -16,6 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 @SpringBootApplication
 @EnableWebMvc
+@ConfigurationPropertiesScan("com.sportsmatch.configs")
 public class SportsmatchApplication implements CommandLineRunner {
 
   private final UserRepository userRepository;
@@ -24,6 +27,8 @@ public class SportsmatchApplication implements CommandLineRunner {
   private final EventPlayerRepository eventPlayerRepository;
   private final EventRepository eventRepository;
   private final PasswordEncoder passwordEncoder;
+  private final InitProperties initProperties;
+
 
   public static void main(String[] args) {
     SpringApplication.run(SportsmatchApplication.class, args);
@@ -31,7 +36,9 @@ public class SportsmatchApplication implements CommandLineRunner {
 
   @Override
   public void run(String... args) throws Exception {
-    addData();
+    if (Boolean.TRUE.equals(initProperties.getDatabaseInit())) {
+      addData();
+    }
   }
 
   public void addData() {
@@ -201,7 +208,7 @@ public class SportsmatchApplication implements CommandLineRunner {
     String tennisEmoji = "\uD83C\uDFBE"; //tennis racket emoji
     String squashEmoji = "\uD83E\uDD4E"; //green softball emoji
 
-    sportRepository.save(new Sport("Badminton", badmintonEmoji,"./assets/sport-component-badminton.png"));
+    sportRepository.save(new Sport("Badminton", badmintonEmoji, "./assets/sport-component-badminton.png"));
     sportRepository.save(new Sport("Boxing", boxingEmoji, "./assets/sport-component-boxing.png"));
     sportRepository.save(new Sport("Table Tennis", tableTennisEmoji, "./assets/sport-component-table-tennis.png"));
     sportRepository.save(new Sport("Squash", squashEmoji, "./assets/sport-component-squash.png"));

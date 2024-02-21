@@ -7,7 +7,6 @@ import com.sportsmatch.models.Gender;
 import com.sportsmatch.models.SportUser;
 import com.sportsmatch.models.User;
 import com.sportsmatch.repositories.SportRepository;
-import com.sportsmatch.repositories.SportUserRepository;
 import com.sportsmatch.repositories.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +19,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 @Service
 @RequiredArgsConstructor
@@ -50,17 +50,25 @@ public class UserServiceImp implements UserService {
   public void updateUserInfo(UserInfoDTO userInfoDTO) {
     User user = getUserFromTheSecurityContextHolder();
     user.setName(userInfoDTO.getUserName());
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-    user.setDateOfBirth(LocalDate.parse(userInfoDTO.getDateOfBirth(), formatter));
+    parseUserDateOfBirth(userInfoDTO, user);
     user.setGender(Gender.valueOf(userInfoDTO.getGender().toUpperCase()));
     linkUserWithSport(userInfoDTO, user);
     userRepository.save(user);
   }
 
+  private void parseUserDateOfBirth(UserInfoDTO userInfoDTO, User user) {
+    try {
+      user.setDateOfBirth(
+          LocalDate.parse(userInfoDTO.getDateOfBirth(), DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+    } catch (DateTimeParseException e) {
+      throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+    }
+  }
+
   private void linkUserWithSport(UserInfoDTO userInfoDTO, User user) {
     for (SportDTO sportDTO : userInfoDTO.getSports()) {
       if (sportRepository.findSportByName(sportDTO.getName()).isEmpty()) {
-        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Sport '" + sportDTO.getName() + "' not found.");
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND);
       }
       SportUser sportUser = new SportUser(user, sportMapper.toEntity(sportDTO));
       user.getSportUsers().add(sportUser);

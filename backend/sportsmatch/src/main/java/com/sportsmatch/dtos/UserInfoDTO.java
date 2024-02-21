@@ -22,6 +22,7 @@ public class UserInfoDTO {
   @Pattern(
       regexp = "\\d{2}-\\d{2}-\\d{4}",
       message = "Date of birth must be in the format dd-MM-yyyy")
+  @NotNull
   private String dateOfBirth;
 
   @NotNull(message = "Gender cannot be null.")

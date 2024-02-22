@@ -146,10 +146,10 @@ public class EventService {
 
     if (loggedPlayer == null || otherPlayer == null) {
       return EventStatusOptions.INVALID_PLAYER;
-    } else if (loggedPlayer.getMyScore() == null ||
-               loggedPlayer.getOpponentScore() == null ||
-               otherPlayer.getMyScore() == null ||
-               otherPlayer.getOpponentScore() == null) {
+    } else if (loggedPlayer.getMyScore() == null
+            || loggedPlayer.getOpponentScore() == null
+            || otherPlayer.getMyScore() == null
+            || otherPlayer.getOpponentScore() == null) {
       return EventStatusOptions.WAITING_FOR_RATING;
     }
 

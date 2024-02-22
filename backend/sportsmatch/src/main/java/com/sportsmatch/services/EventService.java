@@ -130,10 +130,10 @@ public class EventService {
    * @param players who entered the event (2 playerEvent)
    * @return the status of the match
    * There is 4 option:
-   * - Invalid Player -> if one of the player don't present.
-   * - Waiting for ratings -> if one of the players doesn't response with the score information.
-   * - Match -> when both player submitted their result and it is match.
-   * - Mismatch -> when both players have submitted their result and it isn't a match.
+   *     - Invalid Player -> if one of the player don't present.
+   *     - Waiting for ratings -> if one of the players doesn't response with the score information.
+   *     - Match -> when both player submitted their result and it is match.
+   *     - Mismatch -> when both players have submitted their result and it isn't a match.
    */
 
   public EventStatusOptions checkScoreMatch(Set<EventPlayer> players) {

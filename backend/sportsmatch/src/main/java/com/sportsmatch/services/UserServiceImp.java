@@ -18,9 +18,11 @@ public class UserServiceImp implements UserService {
   private final UserRepository userRepository;
 
   /**
-   * This method returns the user from the securityContextHolder.
+   * This method retrieves the authenticated user from the SecurityContextHolder.
+   * It checks if the user is authenticated and returns the corresponding User entity.
    *
-   * @return an authenticated user
+   * @return the authenticated user
+   * @throws ResponseStatusException if the user is not authenticated
    */
   @Override
   public User getUserFromTheSecurityContextHolder() {

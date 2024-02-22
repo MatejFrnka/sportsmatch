@@ -1,5 +1,6 @@
 package com.sportsmatch.dtos;
 
+import com.sportsmatch.models.EventStatusOptions;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -15,6 +16,6 @@ public class EventHistoryDTO {
   private Integer opponentScore;
   private UserDTO opponent;
   private LocalDateTime dateOfTheMatch;
-  private String status;
+  private EventStatusOptions status;
 
 }

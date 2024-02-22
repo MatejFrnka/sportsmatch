@@ -5,6 +5,7 @@ import com.sportsmatch.dtos.EventHistoryDTO;
 import com.sportsmatch.mappers.EventMapper;
 import com.sportsmatch.models.Event;
 import com.sportsmatch.models.EventPlayer;
+import com.sportsmatch.models.EventStatusOptions;
 import com.sportsmatch.models.User;
 import com.sportsmatch.repositories.EventPlayerRepository;
 import com.sportsmatch.repositories.EventRepository;
@@ -129,7 +130,7 @@ public class EventService {
    *         - Mismatch -> when both players have submitted their result and it isn't a match.
    */
 
-  public String checkScoreMatch(Set<EventPlayer> players) {
+  public EventStatusOptions checkScoreMatch(Set<EventPlayer> players) {
 
     User loggedUser = userService.getUserFromTheSecurityContextHolder();
 
@@ -144,10 +145,12 @@ public class EventService {
         .orElse(null);
 
     if (loggedPlayer == null || otherPlayer == null) {
-      return "Invalid Player";
-    } else if (loggedPlayer.getMyScore() == null || loggedPlayer.getOpponentScore() == null ||
-        otherPlayer.getMyScore() == null || otherPlayer.getOpponentScore() == null) {
-      return "Waiting for ratings";
+      return EventStatusOptions.INVALID_PLAYER;
+    } else if (loggedPlayer.getMyScore() == null ||
+               loggedPlayer.getOpponentScore() == null ||
+               otherPlayer.getMyScore() == null ||
+               otherPlayer.getOpponentScore() == null) {
+      return EventStatusOptions.WAITING_FOR_RATING;
     }
 
     int loggedPlayerOwnScore = loggedPlayer.getMyScore();
@@ -156,9 +159,9 @@ public class EventService {
     int otherPlayerLoggedScore = otherPlayer.getOpponentScore();
 
     if (loggedPlayerOwnScore == otherPlayerLoggedScore && loggedPlayerOpponentScore == otherPlayerOwnScore) {
-      return "Match";
+      return EventStatusOptions.MATCH;
     } else {
-      return "Dismatch";
+      return EventStatusOptions.MISMATCH;
     }
   }
 }

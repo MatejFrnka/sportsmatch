@@ -4,6 +4,7 @@ import com.sportsmatch.dtos.EventDTO;
 import com.sportsmatch.dtos.EventHistoryDTO;
 import com.sportsmatch.models.Event;
 import com.sportsmatch.models.EventPlayer;
+import com.sportsmatch.models.EventStatusOptions;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +49,7 @@ public class EventMapper {
    * @param event to be converted
    * @return an EventHistoryDTO based on the given Event
    */
-  public EventHistoryDTO toDTO(Event event, String loggedUsername, String status) {
+  public EventHistoryDTO toDTO(Event event, String loggedUsername, EventStatusOptions status) {
 
     // Get the logged-in EventPlayer
     EventPlayer loggedPlayer = event.getPlayers().stream()

@@ -4,5 +4,7 @@
 /* eslint-disable */
 export type SportDTO = {
     name?: string;
+    emoji?: string;
+    backgroundUImageURL?: string;
 };
 

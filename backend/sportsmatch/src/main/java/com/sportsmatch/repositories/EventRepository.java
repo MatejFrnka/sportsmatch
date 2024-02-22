@@ -1,8 +1,6 @@
 package com.sportsmatch.repositories;
 
 import com.sportsmatch.models.Event;
-import com.sportsmatch.models.EventPlayer;
-import com.sportsmatch.models.User;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -23,13 +21,12 @@ public interface EventRepository extends JpaRepository<Event, Long> {
   /**
    * Retrieves events filtered by user and finished status.
    *
-   * @param name      the logged user's name to filter events by
+   * @param name     the logged user's name to filter events by
    * @param now      the current time to filter events by
    * @param pageable pagination information (page, size)
    * @return a list of events filtered by user and finished status
    */
-   // =?1 =?2")
-
+  // =?1 =?2")
   @Query("SELECT ep.event FROM EventPlayer ep WHERE ep.player.name = :name AND ep.event.dateEnd < :now")
   List<Event> findEventsByUser(
       @Param("name") String name,

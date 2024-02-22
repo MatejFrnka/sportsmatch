@@ -145,7 +145,7 @@ public class EventService {
     if (loggedPlayer == null || otherPlayer == null) {
       return "Invalid Player";
     } else if (loggedPlayer.getMyScore() == null || loggedPlayer.getOpponentScore() == null ||
-               otherPlayer.getMyScore() == null || otherPlayer.getOpponentScore() == null) {
+        otherPlayer.getMyScore() == null || otherPlayer.getOpponentScore() == null) {
       return "Waiting for ratings";
     }
 

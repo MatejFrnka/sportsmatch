@@ -22,7 +22,7 @@ public class UserMapper {
         .build();
   }
 
-  public UserDTO toDTO (User user){
+  public UserDTO toDTO(User user) {
     return UserDTO.builder()
         .name(user.getName())
         .build();

@@ -19,6 +19,7 @@ public class UserServiceImp implements UserService {
 
   /**
    * This method returns the user from the securityContextHolder
+   *
    * @return an authenticated user
    */
   @Override

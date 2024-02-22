@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { TbSearch } from 'react-icons/tb'
 import '../App.css'
 import '../styles/Sport.css'
@@ -8,12 +7,8 @@ interface Params {
 }
 
 export function SearchBar(p: Params) {
-  const [searchQuery, setSearchQuery] = useState('')
-
   const handleSearch = (e: { target: { value: string } }) => {
-    const query = e.target.value
-    p.onChange(query)
-    setSearchQuery(query)
+    p.onChange(e.target.value)
   }
 
   return (
@@ -24,7 +19,6 @@ export function SearchBar(p: Params) {
           type="text"
           placeholder="Find your sports"
           className="input-search"
-          value={searchQuery}
           onChange={handleSearch}
         />
       </div>

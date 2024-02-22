@@ -12,7 +12,6 @@ import com.sportsmatch.repositories.EventRepository;
 import com.sportsmatch.repositories.SportRepository;
 import com.sportsmatch.repositories.UserRepository;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -27,7 +26,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class EventService {
-  private  UserService userService;
+  private UserService userService;
   private EventRepository eventRepository;
   private EventMapper eventMapper;
   private UserRepository userRepository;
@@ -130,11 +129,11 @@ public class EventService {
    *
    * @param players who entered the event (2 playerEvent)
    * @return the status of the match
-   *         There is 4 option:
-   *         - Invalid Player -> if one of the player don't present.
-   *         - Waiting for ratings -> if one of the players doesn't response with the score information.
-   *         - Match -> when both player submitted their result and it is match.
-   *         - Mismatch -> when both players have submitted their result and it isn't a match.
+   * There is 4 option:
+   * - Invalid Player -> if one of the player don't present.
+   * - Waiting for ratings -> if one of the players doesn't response with the score information.
+   * - Match -> when both player submitted their result and it is match.
+   * - Mismatch -> when both players have submitted their result and it isn't a match.
    */
 
   public EventStatusOptions checkScoreMatch(Set<EventPlayer> players) {
@@ -154,9 +153,9 @@ public class EventService {
     if (loggedPlayer == null || otherPlayer == null) {
       return EventStatusOptions.INVALID_PLAYER;
     } else if (loggedPlayer.getMyScore() == null
-            || loggedPlayer.getOpponentScore() == null
-            || otherPlayer.getMyScore() == null
-            || otherPlayer.getOpponentScore() == null) {
+        || loggedPlayer.getOpponentScore() == null
+        || otherPlayer.getMyScore() == null
+        || otherPlayer.getOpponentScore() == null) {
       return EventStatusOptions.WAITING_FOR_RATING;
     }
 

@@ -43,7 +43,7 @@ public class EventMapper {
   }
 
   /**
-   * Convert an Event entity to and EventHistoryDTO
+   * Convert an Event entity to and EventHistoryDTO.
    *
    * @param event to be converted
    * @return an EventHistoryDTO based on the given Event

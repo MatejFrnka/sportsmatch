@@ -50,7 +50,7 @@ public class EventsController {
 
 
   /**
-   * This endpoint returns the history of the finished events by the logged-in user
+   * This endpoint returns the history of the finished events by the logged-in user.
    *
    * @param pageable it contains the page and size for pagination
    * @return a list of finished EventHistoryDTO of the logged-in user

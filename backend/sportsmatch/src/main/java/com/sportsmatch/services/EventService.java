@@ -118,7 +118,7 @@ public class EventService {
   }
 
   /**
-   * Returns the checked status of the match (check the score is matching or missing)
+   * Returns the checked status of the match (check the score is matching or missing).
    *
    * @param players who entered the event (2 playerEvent)
    * @return the status of the match

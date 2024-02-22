@@ -18,7 +18,7 @@ public class UserServiceImp implements UserService {
   private final UserRepository userRepository;
 
   /**
-   * This method returns the user from the securityContextHolder
+   * This method returns the user from the securityContextHolder.
    *
    * @return an authenticated user
    */

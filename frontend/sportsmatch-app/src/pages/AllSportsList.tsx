@@ -8,31 +8,11 @@ import Navbar from '../components/Navbar'
 
 export function AllSportsList() {
   const sampleSports: SportDTO[] = [
-    {
-      name: 'Badminton',
-      emoji: '🏸',
-      backgroundUImageURL: './assets/sport-component-badminton.png',
-    },
-    {
-      name: 'Tennis',
-      emoji: '🎾',
-      backgroundUImageURL: './assets/sport-component-tennis.png',
-    },
-    {
-      name: 'Boxing',
-      emoji: '🥊',
-      backgroundUImageURL: './assets/sport-component-boxing.png',
-    },
-    {
-      name: 'Table Tennis',
-      emoji: '🏓',
-      backgroundUImageURL: './assets/sport-component-table-tennis.png',
-    },
-    {
-      name: 'Squash',
-      emoji: '🥎',
-      backgroundUImageURL: './assets/sport-component-squash.png',
-    },
+    { name: 'Badminton' },
+    { name: 'Tennis' },
+    { name: 'Boxing' },
+    { name: 'Table Tennis' },
+    { name: 'Squash' },
   ]
 
   const url = '/test/3'
@@ -41,6 +21,7 @@ export function AllSportsList() {
     sport: SportDTO
     selected: boolean
   }
+  const backgroundImageUrl = './assets/sport-component-boxing.png'
 
   const navigate = useNavigate()
 
@@ -79,7 +60,7 @@ export function AllSportsList() {
           className={`checkbox-wrapper text-center
         `}
           style={{
-            backgroundImage: `url(${currentSport.sport.backgroundUImageURL})`,
+            backgroundImage: `url(${backgroundImageUrl})`,
           }}
         >
           <div className="row">
@@ -105,16 +86,18 @@ export function AllSportsList() {
 
   const renderSearchBar = (): React.ReactElement => {
     return (
-      <div className="row">
-        <div className="col">
-          <TbSearch className="search-icon" />
-          <input
-            type="text"
-            placeholder="Find your sports"
-            className="input-search"
-            value={searchQuery}
-            onChange={handleSearch}
-          />
+      <div className="container">
+        <div className="row">
+          <div className="col">
+            <TbSearch className="search-icon" />
+            <input
+              type="text"
+              placeholder="Find your sports"
+              className="input-search"
+              value={searchQuery}
+              onChange={handleSearch}
+            />
+          </div>
         </div>
       </div>
     )
@@ -123,19 +106,23 @@ export function AllSportsList() {
   return (
     <>
       <div className="container-sm  sports-page-wrapper">
-        <div className="row">
-          <div className="col">
-            <Navbar />
+        <div className="container-sm">
+          <div className="row">
+            <div className="col">
+              <Navbar />
+            </div>
           </div>
         </div>
         {renderSearchBar()}
-        {sportList}
-        <div className="row">
-          <div className="col">
-            <button type="submit" onClick={handleFinishSelection}>
-              Selected sports{' '}
-              {sportsState.filter((sport) => sport.selected).length}
-            </button>
+        <div className="container position-relative">{sportList}</div>
+        <div className="container submit-button">
+          <div className="row-cols-1">
+            <div className="col">
+              <button type="submit" onClick={handleFinishSelection}>
+                Selected sports{' '}
+                {sportsState.filter((sport) => sport.selected).length}
+              </button>
+            </div>
           </div>
         </div>
       </div>

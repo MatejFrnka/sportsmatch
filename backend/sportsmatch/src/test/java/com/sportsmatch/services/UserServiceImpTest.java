@@ -7,7 +7,6 @@ import com.sportsmatch.models.Gender;
 import com.sportsmatch.models.Sport;
 import com.sportsmatch.models.SportUser;
 import com.sportsmatch.models.User;
-import com.sportsmatch.repositories.SportRepository;
 import com.sportsmatch.repositories.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

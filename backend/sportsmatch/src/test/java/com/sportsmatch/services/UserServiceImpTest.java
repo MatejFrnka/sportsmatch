@@ -32,7 +32,6 @@ class UserServiceImpTest {
 
   @Mock private UserRepository userRepository;
   @Mock private SportMapper sportMapper;
-  @Mock private SportRepository sportRepository;
   @Mock private SecurityContext securityContext;
   @InjectMocks private UserServiceImp userServiceImp;
 

@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom'
 import '../styles/Sport.css'
 
-export default function PageNotFound() {
-  const homePageURL = '/homepage'
+export default function NotFound() {
+  const mainPageURL = '/mainpage'
   const navigate = useNavigate()
 
   return (
@@ -15,7 +15,7 @@ export default function PageNotFound() {
         </div>
         <div className="row">
           <div className="col">
-            <button type="submit" onClick={() => navigate(homePageURL)}>
+            <button type="submit" onClick={() => navigate(mainPageURL)}>
               Go to home screen
             </button>
           </div>

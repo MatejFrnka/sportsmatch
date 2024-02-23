@@ -1,6 +1,7 @@
 import '../styles/SignupComponent.css'
 import { FaLock, FaMailBulk } from 'react-icons/fa'
-import { useState } from 'react'
+import { useState, FormEvent } from 'react'
+import { RegisterService, OpenAPI } from '../generated/api';}
 
 function SignupComponent() {
   const [formData, setFormData] = useState({
@@ -9,17 +10,14 @@ function SignupComponent() {
     confirmPassword: ''
   });
 
-  const handleSubmit = async (event : any) => {
-    event.preventDefault();
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
     try {
-      const response = await fetch('http://example.com/api/v1/auth/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await RegisterService.register({
+        email: formData.email,
+      password: formData.password
+      })
 
       if (response.ok) {
         console.log('Registration successful');

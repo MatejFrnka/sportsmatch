@@ -2,6 +2,7 @@ import '../styles/SignupComponent.css'
 import { FaLock, FaMailBulk } from 'react-icons/fa'
 import { useState, FormEvent } from 'react'
 import { RegisterService } from '../generated/api'
+import { useNavigate } from 'react-router-dom'
 
 function SignupComponent() {
   const [formData, setFormData] = useState({
@@ -9,6 +10,8 @@ function SignupComponent() {
     password: '',
     confirmPassword: ''
   });
+  const [errorMessage, setErrorMessage] = useState('')
+  const navigate = useNavigate()
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -19,26 +22,14 @@ function SignupComponent() {
         password: formData.password
       })
 
-      if (response.ok) {
-        console.log('Registration successful');
-
-      } else {
-        console.error('Registration failed');
-
-      }
+      console.log('Registration successful');
+      navigate('/')
     } catch (error) {
-      console.error('Error during registration:', error);
-
+      console.error('Register Error', error);
+      setErrorMessage('The email address or password is invalid.')
     }
   };
-
-  const handleChange = (event : any) => {
-    setFormData({
-      ...formData,
-      [event.target.name]: event.target.value
-    });
-  };
-
+  
   return (
     <div className="signup-wrapper">
       <form onSubmit={handleSubmit}>

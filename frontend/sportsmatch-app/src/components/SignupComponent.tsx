@@ -1,7 +1,7 @@
 import '../styles/SignupComponent.css'
 import { FaLock, FaMailBulk } from 'react-icons/fa'
 import { useState, FormEvent } from 'react'
-import { RegisterService, OpenAPI } from '../generated/api';}
+import { RegisterService } from '../generated/api'
 
 function SignupComponent() {
   const [formData, setFormData] = useState({
@@ -16,7 +16,7 @@ function SignupComponent() {
     try {
       const response = await RegisterService.register({
         email: formData.email,
-      password: formData.password
+        password: formData.password
       })
 
       if (response.ok) {
@@ -38,6 +38,7 @@ function SignupComponent() {
       [event.target.name]: event.target.value
     });
   };
+
   return (
     <div className="signup-wrapper">
       <form onSubmit={handleSubmit}>

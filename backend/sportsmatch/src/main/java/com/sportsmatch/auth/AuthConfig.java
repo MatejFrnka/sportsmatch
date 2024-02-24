@@ -57,7 +57,7 @@ public class AuthConfig {
     return new WebMvcConfigurer() {
       @Override
       public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/api/v1/auth/login").allowedOrigins(frontendUrl);
+        registry.addMapping("/api/v1/**").allowedOrigins(frontendUrl);
       }
     };
   }

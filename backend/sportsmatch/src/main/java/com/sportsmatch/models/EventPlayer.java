@@ -24,9 +24,11 @@ public class EventPlayer {
   @Column(name = "opponent_score")
   private Integer opponentScore;
 
-  @ManyToOne private User player;
+  @ManyToOne
+  private User player;
 
-  @ManyToOne private Event event;
+  @ManyToOne
+  private Event event;
 
   public EventPlayer(Integer myScore, Integer opponentScore, User player, Event event) {
     this.myScore = myScore;

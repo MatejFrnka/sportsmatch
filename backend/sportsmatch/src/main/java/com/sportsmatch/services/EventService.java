@@ -1,31 +1,42 @@
 package com.sportsmatch.services;
 
 import com.sportsmatch.dtos.EventDTO;
+import com.sportsmatch.dtos.EventHistoryDTO;
 import com.sportsmatch.mappers.EventMapper;
-import com.sportsmatch.models.*;
+import com.sportsmatch.models.Event;
+import com.sportsmatch.models.EventPlayer;
+import com.sportsmatch.models.EventStatusOptions;
+import com.sportsmatch.models.User;
 import com.sportsmatch.repositories.EventPlayerRepository;
 import com.sportsmatch.repositories.EventRepository;
 import com.sportsmatch.repositories.SportRepository;
 import com.sportsmatch.repositories.UserRepository;
-import java.util.HashSet;
-import java.util.Set;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.web.server.ResponseStatusException;
+
+import java.time.LocalDateTime;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
+@RequiredArgsConstructor
 public class EventService {
+  private UserService userService;
   private EventRepository eventRepository;
   private EventMapper eventMapper;
   private UserRepository userRepository;
   private SportRepository sportRepository;
   private EventPlayerRepository eventPlayerRepository;
+
+  public EventService(UserService userService) {
+    this.userService = userService;
+  }
+
 
   public Event getEventById(Long id) {
     return eventRepository
@@ -95,5 +106,68 @@ public class EventService {
 
   public void deleteEventFromDatabase(Event eventById) {
     eventRepository.deleteById(eventById.getId());
+  }
+
+
+  /**
+   * Retrieves the event history of the logged-in user.
+   *
+   * @param pageable contains the pagination information (page, size)
+   * @return a list of EventHistoryDTOs representing the logged-in user's event history
+   */
+  public List<EventHistoryDTO> getEventsHistory(final Pageable pageable) {
+    String loggedUserName = userService.getUserFromTheSecurityContextHolder().getName();
+
+    return eventRepository.findEventsByUser(loggedUserName, LocalDateTime.now(), pageable)
+        .stream()
+        .map(event -> eventMapper.toDTO(event, loggedUserName, checkScoreMatch(event.getPlayers())))
+        .collect(Collectors.toList());
+  }
+
+  /**
+   * Returns the checked status of the match (check the score is matching or missing).
+   *
+   * @param players who entered the event (2 playerEvent)
+   * @return the status of the match
+   *        There is 4 option:
+   *     - Invalid Player -> if one of the player don't present.
+   *     - Waiting for ratings -> if one of the players doesn't response with the score information.
+   *     - Match -> when both player submitted their result and it is match.
+   *     - Mismatch -> when both players have submitted their result and it isn't a match.
+   */
+
+  public EventStatusOptions checkScoreMatch(Set<EventPlayer> players) {
+
+    User loggedUser = userService.getUserFromTheSecurityContextHolder();
+
+    EventPlayer loggedPlayer = players.stream()
+        .filter(p -> p.getPlayer().getName().equals(loggedUser.getName()))
+        .findFirst()
+        .orElse(null);
+
+    EventPlayer otherPlayer = players.stream()
+        .filter(p -> !Objects.equals(p.getPlayer().getName(), loggedUser.getName()))
+        .findFirst()
+        .orElse(null);
+
+    if (loggedPlayer == null || otherPlayer == null) {
+      return EventStatusOptions.INVALID_PLAYER;
+    } else if (loggedPlayer.getMyScore() == null
+        || loggedPlayer.getOpponentScore() == null
+        || otherPlayer.getMyScore() == null
+        || otherPlayer.getOpponentScore() == null) {
+      return EventStatusOptions.WAITING_FOR_RATING;
+    }
+
+    int loggedPlayerOwnScore = loggedPlayer.getMyScore();
+    int loggedPlayerOpponentScore = loggedPlayer.getOpponentScore();
+    int otherPlayerOwnScore = otherPlayer.getMyScore();
+    int otherPlayerLoggedScore = otherPlayer.getOpponentScore();
+
+    if (loggedPlayerOwnScore == otherPlayerLoggedScore && loggedPlayerOpponentScore == otherPlayerOwnScore) {
+      return EventStatusOptions.MATCH;
+    } else {
+      return EventStatusOptions.MISMATCH;
+    }
   }
 }

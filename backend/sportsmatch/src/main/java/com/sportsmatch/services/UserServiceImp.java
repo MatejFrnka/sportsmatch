@@ -1,13 +1,14 @@
 package com.sportsmatch.services;
 
-import com.sportsmatch.dtos.SportDTO;
-import com.sportsmatch.dtos.UserInfoDTO;
+
 import com.sportsmatch.mappers.SportMapper;
-import com.sportsmatch.models.Gender;
-import com.sportsmatch.models.SportUser;
 import com.sportsmatch.models.User;
 import com.sportsmatch.repositories.SportRepository;
 import com.sportsmatch.repositories.UserRepository;
+import com.sportsmatch.dtos.SportDTO;
+import com.sportsmatch.dtos.UserInfoDTO;
+import com.sportsmatch.models.Gender;
+import com.sportsmatch.models.SportUser;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,10 +17,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
 
 @Service
 @RequiredArgsConstructor
@@ -30,16 +31,16 @@ public class UserServiceImp implements UserService {
   private final SportRepository sportRepository;
 
   /**
-   * Retrieves the currently authenticated user from the security context.
+   * This method retrieves the authenticated user from the SecurityContextHolder.
+   * It checks if the user is authenticated and returns the corresponding User entity.
    *
-   * @return The authenticated user
+   * @return the authenticated user
+   * @throws ResponseStatusException if the user is not authenticated
    */
   @Override
   public User getUserFromTheSecurityContextHolder() {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    if (authentication != null
-        && authentication.isAuthenticated()
-        && authentication.getPrincipal() instanceof UserDetails userDetails) {
+    if (authentication != null && authentication.isAuthenticated() && authentication.getPrincipal() instanceof UserDetails userDetails) {
       return userRepository.findByEmail(userDetails.getUsername()).orElseThrow();
     } else {
       throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User not authenticated");

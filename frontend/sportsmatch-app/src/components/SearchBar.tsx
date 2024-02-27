@@ -1,5 +1,4 @@
 import { TbSearch } from 'react-icons/tb'
-import '../App.css'
 import '../styles/Sport.css'
 
 interface Params {
@@ -13,7 +12,7 @@ export function SearchBar(p: Params) {
 
   return (
     <div className="row">
-      <div className="col">
+      <div className="col" style={{ position: 'relative' }}>
         <TbSearch className="search-icon" />
         <input
           type="text"

@@ -3,7 +3,6 @@ import { SportDTO } from '../generated/api'
 import '../App.css'
 import '../styles/Sport.css'
 import { useNavigate } from 'react-router-dom'
-import Navbar from '../components/Navbar'
 import { SearchBar } from '../components/SearchBar'
 
 export function AllSportsList() {
@@ -100,12 +99,7 @@ export function AllSportsList() {
 
   return (
     <>
-      <div className="container-sm  sports-page-wrapper">
-        <div className="row">
-          <div className="col">
-            <Navbar />
-          </div>
-        </div>
+      <div className="container-fluid  sports-page-wrapper">
         <SearchBar
           onChange={(query: string) => {
             setSearchQuery(query)

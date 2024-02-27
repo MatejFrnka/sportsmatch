@@ -1,9 +1,5 @@
-.match {
-  margin-top: 4em;
-}
 
 .match .row {
-  margin: 0.75em 0;
   box-shadow: var(--sm-border-shadow);
   background: linear-gradient(0deg,var(--sm-orange-overlay),var(--sm-orange-overlay)),url(./assets/InProgress.png);
   background-clip: content-box;

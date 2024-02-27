@@ -26,7 +26,7 @@ interface InProgressProps {
 function InProgress({ event }: InProgressProps) {
   return (
     <>
-      <div className="container-sm">
+      <div className="container-fluid">
         <div className="match">
           <div className="row">
             <div className="col position-relative">

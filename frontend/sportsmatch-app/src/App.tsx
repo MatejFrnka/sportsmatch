@@ -7,6 +7,7 @@ import Signup from './pages/Signup'
 import { AllSportsList } from './pages/AllSportsList'
 import NewUser from './pages/NewUser'
 import UserPage from './pages/UserPage'
+import NotFound from './pages/NotFound'
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           </Route>
           <Route path="/" element={<Home />} />
           <Route path="user" element={<UserPage />}></Route>
+          <Route path="/*" element={<NotFound />}></Route>
         </Routes>
       </div>
     </BrowserRouter>

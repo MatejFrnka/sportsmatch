@@ -36,7 +36,7 @@ public class SportsmatchApplication implements CommandLineRunner {
 
   @Override
   public void run(String... args) throws Exception {
-    if (Boolean.TRUE.equals(initProperties.getDatabaseInit())) {
+    if (initProperties.getDatabaseInit()) {
       addData();
     }
   }

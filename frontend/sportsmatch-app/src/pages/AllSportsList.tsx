@@ -3,16 +3,36 @@ import { SportDTO } from '../generated/api'
 import '../App.css'
 import '../styles/Sport.css'
 import { useNavigate } from 'react-router-dom'
-import { TbSearch } from 'react-icons/tb'
 import Navbar from '../components/Navbar'
+import { SearchBar } from '../components/SearchBar'
 
 export function AllSportsList() {
   const sampleSports: SportDTO[] = [
-    { name: 'Badminton' },
-    { name: 'Tennis' },
-    { name: 'Boxing' },
-    { name: 'Table Tennis' },
-    { name: 'Squash' },
+    {
+      name: 'Badminton',
+      emoji: '🏸',
+      backgroundUImageURL: './assets/sport-component-badminton.png',
+    },
+    {
+      name: 'Tennis',
+      emoji: '🎾',
+      backgroundUImageURL: './assets/sport-component-tennis.png',
+    },
+    {
+      name: 'Boxing',
+      emoji: '🥊',
+      backgroundUImageURL: './assets/sport-component-boxing.png',
+    },
+    {
+      name: 'Table Tennis',
+      emoji: '🏓',
+      backgroundUImageURL: './assets/sport-component-table-tennis.png',
+    },
+    {
+      name: 'Squash',
+      emoji: '🥎',
+      backgroundUImageURL: './assets/sport-component-squash.png',
+    },
   ]
 
   const url = '/test/3'
@@ -21,7 +41,6 @@ export function AllSportsList() {
     sport: SportDTO
     selected: boolean
   }
-  const backgroundImageUrl = './assets/sport-component-boxing.png'
 
   const navigate = useNavigate()
 
@@ -29,11 +48,6 @@ export function AllSportsList() {
     sampleSports.map((sport) => ({ sport, selected: false })),
   )
   const [searchQuery, setSearchQuery] = useState('')
-
-  const handleSearch = (e: { target: { value: string } }) => {
-    const query = e.target.value
-    setSearchQuery(query)
-  }
 
   const handleSportSelection = (sport: SportState) => {
     const index = sportsState.indexOf(sport)
@@ -60,7 +74,7 @@ export function AllSportsList() {
           className={`checkbox-wrapper text-center
         `}
           style={{
-            backgroundImage: `url(${backgroundImageUrl})`,
+            backgroundImage: `url(${currentSport.sport.backgroundUImageURL})`,
           }}
         >
           <div className="row">
@@ -84,45 +98,26 @@ export function AllSportsList() {
       )
     })
 
-  const renderSearchBar = (): React.ReactElement => {
-    return (
-      <div className="container">
-        <div className="row">
-          <div className="col">
-            <TbSearch className="search-icon" />
-            <input
-              type="text"
-              placeholder="Find your sports"
-              className="input-search"
-              value={searchQuery}
-              onChange={handleSearch}
-            />
-          </div>
-        </div>
-      </div>
-    )
-  }
-
   return (
     <>
       <div className="container-sm  sports-page-wrapper">
-        <div className="container-sm">
-          <div className="row">
-            <div className="col">
-              <Navbar />
-            </div>
+        <div className="row">
+          <div className="col">
+            <Navbar />
           </div>
         </div>
-        {renderSearchBar()}
-        <div className="container position-relative">{sportList}</div>
-        <div className="container submit-button">
-          <div className="row-cols-1">
-            <div className="col">
-              <button type="submit" onClick={handleFinishSelection}>
-                Selected sports{' '}
-                {sportsState.filter((sport) => sport.selected).length}
-              </button>
-            </div>
+        <SearchBar
+          onChange={(query: string) => {
+            setSearchQuery(query)
+          }}
+        />
+        {sportList}
+        <div className="row">
+          <div className="col">
+            <button type="submit" onClick={handleFinishSelection}>
+              Selected sports{' '}
+              {sportsState.filter((sport) => sport.selected).length}
+            </button>
           </div>
         </div>
       </div>

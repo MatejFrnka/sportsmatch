@@ -7,17 +7,10 @@ interface WrapperProps {
   backgroundColor?: string
 }
 
-const defaultBackgroundColor = '#e9e6e6' // Example default background color
-
-const Wrapper: React.FC<WrapperProps> = ({
-  child,
-  showNavbar = true,
-  backgroundColor = defaultBackgroundColor,
-}) => {
+const Wrapper: React.FC<WrapperProps> = ({ child, showNavbar = true }) => {
   return (
     <div
       style={{
-        backgroundColor: backgroundColor,
         height: '100%',
       }}
     >

@@ -2,6 +2,7 @@ import '../styles/UserPage.css'
 import Match from '../components/Match'
 import EventHistoryItem from '../components/EventHistoryItem'
 import SportEvent from '../components/SportEvent'
+import { Link } from 'react-router-dom'
 
 export default function UserPage() {
   const sampleUserWithEvent = {
@@ -60,7 +61,7 @@ export default function UserPage() {
               <div className="match-wrapper">
                 <div className="col">
                   <p>No upcoming match</p>
-                  <a href="#">Find or Host a Match</a>
+                  <Link to="#">Find or Host a Match</Link>
                 </div>
               </div>
             ) : (
@@ -74,7 +75,7 @@ export default function UserPage() {
                 <p>History</p>
               </div>
               <div className="col view">
-                <a href="#">View all</a>
+                <Link to="#">View all</Link>
               </div>
             </div>
           </div>

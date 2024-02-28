@@ -7,13 +7,15 @@ import '../styles/NewUserComponent.css'
 
 export default function NewUser() {
   return (
-    <div className="wrapper-frame">
-      <div className="components-container">
-        <NewUserComponent />
-        <NewUserInputComponent />
-        <NewUserGenderComponent />
-        <SportsButtonComponent />
-        <NewUserRegistrationButtonComponent />
+    <div className={'centered-container'}>
+      <div className="wrapper-frame">
+        <div className="components-container">
+          <NewUserComponent />
+          <NewUserInputComponent />
+          <NewUserGenderComponent />
+          <SportsButtonComponent />
+          <NewUserRegistrationButtonComponent />
+        </div>
       </div>
     </div>
   )

@@ -1,8 +1,8 @@
 import { useState, FormEvent } from 'react'
 import '../styles/LoginComponent.css'
-import { FaMailBulk, FaLock, FaGoogle, FaFacebook } from 'react-icons/fa'
+import { FaMailBulk, FaLock } from 'react-icons/fa'
 import { LoginService, OpenAPI } from '../generated/api'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 function LoginComponent() {
   const [email, setEmail] = useState('')
@@ -61,12 +61,12 @@ function LoginComponent() {
               <input type="checkbox" />
               Remember me{' '}
             </label>
-            <a href="#">Forgot password</a>
+            {/*<a href="#">Forgot password</a>*/}
           </div>
           <button type="submit">Log in</button>
           <div className="login-register-link">
             <p>
-              Dont have an account <a href="/signup">REGISTER</a>
+              Dont have an account <Link to="/signup">REGISTER</Link>
             </p>
           </div>
           {/*<p className="alt-login-text">Or log in using</p>*/}

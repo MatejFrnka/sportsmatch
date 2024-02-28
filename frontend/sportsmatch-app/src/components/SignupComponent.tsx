@@ -1,5 +1,6 @@
 import '../styles/SignupComponent.css'
 import { FaLock, FaMailBulk } from 'react-icons/fa'
+import { Link } from 'react-router-dom'
 
 function SignupComponent() {
   return (
@@ -27,7 +28,7 @@ function SignupComponent() {
             <FaLock className="signup-icon" />
           </div>
           <div className="signup-remember-forgot">
-            <a href="/login">Already have an account? Log in here.</a>
+            <Link to="/login">Already have an account? Log in here.</Link>
           </div>
 
           <button type="submit">Sign up</button>

@@ -69,16 +69,16 @@ function LoginComponent() {
               Dont have an account <a href="/signup">REGISTER</a>
             </p>
           </div>
-          <p className="alt-login-text">Or log in using</p>
+          {/*<p className="alt-login-text">Or log in using</p>*/}
 
-          <div className="alt-login">
-            <div className="facebook">
-              <FaFacebook className="fb-icon" />
-            </div>
-            <div className="google">
-              <FaGoogle className="g-icon" />
-            </div>
-          </div>
+          {/*<div className="alt-login">*/}
+          {/*  <div className="facebook">*/}
+          {/*    <FaFacebook className="fb-icon" />*/}
+          {/*  </div>*/}
+          {/*  <div className="google">*/}
+          {/*    <FaGoogle className="g-icon" />*/}
+          {/*  </div>*/}
+          {/*</div>*/}
         </form>
       </div>
     </div>

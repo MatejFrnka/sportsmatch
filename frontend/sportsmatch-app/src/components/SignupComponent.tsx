@@ -3,7 +3,7 @@ import { FaLock, FaMailBulk } from 'react-icons/fa'
 
 function SignupComponent() {
   return (
-    <div className="signup-container">
+    <div className="centered-container">
       <div className="signup-wrapper">
         <form action="">
           <h1>Sign up</h1>

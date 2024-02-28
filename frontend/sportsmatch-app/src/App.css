@@ -35,3 +35,14 @@ body, html, #root {
   box-sizing: border-box;
   font-family: 'Inter', sans-serif;
 }
+
+.centered-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100%;
+  background: #e9e6e6;
+  background-size: cover;
+  background-position: center;
+}

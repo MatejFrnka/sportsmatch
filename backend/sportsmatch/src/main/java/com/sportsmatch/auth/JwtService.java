@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class JwtService {
 
-  @Value("${jwt.secret}")
+  @Value("${app.sportsmingle.jwt.secret}")
   private String SECRET_KEY;
 
   public String extractUserName(String token) {

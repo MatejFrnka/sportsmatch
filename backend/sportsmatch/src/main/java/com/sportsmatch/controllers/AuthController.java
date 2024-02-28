@@ -3,15 +3,13 @@ package com.sportsmatch.controllers;
 import com.sportsmatch.auth.AuthService;
 import com.sportsmatch.dtos.AuthRequestDTO;
 import com.sportsmatch.dtos.UserDTO;
-import com.sportsmatch.models.User;
+import com.sportsmatch.services.UserService;
 import com.sportsmatch.services.ValidationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -23,6 +21,7 @@ public class AuthController {
 
   private final AuthService authService;
   private final ValidationService validationService;
+  private final UserService userService;
 
   @PostMapping("/register")
   @Tag(name = "Register")
@@ -57,12 +56,7 @@ public class AuthController {
 
   @GetMapping("/me")
   @Tag(name = "ex.secured endpoint")
-  public ResponseEntity<?> getUserMainPage(Authentication authentication) {
-    if (authentication == null || !authentication.isAuthenticated()) {
-      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-    }
-    User user = (User) authentication.getPrincipal();
-    UserDTO userDTO = new UserDTO(user.getName());
-    return ResponseEntity.ok(userDTO);
+  public UserDTO getUserMainPage() {
+    return userService.getUserDTOFromContext();
   }
 }

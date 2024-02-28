@@ -116,7 +116,7 @@ public class EventService {
    * @return a list of EventHistoryDTOs representing the logged-in user's event history
    */
   public List<EventHistoryDTO> getEventsHistory(final Pageable pageable) {
-    String loggedUserName = userService.getUserFromTheSecurityContextHolder().getName();
+    String loggedUserName = userService.getUserFromContext().getName();
 
     return eventRepository.findEventsByUser(loggedUserName, LocalDateTime.now(), pageable)
         .stream()
@@ -138,7 +138,7 @@ public class EventService {
 
   public EventStatusOptions checkScoreMatch(Set<EventPlayer> players) {
 
-    User loggedUser = userService.getUserFromTheSecurityContextHolder();
+    User loggedUser = userService.getUserFromContext();
 
     EventPlayer loggedPlayer = players.stream()
         .filter(p -> p.getPlayer().getName().equals(loggedUser.getName()))

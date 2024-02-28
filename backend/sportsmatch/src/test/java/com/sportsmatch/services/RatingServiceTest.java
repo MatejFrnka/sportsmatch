@@ -41,7 +41,7 @@ class RatingServiceTest {
 
     // Authentication and Player
     User player = mock(User.class);
-    when(userService.getUserFromTheSecurityContextHolder()).thenReturn(player);
+    when(userService.getUserFromContext()).thenReturn(player);
 
     // EventPlayer
     EventPlayer eventPlayer = mock(EventPlayer.class);

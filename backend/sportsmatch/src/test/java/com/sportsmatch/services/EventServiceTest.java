@@ -56,7 +56,7 @@ class EventServiceTest {
     eventPlayers.add(loggedEventPlayer);
     eventPlayers.add(otherEventPlayer);
 
-    when(userService.getUserFromTheSecurityContextHolder()).thenReturn(loggedUser);
+    when(userService.getUserFromContext()).thenReturn(loggedUser);
 
     // Act:
     EventStatusOptions result = eventService.checkScoreMatch(eventPlayers);
@@ -79,7 +79,7 @@ class EventServiceTest {
     eventPlayers.add(loggedEventPlayer);
     eventPlayers.add(otherEventPlayer);
 
-    when(userService.getUserFromTheSecurityContextHolder()).thenReturn(loggedUser);
+    when(userService.getUserFromContext()).thenReturn(loggedUser);
 
     // Act:
     EventStatusOptions result = eventService.checkScoreMatch(eventPlayers);
@@ -101,7 +101,7 @@ class EventServiceTest {
     eventPlayers.add(loggedEventPlayer);
     eventPlayers.add(otherEventPlayer);
 
-    when(userService.getUserFromTheSecurityContextHolder()).thenReturn(loggedUser);
+    when(userService.getUserFromContext()).thenReturn(loggedUser);
 
     // Act:
     EventStatusOptions result = eventService.checkScoreMatch(eventPlayers);
@@ -121,7 +121,7 @@ class EventServiceTest {
     Set<EventPlayer> eventPlayers = new HashSet<>();
     eventPlayers.add(loggedEventPlayer);
 
-    when(userService.getUserFromTheSecurityContextHolder()).thenReturn(loggedUser);
+    when(userService.getUserFromContext()).thenReturn(loggedUser);
 
     // Act:
     EventStatusOptions result = eventService.checkScoreMatch(eventPlayers);

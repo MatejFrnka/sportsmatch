@@ -1,5 +1,6 @@
 package com.sportsmatch.services;
 
+import com.sportsmatch.BaseTest;
 import com.sportsmatch.dtos.SportDTO;
 import com.sportsmatch.models.Sport;
 import com.sportsmatch.repositories.SportRepository;
@@ -22,7 +23,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class SportServiceImpTest {
+class SportServiceImpTest extends BaseTest {
 
   @Mock
   private SportRepository sportRepository;
@@ -45,8 +46,8 @@ class SportServiceImpTest {
     List<Sport> sports = Arrays.asList(sport1, sport2);
     Page<Sport> sportsPage = new PageImpl<>(sports, pageable, sports.size());
 
-    SportDTO sportDTO1 = new SportDTO("Football",footballEmoji, "urlFootball");
-    SportDTO sportDTO2 = new SportDTO("Basketball",basketballEmoji,"urlBasketball");
+    SportDTO sportDTO1 = new SportDTO("Football", footballEmoji, "urlFootball");
+    SportDTO sportDTO2 = new SportDTO("Basketball", basketballEmoji, "urlBasketball");
 
     List<SportDTO> expectedSportDTOs = Arrays.asList(sportDTO1, sportDTO2);
 

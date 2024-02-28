@@ -1,5 +1,6 @@
 package com.sportsmatch.services;
 
+import com.sportsmatch.BaseTest;
 import com.sportsmatch.dtos.SportDTO;
 import com.sportsmatch.dtos.UserInfoDTO;
 import com.sportsmatch.mappers.SportMapper;
@@ -27,12 +28,16 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class UserServiceImpTest {
+class UserServiceImpTest extends BaseTest {
 
-  @Mock private UserRepository userRepository;
-  @Mock private SportMapper sportMapper;
-  @Mock private SecurityContext securityContext;
-  @InjectMocks private UserServiceImp userServiceImp;
+  @Mock
+  private UserRepository userRepository;
+  @Mock
+  private SportMapper sportMapper;
+  @Mock
+  private SecurityContext securityContext;
+  @InjectMocks
+  private UserServiceImp userServiceImp;
 
   @Test
   void updateUserInfo() {

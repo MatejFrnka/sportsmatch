@@ -2,9 +2,11 @@ package com.sportsmatch;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Profile;
+import org.springframework.test.context.ActiveProfiles;
 
 @SpringBootTest
-class SportsmatchApplicationTests {
+class SportsmatchApplicationTests extends BaseTest{
 
   @Test
   void contextLoads() {}

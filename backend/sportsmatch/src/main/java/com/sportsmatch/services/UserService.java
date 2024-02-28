@@ -8,6 +8,7 @@ import com.sportsmatch.models.User;
 public interface UserService {
 
   User getUserFromContext();
+
   UserDTO getUserDTOFromContext();
 
   void updateUserInfo(UserInfoDTO userInfoDTO);

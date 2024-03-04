@@ -6,7 +6,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @AllArgsConstructor
 @Getter
-@ConfigurationProperties(prefix = "initialization")
+@ConfigurationProperties(prefix = "app.sportsmingle.initialization")
 public class InitProperties {
 
   private Boolean databaseInit;

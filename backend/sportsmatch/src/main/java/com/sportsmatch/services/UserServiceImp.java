@@ -1,7 +1,9 @@
 package com.sportsmatch.services;
 
 
+import com.sportsmatch.dtos.UserDTO;
 import com.sportsmatch.mappers.SportMapper;
+import com.sportsmatch.mappers.UserMapper;
 import com.sportsmatch.models.User;
 import com.sportsmatch.repositories.SportRepository;
 import com.sportsmatch.repositories.UserRepository;
@@ -29,6 +31,7 @@ public class UserServiceImp implements UserService {
   private final UserRepository userRepository;
   private final SportMapper sportMapper;
   private final SportRepository sportRepository;
+  private final UserMapper userMapper;
 
   /**
    * This method retrieves the authenticated user from the SecurityContextHolder.
@@ -38,18 +41,23 @@ public class UserServiceImp implements UserService {
    * @throws ResponseStatusException if the user is not authenticated
    */
   @Override
-  public User getUserFromTheSecurityContextHolder() {
+  public User getUserFromContext() {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    if (authentication != null && authentication.isAuthenticated() && authentication.getPrincipal() instanceof UserDetails userDetails) {
+    if (authentication != null && authentication.isAuthenticated()
+        && authentication.getPrincipal() instanceof UserDetails userDetails) {
       return userRepository.findByEmail(userDetails.getUsername()).orElseThrow();
     } else {
       throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User not authenticated");
     }
   }
 
+  public UserDTO getUserDTOFromContext() {
+    return userMapper.toDTO(getUserFromContext());
+  }
+
   @Transactional
   public void updateUserInfo(UserInfoDTO userInfoDTO) {
-    User user = getUserFromTheSecurityContextHolder();
+    User user = getUserFromContext();
     user.setName(userInfoDTO.getUserName());
     parseUserDateOfBirth(userInfoDTO, user);
     user.setGender(Gender.valueOf(userInfoDTO.getGender().toUpperCase()));

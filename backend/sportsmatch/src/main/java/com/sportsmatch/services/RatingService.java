@@ -23,7 +23,7 @@ public class RatingService {
   private final UserService userService;
 
   public void addRating(RatingDTO ratingDTO) {
-    User player = userService.getUserFromTheSecurityContextHolder();
+    User player = userService.getUserFromContext();
     EventPlayer eventPlayer = getEventPlayer(player);
     User opponent = findOpponent(eventPlayer, player);
     Rating userRating = ratingMapper.toUserRatingEntity(ratingDTO);

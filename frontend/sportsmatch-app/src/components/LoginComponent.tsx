@@ -1,8 +1,8 @@
 import { useState, FormEvent } from 'react'
 import '../styles/LoginComponent.css'
-import { FaMailBulk, FaLock, FaGoogle, FaFacebook } from 'react-icons/fa'
+import { FaMailBulk, FaLock } from 'react-icons/fa'
 import { LoginService, OpenAPI } from '../generated/api'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 function LoginComponent() {
   const [email, setEmail] = useState('')
@@ -29,56 +29,58 @@ function LoginComponent() {
   }
 
   return (
-    <div className="wrapper">
-      <form onSubmit={handleSubmit}>
-        <h1>Log in</h1>
-        {errorMessage && <p className="error-message">{errorMessage}</p>}
-        <div className="input-box">
-          <label htmlFor="email"></label>
-          <input
-            type="email"
-            placeholder="E-mail address"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-          <FaMailBulk className="icon" />
-        </div>
-        <div className="login-input-box">
-          <label htmlFor="password"></label>
-          <input
-            type="password"
-            placeholder="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-          <FaLock className="icon" />
-        </div>
-        <div className="login-remember-forgot">
-          <label>
-            <input type="checkbox" />
-            Remember me{' '}
-          </label>
-          <a href="#">Forgot password</a>
-        </div>
-        <button type="submit">Log in</button>
-        <div className="login-register-link">
-          <p>
-            Dont have an account <a href="signup">REGISTER</a>
-          </p>
-        </div>
-        <p className="alt-login-text">Or log in using</p>
+    <div className={'centered-container'}>
+      <div className="wrapper-login">
+        <form onSubmit={handleSubmit}>
+          <h1>Log in</h1>
+          {errorMessage && <p className="error-message">{errorMessage}</p>}
+          <div className="login-input-box">
+            <label htmlFor="email"></label>
+            <input
+              type="email"
+              placeholder="E-mail address"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+            <FaMailBulk className="icon" />
+          </div>
+          <div className="login-input-box">
+            <label htmlFor="password"></label>
+            <input
+              type="password"
+              placeholder="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            <FaLock className="icon" />
+          </div>
+          <div className="login-remember-forgot">
+            <label>
+              <input type="checkbox" />
+              Remember me{' '}
+            </label>
+            {/*<a href="#">Forgot password</a>*/}
+          </div>
+          <button type="submit">Log in</button>
+          <div className="login-register-link">
+            <p>
+              Dont have an account <Link to="/signup">REGISTER</Link>
+            </p>
+          </div>
+          {/*<p className="alt-login-text">Or log in using</p>*/}
 
-        <div className="alt-login">
-          <div className="facebook">
-            <FaFacebook className="fb-icon" />
-          </div>
-          <div className="google">
-            <FaGoogle className="g-icon" />
-          </div>
-        </div>
-      </form>
+          {/*<div className="alt-login">*/}
+          {/*  <div className="facebook">*/}
+          {/*    <FaFacebook className="fb-icon" />*/}
+          {/*  </div>*/}
+          {/*  <div className="google">*/}
+          {/*    <FaGoogle className="g-icon" />*/}
+          {/*  </div>*/}
+          {/*</div>*/}
+        </form>
+      </div>
     </div>
   )
 }

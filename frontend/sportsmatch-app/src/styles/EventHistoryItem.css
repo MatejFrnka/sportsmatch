@@ -21,7 +21,6 @@
     grid-template-columns: 8fr 0.5fr 8fr;
     width: 100%;
     min-height: 106px;
-    margin: 16px;
     font-size: 10px;
     background-color: var(--sm-primary-bg);
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.05);

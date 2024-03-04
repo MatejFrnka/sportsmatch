@@ -7,6 +7,7 @@ import {
   LuCalendarX,
   LuSettings2,
 } from 'react-icons/lu'
+import { Link } from 'react-router-dom'
 
 interface InProgressProps {
   event: {
@@ -26,16 +27,16 @@ interface InProgressProps {
 function InProgress({ event }: InProgressProps) {
   return (
     <>
-      <div className="container-sm">
+      <div className="container-fluid">
         <div className="match">
           <div className="row">
             <div className="col position-relative">
-              <a
-                href="test/1"
+              <Link
+                to="/test/1"
                 className="overlap position-absolute top-0 end-0"
               >
                 <LuSettings2 />
-              </a>
+              </Link>
               {event.playerTwo === null ? (
                 <h1>
                   Matchmaking

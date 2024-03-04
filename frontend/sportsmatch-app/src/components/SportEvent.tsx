@@ -19,7 +19,7 @@ interface SportEventProps {
 function SportEvent({ event }: SportEventProps) {
   return (
     <>
-      <div className="container-sm">
+      <div className="container-fluid">
         <div className="event">
           <div className="row">
             <div className="col left">

@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+
+  crdb:
+    container_name: crdb
+    hostname: crdb
+    image: cockroachdb/cockroach:latest
+    command: start-single-node --cluster-name=example-single-node --logtostderr=WARNING --log-file-verbosity=WARNING --insecure
+    ports:
+      - "26257:26257"
+      - "8888:8080"
+    volumes:
+      - roach-single:/cockroach/cockroach-data
+
+volumes:
+  roach-single:

@@ -29,6 +29,13 @@ function SignupComponent() {
       setErrorMessage('The email address or password is invalid.')
     }
   };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
   
   return (
     <div className="signup-wrapper">

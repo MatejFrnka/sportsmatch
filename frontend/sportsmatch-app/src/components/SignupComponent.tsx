@@ -1,42 +1,42 @@
-import '../styles/SignupComponent.css';
-import { FaLock, FaMailBulk } from 'react-icons/fa';
-import { useState, FormEvent } from 'react';
-import { RegisterService } from '../generated/api';
-import { useNavigate } from 'react-router-dom';
+import '../styles/SignupComponent.css'
+import { FaLock, FaMailBulk } from 'react-icons/fa'
+import { FormEvent, useState } from 'react'
+import { RegisterService } from '../generated/api'
+import { useNavigate } from 'react-router-dom'
 
 function SignupComponent() {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
-    confirmPassword: ''
-  });
-  const [errorMessage, setErrorMessage] = useState('');
-  const navigate = useNavigate();
+    confirmPassword: '',
+  })
+  const [errorMessage, setErrorMessage] = useState('')
+  const navigate = useNavigate()
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+    e.preventDefault()
 
     try {
       await RegisterService.register({
         email: formData.email,
-        password: formData.password
-      });
+        password: formData.password,
+      })
 
-      console.log('Registration successful');
-      navigate('/');
+      console.log('Registration successful')
+      navigate('/')
     } catch (error) {
-      console.error('Register Error', error);
-      setErrorMessage('The email address or password is invalid.');
+      console.error('Register Error', error)
+      setErrorMessage('The email address or password is invalid.')
     }
-  };
+  }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
-  
+      [e.target.name]: e.target.value,
+    })
+  }
+
   return (
     <div className="signup-wrapper">
       <form onSubmit={handleSubmit}>
@@ -44,12 +44,26 @@ function SignupComponent() {
         {errorMessage && <div className="error-message">{errorMessage}</div>}
         <div className="signup-input-box">
           <label htmlFor="email"></label>
-          <input type="email" name="email" placeholder="E-mail address" value={formData.email} onChange={handleChange} required />
+          <input
+            type="email"
+            name="email"
+            placeholder="E-mail address"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
           <FaMailBulk className="signup-icon" />
         </div>
         <div className="signup-input-box">
           <label htmlFor="password"></label>
-          <input type="password" name="password" placeholder="password" value={formData.password} onChange={handleChange} required />
+          <input
+            type="password"
+            name="password"
+            placeholder="password"
+            value={formData.password}
+            onChange={handleChange}
+            required
+          />
           <FaLock className="signup-icon" />
         </div>
         <div className="signup-input-box">
@@ -71,7 +85,7 @@ function SignupComponent() {
         <button type="submit">Sign up</button>
       </form>
     </div>
-  );
+  )
 }
 
-export default SignupComponent;
+export default SignupComponent

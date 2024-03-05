@@ -1,6 +1,6 @@
 import '../styles/SignupComponent.css'
 import { FaLock, FaMailBulk } from 'react-icons/fa'
-import { FormEvent, useState } from 'react'
+import React, { FormEvent, useState } from 'react'
 import { RegisterService } from '../generated/api'
 import { useNavigate } from 'react-router-dom'
 

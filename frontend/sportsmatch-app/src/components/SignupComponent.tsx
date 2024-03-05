@@ -1,8 +1,8 @@
-import '../styles/SignupComponent.css'
-import { FaLock, FaMailBulk } from 'react-icons/fa'
-import { useState, FormEvent } from 'react'
-import { RegisterService } from '../generated/api'
-import { useNavigate } from 'react-router-dom'
+import '../styles/SignupComponent.css';
+import { FaLock, FaMailBulk } from 'react-icons/fa';
+import { useState, FormEvent } from 'react';
+import { RegisterService } from '../generated/api';
+import { useNavigate } from 'react-router-dom';
 
 function SignupComponent() {
   const [formData, setFormData] = useState({
@@ -10,8 +10,8 @@ function SignupComponent() {
     password: '',
     confirmPassword: ''
   });
-  const [errorMessage, setErrorMessage] = useState('')
-  const navigate = useNavigate()
+  const [errorMessage, setErrorMessage] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -20,13 +20,13 @@ function SignupComponent() {
       await RegisterService.register({
         email: formData.email,
         password: formData.password
-      })
+      });
 
       console.log('Registration successful');
-      navigate('/')
+      navigate('/');
     } catch (error) {
       console.error('Register Error', error);
-      setErrorMessage('The email address or password is invalid.')
+      setErrorMessage('The email address or password is invalid.');
     }
   };
 
@@ -71,7 +71,7 @@ function SignupComponent() {
         <button type="submit">Sign up</button>
       </form>
     </div>
-  )
+  );
 }
 
-export default SignupComponent
+export default SignupComponent;

@@ -17,7 +17,7 @@ function SignupComponent() {
     e.preventDefault();
 
     try {
-      const response = await RegisterService.register({
+      await RegisterService.register({
         email: formData.email,
         password: formData.password
       })
@@ -41,6 +41,7 @@ function SignupComponent() {
     <div className="signup-wrapper">
       <form onSubmit={handleSubmit}>
         <h1>Sign up</h1>
+        {errorMessage && <div className="error-message">{errorMessage}</div>}
         <div className="signup-input-box">
           <label htmlFor="email"></label>
           <input type="email" name="email" placeholder="E-mail address" value={formData.email} onChange={handleChange} required />

@@ -119,7 +119,7 @@ public class SportsmatchApplication implements CommandLineRunner {
     sportUserRepository.save(new SportUser(users.get(8), sports.get(1)));
     sportUserRepository.save(new SportUser(users.get(2), sports.get(2)));
     sportUserRepository.save(new SportUser(users.get(7), sports.get(2)));
-    sportUserRepository.save(new SportUser(users.get(3), sports.get(3)));
+    // sportUserRepository.save(new SportUser(users.get( dev3), sports.get(3)));
     sportUserRepository.save(new SportUser(users.get(6), sports.get(3)));
     sportUserRepository.save(new SportUser(users.get(4), sports.get(4)));
     sportUserRepository.save(new SportUser(users.get(5), sports.get(4)));

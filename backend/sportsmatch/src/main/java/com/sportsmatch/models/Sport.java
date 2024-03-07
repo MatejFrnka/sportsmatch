@@ -10,6 +10,7 @@ import java.util.Set;
 @Table(name = "sports")
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString

@@ -84,13 +84,3 @@
 .signup-remember-forgot a:hover {
   text-decoration: underline;
 }
-
-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background: #e9e6e6;
-  background-size: cover;
-  background-position: center;
-}

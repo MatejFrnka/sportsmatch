@@ -1,0 +1,53 @@
+
+.slide {
+    color: white;
+    background-size: cover;
+    background-position: center;
+    background-image: linear-gradient(0deg, var(--sm-orange-overlay), var(--sm-orange-overlay)), url(/assets/basketball_bg.jpg);
+    padding: 60px 30px;
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+
+.slide-content h2 {
+    margin: 0;
+    font-size: 3rem;
+    font-weight: 600;
+}
+
+.slide-content p {
+    margin: 5px 0;
+    font-size: 1rem;
+}
+
+.slide-content button {
+    width: auto;
+    height: 45px;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    font-size: 18px;
+    color: #fff;
+    font-weight: 400;
+    margin: 20px 0;
+    padding: 0 30px;
+}
+@media (max-width: 768px) {
+    .slide-content h2 {
+        font-size: 2rem;
+    }
+}
+
+@media (min-width: 480px) {
+    .slider {
+        margin-bottom: 10px;
+    }
+}
+

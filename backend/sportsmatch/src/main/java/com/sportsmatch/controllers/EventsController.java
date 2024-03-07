@@ -5,6 +5,7 @@ import com.sportsmatch.dtos.EventHistoryDTO;
 import com.sportsmatch.models.Event;
 import com.sportsmatch.services.EventService;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -47,10 +48,15 @@ public class EventsController {
     return ResponseEntity.ok().body(listOfEvents);
   }
 
-  // todo this is placeholder for frontend - it doesn't do anything yet
+
+  /**
+   * This endpoint returns the history of the finished events by the logged-in user.
+   *
+   * @param pageable it contains the page and size for pagination
+   * @return a list of finished EventHistoryDTO of the logged-in user
+   */
   @GetMapping("/event-history")
-  public EventHistoryDTO getEventsHistory() {
-    EventHistoryDTO eventHistoryDTO = new EventHistoryDTO();
-    return eventHistoryDTO;
+  public List<EventHistoryDTO> getEventsHistory(final Pageable pageable) {
+    return eventService.getEventsHistory(pageable);
   }
 }

@@ -1,6 +1,7 @@
 package com.sportsmatch.mappers;
 
 import com.sportsmatch.dtos.AuthRequestDTO;
+import com.sportsmatch.dtos.UserDTO;
 import com.sportsmatch.models.Role;
 import com.sportsmatch.models.User;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,12 @@ public class UserMapper {
         .email(authRequestDTO.getEmail())
         .password(passwordEncoder.encode(authRequestDTO.getPassword()))
         .role(Role.USER)
+        .build();
+  }
+
+  public UserDTO toDTO(User user) {
+    return UserDTO.builder()
+        .name(user.getName())
         .build();
   }
 }

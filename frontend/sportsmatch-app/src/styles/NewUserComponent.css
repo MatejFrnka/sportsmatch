@@ -165,7 +165,7 @@
   transform: scale(1.05);
 }
 
-body {
+.tododooobody {
   display: flex;
   justify-content: center;
   align-items: center;

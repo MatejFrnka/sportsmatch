@@ -1,5 +1,6 @@
 package com.sportsmatch.services;
 
+import com.sportsmatch.BaseTest;
 import com.sportsmatch.dtos.RatingDTO;
 import com.sportsmatch.mappers.RatingMapper;
 import com.sportsmatch.models.*;
@@ -19,14 +20,20 @@ import java.util.Optional;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class RatingServiceTest {
+class RatingServiceTest extends BaseTest {
 
-  @Mock private RatingRepository ratingRepository;
-  @Mock private UserEventRatingRepository userEventRatingRepository;
-  @Mock private EventPlayerRepository eventPlayerRepository;
-  @Mock private RatingMapper ratingMapper;
-  @Mock private UserService userService;
-  @InjectMocks private RatingService ratingService;
+  @Mock
+  private RatingRepository ratingRepository;
+  @Mock
+  private UserEventRatingRepository userEventRatingRepository;
+  @Mock
+  private EventPlayerRepository eventPlayerRepository;
+  @Mock
+  private RatingMapper ratingMapper;
+  @Mock
+  private UserService userService;
+  @InjectMocks
+  private RatingService ratingService;
 
   @Test
   void addRating() {
@@ -41,7 +48,7 @@ class RatingServiceTest {
 
     // Authentication and Player
     User player = mock(User.class);
-    when(userService.getUserFromTheSecurityContextHolder()).thenReturn(player);
+    when(userService.getUserFromContext()).thenReturn(player);
 
     // EventPlayer
     EventPlayer eventPlayer = mock(EventPlayer.class);

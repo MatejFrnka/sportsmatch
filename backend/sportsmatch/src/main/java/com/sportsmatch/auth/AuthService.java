@@ -21,12 +21,14 @@ public class AuthService {
   private final UserRepository userRepository;
   private final AuthenticationManager authenticationManager;
 
-  public void register(AuthRequestDTO authRequestDTO) {
+  public AuthResponseDTO register(AuthRequestDTO authRequestDTO) {
     User user = userMapper.registerToUser(authRequestDTO);
     if (userRepository.existsByEmail(user.getEmail())) {
       throw new ResponseStatusException(HttpStatus.CONFLICT);
     }
     userRepository.save(user);
+    String jwtToken = jwtService.generateToken(user);
+    return AuthResponseDTO.builder().token(jwtToken).build();
   }
 
   public AuthResponseDTO login(AuthRequestDTO authRequestDTO) {

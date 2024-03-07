@@ -34,8 +34,7 @@ public class AuthController {
       return ResponseEntity.badRequest().body(validationService.getAllErrors(bindingResult));
     }
     try {
-      authService.register(authRequestDTO);
-      return ResponseEntity.ok().build();
+      return ResponseEntity.ok(authService.register(authRequestDTO));
     } catch (ResponseStatusException e) {
       return ResponseEntity.status(e.getStatusCode()).build();
     }

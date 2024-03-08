@@ -9,6 +9,7 @@ import { AllSportsList } from './pages/AllSportsList'
 import NewUser from './pages/NewUser'
 import UserPage from './pages/UserPage'
 import Index from './pages/Index'
+import PrivateRoute from './components/PrivateRoute'
 import NotFound from './pages/NotFound'
 
 function App() {
@@ -22,13 +23,15 @@ function App() {
           element={<Wrapper child={<AllSportsList />} />}
         />
         <Route path="/newuser" element={<Wrapper child={<NewUser />} />} />
-        <Route path="/index" element={<Wrapper child={<Index />} />} />
+        <Route element={<PrivateRoute />}>
+          <Route path="/index" element={<Wrapper child={<Index />} />} />
+          <Route path="/user" element={<UserPage />}></Route>
+        </Route>
         <Route path="/test" element={<Test />}>
           <Route index element={<Test />} />
           <Route path=":testId" element={<Test />} />
         </Route>
         <Route path="/" element={<Wrapper child={<Home />} />} />
-        <Route path="/user" element={<UserPage />}></Route>
         <Route path="/*" element={<NotFound />}></Route>
       </Routes>
     </BrowserRouter>

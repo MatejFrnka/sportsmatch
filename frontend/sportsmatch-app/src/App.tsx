@@ -14,13 +14,7 @@ import NotFound from './pages/NotFound'
 import { OpenAPI } from './generated/api'
 
 function App() {
-  const getToken = async () => {
-    const result = localStorage.getItem('token')
-    return result
-  }
-  getToken().then((res) => {
-    OpenAPI.TOKEN = res!
-  })
+  OpenAPI.TOKEN = localStorage.getItem('token')!
 
   return (
     <BrowserRouter>

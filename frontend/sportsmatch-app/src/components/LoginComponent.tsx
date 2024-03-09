@@ -21,8 +21,7 @@ function LoginComponent() {
         password: password,
       })
 
-      console.log(response.data)
-      OpenAPI.TOKEN = response.token // this line tells OpenAPI to authenticate with this header
+      console.log(response.data)      
       localStorage.setItem('token', response.token)
       if (location.state != null) {
         navigate(location.state)

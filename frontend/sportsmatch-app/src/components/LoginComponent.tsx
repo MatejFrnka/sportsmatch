@@ -1,7 +1,7 @@
 import { useState, FormEvent } from 'react'
 import '../styles/LoginComponent.css'
 import { FaMailBulk, FaLock } from 'react-icons/fa'
-import { LoginService, OpenAPI } from '../generated/api'
+import { LoginService } from '../generated/api'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 
 function LoginComponent() {

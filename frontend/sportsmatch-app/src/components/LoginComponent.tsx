@@ -21,7 +21,7 @@ function LoginComponent() {
         password: password,
       })
 
-      console.log(response.data)      
+      console.log(response.data)
       localStorage.setItem('token', response.token)
       if (location.state != null) {
         navigate(location.state)

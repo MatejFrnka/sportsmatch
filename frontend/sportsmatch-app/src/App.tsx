@@ -11,8 +11,17 @@ import UserPage from './pages/UserPage'
 import Index from './pages/Index'
 import PrivateRoute from './components/PrivateRoute'
 import NotFound from './pages/NotFound'
+import { OpenAPI } from './generated/api'
 
 function App() {
+  const getToken = async () => {
+    const result = localStorage.getItem('token')
+    return result
+  }
+  getToken().then((res) => {
+    OpenAPI.TOKEN = res!
+  })
+
   return (
     <BrowserRouter>
       <Routes>

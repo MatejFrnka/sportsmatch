@@ -1,12 +1,21 @@
-import { SportDTO } from '../generated/api'
+import { SportDTO, UserControllerService, UserInfoDTO } from '../generated/api'
 import '../styles/UserInfo.css'
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import Sport from '../components/Sport'
+import { useNavigate } from 'react-router-dom'
 
 export default function UserInfo() {
   const [selectedGender, setSelectedGender] = useState<string>('')
   const [username, setUsername] = useState<string>('')
   const [dateOfBirth, setDateOfBirth] = useState<string>('')
+  const [selectedSports, setSelectedSports] = useState<string[]>([])
+  const [errorMessage, setErrorMessage] = useState('')
+  const [isAlertVisible, setIsAlertVisible] = useState<boolean>(false)
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    setIsAlertVisible(errorMessage !== '')
+  }, [errorMessage])
 
   const handleUsernameChange = (e: ChangeEvent<HTMLInputElement>) => {
     setUsername(e.target.value)
@@ -20,8 +29,6 @@ export default function UserInfo() {
     setSelectedGender(gender)
   }
 
-  const [selectedSports, setSelectedSports] = useState<string[]>([])
-
   const handleSelectSport = (sportName: string) => {
     setSelectedSports((prevSelected) => {
       if (prevSelected.includes(sportName)) {
@@ -32,7 +39,37 @@ export default function UserInfo() {
     })
   }
 
-  console.log(selectedGender)
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    try {
+      // find selected sport in sampleSports (SportDTO[])
+      const sportsDTO: SportDTO[] = selectedSports.map((sportName: string) => {
+        const sportDTO: SportDTO | undefined = sampleSports.find(
+          (sport: SportDTO) => sport.name === sportName,
+        )
+        if (!sportDTO) {
+          throw new Error(`Sport with name ${sportName} not found`)
+        }
+        return sportDTO
+      })
+
+      const userInfoDTO: UserInfoDTO = {
+        userName: username,
+        dateOfBirth: dateOfBirth,
+        gender: selectedGender,
+        sports: sportsDTO,
+      }
+
+      const response = await UserControllerService.updateInfo(userInfoDTO)
+
+      console.log('User info updated successfully', response)
+      navigate('/')
+    } catch (error) {
+      console.error('Error updating user info:', error)
+      setErrorMessage('Failed to update user info. Please try again.')
+    }
+  }
 
   const sampleSports: SportDTO[] = [
     {
@@ -66,7 +103,10 @@ export default function UserInfo() {
     <>
       <div className="row">
         <div className="col">
-          <form action="">
+          {isAlertVisible && (
+          <div className="alert alert-danger" role="alert">{errorMessage}</div>
+          )}
+          <form onSubmit={handleSubmit}>
             <div className="row user-input">
               <div className="col">
                 <input

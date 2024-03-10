@@ -25,7 +25,7 @@
 .gender-card {
   display: flex;
   flex-direction: column;
-  justify-content: end;
+  justify-content: space-evenly;
   align-items: center;
   height: 10.5em;
   width: 8.75em;
@@ -61,4 +61,12 @@ input.submit {
 
 .gender-card input {
   appearance: none;
+}
+
+.gender-card p {
+  margin: 0;
+}
+
+.alert {
+  margin-top: 1.875em;
 }

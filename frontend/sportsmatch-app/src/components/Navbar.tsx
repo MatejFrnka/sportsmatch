@@ -3,20 +3,29 @@ import { Link } from 'react-router-dom'
 import Avatar from './Avatar'
 import { useEffect, useState } from 'react'
 import { NavDropdown } from 'react-bootstrap'
+import { OpenAPI, ExSecuredEndpointService, ApiError } from '../generated/api'
 
 function Navbar() {
   const loggedInUserImgUrl = 'pictures/michael-dam-mEZ3PoFGs_k-unsplash.jpg'
   const loggedOutUserImgUrl = 'pictures/unknown-user-placeholder.png'
 
-  const [avatar, setAvatar] = useState<string>(loggedOutUserImgUrl)
-
   const [isLoggedIn, setLoggedIn] = useState<boolean>(false)
 
   useEffect(() => {
-    if (localStorage.getItem('token')) {
-      setLoggedIn(true)
-      setAvatar(loggedInUserImgUrl)
+    const init = async () => {
+      OpenAPI.TOKEN = localStorage.getItem('token')!
+      try {
+        await ExSecuredEndpointService.getUserMainPage()
+        setLoggedIn(true)
+      } catch (error) {
+        const code = (error as ApiError).status
+        if (code == 401) {
+          localStorage.removeItem('token')
+          setLoggedIn(false)
+        }
+      }
     }
+    init()
   }, [])
 
   return (
@@ -37,7 +46,7 @@ function Navbar() {
               <NavDropdown
                 title={
                   <div className="user-image">
-                    <Avatar src={avatar} />
+                    <Avatar src={loggedInUserImgUrl} />
                   </div>
                 }
                 id="collapsible-nav-dropdown"
@@ -49,7 +58,7 @@ function Navbar() {
               <NavDropdown
                 title={
                   <div className="user-image">
-                    <Avatar src={avatar} />
+                    <Avatar src={loggedOutUserImgUrl} />
                   </div>
                 }
                 id="collapsible-nav-dropdown"

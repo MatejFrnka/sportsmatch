@@ -21,7 +21,17 @@ nav{
   display: none;
 }
 
-#collapsible-nav-dropdown{
+.dropdown-menu.show{
+  background-color: var(--sm-primary-bg);
+  font-family: var(--sm-primary-font);
+  font-size: var(--sm-h3-size);
+}
+
+.dropdown-item{
+  color: var(--sm-dark);
+}
+
+#collapsible-nav-dropdown{  
   width: 40px;
   height: 40px;
   margin: 0;  

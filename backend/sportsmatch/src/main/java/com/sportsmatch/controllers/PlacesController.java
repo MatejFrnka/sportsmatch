@@ -1,10 +1,8 @@
 package com.sportsmatch.controllers;
 
 import com.sportsmatch.dtos.PlaceDTO;
-import com.sportsmatch.models.Place;
 import com.sportsmatch.services.PlaceService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,8 +16,16 @@ public class PlacesController {
 
   private final PlaceService placeService;
 
-  @PostMapping("/add")
-  public ResponseEntity<PlaceDTO> addNewPlace(@RequestBody PlaceDTO placeDTO) {
-    return ResponseEntity.status(HttpStatus.CREATED).body(placeService.addNewPlace());
+
+  /**
+   * Add new Place based on provided PlaceDTO.
+   *
+   * @param placeDTO object containing the data about the new Place.
+   * @return ResponseEntity with HTTP status and some meaningful message.
+   */
+  @PostMapping()
+  public ResponseEntity<String> addNewPlace(@RequestBody PlaceDTO placeDTO) {
+    return placeService.addNewPlace(placeDTO);
   }
+
 }

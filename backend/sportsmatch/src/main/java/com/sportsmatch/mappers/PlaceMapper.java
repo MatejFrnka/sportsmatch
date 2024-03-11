@@ -13,7 +13,7 @@ public class PlaceMapper {
    * @param entity The entity containing the data of the Place.
    * @return a PlaceDTO object with the given parameters from the Place entity.
    */
-  PlaceDTO toDTO(Place entity) {
+  public PlaceDTO toDTO(Place entity) {
     return PlaceDTO.builder()
         .name(entity.getName())
         .address(entity.getAddress())
@@ -28,7 +28,7 @@ public class PlaceMapper {
    * @param DTO The PlaceDTO object containing the data of the Place.
    * @return a Place entity with the given parameters from the PlaceDTO object.
    */
-  Place toEntity(PlaceDTO DTO) {
+  public Place toEntity(PlaceDTO DTO) {
     return Place.builder()
         .name(DTO.getName())
         .address(DTO.getAddress())

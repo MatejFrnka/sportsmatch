@@ -45,4 +45,16 @@ public class PlaceService {
         .collect(Collectors.toList());
   }
 
+  /**
+   * Return Places by the given name and map them to PlaceDTO object.
+   *
+   * @return a list of PlaceDTO object by the given name.
+   */
+  public List<PlaceDTO> searchPlacesByName(String name) {
+    return placeRepository.findByName(name)
+        .stream()
+        .map(placeMapper::toDTO)
+        .collect(Collectors.toList());
+  }
+
 }

@@ -3,15 +3,13 @@ package com.sportsmatch.models;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Getter
 @Setter
 @Builder
+@AllArgsConstructor
 @RequiredArgsConstructor
 @Table(name = "places")
 public class Place {

@@ -31,19 +31,28 @@ public class PlacesController {
     return placeService.addNewPlace(placeDTO);
   }
 
+
   /**
-   * Endpoint retrieve all places from the database and return them as PlaceDTO object.
+   * Endpoint allow user to search for places based on the provided name. If no name is provided, then returns all places.
    * <p>
-   * If the user authenticated it returns a list of PlaceDTO.
-   * If authentication fails, it throws a ResponseStatusException with status and message.
+   * The method first attempts to retrieve the user from the context to ensure authentication.
+   * If the user is authenticated, it returns a list of places that match the provided name query, or all places if no name is provided.
+   * If authentication fails, it throws a ResponseStatusException with status code UNAUTHORIZED and a message indicating that the user is not authenticated.
    *
-   * @return list of PlaceDTO object representing all Places in the database.
+   * @param name query String for searching places.
+   * @return a list of PlaceDTO representing the places that match the provided name or all places if no name is provided.
+   * @Throws ResponseStatusException if the user is not authenticated.
    */
-  @GetMapping()
-  public List<PlaceDTO> getAllPlace() {
+  @GetMapping("/search")
+  public List<PlaceDTO> searchPlaces(@RequestParam(required = false) String name) {
     try {
       userService.getUserFromContext();
-      return placeService.getAllPlaces();
+
+      if (name == null || name.isEmpty()) {
+        return placeService.getAllPlaces();
+      } else {
+        return placeService.searchPlacesByName(name);
+      }
     } catch (ResponseStatusException e) {
       throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User not authenticated");
     }

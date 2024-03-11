@@ -21,8 +21,24 @@ export default function UserInfo() {
     setUsername(e.target.value)
   }
 
-  const handleDateOfBirth = (e: ChangeEvent<HTMLInputElement>) => {
-    setDateOfBirth(e.target.value)
+  const handleDateOfBirthChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const inputDate = e.target.value
+
+    // Remove any non-numeric characters
+    const numericValue = inputDate.replace(/\D/g, '')
+
+    let formattedDate = ''
+    if (numericValue.length > 0) {
+      formattedDate += numericValue.slice(0, 2)
+      if (numericValue.length > 2) {
+        formattedDate += '-' + numericValue.slice(2, 4)
+        if (numericValue.length > 4) {
+          formattedDate += '-' + numericValue.slice(4, 8)
+        }
+      }
+    }
+
+    setDateOfBirth(formattedDate)
   }
 
   const handleSelectGender = (gender: string) => {
@@ -71,6 +87,8 @@ export default function UserInfo() {
     }
   }
 
+  console.log(Response)
+
   const sampleSports: SportDTO[] = [
     {
       name: 'Badminton',
@@ -104,7 +122,9 @@ export default function UserInfo() {
       <div className="row">
         <div className="col">
           {isAlertVisible && (
-          <div className="alert alert-danger" role="alert">{errorMessage}</div>
+            <div className="alert alert-danger" role="alert">
+              {errorMessage}
+            </div>
           )}
           <form onSubmit={handleSubmit}>
             <div className="row user-input">
@@ -120,7 +140,8 @@ export default function UserInfo() {
                   type="text"
                   name="dateOfBirth"
                   placeholder="Enter Date of Birth (dd-MM-yyyy)"
-                  onChange={handleDateOfBirth}
+                  onChange={handleDateOfBirthChange}
+                  value={dateOfBirth}
                 />
               </div>
             </div>

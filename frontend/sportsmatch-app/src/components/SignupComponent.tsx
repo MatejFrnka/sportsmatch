@@ -24,7 +24,7 @@ function SignupComponent() {
 
       console.log('Registration successful')
       OpenAPI.TOKEN = response.token
-      navigate('/newuser')
+      navigate('/user-info')
     } catch (error) {
       console.error('Register Error', error)
       setErrorMessage('The email address or password is invalid.')

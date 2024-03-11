@@ -19,7 +19,7 @@ public class PlacesController {
   private final PlaceService placeService;
 
   @PostMapping("/add")
-  public ResponseEntity<Place> addNewPlace(@RequestBody PlaceDTO placeDTO) {
+  public ResponseEntity<PlaceDTO> addNewPlace(@RequestBody PlaceDTO placeDTO) {
     return ResponseEntity.status(HttpStatus.CREATED).body(placeService.addNewPlace());
   }
 }

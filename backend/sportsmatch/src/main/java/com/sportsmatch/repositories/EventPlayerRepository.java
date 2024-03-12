@@ -17,4 +17,6 @@ public interface EventPlayerRepository extends JpaRepository<EventPlayer, Long> 
   Optional<EventPlayer> findEventPlayerByPlayer(User player);
 
   List<EventPlayer> findEventPlayersByEvent(Event event);
+
+  List<EventPlayer> findEventPlayersByPlayer(User player);
 }

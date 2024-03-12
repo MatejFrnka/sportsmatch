@@ -2,16 +2,18 @@ package com.sportsmatch.repositories;
 
 import com.sportsmatch.models.Place;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
 public interface PlaceRepository extends JpaRepository<Place, Long> {
 
   /**
-   * Searches places based on provided name.
+   * Search places by the given name. The search is not case-sensitive.
    *
-   * @param name of the Places to search for.
-   * @return a list of Places whose name match the provided name.
+   * @param name of the place to filter by. Set null to ignore this filter.
+   * @return a list of Place entity that match the specified criteria.
    */
-  List<Place> findByName(String name);
+  @Query("SELECT p FROM Place p WHERE LOWER(p.name) LIKE LOWER(CONCAT('%', :name, '%'))")
+  List<Place> searchPlaces(String name);
 }

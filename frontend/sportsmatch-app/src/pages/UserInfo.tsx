@@ -1,4 +1,4 @@
-import { SportDTO, UserControllerService, UserInfoDTO } from '../generated/api'
+import { OpenAPI, SportDTO, UserControllerService, UserInfoDTO } from '../generated/api'
 import '../styles/UserInfo.css'
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import Sport from '../components/Sport'
@@ -57,6 +57,8 @@ export default function UserInfo() {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+
+    OpenAPI.TOKEN = localStorage.getItem('token')!
 
     try {
       // find selected sport in sampleSports (SportDTO[])

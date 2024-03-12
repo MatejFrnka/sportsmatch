@@ -2,19 +2,24 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { UserDTO } from '../models/UserDTO';
+import type { RatingDTO } from '../models/RatingDTO';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
-export class ExSecuredEndpointService {
+export class RatingControllerService {
     /**
-     * @returns UserDTO OK
+     * @param requestBody
+     * @returns any OK
      * @throws ApiError
      */
-    public static getUserMainPage(): CancelablePromise<UserDTO> {
+    public static addRating(
+        requestBody: RatingDTO,
+    ): CancelablePromise<Record<string, any>> {
         return __request(OpenAPI, {
-            method: 'GET',
-            url: '/api/v1/auth/me',
+            method: 'POST',
+            url: '/api/v1/rating/add',
+            body: requestBody,
+            mediaType: 'application/json',
         });
     }
 }

@@ -4,6 +4,7 @@
 /* eslint-disable */
 import type { EventDTO } from '../models/EventDTO';
 import type { EventHistoryDTO } from '../models/EventHistoryDTO';
+import type { Pageable } from '../models/Pageable';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
@@ -72,13 +73,19 @@ export class EventsControllerService {
         });
     }
     /**
+     * @param pageable
      * @returns EventHistoryDTO OK
      * @throws ApiError
      */
-    public static getEventsHistory(): CancelablePromise<EventHistoryDTO> {
+    public static getEventsHistory(
+        pageable: Pageable,
+    ): CancelablePromise<Array<EventHistoryDTO>> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/v1/event/event-history',
+            query: {
+                'pageable': pageable,
+            },
         });
     }
 }

@@ -25,7 +25,6 @@ function App() {
           path="/allSports"
           element={<Wrapper child={<AllSportsList />} />}
         />
-        <Route path="/newuser" element={<Wrapper child={<NewUser />} />} />
         <Route element={<PrivateRoute />}>
           <Route path="/index" element={<Wrapper child={<Index />} />} />
           <Route path="/user" element={<UserPage />}></Route>

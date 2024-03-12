@@ -52,11 +52,11 @@ input.submit {
 }
 
 .unselected-gen {
-  background-color: var(--sm-orange);
+  background-color: var(--sm-dark);
 }
 
 .selected-gen {
-  background-color: var(--sm-dark);
+  background-color: var(--sm-orange);
 }
 
 .gender-card input {

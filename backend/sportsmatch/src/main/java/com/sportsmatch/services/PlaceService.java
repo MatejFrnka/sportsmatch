@@ -34,24 +34,13 @@ public class PlaceService {
   }
 
   /**
-   * Return all Places from the database and map them to PlaceDTO object.
+   * Searches for places based on name match and returns a list of corresponding PlaceDTO objects.
    *
-   * @return a list of PlaceDTO object representing all places in the database.
+   * @param name of the place to filter by.
+   * @return a list of PlaceDTO objects that match the specified criteria.
    */
-  public List<PlaceDTO> getAllPlaces() {
-    return placeRepository.findAll()
-        .stream()
-        .map(placeMapper::toDTO)
-        .collect(Collectors.toList());
-  }
-
-  /**
-   * Return Places by the given name and map them to PlaceDTO object.
-   *
-   * @return a list of PlaceDTO object by the given name.
-   */
-  public List<PlaceDTO> searchPlacesByName(String name) {
-    return placeRepository.findByName(name)
+  public List<PlaceDTO> searchPlaces(String name) {
+    return placeRepository.searchPlaces(name)
         .stream()
         .map(placeMapper::toDTO)
         .collect(Collectors.toList());

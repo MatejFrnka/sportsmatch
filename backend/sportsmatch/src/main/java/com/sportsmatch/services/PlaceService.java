@@ -23,12 +23,9 @@ public class PlaceService {
    * Adds a new Place to the database based on PlaceDTO.
    *
    * @param placeDTO object containing the data about the new Place.
-   * @return ResponseEntity with HTTP status and message to describe the problem.
+   * @return ResponseEntity with HTTP status(201) and message if it was successfully added.
    */
   public ResponseEntity<String> addNewPlace(PlaceDTO placeDTO) {
-    if (userService.getUserFromContext() == null) {
-      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not authenticated");
-    }
     placeRepository.save(placeMapper.toEntity(placeDTO));
     return ResponseEntity.status(HttpStatus.CREATED).body("Place successfully added");
   }

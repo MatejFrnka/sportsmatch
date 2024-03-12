@@ -22,9 +22,6 @@ public class AuthConfig {
 
   private final UserRepository userRepository;
 
-  @Value("${app.sportsmingle.frontend.url}")
-  private String frontendUrl;
-
   @Bean
   public UserDetailsService userDetailsService() {
     return username ->
@@ -50,15 +47,5 @@ public class AuthConfig {
   @Bean
   public PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
-  }
-
-  @Bean
-  public WebMvcConfigurer corsConfigurer() {
-    return new WebMvcConfigurer() {
-      @Override
-      public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/api/v1/**").allowedOrigins(frontendUrl);
-      }
-    };
   }
 }

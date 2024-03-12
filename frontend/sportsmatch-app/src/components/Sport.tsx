@@ -10,7 +10,10 @@ export default function Sport({ emoji, name, selected, onSelect }: SportProps) {
   return (
     <>
       <div
-        className={`sport-checkbox d-flex justify-content-center ${selected ? 'selected-btn' : 'unselected-btn'}`}
+        className={`sport-checkbox
+        d-flex
+        justify-content-center
+        ${selected ? 'selected-btn' : 'unselected-btn'}`}
       >
         <input
           type="checkbox"

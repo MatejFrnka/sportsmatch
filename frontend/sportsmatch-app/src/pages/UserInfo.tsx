@@ -1,4 +1,9 @@
-import { OpenAPI, SportDTO, UserControllerService, UserInfoDTO } from '../generated/api'
+import {
+  OpenAPI,
+  SportDTO,
+  UserControllerService,
+  UserInfoDTO,
+} from '../generated/api'
 import '../styles/UserInfo.css'
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import Sport from '../components/Sport'
@@ -12,6 +17,34 @@ export default function UserInfo() {
   const [errorMessage, setErrorMessage] = useState('')
   const [isAlertVisible, setIsAlertVisible] = useState<boolean>(false)
   const navigate = useNavigate()
+
+  const sampleSports: SportDTO[] = [
+    {
+      name: 'Badminton',
+      emoji: '🏸',
+      backgroundUImageURL: './assets/sport-component-badminton.png',
+    },
+    {
+      name: 'Tennis',
+      emoji: '🎾',
+      backgroundUImageURL: './assets/sport-component-tennis.png',
+    },
+    {
+      name: 'Boxing',
+      emoji: '🥊',
+      backgroundUImageURL: './assets/sport-component-boxing.png',
+    },
+    {
+      name: 'Table Tennis',
+      emoji: '🏓',
+      backgroundUImageURL: './assets/sport-component-table-tennis.png',
+    },
+    {
+      name: 'Squash',
+      emoji: '🥎',
+      backgroundUImageURL: './assets/sport-component-squash.png',
+    },
+  ]
 
   useEffect(() => {
     setIsAlertVisible(errorMessage !== '')
@@ -91,34 +124,6 @@ export default function UserInfo() {
 
   console.log(Response)
 
-  const sampleSports: SportDTO[] = [
-    {
-      name: 'Badminton',
-      emoji: '🏸',
-      backgroundUImageURL: './assets/sport-component-badminton.png',
-    },
-    {
-      name: 'Tennis',
-      emoji: '🎾',
-      backgroundUImageURL: './assets/sport-component-tennis.png',
-    },
-    {
-      name: 'Boxing',
-      emoji: '🥊',
-      backgroundUImageURL: './assets/sport-component-boxing.png',
-    },
-    {
-      name: 'Table Tennis',
-      emoji: '🏓',
-      backgroundUImageURL: './assets/sport-component-table-tennis.png',
-    },
-    {
-      name: 'Squash',
-      emoji: '🥎',
-      backgroundUImageURL: './assets/sport-component-squash.png',
-    },
-  ]
-
   return (
     <>
       <div className="row">
@@ -154,7 +159,8 @@ export default function UserInfo() {
                 onClick={() => handleSelectGender('male')}
               >
                 <label
-                  className={`gender-card ${selectedGender === 'male' ? 'selected-gen' : 'unselected-gen'}`}
+                  className={`gender-card 
+                  ${selectedGender === 'male' ? 'selected-gen' : 'unselected-gen'}`}
                 >
                   <input
                     type="radio"
@@ -172,7 +178,8 @@ export default function UserInfo() {
                 onClick={() => handleSelectGender('female')}
               >
                 <label
-                  className={`gender-card ${selectedGender === 'female' ? 'selected-gen' : 'unselected-gen'}`}
+                  className={`gender-card 
+                  ${selectedGender === 'female' ? 'selected-gen' : 'unselected-gen'}`}
                 >
                   <input
                     type="radio"

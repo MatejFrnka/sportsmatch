@@ -10,22 +10,22 @@ import lombok.*;
 @Setter
 @Builder
 @AllArgsConstructor
-@RequiredArgsConstructor
+@NoArgsConstructor
 @Table(name = "places")
 public class Place {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  public Long id;
 
   @NotBlank
-  private String name;
+  public String name;
 
   @NotBlank
-  private String address;
+  public String address;
 
   @NotNull
-  private Float latitude;
+  public Float latitude;
 
   @NotNull
   private Float longitude;

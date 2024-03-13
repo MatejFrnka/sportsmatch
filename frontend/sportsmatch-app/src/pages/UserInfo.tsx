@@ -1,6 +1,5 @@
 import {
   OpenAPI,
-  SportDTO,
   UserControllerService,
   UserInfoDTO,
 } from '../generated/api'

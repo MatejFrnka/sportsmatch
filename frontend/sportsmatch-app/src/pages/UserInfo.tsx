@@ -1,8 +1,4 @@
-import {
-  OpenAPI,
-  UserControllerService,
-  UserInfoDTO,
-} from '../generated/api'
+import { OpenAPI, UserControllerService, UserInfoDTO } from '../generated/api'
 import '../styles/UserInfo.css'
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'

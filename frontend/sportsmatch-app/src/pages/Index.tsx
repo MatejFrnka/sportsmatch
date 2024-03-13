@@ -75,7 +75,9 @@ export default function MainPage() {
         <SearchBar onChange={(a) => {}} />
       </div>
       <div className="row">
-        <SportsButtonComponent onSportSelectionChange={handleSportSelectionChange}/>
+        <SportsButtonComponent
+          onSportSelectionChange={handleSportSelectionChange}
+        />
       </div>
       <div className="row">
         <p className="mainPage-p">Nearby</p>

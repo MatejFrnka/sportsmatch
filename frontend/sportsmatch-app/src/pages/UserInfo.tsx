@@ -6,8 +6,8 @@ import {
 } from '../generated/api'
 import '../styles/UserInfo.css'
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
-import Sport from '../components/Sport'
 import { useNavigate } from 'react-router-dom'
+import SportsButtonComponent from '../components/SportsButtonComponent'
 
 export default function UserInfo() {
   const [selectedGender, setSelectedGender] = useState<string>('')
@@ -17,34 +17,6 @@ export default function UserInfo() {
   const [errorMessage, setErrorMessage] = useState('')
   const [isAlertVisible, setIsAlertVisible] = useState<boolean>(false)
   const navigate = useNavigate()
-
-  const sampleSports: SportDTO[] = [
-    {
-      name: 'Badminton',
-      emoji: '🏸',
-      backgroundUImageURL: './assets/sport-component-badminton.png',
-    },
-    {
-      name: 'Tennis',
-      emoji: '🎾',
-      backgroundUImageURL: './assets/sport-component-tennis.png',
-    },
-    {
-      name: 'Boxing',
-      emoji: '🥊',
-      backgroundUImageURL: './assets/sport-component-boxing.png',
-    },
-    {
-      name: 'Table Tennis',
-      emoji: '🏓',
-      backgroundUImageURL: './assets/sport-component-table-tennis.png',
-    },
-    {
-      name: 'Squash',
-      emoji: '🥎',
-      backgroundUImageURL: './assets/sport-component-squash.png',
-    },
-  ]
 
   useEffect(() => {
     setIsAlertVisible(errorMessage !== '')
@@ -74,18 +46,12 @@ export default function UserInfo() {
     setDateOfBirth(formattedDate)
   }
 
+  const handleSportSelectionChange = (selectedSports: string[]) => {
+    setSelectedSports(selectedSports);
+  };
+
   const handleSelectGender = (gender: string) => {
     setSelectedGender(gender)
-  }
-
-  const handleSelectSport = (sportName: string) => {
-    setSelectedSports((prevSelected) => {
-      if (prevSelected.includes(sportName)) {
-        return prevSelected.filter((sport) => sport !== sportName)
-      } else {
-        return [...prevSelected, sportName]
-      }
-    })
   }
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -94,22 +60,11 @@ export default function UserInfo() {
     OpenAPI.TOKEN = localStorage.getItem('token')!
 
     try {
-      // find selected sport in sampleSports (SportDTO[])
-      const sportsDTO: SportDTO[] = selectedSports.map((sportName: string) => {
-        const sportDTO: SportDTO | undefined = sampleSports.find(
-          (sport: SportDTO) => sport.name === sportName,
-        )
-        if (!sportDTO) {
-          throw new Error(`Sport with name ${sportName} not found`)
-        }
-        return sportDTO
-      })
-
       const userInfoDTO: UserInfoDTO = {
         userName: username,
         dateOfBirth: dateOfBirth,
         gender: selectedGender,
-        sports: sportsDTO,
+        sports: selectedSports.map(sportName => ({ name: sportName })),
       }
 
       const response = await UserControllerService.updateInfo(userInfoDTO)
@@ -195,26 +150,8 @@ export default function UserInfo() {
             </div>
             <div className="row sports">
               <div className="col">
-                <p>Choose your sports</p>
+                <SportsButtonComponent onSportSelectionChange={handleSportSelectionChange} />
               </div>
-            </div>
-            <div className="row sport-btn row-cols-3 gy-2 gx-2">
-              {sampleSports.map((sport, index) => (
-                <div className="col" key={index}>
-                  <Sport
-                    key={sport.name}
-                    emoji={sport.emoji}
-                    name={sport.name}
-                    selected={
-                      sport.name !== undefined &&
-                      selectedSports.includes(sport.name)
-                    }
-                    onSelect={() =>
-                      sport.name !== undefined && handleSelectSport(sport.name)
-                    }
-                  />
-                </div>
-              ))}
             </div>
             <input className="submit" type="submit" value="Save profile" />
           </form>

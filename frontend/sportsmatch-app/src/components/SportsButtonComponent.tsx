@@ -1,22 +1,26 @@
 import { useEffect, useState } from 'react'
 import '../styles/NewUserComponent.css'
 
-function SportsButtonComponent({ onSportSelectionChange }: { onSportSelectionChange: (selectedSports: string[]) => void }) {
+function SportsButtonComponent({
+  onSportSelectionChange,
+}: {
+  onSportSelectionChange: (selectedSports: string[]) => void
+}) {
   const [selectedButtons, setSelectedButtons] = useState<string[]>([])
 
   const handleCheckboxChange = (buttonText: string) => {
-    setSelectedButtons(prevState => {
+    setSelectedButtons((prevState) => {
       if (prevState.includes(buttonText)) {
-        return prevState.filter((button) => button !== buttonText);
+        return prevState.filter((button) => button !== buttonText)
       } else {
-        return [...prevState, buttonText];
+        return [...prevState, buttonText]
       }
-    });
+    })
   }
 
   useEffect(() => {
-    onSportSelectionChange(selectedButtons);
-  }, [selectedButtons, onSportSelectionChange]);
+    onSportSelectionChange(selectedButtons)
+  }, [selectedButtons, onSportSelectionChange])
 
   return (
     <div className="wrapper">
@@ -96,7 +100,11 @@ function SportsButtonComponent({ onSportSelectionChange }: { onSportSelectionCha
             <span className="sports-button">🏓 Ping pong</span>
           </label>
           <label>
-            <input className="more-sports-button" type="button" value=".&nbsp;&nbsp;.&nbsp;&nbsp;." />
+            <input
+              className="more-sports-button"
+              type="button"
+              value=".&nbsp;&nbsp;.&nbsp;&nbsp;."
+            />
           </label>
           {/* <button id="more-sports-button">.&nbsp;&nbsp;.&nbsp;&nbsp;.</button> */}
         </div>

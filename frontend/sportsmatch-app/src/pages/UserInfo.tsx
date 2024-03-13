@@ -46,9 +46,9 @@ export default function UserInfo() {
     setDateOfBirth(formattedDate)
   }
 
-  const handleSportSelectionChange = (selectedSports: string[]) => {
-    setSelectedSports(selectedSports);
-  };
+  const handleSportSelectionChange = (selectedSportsChange: string[]) => {
+    setSelectedSports(selectedSportsChange)
+  }
 
   const handleSelectGender = (gender: string) => {
     setSelectedGender(gender)
@@ -64,7 +64,7 @@ export default function UserInfo() {
         userName: username,
         dateOfBirth: dateOfBirth,
         gender: selectedGender,
-        sports: selectedSports.map(sportName => ({ name: sportName })),
+        sports: selectedSports.map((sportName) => ({ name: sportName })),
       }
 
       const response = await UserControllerService.updateInfo(userInfoDTO)
@@ -150,7 +150,9 @@ export default function UserInfo() {
             </div>
             <div className="row sports">
               <div className="col">
-                <SportsButtonComponent onSportSelectionChange={handleSportSelectionChange} />
+                <SportsButtonComponent
+                  onSportSelectionChange={handleSportSelectionChange}
+                />
               </div>
             </div>
             <input className="submit" type="submit" value="Save profile" />

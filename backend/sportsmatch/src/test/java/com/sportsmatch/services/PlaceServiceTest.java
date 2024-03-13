@@ -19,75 +19,70 @@ import static org.mockito.Mockito.*;
 
 @SpringBootTest
 public class PlaceServiceTest {
-
   @Mock
   private PlaceRepository placeRepository;
-
   @Mock
   private PlaceMapper placeMapper;
-
   @InjectMocks
   private PlaceService placeService;
 
-  @Test
-  public void testAddNewPlace() {
-    // Given
-    PlaceDTO placeDTO = PlaceDTO.builder()
-        .name("Test Place")
-        .address("Test Address")
-        .latitude(123.456F)
-        .longitude(789.012F)
-        .build();
-
-    Place placeEntity = Place.builder()
+  Place createPlaceEntity() {
+    return Place.builder()
         .name("Test Place")
         .address("Test Address")
         .latitude(123.456F)
         .longitude((789.012F))
         .build();
+  }
 
-    when(placeMapper.toEntity(placeDTO)).thenReturn(placeEntity);
+  PlaceDTO createPlaceDTO() {
+    return PlaceDTO.builder()
+        .name("Test Place")
+        .address("Test Address")
+        .latitude(123.456F)
+        .longitude(789.012F)
+        .build();
+  }
 
-    // When
-    ResponseEntity<String> response = placeService.addNewPlace(placeDTO);
+  @Test
+  public void testAddNewPlace() {
+    when(placeMapper.toEntity(createPlaceDTO())).thenReturn(createPlaceEntity());
 
-    // Then
-    verify(placeRepository, times(1)).save(placeEntity);
+    ResponseEntity<String> response = placeService.addNewPlace(createPlaceDTO());
+
+    verify(placeRepository, times(1)).save(createPlaceEntity());
     assertEquals(HttpStatus.CREATED, response.getStatusCode());
     assertEquals("Place successfully added", response.getBody());
   }
 
   @Test
-  public void testSearchPlaces() {
-    // Given
+  public void SearchPlacesWithExistName() {
     String name = "Test Place";
 
-    Place placeEntity = Place.builder()
-        .name("Test Place")
-        .address("Test Address")
-        .latitude(123.456F)
-        .longitude((789.012F))
-        .build();
-
     List<Place> places = new ArrayList<>();
-    places.add(placeEntity);
-
-    PlaceDTO placeDTO = PlaceDTO.builder()
-        .name("Test Place")
-        .address("Test Address")
-        .latitude(123.456F)
-        .longitude(789.012F)
-        .build();
+    places.add(createPlaceEntity());
 
     when(placeRepository.searchPlaces(name)).thenReturn(places);
-    when(placeMapper.toDTO(placeEntity)).thenReturn(placeDTO);
+    when(placeMapper.toDTO(createPlaceEntity())).thenReturn(createPlaceDTO());
 
-    // When
     List<PlaceDTO> foundPlaces = placeService.searchPlaces(name);
 
-    // Then
     verify(placeRepository, times(1)).searchPlaces(name);
     assertEquals(1, foundPlaces.size());
     assertEquals("Test Place", foundPlaces.get(0).getName());
+  }
+
+  @Test
+  public void SearchPlacesWithNonExistName() {
+    String name = "NonExistent Place";
+
+    List<Place> places = new ArrayList<>();
+
+    when(placeRepository.searchPlaces(name)).thenReturn(places);
+
+    List<PlaceDTO> foundPlaces = placeService.searchPlaces(name);
+
+    verify(placeRepository, times(1)).searchPlaces(name);
+    assertEquals(0, foundPlaces.size());
   }
 }

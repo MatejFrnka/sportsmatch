@@ -28,8 +28,8 @@ function App() {
         <Route element={<PrivateRoute />}>
           <Route path="/index" element={<Wrapper child={<Index />} />} />
           <Route path="/user" element={<UserPage />}></Route>
+          <Route path="/user-info" element={<Wrapper child={<UserInfo />} />} />
         </Route>
-        <Route path="/user-info" element={<Wrapper child={<UserInfo />} />} />
         <Route path="/index" element={<Wrapper child={<Index />} />} />
         <Route path="/test" element={<Test />}>
           <Route index element={<Test />} />

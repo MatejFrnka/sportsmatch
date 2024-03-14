@@ -14,6 +14,6 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
    * @param name of the place to filter by. Set null to ignore this filter.
    * @return a list of Place entity that match the specified criteria.
    */
-  @Query("SELECT p FROM Place p WHERE (:name IS NULL OR LOWER(p.name) LIKE LOWER(CONCAT('%', :name, '%')))")
+  @Query("SELECT p FROM Place p WHERE (:name IS NULL OR LOWER(p.name) LIKE LOWER(CONCAT('%', :name, '%'))) OR (:name IS NULL)")
   List<Place> searchPlaces(String name);
 }

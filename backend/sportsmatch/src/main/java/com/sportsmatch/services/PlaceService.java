@@ -17,7 +17,6 @@ public class PlaceService {
 
   private final PlaceMapper placeMapper;
   private final PlaceRepository placeRepository;
-  private final UserService userService;
 
   /**
    * Adds a new Place to the database based on PlaceDTO.
@@ -42,5 +41,4 @@ public class PlaceService {
         .map(placeMapper::toDTO)
         .collect(Collectors.toList());
   }
-
 }

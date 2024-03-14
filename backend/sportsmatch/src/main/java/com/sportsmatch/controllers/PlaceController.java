@@ -21,7 +21,7 @@ public class PlaceController {
    * @param placeDTO object containing the data about the new Place.
    * @return ResponseEntity with HTTP status and some meaningful message.
    */
-  @PostMapping()
+  @PostMapping("/add")
   public ResponseEntity<String> addNewPlace(@RequestBody PlaceDTO placeDTO) {
     return placeService.addNewPlace(placeDTO);
   }

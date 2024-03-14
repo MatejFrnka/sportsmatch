@@ -45,12 +45,20 @@ public class PlaceServiceTest {
   }
 
   @Test
-  public void testAddNewPlace() {
-    when(placeMapper.toEntity(createPlaceDTO())).thenReturn(createPlaceEntity());
+  public void AddNewPlaceShouldReturnSuccessMessage() {
+    Place placeEntity = createPlaceEntity();
+    PlaceDTO placeDTO = createPlaceDTO();
 
-    ResponseEntity<String> response = placeService.addNewPlace(createPlaceDTO());
+    // Mocking PlaceMapper behavior to return a predefined Place entity
+    when(placeMapper.toEntity(any())).thenReturn(placeEntity);
 
-    verify(placeRepository, times(1)).save(createPlaceEntity());
+    // Invoking the method under test
+    ResponseEntity<String> response = placeService.addNewPlace(placeDTO);
+
+    // Verifying that placeRepository's save method is called once with the created placeEntity
+    verify(placeRepository, times(1)).save(placeEntity);
+
+    // Asserting the response status code and body
     assertEquals(HttpStatus.CREATED, response.getStatusCode());
     assertEquals("Place successfully added", response.getBody());
   }
@@ -58,30 +66,45 @@ public class PlaceServiceTest {
   @Test
   public void SearchPlacesWithExistName() {
     String name = "Test Place";
+    Place placeEntity = createPlaceEntity();
+    PlaceDTO placeDTO = createPlaceDTO();
 
+    // Mocking placeRepository behavior to return a list of places with the given name
     List<Place> places = new ArrayList<>();
-    places.add(createPlaceEntity());
-
+    places.add(placeEntity);
     when(placeRepository.searchPlaces(name)).thenReturn(places);
-    when(placeMapper.toDTO(createPlaceEntity())).thenReturn(createPlaceDTO());
 
+    // Mocking PlaceMapper behavior to return a predefined PlaceDTO object
+    when(placeMapper.toDTO(placeEntity)).thenReturn(placeDTO);
+
+    // Invoking the method under test
     List<PlaceDTO> foundPlaces = placeService.searchPlaces(name);
 
+    // Verifying that placeRepository's searchPlaces method is called once with the given name
     verify(placeRepository, times(1)).searchPlaces(name);
+
+    // Asserting the size and attributes of the found places list
     assertEquals(1, foundPlaces.size());
     assertEquals("Test Place", foundPlaces.get(0).getName());
+    assertEquals("Test Address", foundPlaces.get(0).getAddress());
+    assertEquals(123.456F, foundPlaces.get(0).getLatitude());
+    assertEquals(789.012F, foundPlaces.get(0).getLongitude());
   }
 
   @Test
   public void SearchPlacesWithNonExistName() {
     String name = "NonExistent Place";
+    Place placeEntity = createPlaceEntity();
+    PlaceDTO placeDTO = createPlaceDTO();
 
+    // Mocking placeRepository behavior to return an empty list of places
     List<Place> places = new ArrayList<>();
-
     when(placeRepository.searchPlaces(name)).thenReturn(places);
 
+    // Invoking the method under test
     List<PlaceDTO> foundPlaces = placeService.searchPlaces(name);
 
+    // Verifying that placeRepository's searchPlaces method is called once with the given name
     verify(placeRepository, times(1)).searchPlaces(name);
     assertEquals(0, foundPlaces.size());
   }

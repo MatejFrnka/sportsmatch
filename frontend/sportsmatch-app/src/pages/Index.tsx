@@ -54,6 +54,11 @@ export default function MainPage() {
       playerTwo: 'jess_ward',
     },
   ]
+
+  const handleSportSelectionChange = (selectedSportsChange: string[]) => {
+    // implementation
+  }
+
   return (
     <div className="container-fluid">
       <div className={'row'}>
@@ -70,7 +75,9 @@ export default function MainPage() {
         <SearchBar onChange={(a) => {}} />
       </div>
       <div className="row">
-        <SportsButtonComponent />
+        <SportsButtonComponent
+          onSportSelectionChange={handleSportSelectionChange}
+        />
       </div>
       <div className="row">
         <p className="mainPage-p">Nearby</p>

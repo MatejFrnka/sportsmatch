@@ -127,7 +127,7 @@
 .sports-button {
   display: inline-block;
   width: 100%;
-  padding: 0.25em;
+  padding: 0.625em;
   border: none;
   background-color: var(--sm-dark);
   color: #ffffff;
@@ -144,7 +144,7 @@
 .more-sports-button {
   display: inline-block;
   width: 100%;
-  padding: 0.25em 1.563em 0.25em 1.563em;
+  padding: 0.625em;
   border: none;
   background-color: var(--sm-dark);
   color: #ffffff;

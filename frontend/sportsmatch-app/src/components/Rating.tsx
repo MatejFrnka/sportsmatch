@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
-import { TiStarOutline } from 'react-icons/ti'
-import { TiStarFullOutline } from 'react-icons/ti'
-import { TiStarHalfOutline } from 'react-icons/ti'
+import {
+  TiStarFullOutline,
+  TiStarHalfOutline,
+  TiStarOutline,
+} from 'react-icons/ti'
 
 interface RatingProps {
   className?: string

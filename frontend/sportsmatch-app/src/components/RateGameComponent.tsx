@@ -11,7 +11,20 @@ import Rating from './Rating'
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 
 export default function RateGameComponent() {
-  const [myEvent, setMyEvent] = useState<EventDTO>()
+  const sampleEvent: EventDTO = {
+    id: 1,
+    maxElo: 2000,
+    minElo: 1200,
+    dateEnd: '2024-05-02',
+    dateStart: '2024-05-01',
+    location: 'Prague, Stadium A',
+    title: 'Badminton match',
+    sport: 'Badminton',
+    player1Id: 1,
+    player2Id: 2,
+  }
+
+  const [myEvent, setMyEvent] = useState<EventDTO>(sampleEvent)
 
   useEffect(() => {
     ;(async () => {
@@ -61,6 +74,12 @@ export default function RateGameComponent() {
       myScore: 0,
       opponentScore: 0,
     }
+
+    try {
+      await RatingControllerService.addRating(rating)
+    } catch (error) {
+      console.log(error as ApiError)
+    }
   }
 
   const handleUserScoreChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -92,7 +111,7 @@ export default function RateGameComponent() {
         <div className="row">
           <p>Enter the scores</p>
         </div>
-        <form action="">
+        <form onSubmit={handleSubmit}>
           <div className="row">
             <div className="score-input-panel">
               <div className="user-picture">
@@ -152,6 +171,7 @@ export default function RateGameComponent() {
               />
             </div>
           </div>
+          <button type="submit">Submit</button>
         </form>
       </div>
     </>

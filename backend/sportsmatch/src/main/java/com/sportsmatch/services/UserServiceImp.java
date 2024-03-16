@@ -1,9 +1,9 @@
 package com.sportsmatch.services;
 
-
 import com.sportsmatch.dtos.UserDTO;
 import com.sportsmatch.mappers.SportMapper;
 import com.sportsmatch.mappers.UserMapper;
+import com.sportsmatch.models.Sport;
 import com.sportsmatch.models.User;
 import com.sportsmatch.repositories.SportRepository;
 import com.sportsmatch.repositories.UserRepository;
@@ -22,7 +22,8 @@ import org.springframework.web.server.ResponseStatusException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-
+import java.util.Objects;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -34,8 +35,8 @@ public class UserServiceImp implements UserService {
   private final UserMapper userMapper;
 
   /**
-   * This method retrieves the authenticated user from the SecurityContextHolder.
-   * It checks if the user is authenticated and returns the corresponding User entity.
+   * This method retrieves the authenticated user from the SecurityContextHolder. It checks if the
+   * user is authenticated and returns the corresponding User entity.
    *
    * @return the authenticated user
    * @throws ResponseStatusException if the user is not authenticated
@@ -43,7 +44,8 @@ public class UserServiceImp implements UserService {
   @Override
   public User getUserFromContext() {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    if (authentication != null && authentication.isAuthenticated()
+    if (authentication != null
+        && authentication.isAuthenticated()
         && authentication.getPrincipal() instanceof UserDetails userDetails) {
       return userRepository.findByEmail(userDetails.getUsername()).orElseThrow();
     } else {
@@ -76,11 +78,23 @@ public class UserServiceImp implements UserService {
 
   private void linkUserWithSport(UserInfoDTO userInfoDTO, User user) {
     for (SportDTO sportDTO : userInfoDTO.getSports()) {
-      if (sportRepository.findSportByName(sportDTO.getName()).isEmpty()) {
-        throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+      Optional<Sport> optionalSport = sportRepository.findSportByName(sportDTO.getName());
+
+      if (optionalSport.isPresent()) {
+        Sport sport = optionalSport.get();
+
+        boolean isAssociated =
+            user.getSportUsers().stream()
+                .anyMatch(sportUser -> Objects.equals(sportUser.getSport().getId(), sport.getId()));
+
+        if (!isAssociated) {
+          SportUser sportUser = new SportUser(user, sport);
+          user.getSportUsers().add(sportUser);
+        }
+      } else {
+        throw new ResponseStatusException(
+            HttpStatus.NOT_FOUND, "Sport not found: " + sportDTO.getName());
       }
-      SportUser sportUser = new SportUser(user, sportMapper.toEntity(sportDTO));
-      user.getSportUsers().add(sportUser);
     }
   }
 }

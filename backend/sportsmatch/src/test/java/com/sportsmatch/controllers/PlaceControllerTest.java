@@ -93,7 +93,6 @@ class PlaceControllerTest {
         .andExpect(MockMvcResultMatchers.content().string("Place successfully added"));
   }
 
-  //TODO: fix the Json problem
   @Test
   void searchPlaces() throws Exception {
 
@@ -101,13 +100,19 @@ class PlaceControllerTest {
     PlaceDTO placeDTO2 = createPlaceDTO2();
     List<PlaceDTO> expectedPlaces = Arrays.asList(placeDTO1, placeDTO2);
 
-    when(placeService.searchPlaces(any())).thenReturn(expectedPlaces);
+    // Mock the behavior of the placeService to return the expected list of places
+    when(placeService.searchPlaces(any(String.class))).thenReturn(expectedPlaces);
 
+    // Perform a GET request to search for places with a name parameter "test"
     mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/places/search")
-            .param("filter", "test")
+            .param("name", "test")
             .contentType(MediaType.APPLICATION_JSON))
+
+        // Verify the response is an array
         .andExpect(MockMvcResultMatchers.jsonPath("$").isArray())
+        // Verify the name of the first place in the response matches the name of the first expected place
         .andExpect(MockMvcResultMatchers.jsonPath("$[0].name").value("Test Place Name1"))
+        // Verify the name of the second place in the response matches the name of the second expected place
         .andExpect(MockMvcResultMatchers.jsonPath("$[1].name").value("Test Place Name2"));
 
   }

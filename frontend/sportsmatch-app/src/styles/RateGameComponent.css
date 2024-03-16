@@ -1,0 +1,80 @@
+.rate-game-window-wrapper {
+    height: 75%;
+    width: 92%;
+    background-color: var(--sm-primary-bg);
+    color: var(--sm-orange);    
+}
+
+.score-input-panel {
+    display: grid;
+    grid-template-columns: 2rem 4.375rem 1fr 0.688rem auto 0.688rem 0.25fr 0.5rem 0.25fr 
+    0.688rem auto 0.688rem 1fr 4.375rem 2rem;
+    grid-template-rows: 0.625rem 3.125rem 0.625rem 1.563rem;
+    justify-content: center;}
+
+.star-rating-label {
+    margin: 0;
+    font-size: 0.75rem;    
+}
+
+.user-picture {
+    display: grid;
+    grid-column: 2 / 3;    
+    grid-row: 1 / 4;    
+}
+
+.user-score {
+    display: grid;
+    grid-column: 4 / 7;    
+    grid-row: 2 / 3;
+    grid-template-columns: subgrid;    
+    border-radius: 30%;
+    border: 2px solid var(--sm-orange);
+}
+
+.score-input-user {
+    display: grid;
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;  
+    
+}
+
+.divider {
+    display: grid;
+    grid-column: 8 / 9;  
+    grid-row: 2 / 3;
+    font-size: 1.75rem;
+    font-weight: 900;
+}
+.opponent-score {
+    display: grid;
+    grid-column: 10 / 13;    
+    grid-row: 2 / 3;   
+    grid-template-columns: subgrid;
+    grid-template-rows: subgrid;
+    border-radius: 30%;
+    border: 2px solid var(--sm-orange);      
+}
+
+.opponent-picture {
+    display: grid;
+    grid-column: 14 / 15;    
+    grid-row: 1 / 4;   
+}
+.star-rating {     
+    align-items: center;
+}
+
+.form-control {    
+    border: none;
+    padding: 0;
+    margin: 0;
+    background-color: transparent;
+    color: var(--sm-orange);
+    font-size: 2rem;
+    font-weight: 900;
+    width: 1ch;    
+}
+.form-control::placeholder {
+    color: var(--sm-orange);
+}

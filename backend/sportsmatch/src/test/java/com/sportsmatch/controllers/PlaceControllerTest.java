@@ -101,7 +101,7 @@ class PlaceControllerTest {
     PlaceDTO placeDTO2 = createPlaceDTO2();
     List<PlaceDTO> expectedPlaces = Arrays.asList(placeDTO1, placeDTO2);
 
-    when(placeService.searchPlaces(any(String.class))).thenReturn(expectedPlaces);
+    when(placeService.searchPlaces(any())).thenReturn(expectedPlaces);
 
     mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/places/search")
             .param("filter", "test")

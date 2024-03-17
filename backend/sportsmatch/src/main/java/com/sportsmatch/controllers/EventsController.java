@@ -59,4 +59,12 @@ public class EventsController {
   public List<EventHistoryDTO> getEventsHistory(final Pageable pageable) {
     return eventService.getEventsHistory(pageable);
   }
+
+  @GetMapping("/nearby/{id}")
+  public List<EventDTO> getNearbyEvents(@RequestParam Float latitude,
+                                        @RequestParam Float longitude,
+                                        @PathVariable (required = false) Long sportId,
+                                        final Pageable pageable){
+    return eventService.getNearbyEvents(latitude, longitude,sportId, pageable);
+  }
 }

@@ -19,8 +19,8 @@ export default function RateGameComponent(p: Props) {
     id: 1,
     maxElo: 2000,
     minElo: 1200,
-    dateEnd: '[2024, 5, 2, 16, 30]',
-    dateStart: '[2024, 5, 2, 16, 00]',
+    dateEnd: '2024-05-02-16-30',
+    dateStart: '2024-05-02-16-00',
     location: 'Prague, Stadium A',
     title: 'Badminton match',
     sport: 'Badminton',
@@ -64,22 +64,23 @@ export default function RateGameComponent(p: Props) {
   const userProfilePicture = 'pictures/unknown-user-placeholder.png'
   const opponentProfilePicture = 'pictures/unknown-user-placeholder.png'
 
-  const [userScore, setUserScore] = useState<number>()
-  const [opponentScore, setOpponentScore] = useState<number>()
-  const [userTextRating, setUserTextRating] = useState<string | any>()
+  const [userScore, setUserScore] = useState(0)
+  const [opponentScore, setOpponentScore] = useState(0)
+  const [userTextRating, setUserTextRating] = useState('')
 
-  const [matchRating, setMatchRating] = useState<number>(0)
-  const [opponentRating, setOpponentRating] = useState<number>(0)
+  const [matchRating, setMatchRating] = useState<number>()
+  const [opponentRating, setOpponentRating] = useState<number>()
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const rating: RatingDTO = {
-      userTextRating: 'some rating',
-      userStarRating: opponentRating,
-      eventStarRating: matchRating,
-      myScore: 0,
-      opponentScore: 0,
+      userTextRating: userTextRating,
+      userStarRating: opponentRating as number,
+      eventStarRating: matchRating as number,
+      myScore: userScore,
+      opponentScore: opponentScore,
     }
+    console.log(rating)
 
     try {
       await RatingControllerService.addRating(rating)
@@ -136,7 +137,6 @@ export default function RateGameComponent(p: Props) {
                     type="number"
                     className="form-control"
                     id="user-score"
-                    value={userScore}
                     placeholder="?"
                     onChange={handleUserScoreChange}
                     required
@@ -151,7 +151,6 @@ export default function RateGameComponent(p: Props) {
                     className="form-control"
                     id="opponent-score"
                     placeholder="?"
-                    value={opponentScore}
                     onChange={handleOpponentScoreChange}
                     required
                   />
@@ -198,6 +197,7 @@ export default function RateGameComponent(p: Props) {
                 value={userTextRating}
                 rows={5}
                 cols={35}
+                onChange={(e) => setUserTextRating(e.target.value)}
               />
             </div>
           </div>

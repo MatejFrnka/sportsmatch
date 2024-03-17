@@ -1,7 +1,9 @@
 package com.sportsmatch.services;
 
 import com.sportsmatch.BaseTest;
+import com.sportsmatch.dtos.EventDTO;
 import com.sportsmatch.dtos.RatingDTO;
+import com.sportsmatch.mappers.EventMapper;
 import com.sportsmatch.mappers.RatingMapper;
 import com.sportsmatch.models.*;
 import com.sportsmatch.repositories.EventPlayerRepository;
@@ -17,23 +19,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class RatingServiceTest extends BaseTest {
 
-  @Mock
-  private RatingRepository ratingRepository;
-  @Mock
-  private UserEventRatingRepository userEventRatingRepository;
-  @Mock
-  private EventPlayerRepository eventPlayerRepository;
-  @Mock
-  private RatingMapper ratingMapper;
-  @Mock
-  private UserService userService;
-  @InjectMocks
-  private RatingService ratingService;
+  @Mock private RatingRepository ratingRepository;
+  @Mock private UserEventRatingRepository userEventRatingRepository;
+  @Mock private EventPlayerRepository eventPlayerRepository;
+  @Mock private RatingMapper ratingMapper;
+  @Mock private UserService userService;
+  @InjectMocks private RatingService ratingService;
+  @Mock private EventMapper eventMapper;
 
   @Test
   void addRating() {
@@ -91,5 +89,74 @@ class RatingServiceTest extends BaseTest {
     verify(userEventRatingRepository, times(1)).save(any(UserEventRating.class));
     verify(eventPlayer).setMyScore(ratingDTO.getMyScore());
     verify(eventPlayer).setOpponentScore(ratingDTO.getOpponentScore());
+  }
+
+  @Test
+  void testFindUnratedEventsWithUnratedEvent() {
+    // Arrange:
+    // Authentication and Player
+    User player = new User();
+    when(userService.getUserFromContext()).thenReturn(player);
+
+    // Event player
+    List<EventPlayer> eventPlayers = new ArrayList<>();
+    EventPlayer eventPlayer = new EventPlayer();
+    eventPlayers.add(eventPlayer);
+    lenient()
+        .when(eventPlayerRepository.findEventPlayersByPlayer(player))
+        .thenReturn(eventPlayers);
+
+    // Event rating
+    lenient()
+        .when(
+            userEventRatingRepository.findUserEventRatingByEventAndPlayer(
+                eventPlayer.getEvent(), player))
+        .thenReturn(Optional.empty());
+
+    // Mapping
+    Event event = new Event();
+    EventDTO eventDTO = new EventDTO();
+    lenient().when(eventMapper.convertEventToEventDTO(event)).thenReturn(eventDTO);
+
+    // Act:
+    List<EventDTO> unratedEvents = ratingService.findUnratedEvents();
+
+    // Assert:
+    assertEquals(1, unratedEvents.size());
+  }
+
+  @Test
+  void testFindUnratedEventsWithRatedEvent() {
+    // Arrange:
+    // Authentication and Player
+    User player = new User();
+    when(userService.getUserFromContext()).thenReturn(player);
+
+    // Event player
+    List<EventPlayer> eventPlayers = new ArrayList<>();
+    EventPlayer eventPlayer = new EventPlayer();
+    eventPlayers.add(eventPlayer);
+    lenient()
+        .when(eventPlayerRepository.findEventPlayersByPlayer(player))
+        .thenReturn(eventPlayers);
+
+    // Event rating
+    UserEventRating userEventRating = new UserEventRating();
+    lenient()
+        .when(
+            userEventRatingRepository.findUserEventRatingByEventAndPlayer(
+                eventPlayer.getEvent(), player))
+        .thenReturn(Optional.of(userEventRating));
+
+    // Mapping
+    Event event = new Event();
+    EventDTO eventDTO = new EventDTO();
+    lenient().when(eventMapper.convertEventToEventDTO(event)).thenReturn(eventDTO);
+
+    // Act:
+    List<EventDTO> unratedEvents = ratingService.findUnratedEvents();
+
+    // Assert:
+    assertEquals(0, unratedEvents.size());
   }
 }

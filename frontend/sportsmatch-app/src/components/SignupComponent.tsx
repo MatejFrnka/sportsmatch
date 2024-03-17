@@ -1,7 +1,7 @@
 import '../styles/SignupComponent.css'
 import { FaLock, FaMailBulk } from 'react-icons/fa'
 import React, { FormEvent, useState } from 'react'
-import { OpenAPI, RegisterService } from '../generated/api'
+import { RegisterService } from '../generated/api'
 import { useNavigate } from 'react-router-dom'
 
 function SignupComponent() {
@@ -23,8 +23,8 @@ function SignupComponent() {
       })
 
       console.log('Registration successful')
-      OpenAPI.TOKEN = response.token
-      navigate('/newuser')
+      localStorage.setItem('token', response.token)
+      navigate('/user-info')
     } catch (error) {
       console.error('Register Error', error)
       setErrorMessage('The email address or password is invalid.')

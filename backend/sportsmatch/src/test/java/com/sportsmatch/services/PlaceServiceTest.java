@@ -46,7 +46,7 @@ public class PlaceServiceTest extends BaseTest {
   }
 
   @Test
-  public void AddNewPlaceShouldReturnSuccessMessage() {
+  public void addNewPlaceShouldReturnSuccessMessage() {
     Place placeEntity = createPlaceEntity();
     PlaceDTO placeDTO = createPlaceDTO();
 
@@ -65,7 +65,7 @@ public class PlaceServiceTest extends BaseTest {
   }
 
   @Test
-  public void SearchPlacesWithExistName() {
+  public void searchPlacesWithExistName() {
     String name = "Test Place";
     Place placeEntity = createPlaceEntity();
     PlaceDTO placeDTO = createPlaceDTO();
@@ -93,7 +93,7 @@ public class PlaceServiceTest extends BaseTest {
   }
 
   @Test
-  public void SearchPlacesWithNonExistName() {
+  public void searchPlacesWithNonExistName() {
     String name = "NonExistent Place";
     Place placeEntity = createPlaceEntity();
     PlaceDTO placeDTO = createPlaceDTO();

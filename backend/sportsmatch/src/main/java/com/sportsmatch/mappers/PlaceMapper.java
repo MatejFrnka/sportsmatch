@@ -25,15 +25,15 @@ public class PlaceMapper {
   /**
    * Converts a PlaceDTO object into a Place entity.
    *
-   * @param DTO The PlaceDTO object containing the data of the Place.
+   * @param dto The PlaceDTO object containing the data of the Place.
    * @return a Place entity with the given parameters from the PlaceDTO object.
    */
-  public Place toEntity(PlaceDTO DTO) {
+  public Place toEntity(PlaceDTO dto) {
     return Place.builder()
-        .name(DTO.getName())
-        .address(DTO.getAddress())
-        .latitude(DTO.getLatitude())
-        .longitude(DTO.getLongitude())
+        .name(dto.getName())
+        .address(dto.getAddress())
+        .latitude(dto.getLatitude())
+        .longitude(dto.getLongitude())
         .build();
   }
 }

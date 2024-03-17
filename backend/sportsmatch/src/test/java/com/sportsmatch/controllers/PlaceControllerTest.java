@@ -1,6 +1,7 @@
 package com.sportsmatch.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sportsmatch.BaseTest;
 import com.sportsmatch.dtos.PlaceDTO;
 import com.sportsmatch.services.PlaceService;
 import org.junit.jupiter.api.Test;
@@ -27,7 +28,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(SpringExtension.class)
 @AutoConfigureMockMvc
 @SpringBootTest
-class PlaceControllerTest {
+class PlaceControllerTest extends BaseTest {
 
   @Autowired
   private MockMvc mockMvc;

@@ -1,5 +1,6 @@
 package com.sportsmatch.services;
 
+import com.sportsmatch.BaseTest;
 import com.sportsmatch.dtos.PlaceDTO;
 import com.sportsmatch.mappers.PlaceMapper;
 import com.sportsmatch.models.Place;
@@ -18,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
-public class PlaceServiceTest {
+public class PlaceServiceTest extends BaseTest {
   @Mock
   private PlaceRepository placeRepository;
   @Mock

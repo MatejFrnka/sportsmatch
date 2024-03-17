@@ -10,7 +10,11 @@ import Avatar from './Avatar'
 import Rating from './Rating'
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 
-export default function RateGameComponent() {
+interface Props {
+  toggle: () => void
+}
+
+export default function RateGameComponent(p: Props) {
   const sampleEvent: EventDTO = {
     id: 1,
     maxElo: 2000,
@@ -77,8 +81,10 @@ export default function RateGameComponent() {
 
     try {
       await RatingControllerService.addRating(rating)
+      p.toggle()
     } catch (error) {
       console.log(error as ApiError)
+      p.toggle()
     }
   }
 

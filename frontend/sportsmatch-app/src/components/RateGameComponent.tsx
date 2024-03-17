@@ -19,8 +19,8 @@ export default function RateGameComponent(p: Props) {
     id: 1,
     maxElo: 2000,
     minElo: 1200,
-    dateEnd: '2024-05-02',
-    dateStart: '2024-05-01',
+    dateEnd: '[2024, 5, 2, 16, 30]',
+    dateStart: '[2024, 5, 2, 16, 00]',
     location: 'Prague, Stadium A',
     title: 'Badminton match',
     sport: 'Badminton',
@@ -31,7 +31,7 @@ export default function RateGameComponent(p: Props) {
   const [myEvent, setMyEvent] = useState<EventDTO>(sampleEvent)
 
   useEffect(() => {
-    ;(async () => {
+    const init = async () => {
       OpenAPI.TOKEN = localStorage.getItem('token')!
       try {
         const response = await RatingControllerService.checkRating()
@@ -42,7 +42,8 @@ export default function RateGameComponent(p: Props) {
           localStorage.removeItem('token')
         }
       }
-    })()
+    }
+    init()
   }, [])
 
   const dayOfTheWeek = (year: number, month: number, day: number) => {
@@ -65,6 +66,7 @@ export default function RateGameComponent(p: Props) {
 
   const [userScore, setUserScore] = useState<number>()
   const [opponentScore, setOpponentScore] = useState<number>()
+  const [userTextRating, setUserTextRating] = useState<string | any>()
 
   const [matchRating, setMatchRating] = useState<number>(0)
   const [opponentRating, setOpponentRating] = useState<number>(0)
@@ -100,22 +102,27 @@ export default function RateGameComponent(p: Props) {
     <>
       <div className="container-sm rate-game-window-wrapper">
         <div className="row">
-          <h1>How was your game?</h1>
+          <h1 className="rate-game-label">How was your game?</h1>
         </div>
         <div className="row">
-          <span>
-            {dayOfTheWeek(
-              parseInt(myEvent!.dateStart[0]!),
-              parseInt(myEvent!.dateStart[1]!),
-              parseInt(myEvent!.dateStart[2]!),
-            )}
-            , {myEvent!.dateStart[3]!}:{myEvent!.dateStart[4]} -{' '}
-            {myEvent!.dateEnd[3]!}:{myEvent!.dateEnd[4]}
-          </span>
-          <span>{myEvent?.location}</span>
+          <div className="col event-details">
+            <span>
+              {dayOfTheWeek(
+                parseInt(myEvent!.dateStart[0]!),
+                parseInt(myEvent!.dateStart[1]!),
+                parseInt(myEvent!.dateStart[2]!),
+              )}
+              , {myEvent!.dateStart[3]!}:{myEvent!.dateStart[4]} -{' '}
+              {myEvent!.dateEnd[3]!}:{myEvent!.dateEnd[4]}
+            </span>
+            <br />
+            <span>{myEvent?.location}</span>
+          </div>
         </div>
         <div className="row">
-          <p>Enter the scores</p>
+          <div className="col">
+            <p className="score-input-label">Enter the scores</p>
+          </div>
         </div>
         <form onSubmit={handleSubmit}>
           <div className="row">
@@ -153,6 +160,8 @@ export default function RateGameComponent(p: Props) {
               <div className="opponent-picture">
                 <Avatar src={opponentProfilePicture} />
               </div>
+              <div className="user-name">{myEvent.player1Id}</div>
+              <div className="opponent-name">{myEvent.player2Id}</div>
             </div>
           </div>
           <div className="row star-rating">
@@ -174,6 +183,21 @@ export default function RateGameComponent(p: Props) {
                 size={15}
                 edit={true}
                 onChange={(value) => setOpponentRating(value)}
+              />
+            </div>
+          </div>
+          <div className="row">
+            <p className="textarea-label">
+              Your experience with {myEvent.player2Id}
+            </p>
+          </div>
+          <div className="row">
+            <div className="col-12">
+              <textarea
+                id="text-user-rating"
+                value={userTextRating}
+                rows={5}
+                cols={35}
               />
             </div>
           </div>

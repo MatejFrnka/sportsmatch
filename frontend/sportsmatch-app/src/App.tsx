@@ -26,7 +26,12 @@ function App() {
           element={<Wrapper child={<AllSportsList />} />}
         />
         <Route element={<PrivateRoute />}>
-          <Route path="/index" element={<Wrapper child={<Index />} />} />
+          <Route
+            path="/index"
+            element={
+              <Wrapper child={<Index />} acitvateCheckRatingModal={true} />
+            }
+          />
           <Route path="/user" element={<UserPage />}></Route>
           <Route path="/user-info" element={<Wrapper child={<UserInfo />} />} />
         </Route>

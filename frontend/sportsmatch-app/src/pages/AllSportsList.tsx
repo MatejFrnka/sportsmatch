@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { SportDTO } from '../generated/api'
 import '../App.css'
 import '../styles/Sport.css'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { SearchBar } from '../components/SearchBar'
 
 export function AllSportsList() {
@@ -34,7 +34,11 @@ export function AllSportsList() {
     },
   ]
 
-  const url = '/test/3'
+  const url = '/index'
+  const location = useLocation()
+  const selectedButtons = location.state.selectedButtons
+
+  console.log(location.state)
 
   interface SportState {
     sport: SportDTO
@@ -44,7 +48,10 @@ export function AllSportsList() {
   const navigate = useNavigate()
 
   const [sportsState, setSportsState] = useState<SportState[]>(
-    sampleSports.map((sport) => ({ sport, selected: false })),
+    sampleSports.map((sport) => ({
+      sport,
+      selected: selectedButtons.includes(sport.name),
+    })),
   )
   const [searchQuery, setSearchQuery] = useState('')
 

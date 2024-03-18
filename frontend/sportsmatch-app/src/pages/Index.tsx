@@ -102,25 +102,32 @@ export default function MainPage() {
     setClearFilters(true)
   }
 
+  const filterBySelectedSports = (
+    events: Event[],
+    selectedSports: string[],
+  ) => {
+    if (selectedSports.length === 0) return events
+
+    return events.filter((event) => selectedSports.includes(event.sport))
+  }
+
+  const filterByLocationState = (events: Event[], locationState: any) => {
+    if (!locationState || !Array.isArray(locationState)) return events
+
+    const sportNames = locationState.map((sport) => sport.name)
+    return events.filter((event) => sportNames.includes(event.sport))
+  }
+
+  // handles the event filtering
   useEffect(() => {
-    let filteredEvents = sampleEvents // using sample data should be replace from backend
+    // using sample data should be replace from backend
+    let filteredEvents = sampleEvents
 
-    if (selectedSports.length > 0) {
-      filteredEvents = filteredEvents.filter((event) =>
-        selectedSports.includes(event.sport),
-      )
-      setClearFilters(false)
-    }
+    // Apply filters
+    filteredEvents = filterBySelectedSports(filteredEvents, selectedSports)
+    filteredEvents = filterByLocationState(filteredEvents, location.state)
 
-    if (location.state && Array.isArray(location.state)) {
-      const sportNames = location.state.map(
-        (sport: { name: string }) => sport.name,
-      )
-      filteredEvents = filteredEvents.filter((event) =>
-        sportNames.includes(event.sport),
-      )
-    }
-
+    // Set filtered events
     setFilteredEvent(filteredEvents)
   }, [selectedSports, location.state, sampleEvents])
 

@@ -1,12 +1,21 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import '../styles/NewUserComponent.css'
+import { useNavigate } from 'react-router-dom'
 
 function SportsButtonComponent({
   onSportSelectionChange,
+  clearFilters,
 }: {
   onSportSelectionChange: (selectedSports: string[]) => void
+  clearFilters: boolean
 }) {
   const [selectedButtons, setSelectedButtons] = useState<string[]>([])
+
+  useEffect(() => {
+    if (clearFilters) {
+      setSelectedButtons([])
+    }
+  }, [clearFilters])
 
   const handleCheckboxChange = (buttonText: string) => {
     setSelectedButtons((prevState) => {
@@ -18,97 +27,105 @@ function SportsButtonComponent({
     })
   }
 
+  const memoizedOnSportSelectionChange = useCallback(onSportSelectionChange, [
+    onSportSelectionChange,
+  ])
+
   useEffect(() => {
-    onSportSelectionChange(selectedButtons)
-  }, [selectedButtons, onSportSelectionChange])
+    memoizedOnSportSelectionChange(selectedButtons)
+  }, [selectedButtons, memoizedOnSportSelectionChange])
+
+  const navigate = useNavigate()
+  const handleMoreSportsButton = () => {
+    navigate('/allsports', { state: { selectedButtons } })
+  }
 
   return (
     <div className="wrapper">
-      <form action="">
-        <p>Select your sports</p>
-        <div className="sports-container">
-          <label>
-            <input
-              type="checkbox"
-              className="sports-checkbox"
-              checked={selectedButtons.includes('Tennis')}
-              onChange={() => handleCheckboxChange('Tennis')}
-            />
-            <span className="sports-button">🥎 Tennis</span>
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              className="sports-checkbox"
-              checked={selectedButtons.includes('Gym')}
-              onChange={() => handleCheckboxChange('Gym')}
-            />
-            <span className="sports-button">🏋 Gym</span>
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              className="sports-checkbox"
-              checked={selectedButtons.includes('Golf')}
-              onChange={() => handleCheckboxChange('Golf')}
-            />
-            <span className="sports-button">🏌🏽 Golf</span>
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              className="sports-checkbox"
-              checked={selectedButtons.includes('Bowling')}
-              onChange={() => handleCheckboxChange('Bowling')}
-            />
-            <span className="sports-button">🎳 Bowling</span>
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              className="sports-checkbox"
-              checked={selectedButtons.includes('Running')}
-              onChange={() => handleCheckboxChange('Running')}
-            />
-            <span className="sports-button">🏃 Running</span>
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              className="sports-checkbox"
-              checked={selectedButtons.includes('Bicycle')}
-              onChange={() => handleCheckboxChange('Bicycle')}
-            />
-            <span className="sports-button">🚴‍♀️ Bicycle</span>
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              className="sports-checkbox"
-              checked={selectedButtons.includes('Boxing')}
-              onChange={() => handleCheckboxChange('Boxing')}
-            />
-            <span className="sports-button">🥊 Boxing</span>
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              className="sports-checkbox"
-              checked={selectedButtons.includes('Ping pong')}
-              onChange={() => handleCheckboxChange('Ping pong')}
-            />
-            <span className="sports-button">🏓 Ping pong</span>
-          </label>
-          <label>
-            <input
-              className="more-sports-button"
-              type="button"
-              value=".&nbsp;&nbsp;.&nbsp;&nbsp;."
-            />
-          </label>
-          {/* <button id="more-sports-button">.&nbsp;&nbsp;.&nbsp;&nbsp;.</button> */}
-        </div>
-      </form>
+      <p>Select your sports</p>
+      <div className="sports-container">
+        <label>
+          <input
+            type="checkbox"
+            className="sports-checkbox"
+            checked={selectedButtons.includes('Tennis')}
+            onChange={() => handleCheckboxChange('Tennis')}
+          />
+          <span className="sports-button">🥎 Tennis</span>
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            className="sports-checkbox"
+            checked={selectedButtons.includes('Gym')}
+            onChange={() => handleCheckboxChange('Gym')}
+          />
+          <span className="sports-button">🏋 Gym</span>
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            className="sports-checkbox"
+            checked={selectedButtons.includes('Golf')}
+            onChange={() => handleCheckboxChange('Golf')}
+          />
+          <span className="sports-button">🏌🏽 Golf</span>
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            className="sports-checkbox"
+            checked={selectedButtons.includes('Bowling')}
+            onChange={() => handleCheckboxChange('Bowling')}
+          />
+          <span className="sports-button">🎳 Bowling</span>
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            className="sports-checkbox"
+            checked={selectedButtons.includes('Running')}
+            onChange={() => handleCheckboxChange('Running')}
+          />
+          <span className="sports-button">🏃 Running</span>
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            className="sports-checkbox"
+            checked={selectedButtons.includes('Bicycle')}
+            onChange={() => handleCheckboxChange('Bicycle')}
+          />
+          <span className="sports-button">🚴‍♀️ Bicycle</span>
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            className="sports-checkbox"
+            checked={selectedButtons.includes('Boxing')}
+            onChange={() => handleCheckboxChange('Boxing')}
+          />
+          <span className="sports-button">🥊 Boxing</span>
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            className="sports-checkbox"
+            checked={selectedButtons.includes('Ping pong')}
+            onChange={() => handleCheckboxChange('Ping pong')}
+          />
+          <span className="sports-button">🏓 Ping pong</span>
+        </label>
+        <label>
+          <input
+            className="more-sports-button"
+            type="button"
+            value=".&nbsp;&nbsp;.&nbsp;&nbsp;."
+            onClick={handleMoreSportsButton}
+          />
+        </label>
+        {/* <button id="more-sports-button">.&nbsp;&nbsp;.&nbsp;&nbsp;.</button> */}
+      </div>
     </div>
   )
 }

@@ -50,7 +50,7 @@
     grid-row: 1 / 4;    
 }
 
-.user-score {
+.user-score-rating {
     display: grid;
     grid-column: 4 / 7;    
     grid-row: 2 / 3;
@@ -79,7 +79,7 @@
     font-size: 1.75rem;
     font-weight: 900;
 }
-.opponent-score {
+.opponent-score-rating {
     display: grid;
     grid-column: 10 / 13;    
     grid-row: 2 / 3;   

@@ -26,6 +26,8 @@ export default function RateGameComponent(p: Props) {
     sport: 'Badminton',
     player1Id: 1,
     player2Id: 2,
+    player1Name: 'john',
+    player2Name: 'jane',
   }
 
   const [myEvent, setMyEvent] = useState<EventDTO>(sampleEvent)
@@ -131,7 +133,7 @@ export default function RateGameComponent(p: Props) {
               <div className="user-picture">
                 <Avatar src={userProfilePicture} />
               </div>
-              <div className="user-score">
+              <div className="user-score-rating">
                 <div className="score-input-user">
                   <input
                     type="number"
@@ -144,7 +146,7 @@ export default function RateGameComponent(p: Props) {
                 </div>
               </div>
               <div className="divider">:</div>
-              <div className="opponent-score">
+              <div className="opponent-score-rating">
                 <div className="score-input-user">
                   <input
                     type="number"
@@ -159,8 +161,8 @@ export default function RateGameComponent(p: Props) {
               <div className="opponent-picture">
                 <Avatar src={opponentProfilePicture} />
               </div>
-              <div className="user-name">{myEvent.player1Id}</div>
-              <div className="opponent-name">{myEvent.player2Id}</div>
+              <div className="user-name">you</div>
+              <div className="opponent-name">{myEvent.player2Name}</div>
             </div>
           </div>
           <div className="row star-rating">
@@ -187,7 +189,7 @@ export default function RateGameComponent(p: Props) {
           </div>
           <div className="row">
             <p className="textarea-label">
-              Your experience with {myEvent.player2Id}
+              Your experience with {myEvent.player2Name}
             </p>
           </div>
           <div className="row">

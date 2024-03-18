@@ -6,19 +6,19 @@ import {
 } from 'react-icons/ti'
 
 interface RatingProps {
-  className?: string
-  count: number
-  value: number
-  color?: string
-  hoverColor?: string
-  activeColor?: string
-  size?: number
-  edit?: boolean
-  isHalf?: boolean
-  onChange?: (value: number) => void
-  emptyIcon?: React.ReactElement
-  halfIcon?: React.ReactElement
-  fullIcon?: React.ReactElement
+  className?: string // a className that can be passed to customize the styling of the component
+  count: number // the number of stars to display in the rating
+  value: number // the current value of the rating
+  color?: string //the color of the stars when they are not being hovered over or clicked on
+  hoverColor?: string // the color of the stars when they are being hovered over
+  activeColor?: string // the color of the stars when they are being clicked on
+  size?: number // the size of the stars in pixels
+  edit?: boolean // a boolean value that determines whether the rating can be edited by the user
+  isHalf?: boolean // a boolean value that determines whether the rating allows for half-star increments
+  onChange?: (value: number) => void //a callback function that is called when the rating is changed
+  emptyIcon?: React.ReactElement // an icon to be used for empty stars
+  halfIcon?: React.ReactElement // an icon to be used for half stars
+  fullIcon?: React.ReactElement // an icon to be used for full stars
 }
 
 const Rating: React.FC<RatingProps> = ({

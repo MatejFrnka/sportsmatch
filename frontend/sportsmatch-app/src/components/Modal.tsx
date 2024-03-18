@@ -2,10 +2,10 @@ import { ReactNode } from 'react'
 import '../styles/Modal.css'
 
 interface ModalProps {
-  children?: ReactNode
-  isOPen: boolean
-  preventClosing: boolean
-  toggle: () => void
+  children?: ReactNode // React child with content of the popup window
+  isOPen: boolean // boolean that controlls if modal is displayed
+  preventClosing: boolean // if false popup window closes after clicking on the overlay
+  toggle: () => void // a callback function to controll the value of isOpen
 }
 export default function Modal(p: ModalProps) {
   return (

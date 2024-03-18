@@ -1,7 +1,5 @@
 package com.sportsmatch.auth;
 
-import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -19,6 +17,8 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
+import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
+
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -27,8 +27,7 @@ public class SecurityConfig {
   @Value("${app.sportsmingle.frontend.url}")
   private String frontendUrl;
   private static final String[] WHITE_LIST_URL = {
-      "/api/v1/auth/**", "/h2-console/**", "/v3/api-docs", "/v3/api-docs/**", "/swagger-ui/**",
-      "/swagger-ui.html"
+    "/api/v1/auth/**", "/h2-console/**", "/v3/api-docs", "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/api/v1/places/search"
   };
   private final JwtAuthFilter jwtAuthFilter;
   private final AuthenticationProvider authenticationProvider;

@@ -7,18 +7,18 @@ function SportsButtonComponent({
   clearFilters,
 }: {
   onSportSelectionChange: (selectedSports: string[]) => void
-  clearFilters: boolean
+  clearFilters?: boolean
 }) {
-  const [selectedButtons, setSelectedButtons] = useState<string[]>([])
+  const [selectedButtonSports, setselectedButtonSports] = useState<string[]>([])
 
   useEffect(() => {
     if (clearFilters) {
-      setSelectedButtons([])
+      setselectedButtonSports([])
     }
   }, [clearFilters])
 
   const handleCheckboxChange = (buttonText: string) => {
-    setSelectedButtons((prevState) => {
+    setselectedButtonSports((prevState) => {
       if (prevState.includes(buttonText)) {
         return prevState.filter((button) => button !== buttonText)
       } else {
@@ -32,12 +32,12 @@ function SportsButtonComponent({
   ])
 
   useEffect(() => {
-    memoizedOnSportSelectionChange(selectedButtons)
-  }, [selectedButtons, memoizedOnSportSelectionChange])
+    memoizedOnSportSelectionChange(selectedButtonSports)
+  }, [selectedButtonSports, memoizedOnSportSelectionChange])
 
   const navigate = useNavigate()
   const handleMoreSportsButton = () => {
-    navigate('/allsports', { state: { selectedButtons } })
+    navigate('/allsports', { state: { selectedButtonSports } })
   }
 
   return (
@@ -48,7 +48,7 @@ function SportsButtonComponent({
           <input
             type="checkbox"
             className="sports-checkbox"
-            checked={selectedButtons.includes('Tennis')}
+            checked={selectedButtonSports.includes('Tennis')}
             onChange={() => handleCheckboxChange('Tennis')}
           />
           <span className="sports-button">🥎 Tennis</span>
@@ -57,7 +57,7 @@ function SportsButtonComponent({
           <input
             type="checkbox"
             className="sports-checkbox"
-            checked={selectedButtons.includes('Gym')}
+            checked={selectedButtonSports.includes('Gym')}
             onChange={() => handleCheckboxChange('Gym')}
           />
           <span className="sports-button">🏋 Gym</span>
@@ -66,7 +66,7 @@ function SportsButtonComponent({
           <input
             type="checkbox"
             className="sports-checkbox"
-            checked={selectedButtons.includes('Golf')}
+            checked={selectedButtonSports.includes('Golf')}
             onChange={() => handleCheckboxChange('Golf')}
           />
           <span className="sports-button">🏌🏽 Golf</span>
@@ -75,7 +75,7 @@ function SportsButtonComponent({
           <input
             type="checkbox"
             className="sports-checkbox"
-            checked={selectedButtons.includes('Bowling')}
+            checked={selectedButtonSports.includes('Bowling')}
             onChange={() => handleCheckboxChange('Bowling')}
           />
           <span className="sports-button">🎳 Bowling</span>
@@ -84,7 +84,7 @@ function SportsButtonComponent({
           <input
             type="checkbox"
             className="sports-checkbox"
-            checked={selectedButtons.includes('Running')}
+            checked={selectedButtonSports.includes('Running')}
             onChange={() => handleCheckboxChange('Running')}
           />
           <span className="sports-button">🏃 Running</span>
@@ -93,7 +93,7 @@ function SportsButtonComponent({
           <input
             type="checkbox"
             className="sports-checkbox"
-            checked={selectedButtons.includes('Bicycle')}
+            checked={selectedButtonSports.includes('Bicycle')}
             onChange={() => handleCheckboxChange('Bicycle')}
           />
           <span className="sports-button">🚴‍♀️ Bicycle</span>
@@ -102,7 +102,7 @@ function SportsButtonComponent({
           <input
             type="checkbox"
             className="sports-checkbox"
-            checked={selectedButtons.includes('Boxing')}
+            checked={selectedButtonSports.includes('Boxing')}
             onChange={() => handleCheckboxChange('Boxing')}
           />
           <span className="sports-button">🥊 Boxing</span>
@@ -111,7 +111,7 @@ function SportsButtonComponent({
           <input
             type="checkbox"
             className="sports-checkbox"
-            checked={selectedButtons.includes('Ping pong')}
+            checked={selectedButtonSports.includes('Ping pong')}
             onChange={() => handleCheckboxChange('Ping pong')}
           />
           <span className="sports-button">🏓 Ping pong</span>

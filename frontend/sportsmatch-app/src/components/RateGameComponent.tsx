@@ -15,22 +15,7 @@ interface Props {
 }
 
 export default function RateGameComponent(p: Props) {
-  const sampleEvent: EventDTO = {
-    id: 1,
-    maxElo: 2000,
-    minElo: 1200,
-    dateEnd: '2024-05-02-16-30',
-    dateStart: '2024-05-02-16-00',
-    location: 'Prague, Stadium A',
-    title: 'Badminton match',
-    sport: 'Badminton',
-    player1Id: 1,
-    player2Id: 2,
-    player1Name: 'john',
-    player2Name: 'jane',
-  }
-
-  const [myEvent, setMyEvent] = useState<EventDTO>(sampleEvent)
+  const [myEvent, setMyEvent] = useState<EventDTO>()
 
   useEffect(() => {
     const init = async () => {
@@ -109,17 +94,23 @@ export default function RateGameComponent(p: Props) {
         </div>
         <div className="row">
           <div className="col event-details">
-            <span>
-              {dayOfTheWeek(
-                parseInt(myEvent!.dateStart[0]!),
-                parseInt(myEvent!.dateStart[1]!),
-                parseInt(myEvent!.dateStart[2]!),
-              )}
-              , {myEvent!.dateStart[3]!}:{myEvent!.dateStart[4]} -{' '}
-              {myEvent!.dateEnd[3]!}:{myEvent!.dateEnd[4]}
-            </span>
-            <br />
-            <span>{myEvent?.location}</span>
+            {myEvent ? (
+              <>
+                <span>
+                  {dayOfTheWeek(
+                    parseInt(myEvent!.dateStart[0]!),
+                    parseInt(myEvent!.dateStart[1]!),
+                    parseInt(myEvent!.dateStart[2]!),
+                  )}
+                  , {myEvent!.dateStart[3]!}:{myEvent!.dateStart[4]} -{' '}
+                  {myEvent!.dateEnd[3]!}:{myEvent!.dateEnd[4]}
+                </span>
+                <br />
+                <span>{myEvent ? myEvent?.location : ''}</span>{' '}
+              </>
+            ) : (
+              <div></div>
+            )}
           </div>
         </div>
         <div className="row">
@@ -162,7 +153,9 @@ export default function RateGameComponent(p: Props) {
                 <Avatar src={opponentProfilePicture} />
               </div>
               <div className="user-name">you</div>
-              <div className="opponent-name">{myEvent.player2Name}</div>
+              <div className="opponent-name">
+                {myEvent ? myEvent.player2Name : ''}
+              </div>
             </div>
           </div>
           <div className="row star-rating">
@@ -189,7 +182,7 @@ export default function RateGameComponent(p: Props) {
           </div>
           <div className="row">
             <p className="textarea-label">
-              Your experience with {myEvent.player2Name}
+              Your experience with {myEvent ? myEvent.player2Name : ''}
             </p>
           </div>
           <div className="row">

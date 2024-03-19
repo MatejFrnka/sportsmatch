@@ -2,34 +2,40 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { RatingDTO } from '../models/RatingDTO';
+import type { PlaceDTO } from '../models/PlaceDTO';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
-export class RatingControllerService {
+export class PlaceControllerService {
     /**
      * @param requestBody
-     * @returns any OK
+     * @returns string OK
      * @throws ApiError
      */
-    public static addRating(
-        requestBody: RatingDTO,
-    ): CancelablePromise<Record<string, any>> {
+    public static addNewPlace(
+        requestBody: PlaceDTO,
+    ): CancelablePromise<string> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/api/v1/rating/add',
+            url: '/api/v1/places/add',
             body: requestBody,
             mediaType: 'application/json',
         });
     }
     /**
-     * @returns any OK
+     * @param name
+     * @returns PlaceDTO OK
      * @throws ApiError
      */
-    public static checkRating(): CancelablePromise<Record<string, any>> {
+    public static searchPlaces(
+        name?: string,
+    ): CancelablePromise<Array<PlaceDTO>> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/api/v1/rating/check',
+            url: '/api/v1/places/search',
+            query: {
+                'name': name,
+            },
         });
     }
 }

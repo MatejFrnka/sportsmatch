@@ -27,4 +27,7 @@ public class EventDTO {
   private Long player1Id;
   private Long player2Id;
   @NotBlank private String sport;
+
+  private String player1Name;
+  private String player2Name;
 }

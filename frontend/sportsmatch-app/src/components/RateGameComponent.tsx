@@ -98,15 +98,16 @@ export default function RateGameComponent(p: Props) {
               <>
                 <span>
                   {dayOfTheWeek(
-                    parseInt(myEvent!.dateStart[0]!),
-                    parseInt(myEvent!.dateStart[1]!),
-                    parseInt(myEvent!.dateStart[2]!),
+                    parseInt(myEvent.dateStart[0]),
+                    parseInt(myEvent.dateStart[1]),
+                    parseInt(myEvent.dateStart[2]),
                   )}
-                  , {myEvent!.dateStart[3]!}:{myEvent!.dateStart[4]} -{' '}
-                  {myEvent!.dateEnd[3]!}:{myEvent!.dateEnd[4]}
+                  , {myEvent.dateStart[3]}:{myEvent.dateStart[4]}
+                  {' - '}
+                  {myEvent.dateEnd[3]}:{myEvent.dateEnd[4]}
                 </span>
                 <br />
-                <span>{myEvent ? myEvent?.location : ''}</span>{' '}
+                <span>{myEvent.location}</span>{' '}
               </>
             ) : (
               <div></div>

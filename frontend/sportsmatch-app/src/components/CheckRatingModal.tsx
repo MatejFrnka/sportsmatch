@@ -23,7 +23,7 @@ export default function CheckRatingModal() {
 
   return (
     <>
-      <Modal isOPen={isOpen} toggle={toggle} preventClosing={true}>
+      <Modal isOpen={isOpen} toggle={toggle} preventClosing={true}>
         <RateGameComponent toggle={toggle} />
       </Modal>
     </>

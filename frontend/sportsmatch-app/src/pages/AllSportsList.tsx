@@ -36,7 +36,7 @@ export function AllSportsList() {
 
   const url = '/index'
   const location = useLocation()
-  const selectedButtons = location.state.selectedButtons
+  const selectedSports = location.state.selectedButtonSports
 
   console.log(location.state)
 
@@ -50,7 +50,7 @@ export function AllSportsList() {
   const [sportsState, setSportsState] = useState<SportState[]>(
     sampleSports.map((sport) => ({
       sport,
-      selected: selectedButtons.includes(sport.name),
+      selected: selectedSports.includes(sport.name),
     })),
   )
   const [searchQuery, setSearchQuery] = useState('')

@@ -1,6 +1,7 @@
 import {
   ApiError,
   EventDTO,
+  ExSecuredEndpointService,
   OpenAPI,
   RatingControllerService,
   RatingDTO,
@@ -16,10 +17,29 @@ interface Props {
 
 export default function RateGameComponent(p: Props) {
   const [myEvent, setMyEvent] = useState<EventDTO>()
+  const [opponentName, setOpponentName] = useState<string>('')
 
   useEffect(() => {
+    OpenAPI.TOKEN = localStorage.getItem('token')!
     const init = async () => {
-      OpenAPI.TOKEN = localStorage.getItem('token')!
+      try {
+        const response = await ExSecuredEndpointService.getUserMainPage()
+        const userName = response.name as string
+        if (myEvent && userName.includes(myEvent.player1Name!)) {
+          setOpponentName(myEvent.player1Name!)
+        } else if (myEvent) {
+          setOpponentName(myEvent.player1Name!)
+        }
+      } catch (error) {
+        console.error(error as ApiError)
+      }
+    }
+    init()
+  })
+
+  useEffect(() => {
+    OpenAPI.TOKEN = localStorage.getItem('token')!
+    const init = async () => {
       try {
         const response = await RatingControllerService.checkRating()
         setMyEvent(response[0] as EventDTO)
@@ -153,10 +173,8 @@ export default function RateGameComponent(p: Props) {
               <div className="opponent-picture">
                 <Avatar src={opponentProfilePicture} />
               </div>
-              <div className="user-name">you</div>
-              <div className="opponent-name">
-                {myEvent ? myEvent.player2Name : ''}
-              </div>
+              <div className="user-name-score-panel">you</div>
+              <div className="opponent-name-score-panel">{opponentName}</div>
             </div>
           </div>
           <div className="row star-rating">
@@ -183,7 +201,7 @@ export default function RateGameComponent(p: Props) {
           </div>
           <div className="row">
             <p className="textarea-label">
-              Your experience with {myEvent ? myEvent.player2Name : ''}
+              Your experience with {opponentName}
             </p>
           </div>
           <div className="row">

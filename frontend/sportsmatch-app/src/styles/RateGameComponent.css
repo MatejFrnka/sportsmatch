@@ -36,8 +36,7 @@
 
 .score-input-panel {
     display: grid;
-    grid-template-columns: 0.25fr 4.375rem 1fr 0.688rem auto 0.688rem 0.25fr 0.5rem 0.25fr 
-    0.688rem auto 0.688rem 1fr 4.375rem 0.25fr;
+    grid-template-columns: 0.5fr 4.375rem 0.5fr 0.688rem auto 0.688rem 0.25fr 0.5rem 0.25fr 0.688rem auto 0.688rem 0.5fr 4.375rem 0.5fr;
     grid-template-rows: 0.625rem 3.125rem 0.625rem 1.563rem;
     justify-content: center;
     margin-bottom: 1.5rem;
@@ -68,9 +67,9 @@
     grid-row: 1 / 2;    
 }
 
-.user-name {
+.user-name-score-panel {
     display: grid;
-    grid-column: 2 / 3;
+    grid-column: 1 / 4;
     grid-row: 4 / 5;
     text-align: center;
 }
@@ -98,9 +97,9 @@
     grid-row: 1 / 4;   
 }
 
-.opponent-name {
+.opponent-name-score-panel {
     display: grid;
-    grid-column: 14 / 15;
+    grid-column: 13 / 16;
     grid-row: 4 / 5;
     text-align: center;
 }

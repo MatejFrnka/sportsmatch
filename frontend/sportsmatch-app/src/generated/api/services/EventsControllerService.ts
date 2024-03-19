@@ -5,6 +5,7 @@
 import type { EventDTO } from '../models/EventDTO';
 import type { EventHistoryDTO } from '../models/EventHistoryDTO';
 import type { Pageable } from '../models/Pageable';
+import type { RequestEventDTO } from '../models/RequestEventDTO';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
@@ -20,6 +21,21 @@ export class EventsControllerService {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/v1/event',
+            body: requestBody,
+            mediaType: 'application/json',
+        });
+    }
+    /**
+     * @param requestBody
+     * @returns any OK
+     * @throws ApiError
+     */
+    public static getNearbyEvents(
+        requestBody: RequestEventDTO,
+    ): CancelablePromise<Record<string, any>> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/v1/event/nearby',
             body: requestBody,
             mediaType: 'application/json',
         });

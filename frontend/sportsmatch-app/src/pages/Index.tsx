@@ -25,7 +25,8 @@ export default function MainPage() {
     setSelectedSports(selectedButtonSports)
   }
 
-  useEffect(() => { // trigers when location.state change
+  // trigers when location.state change
+  useEffect(() => {
     if (location.state) {
       const sports: SportDTO[] = location.state
       const sportNames = sports.map((sport) => sport.name || '')
@@ -39,7 +40,8 @@ export default function MainPage() {
     setClearFilters(true)
   }
 
-  useEffect(() => { // trigers when selectedSports changed
+  // trigers when selectedSports changed
+  useEffect(() => {
     const fetchData = async () => {
       OpenAPI.TOKEN = localStorage.getItem('token')!
       try {
@@ -52,12 +54,14 @@ export default function MainPage() {
           throw new Error('Failed to fetch event data')
         }
         const data: EventDTO[] = response as EventDTO[]
-        setFilteredEvent(data) // set filtered events based on api response
+        // set filtered events based on api response
+        setFilteredEvent(data)
       } catch (error) {
         console.error(error as ApiError)
       }
     }
-    fetchData() // call the method
+    // call the method
+    fetchData()
   }, [selectedSports])
 
   console.log(location.state)

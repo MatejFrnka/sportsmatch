@@ -34,9 +34,10 @@ export function AllSportsList() {
     },
   ]
 
+  // this url should be dynamic
   const url = '/index'
   const location = useLocation()
-  const selectedSports = location.state.selectedButtonSports
+  const selectedButtonSports = location.state.selectedButtonSports
 
   console.log(location.state)
 
@@ -50,7 +51,7 @@ export function AllSportsList() {
   const [sportsState, setSportsState] = useState<SportState[]>(
     sampleSports.map((sport) => ({
       sport,
-      selected: selectedSports.includes(sport.name),
+      selected: selectedButtonSports.includes(sport.name),
     })),
   )
   const [searchQuery, setSearchQuery] = useState('')

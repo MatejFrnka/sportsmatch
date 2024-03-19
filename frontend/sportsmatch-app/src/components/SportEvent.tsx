@@ -17,7 +17,7 @@ import { LuMapPin, LuMedal, LuCalendarCheck, LuCalendarX } from 'react-icons/lu'
 //   }
 // }
 
-function SportEvent({event} : { event: EventDTO }) {
+function SportEvent({ event }: { event: EventDTO }) {
   return (
     <>
       <div className="container-fluid">

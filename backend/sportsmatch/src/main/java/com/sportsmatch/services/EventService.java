@@ -12,7 +12,6 @@ import com.sportsmatch.repositories.EventPlayerRepository;
 import com.sportsmatch.repositories.EventRepository;
 import com.sportsmatch.repositories.SportRepository;
 import com.sportsmatch.repositories.UserRepository;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;

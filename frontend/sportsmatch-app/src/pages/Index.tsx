@@ -67,6 +67,7 @@ export default function MainPage() {
 
   console.log(`all sport selected:`, location.state)
   console.log(`sport button selected:`, selectedSports)
+  console.log(`query`, searchQuery)
 
   return (
     <div className="container-fluid">

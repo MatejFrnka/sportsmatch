@@ -6,6 +6,10 @@ import com.sportsmatch.models.EventStatusOptions;
 import com.sportsmatch.models.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -14,17 +18,20 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+@ExtendWith(MockitoExtension.class)
 class EventServiceTest extends BaseTest {
-  private UserService userService;
-  private EventService eventService;
+  @Mock private UserService userService;
+  @InjectMocks private EventService eventService;
   private User loggedUser;
   private User otherUser;
 
   @BeforeEach
   void setUp() {
-    userService = mock(UserService.class);
-    eventService = new EventService(userService);
+    //    userService = mock(UserService.class);
+    //    eventService = new EventService(userService);
+    loggedUser = new User();
     loggedUser = createUser("loggedUser");
+    otherUser = new User();
     otherUser = createUser("otherUser");
   }
 
@@ -65,7 +72,6 @@ class EventServiceTest extends BaseTest {
     // Assert:
     assertEquals(EventStatusOptions.MATCH, result);
   }
-
 
   @Test
   void checkScoreMatchExpectStatus_MISMATCH() {

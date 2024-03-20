@@ -12,6 +12,7 @@ import com.sportsmatch.repositories.EventPlayerRepository;
 import com.sportsmatch.repositories.EventRepository;
 import com.sportsmatch.repositories.SportRepository;
 import com.sportsmatch.repositories.UserRepository;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -23,6 +24,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
+// @AllArgsConstructor
 @RequiredArgsConstructor
 public class EventService {
   private final UserService userService;
@@ -31,6 +33,10 @@ public class EventService {
   private final UserRepository userRepository;
   private final SportRepository sportRepository;
   private final EventPlayerRepository eventPlayerRepository;
+
+  //  public EventService(UserService userService) {
+  //    this.userService = userService;
+  //  }
 
   public Event getEventById(Long id) {
     return eventRepository

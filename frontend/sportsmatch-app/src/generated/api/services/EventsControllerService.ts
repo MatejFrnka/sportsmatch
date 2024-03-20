@@ -26,21 +26,6 @@ export class EventsControllerService {
         });
     }
     /**
-     * @param requestBody
-     * @returns any OK
-     * @throws ApiError
-     */
-    public static getNearbyEvents(
-        requestBody: RequestEventDTO,
-    ): CancelablePromise<Record<string, any>> {
-        return __request(OpenAPI, {
-            method: 'POST',
-            url: '/api/v1/event/nearby',
-            body: requestBody,
-            mediaType: 'application/json',
-        });
-    }
-    /**
      * @param id
      * @returns any OK
      * @throws ApiError
@@ -85,6 +70,22 @@ export class EventsControllerService {
             url: '/api/v1/event/upcoming-events',
             query: {
                 'sportsIds': sportsIds,
+            },
+        });
+    }
+    /**
+     * @param requestEventDto
+     * @returns any OK
+     * @throws ApiError
+     */
+    public static getNearbyEvents(
+        requestEventDto: RequestEventDTO,
+    ): CancelablePromise<Record<string, any>> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/v1/event/nearby',
+            query: {
+                'requestEventDTO': requestEventDto,
             },
         });
     }

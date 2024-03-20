@@ -1,63 +1,73 @@
 import SportsButtonComponent from '../components/SportsButtonComponent'
 import SportEvent from '../components/SportEvent'
+import LoadingSpinner from '../components/LoadingSpinner'
 import { SearchBar } from '../components/SearchBar'
+import { useEffect, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import '../styles/Index.css'
+import {
+  ApiError,
+  EventDTO,
+  EventsControllerService,
+  OpenAPI,
+  RequestEventDTO,
+  SportDTO,
+} from '../generated/api'
 
 export default function MainPage() {
-  const events = [
-    {
-      id: 1,
-      maxElo: 2000,
-      minElo: 1200,
-      dateEnd: '2024-05-02',
-      dateStart: '2024-05-01',
-      location: 'Prague, Stadium A',
-      title: 'Badminton match',
-      sport: 'Badminton',
-      playerOne: 'johndoe87',
-      playerTwo: 'jess_ward',
-    },
-    {
-      id: 1,
-      maxElo: 2000,
-      minElo: 1200,
-      dateEnd: '2024-05-02',
-      dateStart: '2024-05-01',
-      location: 'Prague, Stadium A',
-      title: 'Badminton match',
-      sport: 'Badminton',
-      playerOne: 'johndoe87',
-      playerTwo: 'jess_ward',
-    },
-    {
-      id: 1,
-      maxElo: 2000,
-      minElo: 1200,
-      dateEnd: '2024-05-02',
-      dateStart: '2024-05-01',
-      location: 'Prague, Stadium A',
-      title: 'Badminton match',
-      sport: 'Badminton',
-      playerOne: 'johndoe87',
-      playerTwo: 'jess_ward',
-    },
-    {
-      id: 1,
-      maxElo: 2000,
-      minElo: 1200,
-      dateEnd: '2024-05-02',
-      dateStart: '2024-05-01',
-      location: 'Prague, Stadium A',
-      title: 'Badminton match',
-      sport: 'Badminton',
-      playerOne: 'johndoe87',
-      playerTwo: 'jess_ward',
-    },
-  ]
+  const [searchQuery, setSearchQuery] = useState<string>('') // no implementation yet
+  const [filteredEvent, setFilteredEvent] = useState<EventDTO[]>([])
+  const [selectedSports, setSelectedSports] = useState<string[]>([])
+  const [clearFilters, setClearFilters] = useState<boolean>(false)
+  const location = useLocation()
+  const navigate = useNavigate()
 
-  const handleSportSelectionChange = (selectedSportsChange: string[]) => {
-    // implementation
+  // handle sports name selected from sportButtoncomponent
+  const handleSportSelectionChange = (selectedButtonSports: string[]) => {
+    setSelectedSports(selectedButtonSports)
   }
+
+  // handles sports name from location.state of allSportsList
+  useEffect(() => {
+    if (location.state) {
+      const sports: SportDTO[] = location.state
+      const sportNames = sports.map((sport) => sport.name || '')
+      setSelectedSports(sportNames)
+    }
+  }, [location.state])
+
+  const clear = () => {
+    navigate(location.pathname, { state: undefined })
+    setSelectedSports([])
+    setClearFilters(true)
+  }
+
+  useEffect(() => {
+    const fetchData = async () => {
+      OpenAPI.TOKEN = localStorage.getItem('token')!
+      try {
+        const requestEventDTO: RequestEventDTO = {
+          sportsName: selectedSports,
+        }
+        const response =
+          await EventsControllerService.getNearbyEvents(requestEventDTO)
+        if (!Array.isArray(response) && response.length === 0) {
+          throw new Error('Failed to fetch event data')
+        }
+        const data: EventDTO[] = response as EventDTO[]
+        // set filtered events based on api response
+        setFilteredEvent(data)
+      } catch (error) {
+        console.error(error as ApiError)
+      }
+    }
+    // call the method
+    fetchData()
+  }, [selectedSports])
+
+  console.log(`all sport selected:`, location.state)
+  console.log(`sport button selected:`, selectedSports)
+  console.log(`query`, searchQuery)
 
   return (
     <div className="container-fluid">
@@ -72,21 +82,45 @@ export default function MainPage() {
         </div>
       </div>
       <div className="row">
-        <SearchBar onChange={(a) => {}} />
+        <div className="col">
+          <SportsButtonComponent
+            onSportSelectionChange={handleSportSelectionChange}
+            clearFilters={clearFilters}
+          />
+        </div>
+      </div>
+      <div className="row clear">
+        <div className="col">
+          <button onClick={clear}>Clear Filter</button>
+        </div>
       </div>
       <div className="row">
-        <SportsButtonComponent
-          onSportSelectionChange={handleSportSelectionChange}
-        />
+        <div className="col">
+          <p className="mainPage-p">Nearby</p>
+        </div>
       </div>
       <div className="row">
-        <p className="mainPage-p">Nearby</p>
-        <div className="nearby-events-container">
-          {events.map((event, index) => (
-            <div className="nearby-events" key={index}>
-              <SportEvent event={event} />
-            </div>
-          ))}
+        <div className="col search">
+          <SearchBar
+            onChange={(query: string) => {
+              setSearchQuery(query)
+            }}
+          />
+        </div>
+      </div>
+      <div className="row">
+        <div className="col">
+          <div className="nearby-events-container">
+            {filteredEvent.length === 0 ? (
+              <LoadingSpinner />
+            ) : (
+              filteredEvent.map((event, index) => (
+                <div className="nearby-events" key={index}>
+                  <SportEvent event={event} />
+                </div>
+              ))
+            )}
+          </div>
         </div>
       </div>
     </div>

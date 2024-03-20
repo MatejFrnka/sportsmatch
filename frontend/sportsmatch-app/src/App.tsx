@@ -35,7 +35,6 @@ function App() {
           <Route path="/user" element={<UserPage />}></Route>
           <Route path="/user-info" element={<Wrapper child={<UserInfo />} />} />
         </Route>
-        <Route path="/index" element={<Wrapper child={<Index />} />} />
         <Route path="/test" element={<Test />}>
           <Route index element={<Test />} />
           <Route path=":testId" element={<Test />} />

@@ -163,7 +163,7 @@ public class EventService {
     }
   }
 
-  public List<EventDTO> FilterEvent(RequestEventDTO requestEventDTO) {
+  public List<EventDTO> filterEvent(RequestEventDTO requestEventDTO) {
     return eventRepository.findAll().stream()
         .map(eventMapper::convertEventToEventDTO)
         .collect(Collectors.toList());

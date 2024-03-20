@@ -15,7 +15,7 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class RequestEventDTO {
 
-    private List<String> sportsName;
-    private double longitude;
-    private double latitude;
+  private List<String> sportsName;
+  private double longitude;
+  private double latitude;
 }

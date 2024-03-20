@@ -63,6 +63,6 @@ public class EventsController {
   @GetMapping("/nearby")
   public ResponseEntity<?> getNearbyEvents(RequestEventDTO requestEventDTO) {
     // mock endpoint currently assumes no sports are supplied returning all events
-    return ResponseEntity.ok().body(eventService.FilterEvent(requestEventDTO));
+    return ResponseEntity.ok().body(eventService.filterEvent(requestEventDTO));
   }
 }

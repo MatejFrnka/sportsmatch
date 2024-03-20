@@ -65,4 +65,14 @@ public class EventsController {
     // mock endpoint currently assumes no sports are supplied returning all events
     return ResponseEntity.ok().body(eventService.filterEvent(requestEventDTO));
   }
+
+  @PostMapping("/{id}/join")
+  public ResponseEntity<?> joinEvent(@PathVariable("id") Long id) {
+    try {
+      eventService.joinEvent(id);
+      return ResponseEntity.ok().build();
+    } catch (Exception e) {
+      return ResponseEntity.badRequest().body(e.getMessage());
+    }
+  }
 }

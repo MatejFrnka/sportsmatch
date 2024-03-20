@@ -1,5 +1,6 @@
 import SportsButtonComponent from '../components/SportsButtonComponent'
 import SportEvent from '../components/SportEvent'
+import LoadingSpinner from '../components/LoadingSpinner'
 import { SearchBar } from '../components/SearchBar'
 import { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
@@ -21,11 +22,12 @@ export default function MainPage() {
   const location = useLocation()
   const navigate = useNavigate()
 
+  // handle sports name selected from sportButtoncomponent
   const handleSportSelectionChange = (selectedButtonSports: string[]) => {
     setSelectedSports(selectedButtonSports)
   }
 
-  // trigers when location.state change
+  // handles sports name from location.state of allSportsList
   useEffect(() => {
     if (location.state) {
       const sports: SportDTO[] = location.state
@@ -40,7 +42,6 @@ export default function MainPage() {
     setClearFilters(true)
   }
 
-  // trigers when selectedSports changed
   useEffect(() => {
     const fetchData = async () => {
       OpenAPI.TOKEN = localStorage.getItem('token')!
@@ -64,8 +65,8 @@ export default function MainPage() {
     fetchData()
   }, [selectedSports])
 
-  console.log(location.state)
-  console.log(selectedSports)
+  console.log(`all sport selected:`, location.state)
+  console.log(`sport button selected:`, selectedSports)
 
   return (
     <div className="container-fluid">
@@ -109,11 +110,15 @@ export default function MainPage() {
       <div className="row">
         <div className="col">
           <div className="nearby-events-container">
-            {filteredEvent.map((event, index) => (
-              <div className="nearby-events" key={index}>
-                <SportEvent event={event} />
-              </div>
-            ))}
+            {filteredEvent.length === 0 ? (
+              <LoadingSpinner />
+            ) : (
+              filteredEvent.map((event, index) => (
+                <div className="nearby-events" key={index}>
+                  <SportEvent event={event} />
+                </div>
+              ))
+            )}
           </div>
         </div>
       </div>

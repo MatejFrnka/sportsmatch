@@ -10,6 +10,16 @@
   margin-top: 0.938em;
 }
 
+.row.load-anim {
+  min-height: 15.625em;
+  justify-content: center;
+  align-content: center;
+}
+
+.load-msg {
+  margin: 0.625em;
+}
+
 .slide {
   color: white;
   background-size: cover;

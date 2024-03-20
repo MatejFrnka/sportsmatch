@@ -173,4 +173,22 @@ public class EventService {
         .map(eventMapper::convertEventToEventDTO)
         .collect(Collectors.toList());
   }
+
+  public void joinEvent(Long id) throws Exception {
+    Event event = getEventById(id);
+    User loggedUser = userService.getUserFromContext();
+    Set<EventPlayer> eventPlayerSet = event.getPlayers();
+    if (eventPlayerSet.size() <= 1
+        && eventPlayerRepository.findEventPlayerByEventAndPlayer(event, loggedUser).isEmpty()) {
+      EventPlayer eventPlayer = new EventPlayer();
+      eventPlayer.setPlayer(loggedUser);
+      eventPlayer.setEvent(event);
+      eventPlayerRepository.save(eventPlayer);
+    } else {
+      throw new Exception(
+          "Event has already two players or user "
+              + loggedUser.getName()
+              + " has already joined the event.");
+    }
+  }
 }

@@ -172,6 +172,7 @@ class EventServiceTest extends BaseTest {
     // Assert
     verify(eventPlayerRepository, times(1)).save(any(EventPlayer.class));
   }
+
   @Test
   void joinEventThrowExceptionWhenEventIsFull() {
     // Arrange:

@@ -155,7 +155,7 @@ class EventServiceTest extends BaseTest {
     event.setId(1L);
     when(eventRepository.findEventById(1L)).thenReturn(Optional.of(event));
 
-    // EventPlayer
+    // EventPlayerRepository
     when(eventPlayerRepository.findEventPlayerByEventAndPlayer(event, loggedUser))
         .thenReturn(Optional.empty());
 
@@ -202,7 +202,7 @@ class EventServiceTest extends BaseTest {
     event.setId(1L);
     when(eventRepository.findEventById(1L)).thenReturn(Optional.of(event));
 
-    // EventPlayer
+    // EventPlayerRepository
     EventPlayer eventPlayer = new EventPlayer();
     eventPlayer.setEvent(event);
     eventPlayer.setPlayer(loggedUser);

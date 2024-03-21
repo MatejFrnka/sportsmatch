@@ -158,9 +158,6 @@ class EventServiceTest extends BaseTest {
     // EventPlayer
     when(eventPlayerRepository.findEventPlayerByEventAndPlayer(event, loggedUser))
         .thenReturn(Optional.empty());
-    EventPlayer eventPlayer = new EventPlayer();
-    eventPlayer.setEvent(event);
-    eventPlayer.setPlayer(loggedUser);
 
     // Act:
     try {

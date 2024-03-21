@@ -184,11 +184,12 @@ public class EventService {
       eventPlayer.setPlayer(loggedUser);
       eventPlayer.setEvent(event);
       eventPlayerRepository.save(eventPlayer);
+    } else if (eventPlayerRepository
+        .findEventPlayerByEventAndPlayer(event, loggedUser)
+        .isPresent()) {
+      throw new Exception("User " + loggedUser.getName() + " has already joined the event.");
     } else {
-      throw new Exception(
-          "Event has already two players or user "
-              + loggedUser.getName()
-              + " has already joined the event.");
+      throw new Exception("Event has already two players.");
     }
   }
 }

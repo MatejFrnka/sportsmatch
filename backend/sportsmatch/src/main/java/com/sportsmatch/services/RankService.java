@@ -24,13 +24,10 @@ public class RankService {
   @Value("${app.sportsmingle.k-factor-default}")
   private double DEFAULT_K_FACTOR;
 
-  private final EventService eventService;
   private final EventRepository eventRepository;
 
   public void updatePlayersRanks(Event event) {
-    if (!eventService.isValidEvent(event)
-        || event.getIsRanksUpdated()
-        || event.getPlayers().size() < 2) {
+    if (!isEventValid(event) || event.getIsRanksUpdated() || event.getPlayers().size() < 2) {
       return;
     }
 
@@ -89,5 +86,24 @@ public class RankService {
       }
     }
     return DEFAULT_K_FACTOR;
+  }
+
+  private boolean isEventValid(Event event) {
+    EventPlayer firstPlayer = null;
+
+    for (EventPlayer e : event.getPlayers()) {
+      int myScore = e.getMyScore();
+      int opponentScore = e.getOpponentScore();
+
+      if (firstPlayer == null) {
+        firstPlayer = e;
+      } else {
+        if (myScore != firstPlayer.getOpponentScore()
+            || opponentScore != firstPlayer.getMyScore()) {
+          return false;
+        }
+      }
+    }
+    return true;
   }
 }

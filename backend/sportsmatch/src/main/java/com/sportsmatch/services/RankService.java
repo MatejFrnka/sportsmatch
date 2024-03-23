@@ -28,12 +28,10 @@ public class RankService {
   private final EventRepository eventRepository;
 
   public void updatePlayersRanks(Event event) {
-    if (!eventService.isValidEvent(event) || event.getIsRanksUpdated()) {
+    if (!eventService.isValidEvent(event)
+        || event.getIsRanksUpdated()
+        || event.getPlayers().size() < 2) {
       return;
-    }
-
-    if (event.getPlayers().size() < 2) {
-      throw new IllegalArgumentException("An event must have at least two players.");
     }
 
     List<EventPlayer> players = new ArrayList<>(event.getPlayers());

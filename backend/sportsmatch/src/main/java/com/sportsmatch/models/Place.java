@@ -5,6 +5,9 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Getter
 @Setter
@@ -25,8 +28,19 @@ public class Place {
   public String address;
 
   @NotNull
-  public Float latitude;
+  public Double latitude;
 
   @NotNull
-  private Float longitude;
+  public Double longitude;
+
+  @OneToMany(mappedBy = "place")
+  private Set<Event> events = new HashSet<>();
+
+
+  public Place(String name, String address, Double latitude, Double longitude) {
+    this.name = name;
+    this.address = address;
+    this.latitude = latitude;
+    this.longitude = longitude;
+  }
 }

@@ -2,6 +2,7 @@ package com.sportsmatch.services;
 
 import com.sportsmatch.dtos.EventDTO;
 import com.sportsmatch.dtos.EventHistoryDTO;
+import com.sportsmatch.dtos.RequestEventDTO;
 import com.sportsmatch.mappers.EventMapper;
 import com.sportsmatch.models.Event;
 import com.sportsmatch.models.EventPlayer;
@@ -16,7 +17,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
@@ -130,11 +130,11 @@ public class EventService {
    *
    * @param players who entered the event (2 playerEvent)
    * @return the status of the match
-   *        There is 4 option:
-   *     - Invalid Player -> if one of the player don't present.
-   *     - Waiting for ratings -> if one of the players doesn't response with the score information.
-   *     - Match -> when both player submitted their result and it is match.
-   *     - Mismatch -> when both players have submitted their result and it isn't a match.
+   * There is 4 option:
+   * - Invalid Player -> if one of the player don't present.
+   * - Waiting for ratings -> if one of the players doesn't response with the score information.
+   * - Match -> when both player submitted their result and it is match.
+   * - Mismatch -> when both players have submitted their result, and it isn't a match.
    */
 
   public EventStatusOptions checkScoreMatch(Set<EventPlayer> players) {
@@ -171,8 +171,8 @@ public class EventService {
       return EventStatusOptions.MISMATCH;
     }
   }
-
-  public List<EventDTO> getNearbyEvents(Float latitude, Float longitude, Long sportId, final Pageable pageable){
-    return null;
+  public List<EventDTO> getNearbyEvents(RequestEventDTO requestEventDTO, final Pageable pageable) {
+    List<Event> events = eventRepository.nearByEvents(requestEventDTO.getLatitude(), requestEventDTO.getLongitude(), requestEventDTO.getSportNames(), pageable);
+    return events.stream().map(eventMapper::convertEventToEventDTO).collect(Collectors.toList());
   }
 }

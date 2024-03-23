@@ -1,10 +1,7 @@
 package com.sportsmatch.models;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -14,6 +11,7 @@ import java.util.Set;
 @Table(name = "events")
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Event {
@@ -27,8 +25,6 @@ public class Event {
 
   @Column(name = "date_end")
   private LocalDateTime dateEnd;
-
-  private String location;
 
   @Column(name = "min_elo")
   private Integer minElo;
@@ -44,7 +40,12 @@ public class Event {
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "event")
   private Set<UserEventRating> ratings = new HashSet<>();
 
-  @ManyToOne private Sport sport;
+  @ManyToOne
+  private Sport sport;
+
+  @ManyToOne
+  @JoinColumn(name = "place_id")
+  private Place place;
 
   public Event(
       LocalDateTime dateStart,
@@ -53,13 +54,14 @@ public class Event {
       Integer minElo,
       Integer maxElo,
       String title,
-      Sport sport) {
+      Sport sport,
+      Place place) {
     this.dateStart = dateStart;
     this.dateEnd = dateEnd;
-    this.location = location;
     this.minElo = minElo;
     this.maxElo = maxElo;
     this.title = title;
     this.sport = sport;
+    this.place = place;
   }
 }

@@ -23,6 +23,7 @@ public class SportsmatchApplication implements CommandLineRunner {
 
   private final UserRepository userRepository;
   private final SportRepository sportRepository;
+  private final PlaceRepository placeRepository;
   private final SportUserRepository sportUserRepository;
   private final EventPlayerRepository eventPlayerRepository;
   private final EventRepository eventRepository;
@@ -42,10 +43,11 @@ public class SportsmatchApplication implements CommandLineRunner {
   }
 
   public void addData() {
+    List<Place> places = addPlaces();
     List<Sport> sports = addSports();
     List<User> users = addUsers();
     List<SportUser> sportUsers = addSportUsers(sports, users);
-    List<Event> events = addEvents(sports);
+    List<Event> events = addEvents(sports, places);
     List<EventPlayer> eventPlayers = addEventPlayers(events, users);
   }
 
@@ -63,7 +65,7 @@ public class SportsmatchApplication implements CommandLineRunner {
     return eventPlayerRepository.findAll();
   }
 
-  public List<Event> addEvents(List<Sport> sports) {
+  public List<Event> addEvents(List<Sport> sports, List<Place> places) {
     eventRepository.save(
         new Event(
             LocalDateTime.of(2024, 5, 1, 14, 30),
@@ -72,7 +74,8 @@ public class SportsmatchApplication implements CommandLineRunner {
             1200,
             2000,
             "Badminton match",
-            sports.get(0)));
+            sports.get(0),
+            places.get(0)));
     eventRepository.save(
         new Event(
             LocalDateTime.of(2024, 7, 10, 18, 0),
@@ -81,7 +84,8 @@ public class SportsmatchApplication implements CommandLineRunner {
             1500,
             2500,
             "Boxing event",
-            sports.get(1)));
+            sports.get(1),
+            places.get(1)));
     eventRepository.save(
         new Event(
             LocalDateTime.of(2024, 8, 5, 9, 0),
@@ -90,7 +94,8 @@ public class SportsmatchApplication implements CommandLineRunner {
             800,
             1600,
             "Table Tennis for beginners",
-            sports.get(2)));
+            sports.get(2),
+            places.get(2)));
     eventRepository.save(
         new Event(
             LocalDateTime.of(2024, 9, 20, 15, 0),
@@ -99,7 +104,8 @@ public class SportsmatchApplication implements CommandLineRunner {
             1400,
             2200,
             "Squash challenge",
-            sports.get(3)));
+            sports.get(3),
+            places.get(3)));
     eventRepository.save(
         new Event(
             LocalDateTime.of(2024, 6, 15, 10, 0),
@@ -108,7 +114,8 @@ public class SportsmatchApplication implements CommandLineRunner {
             1000,
             1800,
             "Tennis Open",
-            sports.get(4)));
+            sports.get(4),
+            places.get(4)));
     return eventRepository.findAll();
   }
 
@@ -215,5 +222,16 @@ public class SportsmatchApplication implements CommandLineRunner {
     sportRepository.save(new Sport("Tennis", tennisEmoji, "./assets/sport-component-tennis.png"));
 
     return sportRepository.findAll();
+  }
+
+  public List<Place> addPlaces(){
+    placeRepository.save(new Place("Place 1", "Adress1", 54.27, 57.89));
+    placeRepository.save(new Place("Place 2", "Adress2", 64.27, 67.89));
+    placeRepository.save(new Place("Place 3", "Adress3", 74.27, 77.89));
+    placeRepository.save(new Place("Place 4", "Adress4", 84.27, 87.89));
+    placeRepository.save(new Place("Place 5", "Adress5", 94.27, 97.89));
+    placeRepository.save(new Place("Place 6", "Adress6", 104.27, 107.89));
+
+    return placeRepository.findAll();
   }
 }

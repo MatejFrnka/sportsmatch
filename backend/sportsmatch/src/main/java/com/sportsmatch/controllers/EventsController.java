@@ -2,6 +2,7 @@ package com.sportsmatch.controllers;
 
 import com.sportsmatch.dtos.EventDTO;
 import com.sportsmatch.dtos.EventHistoryDTO;
+import com.sportsmatch.dtos.RequestEventDTO;
 import com.sportsmatch.models.Event;
 import com.sportsmatch.services.EventService;
 import jakarta.validation.Valid;
@@ -60,11 +61,17 @@ public class EventsController {
     return eventService.getEventsHistory(pageable);
   }
 
-  @GetMapping("/nearby/{id}")
-  public List<EventDTO> getNearbyEvents(@RequestParam Float latitude,
-                                        @RequestParam Float longitude,
-                                        @PathVariable (required = false) Long sportId,
+
+  /**
+   * This endpoint returns list of Events sorted by distance from the given location. User can filter by sports.
+   *
+   * @param requestEventDTO it contains longitude and latitude and a list of sports for filter if given
+   * @param pageable it contains the page and size for pagination
+   * @return a list of Events sorted by distance from the given location. User can filter by sports.
+   */
+  @GetMapping("/nearby")
+  public List<EventDTO> getNearbyEvents(@RequestBody RequestEventDTO requestEventDTO,
                                         final Pageable pageable){
-    return eventService.getNearbyEvents(latitude, longitude,sportId, pageable);
+    return eventService.getNearbyEvents(requestEventDTO, pageable);
   }
 }

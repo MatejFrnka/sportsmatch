@@ -1,11 +1,9 @@
 package com.sportsmatch.dtos;
 
+import com.sportsmatch.models.Place;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -13,6 +11,7 @@ import java.time.LocalDateTime;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class EventDTO {
 
   private Long id;
@@ -27,4 +26,6 @@ public class EventDTO {
   private Long player1Id;
   private Long player2Id;
   @NotBlank private String sport;
+
+  private Place place;
 }

@@ -33,4 +33,16 @@ public interface EventRepository extends JpaRepository<Event, Long> {
       @Param("now") LocalDateTime now,
       Pageable pageable
   );
+
+  //TODO: Finish the code
+  @Query("SELECT e.id AS event_id, e.title AS event_name, p.latitude AS event_location_latitude, " +
+      "p.longitude AS event_location_longitude, s.name AS sport_name, " +
+      "SQRT(POW(p.latitude - :userLatitude, 2) + POW(p.longitude - :userLongitude, 2)) AS distance " +
+      "FROM Event e JOIN e.sport s JOIN e.place p " +
+      "WHERE (:sport IS NULL OR s.name IN :sport) " +
+      "ORDER BY SQRT(POW(p.latitude - :userLatitude, 2) + POW(p.longitude - :userLongitude, 2))")
+  List<Event> nearByEvents(@Param("userLatitude") Double userLatitude,
+                           @Param("userLongitude") Double userLongitude,
+                           @Param("sport") List<String> sport,
+                           Pageable pageable);
 }

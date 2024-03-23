@@ -192,4 +192,23 @@ public class EventService {
       throw new Exception("Event has already two players.");
     }
   }
+
+  public boolean isValidEvent(Event event) {
+    EventPlayer firstPlayer = null;
+
+    for (EventPlayer e : event.getPlayers()) {
+      int myScore = e.getMyScore();
+      int opponentScore = e.getOpponentScore();
+
+      if (firstPlayer == null) {
+        firstPlayer = e;
+      } else {
+        if (myScore != firstPlayer.getOpponentScore()
+            || opponentScore != firstPlayer.getMyScore()) {
+          return false;
+        }
+      }
+    }
+    return true;
+  }
 }

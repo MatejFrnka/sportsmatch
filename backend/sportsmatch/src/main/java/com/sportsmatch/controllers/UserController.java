@@ -18,6 +18,15 @@ public class UserController {
   private final ValidationService validationService;
   private final UserService userService;
 
+  @GetMapping("/get/{username}")
+  public ResponseEntity<?> getUser(@PathVariable String username) {
+    try {
+      return ResponseEntity.ok().body(userService.getUserByName(username));
+    } catch (ResponseStatusException e) {
+      return ResponseEntity.status(e.getStatusCode()).build();
+    }
+  }
+
   @PostMapping("/update")
   public ResponseEntity<?> updateInfo(
       @RequestBody @Valid UserInfoDTO userInfoDTO, BindingResult bindingResult) {

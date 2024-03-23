@@ -12,4 +12,6 @@ public interface UserService {
   UserDTO getUserDTOFromContext();
 
   void updateUserInfo(UserInfoDTO userInfoDTO);
+
+  UserDTO getUserByName(String name);
 }

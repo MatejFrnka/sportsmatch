@@ -9,20 +9,21 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class RankService {
 
-  @Value("${app.sportsmingle.num-game-threshold}")
-  private int[] NUM_GAME_THRESHOLD;
+//  @Value("${app.sportsmingle.num-game-threshold}")
+  private List<Integer> NUM_GAME_THRESHOLD = new ArrayList<>(Arrays.asList(5,15,25));
 
-  @Value("${app.sportsmingle.k-factors}")
-  private double[] K_FACTORS;
+//  @Value("${app.sportsmingle.k-factors}")
+  private List<Double> K_FACTORS = new ArrayList<>(Arrays.asList(25.0,15.0,10.0));
 
-  @Value("${app.sportsmingle.k-factor-default}")
-  private double DEFAULT_K_FACTOR;
+//  @Value("${app.sportsmingle.k-factor-default}")
+  private double DEFAULT_K_FACTOR = 5.0;
 
   private final EventRepository eventRepository;
 
@@ -80,9 +81,9 @@ public class RankService {
   }
 
   private double adjustKFactor(User user) {
-    for (int i = 0; i < NUM_GAME_THRESHOLD.length; i++) {
-      if (user.getTotalPlayed() <= NUM_GAME_THRESHOLD[i]) {
-        return K_FACTORS[i];
+    for (int i = 0; i < NUM_GAME_THRESHOLD.size(); i++) {
+      if (user.getTotalPlayed() <= NUM_GAME_THRESHOLD.get(i)) {
+        return K_FACTORS.get(i);
       }
     }
     return DEFAULT_K_FACTOR;

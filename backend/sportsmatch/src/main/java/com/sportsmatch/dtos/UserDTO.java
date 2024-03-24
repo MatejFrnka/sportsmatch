@@ -1,8 +1,7 @@
 package com.sportsmatch.dtos;
 
-import lombok.*;
-
 import java.util.List;
+import lombok.*;
 
 @Getter
 @Setter
@@ -12,6 +11,6 @@ import java.util.List;
 public class UserDTO {
 
   private String name;
-  private List<SportDTO> sports;
   private Integer elo;
+  private List<SportDTO> sports;
 }

@@ -9,6 +9,7 @@ import {
   ApiError,
   EventDTO,
   EventsControllerService,
+  ExSecuredEndpointService,
   OpenAPI,
   RequestEventDTO,
   SportDTO,
@@ -23,6 +24,8 @@ export default function MainPage() {
   const [selectedSports, setSelectedSports] = useState<string[]>([])
   const [clearFilters, setClearFilters] = useState<boolean>(false)
   const [selectedEvent, setSelectedEvent] = useState<EventDTO>()
+  const [usersRank, setUsersRank] = useState(0)
+  const [userIsInRank, setUserIsInRank] = useState(false)
   const location = useLocation()
   const navigate = useNavigate()
   const { isOpen, toggle } = useModal()
@@ -71,8 +74,14 @@ export default function MainPage() {
     fetchData()
   }, [selectedSports])
 
+  // handle join event pop up after cliking on the event
   const handleEventSelection = (e: EventDTO) => {
     setSelectedEvent(e)
+    if (usersRank >= e.minElo && usersRank <= e.maxElo) {
+      setUserIsInRank(true)
+    } else {
+      setUserIsInRank(false)
+    }
     toggle()
   }
 
@@ -80,8 +89,21 @@ export default function MainPage() {
   console.log(`sport button selected:`, selectedSports)
   console.log(`query`, searchQuery)
 
-  // logic has to be implemented here to evaluae users rank
-  const isUserInRank = false
+  // retrieving users rank
+  useEffect(() => {
+    const fetchUsersRank = async () => {
+      OpenAPI.TOKEN = localStorage.getItem('token')!
+      try {
+        const response = await ExSecuredEndpointService.getUserMainPage()
+        if (response) {
+          setUsersRank(response.elo)
+        }
+      } catch (error) {
+        console.error(error as ApiError)
+      }
+    }
+    fetchUsersRank()
+  })
 
   return (
     <>
@@ -126,7 +148,7 @@ export default function MainPage() {
         <Modal isOpen={isOpen} toggle={toggle} preventClosing={true}>
           <JoinEventComponent
             toggle={toggle}
-            isInRank={isUserInRank}
+            isInRank={userIsInRank}
             event={selectedEvent!}
           />
         </Modal>

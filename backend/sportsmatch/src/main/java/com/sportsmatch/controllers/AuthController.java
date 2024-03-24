@@ -2,7 +2,6 @@ package com.sportsmatch.controllers;
 
 import com.sportsmatch.auth.AuthService;
 import com.sportsmatch.dtos.AuthRequestDTO;
-import com.sportsmatch.dtos.UserDTO;
 import com.sportsmatch.services.UserService;
 import com.sportsmatch.services.ValidationService;
 import io.swagger.v3.oas.annotations.Operation;

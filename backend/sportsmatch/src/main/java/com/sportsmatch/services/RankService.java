@@ -4,26 +4,24 @@ import com.sportsmatch.models.Event;
 import com.sportsmatch.models.EventPlayer;
 import com.sportsmatch.models.User;
 import com.sportsmatch.repositories.EventRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class RankService {
 
-//  @Value("${app.sportsmingle.num-game-threshold}")
-  private List<Integer> NUM_GAME_THRESHOLD = new ArrayList<>(Arrays.asList(5,15,25));
+  //  @Value("${app.sportsmingle.num-game-threshold}")
+  private final List<Integer> NUM_GAME_THRESHOLD = new ArrayList<>(Arrays.asList(5, 15, 25));
 
-//  @Value("${app.sportsmingle.k-factors}")
-  private List<Double> K_FACTORS = new ArrayList<>(Arrays.asList(25.0,15.0,10.0));
+  //  @Value("${app.sportsmingle.k-factors}")
+  private final List<Double> K_FACTORS = new ArrayList<>(Arrays.asList(25.0, 15.0, 10.0));
 
-//  @Value("${app.sportsmingle.k-factor-default}")
-  private double DEFAULT_K_FACTOR = 5.0;
+  //  @Value("${app.sportsmingle.k-factor-default}")
+  private final double DEFAULT_K_FACTOR = 5.0;
 
   private final EventRepository eventRepository;
 

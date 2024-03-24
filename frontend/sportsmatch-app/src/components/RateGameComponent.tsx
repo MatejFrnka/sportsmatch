@@ -26,7 +26,7 @@ export default function RateGameComponent(p: Props) {
         const response = await ExSecuredEndpointService.getUserMainPage()
         const userName = response.name as string
         if (myEvent && userName.includes(myEvent.player1Name!)) {
-          setOpponentName(myEvent.player1Name!)
+          setOpponentName(myEvent.player2Name!)
         } else if (myEvent) {
           setOpponentName(myEvent.player1Name!)
         }

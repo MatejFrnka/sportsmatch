@@ -17,9 +17,10 @@ export default function JoinEventComponent(p: JoinEventProps) {
     try {
       OpenAPI.TOKEN = localStorage.getItem('token')!
       await EventsControllerService.joinEvent(p.event.id as number)
-      p.toggle
+      p.toggle()
     } catch (error) {
-      console.error(error as ApiError)
+      console.log(error as ApiError)
+      p.toggle()
     }
   }
 

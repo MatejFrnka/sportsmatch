@@ -76,6 +76,10 @@ export default function MainPage() {
 
   // handle join event pop up after cliking on the event
   const handleEventSelection = (e: EventDTO) => {
+    window.scrollTo(0, 0)
+    if (isOpen) {
+      toggle()
+    }
     setSelectedEvent(e)
     if (usersRank >= e.minElo && usersRank <= e.maxElo) {
       setUserIsInRank(true)

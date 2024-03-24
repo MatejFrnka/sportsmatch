@@ -13,14 +13,19 @@ import {
   RequestEventDTO,
   SportDTO,
 } from '../generated/api'
+import useModal from '../hooks/UseModal'
+import Modal from '../components/Modal'
+import JoinEventComponent from '../components/JoinEventComponent'
 
 export default function MainPage() {
   const [searchQuery, setSearchQuery] = useState<string>('') // no implementation yet
   const [filteredEvent, setFilteredEvent] = useState<EventDTO[]>([])
   const [selectedSports, setSelectedSports] = useState<string[]>([])
   const [clearFilters, setClearFilters] = useState<boolean>(false)
+  const [selectedEvent, setSelectedEvent] = useState<EventDTO>()
   const location = useLocation()
   const navigate = useNavigate()
+  const { isOpen, toggle } = useModal()
 
   // handle sports name selected from sportButtoncomponent
   const handleSportSelectionChange = (selectedButtonSports: string[]) => {
@@ -56,6 +61,7 @@ export default function MainPage() {
         }
         const data: EventDTO[] = response as EventDTO[]
         // set filtered events based on api response
+        console.log(data)
         setFilteredEvent(data)
       } catch (error) {
         console.error(error as ApiError)
@@ -65,64 +71,85 @@ export default function MainPage() {
     fetchData()
   }, [selectedSports])
 
+  const handleEventSelection = (e: EventDTO) => {
+    setSelectedEvent(e)
+    toggle()
+  }
+
   console.log(`all sport selected:`, location.state)
   console.log(`sport button selected:`, selectedSports)
   console.log(`query`, searchQuery)
 
+  // logic has to be implemented here to evaluae users rank
+  const isUserInRank = false
+
   return (
-    <div className="container-fluid">
-      <div className={'row'}>
-        <div className="slide">
-          <div className="slide-content">
-            <h2>Find, Match, Play Now!</h2>
-            <p>Your Next Challenge Awaits.</p>
-            <label htmlFor="play-btn"></label>
-            <button>Let’s play!</button>
+    <>
+      <div className="container-fluid">
+        <div className={'row'}>
+          <div className="slide">
+            <div className="slide-content">
+              <h2>Find, Match, Play Now!</h2>
+              <p>Your Next Challenge Awaits.</p>
+              <label htmlFor="play-btn"></label>
+              <button>Let’s play!</button>
+            </div>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col">
+            <SportsButtonComponent
+              onSportSelectionChange={handleSportSelectionChange}
+              clearFilters={clearFilters}
+            />
+          </div>
+        </div>
+        <div className="row clear">
+          <div className="col">
+            <button onClick={clear}>Clear Filter</button>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col">
+            <p className="mainPage-p">Nearby</p>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col search">
+            <SearchBar
+              onChange={(query: string) => {
+                setSearchQuery(query)
+              }}
+            />
+          </div>
+        </div>
+        <Modal isOpen={isOpen} toggle={toggle} preventClosing={true}>
+          <JoinEventComponent
+            toggle={toggle}
+            isInRank={isUserInRank}
+            event={selectedEvent!}
+          />
+        </Modal>
+        <div className="row">
+          <div className="col">
+            <div className="nearby-events-container">
+              {filteredEvent.length === 0 ? (
+                <LoadingSpinner />
+              ) : (
+                filteredEvent.map((event, index) => (
+                  <div
+                    className="nearby-events"
+                    key={index}
+                    onClick={() => handleEventSelection(event)}
+                  >
+                    <SportEvent event={event} />
+                  </div>
+                ))
+              )}
+            </div>
           </div>
         </div>
       </div>
-      <div className="row">
-        <div className="col">
-          <SportsButtonComponent
-            onSportSelectionChange={handleSportSelectionChange}
-            clearFilters={clearFilters}
-          />
-        </div>
-      </div>
-      <div className="row clear">
-        <div className="col">
-          <button onClick={clear}>Clear Filter</button>
-        </div>
-      </div>
-      <div className="row">
-        <div className="col">
-          <p className="mainPage-p">Nearby</p>
-        </div>
-      </div>
-      <div className="row">
-        <div className="col search">
-          <SearchBar
-            onChange={(query: string) => {
-              setSearchQuery(query)
-            }}
-          />
-        </div>
-      </div>
-      <div className="row">
-        <div className="col">
-          <div className="nearby-events-container">
-            {filteredEvent.length === 0 ? (
-              <LoadingSpinner />
-            ) : (
-              filteredEvent.map((event, index) => (
-                <div className="nearby-events" key={index}>
-                  <SportEvent event={event} />
-                </div>
-              ))
-            )}
-          </div>
-        </div>
-      </div>
-    </div>
+    </>
   )
 }

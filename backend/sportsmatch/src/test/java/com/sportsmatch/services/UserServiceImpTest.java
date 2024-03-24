@@ -1,14 +1,19 @@
 package com.sportsmatch.services;
 
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
+
 import com.sportsmatch.BaseTest;
 import com.sportsmatch.dtos.SportDTO;
+import com.sportsmatch.dtos.UserDTO;
 import com.sportsmatch.dtos.UserInfoDTO;
 import com.sportsmatch.mappers.SportMapper;
-import com.sportsmatch.models.Gender;
-import com.sportsmatch.models.Sport;
-import com.sportsmatch.models.SportUser;
-import com.sportsmatch.models.User;
+import com.sportsmatch.models.*;
 import com.sportsmatch.repositories.UserRepository;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -19,25 +24,14 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.*;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
-
 @ExtendWith(MockitoExtension.class)
 class UserServiceImpTest extends BaseTest {
 
-  @Mock
-  private UserRepository userRepository;
-  @Mock
-  private SportMapper sportMapper;
-  @Mock
-  private SecurityContext securityContext;
-  @InjectMocks
-  private UserServiceImp userServiceImp;
+  @Mock private UserRepository userRepository;
+  @Mock private SportMapper sportMapper;
+  @Mock private SecurityContext securityContext;
+  @Mock private RankService rankService;
+  @InjectMocks private UserServiceImp userServiceImp;
 
   @Test
   void updateUserInfo() {
@@ -95,5 +89,61 @@ class UserServiceImpTest extends BaseTest {
     verify(user, times(1)).getSportUsers();
     assertTrue(sportUsers.contains(sportUser));
     verify(userRepository).save(user);
+  }
+
+  @Test
+  void getUserByName() {
+    String username = "testUser";
+
+    // User
+    User user = new User();
+    user.setId(1L);
+    user.setName(username);
+    user.setRank(1000);
+    when(userRepository.findUserByName(username)).thenReturn(Optional.of(user));
+
+    // Sport
+    Sport sport = new Sport();
+    sport.setId(1L);
+    sport.setName("Tennis");
+    sport.setEmoji("🎾");
+    sport.setBackgroundImageURL("./assets/sport-component-tennis.png");
+
+    // SportUser
+    SportUser sportUser = new SportUser(user, sport);
+    user.getSportUsers().add(sportUser);
+
+    // SportDTO
+    SportDTO sportDTO =
+        SportDTO.builder()
+            .name(sport.getName())
+            .emoji(sport.getEmoji())
+            .backgroundUImageURL(sport.getBackgroundImageURL())
+            .build();
+
+    List<SportDTO> sports = new ArrayList<>();
+    sports.add(sportDTO);
+
+    // Event
+    Event event = mock(Event.class);
+    event.setSport(sport);
+
+    EventPlayer eventPlayer = mock(EventPlayer.class);
+
+    when(eventPlayer.getEvent()).thenReturn(event);
+    when(eventPlayer.getEvent().getSport()).thenReturn(sport);
+
+    user.getEventsPlayed().add(eventPlayer);
+
+    doNothing().when(rankService).updatePlayersRanks(event);
+
+    UserDTO expectedUserDTO =
+        UserDTO.builder().name(user.getName()).elo(user.getRank()).sports(sports).build();
+
+    UserDTO actualUserDTO = userServiceImp.getUserByName(username);
+
+    assertEquals(expectedUserDTO.getName(), actualUserDTO.getName());
+    assertEquals(expectedUserDTO.getElo(), actualUserDTO.getElo());
+    assertEquals(expectedUserDTO.getSports().size(), actualUserDTO.getSports().size());
   }
 }

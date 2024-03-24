@@ -35,6 +35,14 @@ public class User implements UserDetails {
 
   private Gender gender;
 
+  private Integer rank = 1000;
+
+  private Integer win = 0;
+
+  private Integer loss = 0;
+
+  private Integer totalPlayed = 0;
+
   @Enumerated(EnumType.STRING)
   private Role role;
 

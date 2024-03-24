@@ -57,6 +57,11 @@ public class UserServiceImp implements UserService {
     return userMapper.toDTO(getUserFromContext());
   }
 
+  public UserDTO getMyRank() {
+    User user = getUserFromContext();
+    return getUserByName(user.getName());
+  }
+
   public UserDTO getUserByName(String username) {
     Optional<User> user = userRepository.findUserByName(username);
 

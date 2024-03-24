@@ -2,7 +2,10 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { SportDTO } from './SportDTO';
 export type UserDTO = {
     name?: string;
+    elo?: number;
+    sports?: Array<SportDTO>;
 };
 

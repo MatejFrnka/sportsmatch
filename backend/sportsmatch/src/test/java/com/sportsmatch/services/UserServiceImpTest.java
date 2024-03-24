@@ -1,5 +1,9 @@
 package com.sportsmatch.services;
 
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
+
 import com.sportsmatch.BaseTest;
 import com.sportsmatch.dtos.SportDTO;
 import com.sportsmatch.dtos.UserDTO;
@@ -7,6 +11,9 @@ import com.sportsmatch.dtos.UserInfoDTO;
 import com.sportsmatch.mappers.SportMapper;
 import com.sportsmatch.models.*;
 import com.sportsmatch.repositories.UserRepository;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -16,14 +23,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.*;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class UserServiceImpTest extends BaseTest {
@@ -107,7 +106,7 @@ class UserServiceImpTest extends BaseTest {
     Sport sport = new Sport();
     sport.setId(1L);
     sport.setName("Tennis");
-    sport.setEmoji("\uD83C\uDFBE");
+    sport.setEmoji("🎾");
     sport.setBackgroundImageURL("./assets/sport-component-tennis.png");
 
     // SportUser

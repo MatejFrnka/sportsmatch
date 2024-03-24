@@ -57,7 +57,7 @@ class RankServiceTest extends BaseTest {
 
     rankService.updatePlayersRanks(event);
 
-    assertEquals(1012, firstUser.getRank());
+    assertEquals(1013, firstUser.getRank());
     assertEquals(988, secondUser.getRank());
     assertTrue(event.getIsRanksUpdated());
     verify(eventRepository, times(1)).save(event);

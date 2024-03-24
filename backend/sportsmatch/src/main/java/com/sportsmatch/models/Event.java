@@ -38,6 +38,8 @@ public class Event {
 
   private String title;
 
+  private Boolean isRanksUpdated = false;
+
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "event")
   private Set<EventPlayer> players = new HashSet<>();
 

@@ -3,14 +3,11 @@ package com.sportsmatch.services;
 import com.sportsmatch.dtos.UserDTO;
 import com.sportsmatch.mappers.SportMapper;
 import com.sportsmatch.mappers.UserMapper;
-import com.sportsmatch.models.Sport;
-import com.sportsmatch.models.User;
+import com.sportsmatch.models.*;
 import com.sportsmatch.repositories.SportRepository;
 import com.sportsmatch.repositories.UserRepository;
 import com.sportsmatch.dtos.SportDTO;
 import com.sportsmatch.dtos.UserInfoDTO;
-import com.sportsmatch.models.Gender;
-import com.sportsmatch.models.SportUser;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,6 +19,8 @@ import org.springframework.web.server.ResponseStatusException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -33,6 +32,7 @@ public class UserServiceImp implements UserService {
   private final SportMapper sportMapper;
   private final SportRepository sportRepository;
   private final UserMapper userMapper;
+  private final RankService rankService;
 
   /**
    * This method retrieves the authenticated user from the SecurityContextHolder. It checks if the
@@ -55,6 +55,32 @@ public class UserServiceImp implements UserService {
 
   public UserDTO getUserDTOFromContext() {
     return userMapper.toDTO(getUserFromContext());
+  }
+
+  public UserDTO getMyRank() {
+    User user = getUserFromContext();
+    return getUserByName(user.getName());
+  }
+
+  public UserDTO getUserByName(String username) {
+    Optional<User> user = userRepository.findUserByName(username);
+
+    if (user.isEmpty()) {
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+    }
+
+    List<EventPlayer> events = new ArrayList<>(user.get().getEventsPlayed());
+    List<SportDTO> sports = new ArrayList<>();
+    for (EventPlayer e : events) {
+      rankService.updatePlayersRanks(e.getEvent());
+      sports.add(sportMapper.toDTO(e.getEvent().getSport()));
+    }
+
+    return UserDTO.builder()
+        .name(user.get().getName())
+        .sports(sports)
+        .elo(user.get().getRank())
+        .build();
   }
 
   @Transactional

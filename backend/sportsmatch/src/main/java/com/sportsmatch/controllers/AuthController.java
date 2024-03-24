@@ -2,7 +2,6 @@ package com.sportsmatch.controllers;
 
 import com.sportsmatch.auth.AuthService;
 import com.sportsmatch.dtos.AuthRequestDTO;
-import com.sportsmatch.dtos.UserDTO;
 import com.sportsmatch.services.UserService;
 import com.sportsmatch.services.ValidationService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -55,7 +54,11 @@ public class AuthController {
 
   @GetMapping("/me")
   @Tag(name = "ex.secured endpoint")
-  public UserDTO getUserMainPage() {
-    return userService.getUserDTOFromContext();
+  public ResponseEntity<?> getUserMainPage() {
+    try {
+      return ResponseEntity.ok().body(userService.getMyRank());
+    } catch (ResponseStatusException e) {
+      return ResponseEntity.badRequest().body(e.getStatusCode());
+    }
   }
 }

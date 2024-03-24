@@ -57,7 +57,7 @@ public class RankService {
             + adjustKFactor(firstPlayer.getPlayer())
                 * ((getScore(firstPlayer))
                     - expectedScore(firstPlayer.getPlayer(), secondPlayer.getPlayer()));
-    return (int) Math.round(updatedRating);
+    return (int) updatedRating;
   }
 
   private double getScore(EventPlayer eventPlayer) {

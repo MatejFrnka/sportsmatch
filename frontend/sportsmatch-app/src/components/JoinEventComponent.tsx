@@ -5,7 +5,6 @@ import {
   EventDTO,
 } from '../generated/api'
 import '../styles/JoinEvent.css'
-import '../styles/JoinEvent.css'
 
 interface JoinEventProps {
   isInRank: boolean // a boolean to check if user's rank meets the event's requirement

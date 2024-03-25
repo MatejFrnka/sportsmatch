@@ -30,6 +30,22 @@ export class EventsControllerService {
      * @returns any OK
      * @throws ApiError
      */
+    public static joinEvent(
+        id: number,
+    ): CancelablePromise<Record<string, any>> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/v1/event/{id}/join',
+            path: {
+                'id': id,
+            },
+        });
+    }
+    /**
+     * @param id
+     * @returns any OK
+     * @throws ApiError
+     */
     public static getEvent(
         id: number,
     ): CancelablePromise<Record<string, any>> {

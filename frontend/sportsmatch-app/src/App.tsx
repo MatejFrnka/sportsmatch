@@ -12,6 +12,7 @@ import PrivateRoute from './components/PrivateRoute'
 import NotFound from './pages/NotFound'
 import { OpenAPI } from './generated/api'
 import UserInfo from './pages/UserInfo'
+import HostEvent from './pages/HostEvent'
 
 function App() {
   OpenAPI.TOKEN = localStorage.getItem('token')!
@@ -29,6 +30,7 @@ function App() {
           <Route path="/index" element={<Wrapper child={<Index />} />} />
           <Route path="/user" element={<UserPage />}></Route>
           <Route path="/user-info" element={<Wrapper child={<UserInfo />} />} />
+          <Route path="/host-event" element={<Wrapper child={<HostEvent/>} />}/>
         </Route>
         <Route path="/index" element={<Wrapper child={<Index />} />} />
         <Route path="/test" element={<Test />}>

@@ -22,4 +22,14 @@ export class RatingControllerService {
             mediaType: 'application/json',
         });
     }
+    /**
+     * @returns any OK
+     * @throws ApiError
+     */
+    public static checkRating(): CancelablePromise<Record<string, any>> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/v1/rating/check',
+        });
+    }
 }

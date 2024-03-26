@@ -59,11 +59,11 @@ public class UserServiceImp implements UserService {
 
   public UserDTO getMyRank() {
     User user = getUserFromContext();
-    return getUserByName(user.getName());
+    return getUserById(user.getId());
   }
 
-  public UserDTO getUserByName(String username) {
-    Optional<User> user = userRepository.findUserByName(username);
+  public UserDTO getUserById(Long id) {
+    Optional<User> user = userRepository.findUserById(id);
 
     if (user.isEmpty()) {
       throw new ResponseStatusException(HttpStatus.NOT_FOUND);

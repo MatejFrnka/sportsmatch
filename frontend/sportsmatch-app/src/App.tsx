@@ -12,6 +12,7 @@ import PrivateRoute from './components/PrivateRoute'
 import NotFound from './pages/NotFound'
 import { OpenAPI } from './generated/api'
 import UserInfo from './pages/UserInfo'
+import HostEvent from './pages/HostEvent'
 import UserRating from './pages/UserRating'
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
           />
           <Route path="/user" element={<UserPage />}></Route>
           <Route path="/user-info" element={<Wrapper child={<UserInfo />} />} />
+          <Route path="/host-event" element={<Wrapper child={<HostEvent/>} />}/>
         </Route>
         <Route path="/test" element={<Test />}>
           <Route index element={<Test />} />

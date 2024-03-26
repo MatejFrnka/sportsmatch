@@ -77,4 +77,5 @@ export class RatingControllerService {
             url: '/api/v1/rating/check',
         });
     }
+
 }

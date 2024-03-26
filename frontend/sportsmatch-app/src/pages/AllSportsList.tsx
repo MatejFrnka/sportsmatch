@@ -126,3 +126,31 @@ export function AllSportsList() {
     </>
   )
 }
+
+export const sampleSports: SportDTO[] = [
+  {
+    name: 'Badminton',
+    emoji: '🏸',
+    backgroundUImageURL: './assets/sport-component-badminton.png',
+  },
+  {
+    name: 'Tennis',
+    emoji: '🎾',
+    backgroundUImageURL: './assets/sport-component-tennis.png',
+  },
+  {
+    name: 'Boxing',
+    emoji: '🥊',
+    backgroundUImageURL: './assets/sport-component-boxing.png',
+  },
+  {
+    name: 'Table Tennis',
+    emoji: '🏓',
+    backgroundUImageURL: './assets/sport-component-table-tennis.png',
+  },
+  {
+    name: 'Squash',
+    emoji: '🥎',
+    backgroundUImageURL: './assets/sport-component-squash.png',
+  },
+]

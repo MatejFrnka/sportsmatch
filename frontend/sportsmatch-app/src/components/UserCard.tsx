@@ -45,7 +45,7 @@ export default function UserCard({ user }: UserCardProp) {
                   <div className="col-4 stars">
                     <div className="row star">
                       <div className="col">
-                        <Stars numberOfStars={5} />
+                        <Stars numberOfStars={5}/>
                       </div>
                     </div>
                     <div className="row star">

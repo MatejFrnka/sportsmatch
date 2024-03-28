@@ -1,17 +1,22 @@
 import { useEffect, useState } from 'react'
-import { TiStarOutline } from 'react-icons/ti'
+import { TiStarFullOutline, TiStarOutline } from 'react-icons/ti'
 
 interface StarsProp {
   numberOfStars: number
+  isSolid?: boolean
 }
 
-export default function Stars({ numberOfStars }: StarsProp) {
+export default function Stars({ numberOfStars, isSolid }: StarsProp) {
   const [stars, setStars] = useState<JSX.Element[]>([])
 
   useEffect(() => {
     const newStars: JSX.Element[] = []
     for (let i = 0; i < numberOfStars; i++) {
-      newStars.push(<TiStarOutline key={i} />)
+      if (isSolid === true) {
+        newStars.push(<TiStarFullOutline key={i} />)
+      } else{
+        newStars.push(<TiStarOutline key={i} />)
+      }
     }
     setStars(newStars)
   }, [numberOfStars])

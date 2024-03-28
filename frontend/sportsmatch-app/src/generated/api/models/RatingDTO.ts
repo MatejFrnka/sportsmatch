@@ -3,6 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 export type RatingDTO = {
+    name?: string; // remove this once backend is ready
     userTextRating?: string;
     userStarRating: number;
     eventStarRating: number;

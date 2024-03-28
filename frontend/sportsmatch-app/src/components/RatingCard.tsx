@@ -3,12 +3,11 @@ import '../styles/RatingCard.css'
 import Stars from './Stars'
 
 interface RatingCardProps {
-  name: string
   rating: RatingDTO
 }
 
-export default function RatingCard({ name, rating }: RatingCardProps) {
-  const {userTextRating, userStarRating} = rating
+export default function RatingCard({ rating }: RatingCardProps) {
+  const {userTextRating, userStarRating, name} = rating
   return (
     <>
       <div className="rated-wrapper">

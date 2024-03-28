@@ -43,11 +43,31 @@ export default function UserCard({ user }: UserCardProp) {
               <div className="col g-0">
                 <div className="row g-0">
                   <div className="col-4 stars">
-                    <Stars numberOfStars={5} />
-                    <Stars numberOfStars={4} />
-                    <Stars numberOfStars={3} />
-                    <Stars numberOfStars={2} />
-                    <Stars numberOfStars={1} />
+                    <div className="row star">
+                      <div className="col">
+                        <Stars numberOfStars={5} />
+                      </div>
+                    </div>
+                    <div className="row star">
+                      <div className="col">
+                        <Stars numberOfStars={4} />
+                      </div>
+                    </div>
+                    <div className="row star">
+                      <div className="col">
+                        <Stars numberOfStars={3} />
+                      </div>
+                    </div>
+                    <div className="row star">
+                      <div className="col">
+                        <Stars numberOfStars={2} />
+                      </div>
+                    </div>
+                    <div className="row star">
+                      <div className="col">
+                        <Stars numberOfStars={1} />
+                      </div>
+                    </div>
                   </div>
                   <div className="col">
                     <div className="row">

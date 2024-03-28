@@ -9,18 +9,12 @@ export default function Stars({ numberOfStars }: StarsProp) {
   const [stars, setStars] = useState<JSX.Element[]>([])
 
   useEffect(() => {
-    const newStars: JSX.Element[] = [];
+    const newStars: JSX.Element[] = []
     for (let i = 0; i < numberOfStars; i++) {
-      newStars.push(<TiStarOutline key={i} />);
+      newStars.push(<TiStarOutline key={i} />)
     }
-    setStars(newStars);
-  }, [numberOfStars]);
+    setStars(newStars)
+  }, [numberOfStars])
 
-  return (
-    <>
-      <div className="row star">
-        <div className="col">{stars}</div>
-      </div>
-    </>
-  )
+  return <>{stars}</>
 }

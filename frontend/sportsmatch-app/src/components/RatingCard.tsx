@@ -1,19 +1,36 @@
+import { RatingDTO } from '../generated/api'
 import '../styles/RatingCard.css'
+import Stars from './Stars'
 
-export default function RatingCard() {
+interface RatingCardProps {
+  name: string
+  rating: RatingDTO
+}
+
+export default function RatingCard({ name, rating }: RatingCardProps) {
+  const {userTextRating, userStarRating} = rating
   return (
     <>
       <div className="rated-wrapper">
         <div className="row rated">
           <div className="col-2">
-            <img className="rated-img" src="" alt="" />
+            <img
+              className="rated-img"
+              src="\pictures\jeffrey-keenan-pUhxoSapPFA-unsplash.jpg"
+            />
           </div>
           <div className="col">
-            <h5>Name</h5>
-            <p>
-              Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam
-              erat volutpat.
-            </p>
+            <div className="row">
+              <div className="col rated-name">
+                <h5>{name}</h5>
+              </div>
+            </div>
+            <div className="row rated-star">
+              <div className="col">
+                <Stars numberOfStars={userStarRating} isSolid={true} />
+              </div>
+            </div>
+            <p>{userTextRating}</p>
           </div>
         </div>
       </div>

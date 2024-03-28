@@ -1,6 +1,6 @@
 import RatingCard from '../components/RatingCard'
 import UserCard from '../components/UserCard'
-import { UserDTO } from '../generated/api'
+import { RatingDTO, UserDTO } from '../generated/api'
 import '../styles/UserRating.css'
 
 /*
@@ -17,6 +17,17 @@ const sampleUser: UserDTO = {
   elo: 887,
 }
 
+const sampleRated: RatingDTO = {
+  userTextRating: `Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam
+  erat volutpat.`,
+  userStarRating: 4,
+  eventStarRating: 5,
+  myScore: 10,
+  opponentScore: 5,
+}
+
+const ratedName = `Alex S`
+
 export default function UserRating() {
   return (
     <>
@@ -29,7 +40,7 @@ export default function UserRating() {
         <div className="col">
           <div className="row">
             <div className="col">
-              <RatingCard />
+              <RatingCard rating={sampleRated} name={ratedName}/>
             </div>
           </div>
           <div className="row load-btn">

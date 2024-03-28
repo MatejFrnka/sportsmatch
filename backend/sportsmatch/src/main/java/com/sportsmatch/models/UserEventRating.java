@@ -12,7 +12,7 @@ import lombok.*;
 public class UserEventRating {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @GeneratedValue
   private Long id;
 
   @ManyToOne private Rating userRating;

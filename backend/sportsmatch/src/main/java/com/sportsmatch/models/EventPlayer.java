@@ -15,7 +15,7 @@ import lombok.Setter;
 public class EventPlayer {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @GeneratedValue
   private Long id;
 
   @Column(name = "my_score")

@@ -19,7 +19,7 @@ import java.util.Set;
 public class Event {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @GeneratedValue
   private Long id;
 
   @Column(name = "date_start")
@@ -46,7 +46,8 @@ public class Event {
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "event")
   private Set<UserEventRating> ratings = new HashSet<>();
 
-  @ManyToOne private Sport sport;
+  @ManyToOne
+  private Sport sport;
 
   public Event(
       LocalDateTime dateStart,

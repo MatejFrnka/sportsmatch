@@ -15,7 +15,7 @@ import java.util.Set;
 public class Rating {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @GeneratedValue
   private Long id;
   @Column(name = "text_rating")
   private String textRating;

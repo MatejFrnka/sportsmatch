@@ -4,6 +4,9 @@ import com.sportsmatch.dtos.RatingDTO;
 import com.sportsmatch.dtos.UserRatingStatsDTO;
 import com.sportsmatch.services.RatingService;
 import com.sportsmatch.services.ValidationService;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -39,6 +42,7 @@ public class RatingController {
   }
 
   @GetMapping("/{id}/summary")
+  @ApiResponse(content = @Content(schema = @Schema(implementation = UserRatingStatsDTO.class)))
   public ResponseEntity<?> getSummary(@PathVariable Long id) {
     try {
       UserRatingStatsDTO summary = ratingService.getUserRatingStats(id);

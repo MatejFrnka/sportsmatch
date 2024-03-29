@@ -1,6 +1,7 @@
 package com.sportsmatch.controllers;
 
 import com.sportsmatch.dtos.RatingDTO;
+import com.sportsmatch.dtos.UserRatingStatsDTO;
 import com.sportsmatch.services.RatingService;
 import com.sportsmatch.services.ValidationService;
 import jakarta.validation.Valid;
@@ -35,5 +36,15 @@ public class RatingController {
   @GetMapping("/check")
   public ResponseEntity<?> checkRating() {
     return ResponseEntity.ok().body(ratingService.findUnratedEvents());
+  }
+
+  @GetMapping("/{id}/summary")
+  public ResponseEntity<?> getSummary(@PathVariable Long id) {
+    try {
+      UserRatingStatsDTO summary = ratingService.getUserRatingStats(id);
+      return ResponseEntity.ok().body(summary);
+    } catch (Exception e) {
+      return ResponseEntity.badRequest().build();
+    }
   }
 }

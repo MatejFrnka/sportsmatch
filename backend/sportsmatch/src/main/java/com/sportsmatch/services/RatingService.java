@@ -2,6 +2,7 @@ package com.sportsmatch.services;
 
 import com.sportsmatch.dtos.EventDTO;
 import com.sportsmatch.dtos.RatingDTO;
+import com.sportsmatch.dtos.UserRatingStatsDTO;
 import com.sportsmatch.mappers.EventMapper;
 import com.sportsmatch.mappers.RatingMapper;
 import com.sportsmatch.models.*;
@@ -78,5 +79,12 @@ public class RatingService {
 
   private boolean isEventRated(Event event, User player) {
     return userEventRatingRepository.findUserEventRatingByEventAndPlayer(event, player).isPresent();
+  }
+
+  public UserRatingStatsDTO getUserRatingStats(Long id) {
+    UserRatingStatsDTO stats = new UserRatingStatsDTO();
+    stats.setStarRatingCounts(userEventRatingRepository.findRatingsCount(id));
+    stats.setAverageRating(userEventRatingRepository.findAverageRating(id));
+    return stats;
   }
 }

@@ -12,7 +12,10 @@ function HostEventComponent() {
   const [selectSport, setSelectedSport] = useState('')
   const [sportsOptions, setSportsOptions] = useState<SportDTO[]>([])
   const [selectRank, setSelectedRank] = useState('')
-  const rankOptions = Array.from({ length: 10000 }, (_, index) => index + 1)
+  const rankOptions = Array.from({ length: 20 }, (_, index) => ({
+    value: index * 500,
+    label: `${index * 500 + 1} - ${(index + 1) * 500}`,
+  }))
   const [selectOppGender, setSelectedOppGender] = useState('')
   const genderOptions = ['Male', 'Female']
   const [selectLocation, setSelectedLocation] = useState('')
@@ -101,7 +104,7 @@ function HostEventComponent() {
           <div className="host-event-input-box">
             <label htmlFor="sports"></label>
             <select value={selectSport} onChange={handleSportSelection}>
-              <option value="">Select sport</option>
+              <option value="" disabled>Select sport</option>
               {sportsOptions.map((sport, index) => (
                 <option key={index} value={sport.name}>
                   {sport.name}
@@ -112,10 +115,10 @@ function HostEventComponent() {
           <div className="host-event-input-box">
             <label htmlFor="rank"></label>
             <select value={selectRank} onChange={handleRankSelection}>
-              <option value="">Select a lowest rank</option>
-              {rankOptions.map((rank, index) => (
-                <option key={index} value={rank}>
-                  {rank}
+              <option value="" disabled>Select a lowest rank</option>
+              {rankOptions.map((option, index) => (
+                <option key={index} value={option.value}>
+                  {option.label}
                 </option>
               ))}
             </select>
@@ -123,7 +126,7 @@ function HostEventComponent() {
           <div className="host-event-input-box">
             <label htmlFor="gender"></label>
             <select value={selectOppGender} onChange={handleOppGenderSelection}>
-              <option value="">Select opponent gender</option>
+              <option value="" disabled>Select opponent gender</option>
               {genderOptions.map((gender, index) => (
                 <option key={index} value={gender}>
                   {gender}
@@ -134,7 +137,7 @@ function HostEventComponent() {
           <div className="host-event-input-box">
             <label htmlFor="location"></label>
             <select value={selectLocation} onChange={handleLocationSelection}>
-              <option value="">Select location</option>
+              <option value="" disabled>Select location</option>
               {locationsOptions.map((location, index) => (
                 <option key={index} value={location.name}>
                   {location.name}

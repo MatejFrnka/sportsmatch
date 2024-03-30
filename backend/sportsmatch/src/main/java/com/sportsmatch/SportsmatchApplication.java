@@ -28,6 +28,7 @@ public class SportsmatchApplication implements CommandLineRunner {
   private final EventRepository eventRepository;
   private final PasswordEncoder passwordEncoder;
   private final InitProperties initProperties;
+  private final PlaceRepository placeRepository;
 
 
   public static void main(String[] args) {
@@ -47,6 +48,7 @@ public class SportsmatchApplication implements CommandLineRunner {
     List<SportUser> sportUsers = addSportUsers(sports, users);
     List<Event> events = addEvents(sports);
     List<EventPlayer> eventPlayers = addEventPlayers(events, users);
+    placeRepository.save(new Place(null, "Prague", "address", 10.22f, 20.10f));
   }
 
   public List<EventPlayer> addEventPlayers(List<Event> events, List<User> users) {
@@ -216,4 +218,6 @@ public class SportsmatchApplication implements CommandLineRunner {
 
     return sportRepository.findAll();
   }
+
+
 }

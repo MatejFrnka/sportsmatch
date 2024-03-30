@@ -2,6 +2,7 @@ package com.sportsmatch.services;
 
 import com.sportsmatch.dtos.EventDTO;
 import com.sportsmatch.dtos.RatingDTO;
+import com.sportsmatch.dtos.UserRatingDTO;
 import com.sportsmatch.dtos.UserRatingStatsDTO;
 import com.sportsmatch.mappers.EventMapper;
 import com.sportsmatch.mappers.RatingMapper;
@@ -11,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.data.domain.Pageable;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -96,5 +98,9 @@ public class RatingService {
     BigDecimal average = BigDecimal.valueOf(userEventRatingRepository.findAverageRating(id));
     stats.setAverageRating(average.setScale(1, RoundingMode.HALF_UP).doubleValue());
     return stats;
+  }
+
+  public List<UserRatingDTO> getAllUserRatings(Long id, Pageable pageable) {
+    return userEventRatingRepository.findAllByOpponent(id, pageable);
   }
 }

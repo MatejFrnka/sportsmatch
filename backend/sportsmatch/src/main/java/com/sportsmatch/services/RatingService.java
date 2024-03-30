@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -83,7 +84,14 @@ public class RatingService {
 
   public UserRatingStatsDTO getUserRatingStats(Long id) {
     UserRatingStatsDTO stats = new UserRatingStatsDTO();
-    stats.setStarRatingCounts(userEventRatingRepository.findRatingsCount(id));
+    List<Object[]> counts = userEventRatingRepository.findRatingsCount(id);
+    Map<String, Integer> ratingCounts = stats.getStarRatingCounts();
+    for (Object[] row : counts) {
+      String starRating = String.valueOf(row[0]);
+      Long count = (Long) row[1];
+      ratingCounts.put(starRating, count.intValue());
+    }
+    stats.setStarRatingCounts(ratingCounts);
     stats.setAverageRating(userEventRatingRepository.findAverageRating(id));
     return stats;
   }

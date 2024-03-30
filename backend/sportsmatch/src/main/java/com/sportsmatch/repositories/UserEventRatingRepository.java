@@ -3,7 +3,6 @@ package com.sportsmatch.repositories;
 import com.sportsmatch.models.Event;
 import com.sportsmatch.models.User;
 import com.sportsmatch.models.UserEventRating;
-import com.sportsmatch.dtos.UserStarRatingCountDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -17,10 +16,9 @@ public interface UserEventRatingRepository extends JpaRepository<UserEventRating
   Optional<UserEventRating> findUserEventRatingByEventAndPlayer(Event event, User player);
 
   @Query(
-      "SELECT new com.sportsmatch.dtos.UserStarRatingCountDTO(r.starRating, COUNT(r.starRating))"
-          + " FROM UserEventRating uer JOIN Rating r ON uer.userRating.id = r.id WHERE uer.opponent.id = :id"
-          + " GROUP BY r.starRating")
-  List<UserStarRatingCountDTO> findRatingsCount(@Param("id") Long id);
+      "SELECT r.starRating, COUNT(r.starRating) FROM UserEventRating uer JOIN Rating r ON uer.userRating.id = r.id "
+          + "WHERE uer.opponent.id = :id GROUP BY r.starRating")
+  List<Object[]> findRatingsCount(@Param("id") Long id);
 
   @Query(
       "SELECT AVG(r.starRating) FROM UserEventRating uer JOIN Rating r ON uer.userRating.id = r.id WHERE uer.opponent.id = :id")

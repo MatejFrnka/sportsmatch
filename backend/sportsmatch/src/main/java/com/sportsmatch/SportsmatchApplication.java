@@ -29,6 +29,7 @@ public class SportsmatchApplication implements CommandLineRunner {
   private final EventRepository eventRepository;
   private final PasswordEncoder passwordEncoder;
   private final InitProperties initProperties;
+
   private final RatingRepository ratingRepository;
   private final UserEventRatingRepository userEventRatingRepository;
 

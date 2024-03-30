@@ -1,8 +1,10 @@
 package com.sportsmatch.repositories;
 
+import com.sportsmatch.dtos.UserRatingDTO;
 import com.sportsmatch.models.Event;
 import com.sportsmatch.models.User;
 import com.sportsmatch.models.UserEventRating;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -23,4 +25,9 @@ public interface UserEventRatingRepository extends JpaRepository<UserEventRating
   @Query(
       "SELECT AVG(r.starRating) FROM UserEventRating uer JOIN Rating r ON uer.userRating.id = r.id WHERE uer.opponent.id = :id")
   Double findAverageRating(@Param("id") Long id);
+
+  @Query(
+      "SELECT new com.sportsmatch.dtos.UserRatingDTO(uer.player.name, r.textRating, r.starRating, r.createdAt) FROM UserEventRating uer JOIN Rating r "
+          + "ON uer.userRating.id = r.id WHERE uer.opponent.id = :id ORDER BY r.createdAt DESC")
+  List<UserRatingDTO> findAllByOpponent(@Param("id") Long id, Pageable pageable);
 }

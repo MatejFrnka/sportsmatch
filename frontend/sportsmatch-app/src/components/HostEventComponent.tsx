@@ -5,6 +5,8 @@ import {
   SportControllerService,
   SportDTO,
   PlaceDTO,
+  EventsControllerService,
+  EventDTO,
 } from '../generated/api'
 
 function HostEventComponent() {
@@ -35,30 +37,43 @@ function HostEventComponent() {
 
   const handleHostEvent = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    const event: EventDTO = {
+      dateStart: string;
+      dateEnd: string;
+      location: string;
+      minElo: number;
+      maxElo: number;
+      title: string;
+      player1Id?: number;
+      sport: string;
+  };
+    EventsControllerService.addEvent(event)
 
-    const formData = {
-      matchTitle,
-      selectSport,
-      selectRank,
-      selectOppGender,
-      selectLocation,
-    }
+  //   const formData = {
+  //     matchTitle,
+  //     selectSport,
+  //     selectRank,
+  //     selectOppGender,
+  //     selectLocation,
+  //     selectDateAndTimeStart
+  //     selectDateAndTimeEnd
+  //   }
 
-    try {
-      const response = await fetch('/api/v1/event/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      })
-      if (!response.ok) {
-        throw new Error('Failed to create event')
-      }
-      console.log('Event created successfully!')
-    } catch (error) {
-      console.error('Error creating event: ', error)
-    }
+  //   try {
+  //     const response = await fetch('/api/v1/event/', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify(formData),
+  //     })
+  //     if (!response.ok) {
+  //       throw new Error('Failed to create event')
+  //     }
+  //     console.log('Event created successfully!')
+  //   } catch (error) {
+  //     console.error('Error creating event: ', error)
+  //   }
   }
 
   const handleSportSelection = (
@@ -79,13 +94,6 @@ function HostEventComponent() {
   ) => {
     setSelectedLocation(event.target.value)
   }
-  // const handleLocationSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   const searchValue = event.target.value.toLowerCase()
-  //   const filteredLocations = locationsOptions.filter((location) =>
-  //     location.name.toLocaleLowerCase().includes(searchValue),
-  //   )
-  //   setLocationOptions(filteredLocations)
-  // }
 
   return (
     <div className={'centered-container'}>

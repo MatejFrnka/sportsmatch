@@ -12,9 +12,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -91,8 +94,8 @@ public class RatingService {
       Long count = (Long) row[1];
       ratingCounts.put(starRating, count.intValue());
     }
-    stats.setStarRatingCounts(ratingCounts);
-    stats.setAverageRating(userEventRatingRepository.findAverageRating(id));
+    BigDecimal average = BigDecimal.valueOf(userEventRatingRepository.findAverageRating(id));
+    stats.setAverageRating(average.setScale(1, RoundingMode.HALF_UP).doubleValue());
     return stats;
   }
 }

@@ -1,14 +1,22 @@
 package com.sportsmatch.controllers;
 
 import com.sportsmatch.dtos.RatingDTO;
+import com.sportsmatch.dtos.UserRatingDTO;
+import com.sportsmatch.dtos.UserRatingStatsDTO;
 import com.sportsmatch.services.RatingService;
 import com.sportsmatch.services.ValidationService;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -35,5 +43,21 @@ public class RatingController {
   @GetMapping("/check")
   public ResponseEntity<?> checkRating() {
     return ResponseEntity.ok().body(ratingService.findUnratedEvents());
+  }
+
+  @GetMapping("/{id}/summary")
+  @ApiResponse(content = @Content(schema = @Schema(implementation = UserRatingStatsDTO.class)))
+  public ResponseEntity<?> getSummary(@PathVariable Long id) {
+    try {
+      UserRatingStatsDTO summary = ratingService.getUserRatingStats(id);
+      return ResponseEntity.ok().body(summary);
+    } catch (Exception e) {
+      return ResponseEntity.badRequest().build();
+    }
+  }
+
+  @GetMapping("/{id}/all")
+  public List<UserRatingDTO> getAllByUser(@PathVariable Long id, Pageable pageable) {
+    return ratingService.getAllUserRatings(id, pageable);
   }
 }

@@ -12,7 +12,7 @@ public interface UserService {
 
   void updateUserInfo(UserInfoDTO userInfoDTO);
 
-  UserDTO getUserByName(String name);
+  UserDTO getUserById(Long id);
 
   UserDTO getMyRank();
 }

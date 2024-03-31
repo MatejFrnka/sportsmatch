@@ -92,7 +92,7 @@ class UserServiceImpTest extends BaseTest {
   }
 
   @Test
-  void getUserByName() {
+  void getUserById() {
     String username = "testUser";
 
     // User
@@ -100,7 +100,7 @@ class UserServiceImpTest extends BaseTest {
     user.setId(1L);
     user.setName(username);
     user.setRank(1000);
-    when(userRepository.findUserByName(username)).thenReturn(Optional.of(user));
+    when(userRepository.findUserById(user.getId())).thenReturn(Optional.of(user));
 
     // Sport
     Sport sport = new Sport();
@@ -140,7 +140,7 @@ class UserServiceImpTest extends BaseTest {
     UserDTO expectedUserDTO =
         UserDTO.builder().name(user.getName()).elo(user.getRank()).sports(sports).build();
 
-    UserDTO actualUserDTO = userServiceImp.getUserByName(username);
+    UserDTO actualUserDTO = userServiceImp.getUserById(user.getId());
 
     assertEquals(expectedUserDTO.getName(), actualUserDTO.getName());
     assertEquals(expectedUserDTO.getElo(), actualUserDTO.getElo());

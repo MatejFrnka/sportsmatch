@@ -28,7 +28,8 @@ public class SportsmatchApplication implements CommandLineRunner {
   private final EventRepository eventRepository;
   private final PasswordEncoder passwordEncoder;
   private final InitProperties initProperties;
-
+  private final RatingRepository ratingRepository;
+  private final UserEventRatingRepository userEventRatingRepository;
 
   public static void main(String[] args) {
     SpringApplication.run(SportsmatchApplication.class, args);
@@ -47,6 +48,95 @@ public class SportsmatchApplication implements CommandLineRunner {
     List<SportUser> sportUsers = addSportUsers(sports, users);
     List<Event> events = addEvents(sports);
     List<EventPlayer> eventPlayers = addEventPlayers(events, users);
+    List<Rating> ratings = addRatings();
+    addUserEventRating(ratings, users, events);
+  }
+
+  public void addUserEventRating(List<Rating> ratings, List<User> users, List<Event> events) {
+    UserEventRating uer1 = new UserEventRating();
+    uer1.setEvent(events.get(0));
+    uer1.setPlayer(users.get(9));
+    uer1.setOpponent(users.get(0));
+    uer1.setUserRating(ratings.get(0));
+    UserEventRating uer2 = new UserEventRating();
+    uer2.setEvent(events.get(5));
+    uer2.setPlayer(users.get(9));
+    uer2.setOpponent(users.get(0));
+    uer2.setUserRating(ratings.get(1));
+    UserEventRating uer3 = new UserEventRating();
+    uer3.setEvent(events.get(6));
+    uer3.setPlayer(users.get(9));
+    uer3.setOpponent(users.get(0));
+    uer3.setUserRating(ratings.get(2));
+    UserEventRating uer4 = new UserEventRating();
+    uer4.setEvent(events.get(7));
+    uer4.setPlayer(users.get(0));
+    uer4.setOpponent(users.get(9));
+    uer4.setUserRating(ratings.get(3));
+    UserEventRating uer5 = new UserEventRating();
+    uer5.setEvent(events.get(0));
+    uer5.setPlayer(users.get(0));
+    uer5.setOpponent(users.get(9));
+    uer5.setUserRating(ratings.get(4));
+    UserEventRating uer6 = new UserEventRating();
+    uer6.setEvent(events.get(5));
+    uer6.setPlayer(users.get(0));
+    uer6.setOpponent(users.get(9));
+    uer6.setUserRating(ratings.get(5));
+    UserEventRating uer7 = new UserEventRating();
+    uer7.setEvent(events.get(6));
+    uer7.setPlayer(users.get(0));
+    uer7.setOpponent(users.get(9));
+    uer7.setUserRating(ratings.get(6));
+    UserEventRating uer8 = new UserEventRating();
+    uer8.setEvent(events.get(7));
+    uer8.setPlayer(users.get(9));
+    uer8.setOpponent(users.get(0));
+    uer8.setUserRating(ratings.get(7));
+    userEventRatingRepository.save(uer1);
+    userEventRatingRepository.save(uer2);
+    userEventRatingRepository.save(uer3);
+    userEventRatingRepository.save(uer4);
+    userEventRatingRepository.save(uer5);
+    userEventRatingRepository.save(uer6);
+    userEventRatingRepository.save(uer7);
+    userEventRatingRepository.save(uer8);
+  }
+
+  public List<Rating> addRatings() {
+    Rating rating1 = new Rating();
+    rating1.setStarRating(5);
+    rating1.setTextRating("great");
+    ratingRepository.save(rating1);
+    Rating rating2 = new Rating();
+    rating2.setStarRating(4);
+    rating2.setTextRating("wonderful");
+    ratingRepository.save(rating2);
+    Rating rating3 = new Rating();
+    rating3.setStarRating(2);
+    rating3.setTextRating("could have been better");
+    ratingRepository.save(rating3);
+    Rating rating4 = new Rating();
+    rating4.setStarRating(2);
+    rating4.setTextRating("not good");
+    ratingRepository.save(rating4);
+    Rating rating5 = new Rating();
+    rating5.setStarRating(4);
+    rating5.setTextRating("perfect");
+    ratingRepository.save(rating5);
+    Rating rating6 = new Rating();
+    rating6.setStarRating(4);
+    rating6.setTextRating("good");
+    ratingRepository.save(rating6);
+    Rating rating7 = new Rating();
+    rating7.setStarRating(1);
+    rating7.setTextRating("bad");
+    ratingRepository.save(rating7);
+    Rating rating8 = new Rating();
+    rating8.setStarRating(2);
+    rating8.setTextRating("not so good");
+    ratingRepository.save(rating8);
+    return ratingRepository.findAll();
   }
 
   public List<EventPlayer> addEventPlayers(List<Event> events, List<User> users) {
@@ -60,6 +150,12 @@ public class SportsmatchApplication implements CommandLineRunner {
     eventPlayerRepository.save(new EventPlayer(1, 0, users.get(6), events.get(3)));
     eventPlayerRepository.save(new EventPlayer(2, 1, users.get(4), events.get(4)));
     eventPlayerRepository.save(new EventPlayer(1, 2, users.get(5), events.get(4)));
+    eventPlayerRepository.save(new EventPlayer(1, 3, users.get(0), events.get(5)));
+    eventPlayerRepository.save(new EventPlayer(3, 1, users.get(9), events.get(5)));
+    eventPlayerRepository.save(new EventPlayer(1, 3, users.get(0), events.get(6)));
+    eventPlayerRepository.save(new EventPlayer(3, 1, users.get(9), events.get(6)));
+    eventPlayerRepository.save(new EventPlayer(1, 3, users.get(0), events.get(7)));
+    eventPlayerRepository.save(new EventPlayer(3, 1, users.get(9), events.get(7)));
     return eventPlayerRepository.findAll();
   }
 
@@ -107,7 +203,34 @@ public class SportsmatchApplication implements CommandLineRunner {
             "Prague Stvanice",
             1000,
             1800,
-            "Tennis Open",
+            "Tennis Open 1",
+            sports.get(4)));
+    eventRepository.save(
+        new Event(
+            LocalDateTime.of(2024, 6, 15, 10, 0),
+            LocalDateTime.of(2024, 6, 15, 12, 0),
+            "Prague Stvanice",
+            1000,
+            1800,
+            "Tennis Open 2",
+            sports.get(4)));
+    eventRepository.save(
+        new Event(
+            LocalDateTime.of(2024, 6, 15, 10, 0),
+            LocalDateTime.of(2024, 6, 15, 12, 0),
+            "Prague Stvanice",
+            1000,
+            1800,
+            "Tennis Open 3",
+            sports.get(4)));
+    eventRepository.save(
+        new Event(
+            LocalDateTime.of(2024, 6, 15, 10, 0),
+            LocalDateTime.of(2024, 6, 15, 12, 0),
+            "Prague Stvanice",
+            1000,
+            1800,
+            "Tennis Open 4",
             sports.get(4)));
     return eventRepository.findAll();
   }
@@ -202,15 +325,17 @@ public class SportsmatchApplication implements CommandLineRunner {
   }
 
   public List<Sport> addSports() {
-    String badmintonEmoji = "\uD83C\uDFF8"; //badminton racket emoji
-    String boxingEmoji = "\uD83E\uDD4A"; //boxing glove emoji
-    String tableTennisEmoji = "\uD83C\uDFD3"; //table tennis racket emoji
-    String tennisEmoji = "\uD83C\uDFBE"; //tennis racket emoji
-    String squashEmoji = "\uD83E\uDD4E"; //green softball emoji
+    String badmintonEmoji = "\uD83C\uDFF8"; // badminton racket emoji
+    String boxingEmoji = "\uD83E\uDD4A"; // boxing glove emoji
+    String tableTennisEmoji = "\uD83C\uDFD3"; // table tennis racket emoji
+    String tennisEmoji = "\uD83C\uDFBE"; // tennis racket emoji
+    String squashEmoji = "\uD83E\uDD4E"; // green softball emoji
 
-    sportRepository.save(new Sport("Badminton", badmintonEmoji, "./assets/sport-component-badminton.png"));
+    sportRepository.save(
+        new Sport("Badminton", badmintonEmoji, "./assets/sport-component-badminton.png"));
     sportRepository.save(new Sport("Boxing", boxingEmoji, "./assets/sport-component-boxing.png"));
-    sportRepository.save(new Sport("Table Tennis", tableTennisEmoji, "./assets/sport-component-table-tennis.png"));
+    sportRepository.save(
+        new Sport("Table Tennis", tableTennisEmoji, "./assets/sport-component-table-tennis.png"));
     sportRepository.save(new Sport("Squash", squashEmoji, "./assets/sport-component-squash.png"));
     sportRepository.save(new Sport("Tennis", tennisEmoji, "./assets/sport-component-tennis.png"));
 

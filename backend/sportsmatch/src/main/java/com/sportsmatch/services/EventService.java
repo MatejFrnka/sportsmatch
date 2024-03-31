@@ -13,7 +13,6 @@ import com.sportsmatch.repositories.EventRepository;
 import com.sportsmatch.repositories.SportRepository;
 import com.sportsmatch.repositories.UserRepository;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -25,7 +24,6 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
-@RequiredArgsConstructor
 public class EventService {
   private UserService userService;
   private EventRepository eventRepository;
@@ -33,10 +31,6 @@ public class EventService {
   private UserRepository userRepository;
   private SportRepository sportRepository;
   private EventPlayerRepository eventPlayerRepository;
-
-  public EventService(UserService userService) {
-    this.userService = userService;
-  }
 
 
   public Event getEventById(Long id) {
@@ -171,8 +165,14 @@ public class EventService {
       return EventStatusOptions.MISMATCH;
     }
   }
+
+
   public List<EventDTO> getNearbyEvents(RequestEventDTO requestEventDTO, final Pageable pageable) {
-    List<Event> events = eventRepository.nearByEvents(requestEventDTO.getLatitude(), requestEventDTO.getLongitude(), requestEventDTO.getSportNames(), pageable);
+    List<Event> events = eventRepository.findNearbyEvents(requestEventDTO.getLongitude(),
+        requestEventDTO.getLatitude(),
+        requestEventDTO.getSportNames(),
+        pageable);
+
     return events.stream().map(eventMapper::convertEventToEventDTO).collect(Collectors.toList());
   }
 }

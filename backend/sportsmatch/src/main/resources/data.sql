@@ -23,25 +23,29 @@ CREATE FUNCTION get_places_by_distance_and_sports_names(p_longitude FLOAT,
 BEGIN
 RETURN QUERY (
     SELECT
-        e.id,
-        e.date_start,
-        e.date_end,
-        e.min_elo,
-        e.max_elo,
-        e.title,
-        e.sport_id,
-        e.place_id,
-    FROM events e
-    JOIN e.sports s
-    JOIN e.places p
-    WHERE s.name = ANY(sport_names) OR s.name IS NULL
-    ORDER BY (
+    e.id,
+    e.date_start,
+    e.date_end,
+    e.min_elo,
+    e.max_elo,
+    e.title,
+    e.sport_id,
+    e.place_id
+FROM
+    events e
+JOIN
+    sports s ON e.sport_id = s.id
+JOIN
+    places p ON e.place_id = p.id
+WHERE
+	(:sport_name IS NULL OR LOWER(s.name) = LOWER(:sport_name))
+ORDER BY (
       6371 * acos(  -- Haversine distance calculation
-        cos(radians(p_latitude)) * cos(radians(latitude)) *
-        cos(radians(longitude) - radians(p_longitude)) +
-        sin(radians(p_latitude)) * sin(radians(latitude))
+        cos(radians(p.latitude)) * cos(radians(:latitude)) *
+        cos(radians(:longitude) - radians(p.longitude)) +
+        sin(radians(p.latitude)) * sin(radians(:latitude))
       )
-    ) ASC
+    ) ASC;
 );
 END;
 ' language plpgsql;

@@ -225,12 +225,12 @@ public class SportsmatchApplication implements CommandLineRunner {
   }
 
   public List<Place> addPlaces(){
-    placeRepository.save(new Place("Place 1", "Adress1", 54.27, 57.89));
-    placeRepository.save(new Place("Place 2", "Adress2", 64.27, 67.89));
-    placeRepository.save(new Place("Place 3", "Adress3", 74.27, 77.89));
-    placeRepository.save(new Place("Place 4", "Adress4", 84.27, 87.89));
-    placeRepository.save(new Place("Place 5", "Adress5", 94.27, 97.89));
-    placeRepository.save(new Place("Place 6", "Adress6", 104.27, 107.89));
+    placeRepository.save(new Place("Kanizsa Aréna", "Hungary", 46.4618, 17.0102));
+    placeRepository.save(new Place("AT&T Stadium Box", "USA", 32.7686, -96.711308));
+    placeRepository.save(new Place("Parc des Princes", "France", 48.8413634, 2.2530693));
+    placeRepository.save(new Place("San Siro", "Italy", 45.480290, 9.123080));
+    placeRepository.save(new Place("Burj Al Arab Helipad Tennis", "Dubai", 25.1411934, 55.1855516));
+    placeRepository.save(new Place("Old Trafford", "England", 53.464560, -2.289720));
 
     return placeRepository.findAll();
   }

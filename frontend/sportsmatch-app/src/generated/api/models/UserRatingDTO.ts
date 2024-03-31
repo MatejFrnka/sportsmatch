@@ -2,11 +2,10 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type RatingDTO = {
+export type UserRatingDTO = {
+    opponentName?: string;
     userTextRating?: string;
-    userStarRating: number;
-    eventStarRating: number;
-    myScore: number;
-    opponentScore: number;
+    userStarRating?: number;
+    createdAt?: string;
 };
 

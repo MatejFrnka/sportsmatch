@@ -1,5 +1,6 @@
 package com.sportsmatch.dtos;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.util.List;
@@ -12,9 +13,9 @@ public class RequestEventDTO {
 
   private List<String> sportNames;
 
-  @NonNull
-  private Double longitude;
+  @NotBlank
+  private double longitude;
 
-  @NonNull
-  private Double latitude;
+  @NotBlank
+  private double latitude;
 }

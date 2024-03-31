@@ -43,8 +43,8 @@ class PlaceControllerTest extends BaseTest {
     return PlaceDTO.builder()
         .name("Test Place Name1")
         .address("Test Address1")
-        .latitude(123.456F)
-        .longitude(789.012F)
+        .latitude(123.456)
+        .longitude(789.012)
         .build();
   }
 
@@ -52,8 +52,8 @@ class PlaceControllerTest extends BaseTest {
     return PlaceDTO.builder()
         .name("Test Place Name2")
         .address("Test Address2")
-        .latitude(123.456F)
-        .longitude(789.012F)
+        .latitude(123.456)
+        .longitude(789.012)
         .build();
   }
 

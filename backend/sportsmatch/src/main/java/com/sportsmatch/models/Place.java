@@ -27,11 +27,9 @@ public class Place {
   @NotBlank
   public String address;
 
-  @NotNull
-  public Double latitude;
+  public double latitude;
 
-  @NotNull
-  public Double longitude;
+  public double longitude;
 
   @OneToMany(mappedBy = "place")
   private Set<Event> events = new HashSet<>();

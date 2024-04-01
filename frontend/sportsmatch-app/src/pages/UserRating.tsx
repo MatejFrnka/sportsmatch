@@ -90,8 +90,8 @@ export default function UserRating() {
             <div className="col">
             {ratings.length === 0 ? (
                 <div className="row">
-                  <div className="col">
-                    <h2>No ratings yet</h2>
+                  <div className="col no-ratings-msg">
+                    <h2>no ratings available</h2>
                   </div>
                 </div>
               ) : (

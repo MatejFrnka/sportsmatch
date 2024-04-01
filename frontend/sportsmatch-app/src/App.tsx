@@ -20,7 +20,10 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-      <Route path="/user/:username/ratings" element={<Wrapper child={<UserRating />} />} />
+        <Route
+          path="/user/:id/ratings"
+          element={<Wrapper child={<UserRating />} />}
+        />
         <Route path="/login" element={<Wrapper child={<Login />} />} />
         <Route path="/signup" element={<Wrapper child={<Signup />} />} />
         <Route

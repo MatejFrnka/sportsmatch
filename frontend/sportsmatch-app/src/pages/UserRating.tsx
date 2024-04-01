@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import {
   ApiError,
-  Pageable,
   RatingControllerService,
   UserControllerService,
   UserDTO,
@@ -88,7 +87,7 @@ export default function UserRating() {
         <div className="col">
           <div className="row">
             <div className="col">
-            {ratings.length === 0 ? (
+              {ratings.length === 0 ? (
                 <div className="row">
                   <div className="col no-ratings-msg">
                     <h2>no ratings available</h2>
@@ -99,9 +98,6 @@ export default function UserRating() {
                   <RatingCard rating={rating} key={index} />
                 ))
               )}
-              {/* {ratings.map((rating, index) => (
-                <RatingCard rating={rating} key={index} />
-              ))} */}
             </div>
           </div>
           {ratings.length > 0 && (
@@ -111,11 +107,6 @@ export default function UserRating() {
               </div>
             </div>
           )}
-          {/* <div className="row load-btn">
-            <div className="col">
-              <button onClick={loadMore}>Load More</button>
-            </div>
-          </div> */}
         </div>
       </div>
     </>

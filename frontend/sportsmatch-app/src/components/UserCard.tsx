@@ -1,13 +1,22 @@
 import Stars from './Stars'
 import ProgressBar from 'react-bootstrap/ProgressBar'
-import { UserDTO } from '../generated/api'
+import { UserDTO, UserRatingStatsDTO } from '../generated/api'
 import '../styles/UserCard.css'
 
 interface UserCardProp {
   user: UserDTO
+  summary: UserRatingStatsDTO
 }
 
-export default function UserCard({ user }: UserCardProp) {
+export default function UserCard({ user, summary }: UserCardProp) {
+  const starRatingCounts = summary.starRatingCounts || {}
+  const totalRatings = Object.values(starRatingCounts).reduce(
+    (acc, count) => acc + count,
+    0,
+  )
+  const calculatePercentage = (count: number, total: number): number => {
+    return total === 0 ? 0 : (count / total) * 100
+  }
   return (
     <>
       <div className="row">
@@ -37,7 +46,7 @@ export default function UserCard({ user }: UserCardProp) {
             </div>
             <div className="row">
               <div className="col-3 d-flex justify-content-center">
-                <h1>4.9</h1>
+                <h1>{summary.averageRating}</h1>
                 <p>out of 5</p>
               </div>
               <div className="col g-0">
@@ -45,7 +54,7 @@ export default function UserCard({ user }: UserCardProp) {
                   <div className="col-4 stars">
                     <div className="row star">
                       <div className="col">
-                        <Stars numberOfStars={5}/>
+                        <Stars numberOfStars={5} />
                       </div>
                     </div>
                     <div className="row star">
@@ -72,11 +81,15 @@ export default function UserCard({ user }: UserCardProp) {
                   <div className="col">
                     <div className="row">
                       <div className="col progbar">
-                        <ProgressBar now={90} />
-                        <ProgressBar now={60} />
-                        <ProgressBar now={80} />
-                        <ProgressBar now={30} />
-                        <ProgressBar now={5} />
+                        {summary.starRatingCounts &&
+                          Object.entries(summary.starRatingCounts)
+                            .reverse()
+                            .map(([rating, count]) => (
+                              <ProgressBar
+                                key={rating}
+                                now={calculatePercentage(count, totalRatings)}
+                              />
+                            ))}
                       </div>
                     </div>
                   </div>

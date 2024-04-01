@@ -1,13 +1,13 @@
-import { RatingDTO } from '../generated/api'
+import { UserRatingDTO } from '../generated/api'
 import '../styles/RatingCard.css'
 import Stars from './Stars'
 
 interface RatingCardProps {
-  rating: RatingDTO
+  rating: UserRatingDTO
 }
 
 export default function RatingCard({ rating }: RatingCardProps) {
-  const {userTextRating, userStarRating, name} = rating
+  const { userTextRating, userStarRating, opponentName } = rating
   return (
     <>
       <div className="rated-wrapper">
@@ -21,12 +21,12 @@ export default function RatingCard({ rating }: RatingCardProps) {
           <div className="col">
             <div className="row">
               <div className="col rated-name">
-                <h5>{name}</h5>
+                <h5>{opponentName}</h5>
               </div>
             </div>
             <div className="row rated-star">
               <div className="col">
-                <Stars numberOfStars={userStarRating} isSolid={true} />
+                <Stars numberOfStars={userStarRating!} isSolid={true} />
               </div>
             </div>
             <p>{userTextRating}</p>

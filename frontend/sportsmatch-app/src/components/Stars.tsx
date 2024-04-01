@@ -14,12 +14,12 @@ export default function Stars({ numberOfStars, isSolid }: StarsProp) {
     for (let i = 0; i < numberOfStars; i++) {
       if (isSolid === true) {
         newStars.push(<TiStarFullOutline key={i} />)
-      } else{
+      } else {
         newStars.push(<TiStarOutline key={i} />)
       }
     }
     setStars(newStars)
-  }, [numberOfStars])
+  }, [numberOfStars, isSolid])
 
   return <>{stars}</>
 }

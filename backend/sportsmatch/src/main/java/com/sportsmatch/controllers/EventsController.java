@@ -70,6 +70,7 @@ public class EventsController {
    * @return a list of Events sorted by distance from the given location. User can filter by sports.
    */
 
+
   @GetMapping("/nearby")
   public List<EventDTO> getNearbyEvents(@RequestBody RequestEventDTO requestEventDTO,
                                         final Pageable pageable) {

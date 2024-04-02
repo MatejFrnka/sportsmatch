@@ -167,11 +167,9 @@ public class EventService {
   }
 
 
+
   public List<EventDTO> getNearbyEvents(RequestEventDTO requestEventDTO, final Pageable pageable) {
-    List<Event> events = eventRepository.findNearbyEvents(requestEventDTO.getLongitude(),
-        requestEventDTO.getLatitude(),
-        requestEventDTO.getSportNames(),
-        pageable);
+    List<Event> events = eventRepository.findNearbyEvents(requestEventDTO.getLongitude(), requestEventDTO.getLatitude(), requestEventDTO.getSportNames(), pageable);
 
     return events.stream().map(eventMapper::convertEventToEventDTO).collect(Collectors.toList());
   }

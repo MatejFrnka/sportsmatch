@@ -5,6 +5,7 @@ import com.sportsmatch.dtos.EventHistoryDTO;
 import com.sportsmatch.models.Event;
 import com.sportsmatch.models.EventPlayer;
 import com.sportsmatch.models.EventStatusOptions;
+import com.sportsmatch.models.Place;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +19,13 @@ public class EventMapper {
   private final UserMapper userMapper;
   private ModelMapper modelMapper;
 
+  private PlaceMapper placeMapper;
+
   @Autowired
-  public EventMapper(ModelMapper modelMapper, UserMapper userMapper) {
+  public EventMapper(ModelMapper modelMapper, UserMapper userMapper, PlaceMapper placeMapper) {
     this.modelMapper = modelMapper;
     this.userMapper = userMapper;
+    this.placeMapper = placeMapper;
     this.modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
   }
 
@@ -35,6 +39,7 @@ public class EventMapper {
       eventDTO.setPlayer2Id(eventPlayers.get(1).getPlayer().getId());
     }
     eventDTO.setSport(event.getSport().getName());
+    eventDTO.setPlaceDTO(placeMapper.toDTO(event.getPlace()));
     return eventDTO;
   }
 

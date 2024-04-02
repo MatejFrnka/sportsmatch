@@ -27,5 +27,5 @@ public class EventDTO {
   private Long player2Id;
   @NotBlank private String sport;
 
-  private Place place;
+  private PlaceDTO placeDTO;
 }

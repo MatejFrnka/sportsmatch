@@ -1,8 +1,13 @@
+/*
+
+This is initial file for stored procedure
+
+
 -- Cleanup
 drop function if exists get_places_by_distance_and_sports_names;
 drop type if exists event_rt;
 
--- Create record type           olyannak kell lennie mint az entity, amit vissza akarunk visszaadni, sorrend matcheljen a queryvel
+-- Create record type           It need to be similar like the entity we want to get back (sequence is important!)
 CREATE TYPE event_rt AS (
     id BIGINT,
     date_start TIMESTAMP,
@@ -49,3 +54,5 @@ ORDER BY (
 );
 END;
 ' language plpgsql;
+
+ */

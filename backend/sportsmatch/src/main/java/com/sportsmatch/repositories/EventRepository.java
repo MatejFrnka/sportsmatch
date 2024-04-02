@@ -35,30 +35,17 @@ public interface EventRepository extends JpaRepository<Event, Long> {
   );
 
 
-  @Query(nativeQuery = true, value = "SELECT " +
-      "    e.id, " +
-      "    e.date_start, " +
-      "    e.date_end, " +
-      "    e.min_elo, " +
-      "    e.max_elo, " +
-      "    e.title, " +
-      "    e.sport_id, " +
-      "    e.place_id " +
-      "FROM " +
-      "    events e " +
-      "JOIN " +
-      "    sports s ON e.sport_id = s.id " +
-      "JOIN " +
-      "    places p ON e.place_id = p.id " +
-      "WHERE " +
-      "s.name IN :sport_name " +
+  @Query(nativeQuery = true, value =
+      "SELECT e.id, e.date_start, e.date_end, e.min_elo, e.max_elo, e.title, e.sport_id, e.place_id " +
+      "FROM events e " +
+      "JOIN sports s ON e.sport_id = s.id " +
+      "JOIN places p ON e.place_id = p.id " +
+      "WHERE s.name IN :sport_name " +
       "ORDER BY ( " +
       "      6371 * acos( " +     // Haversine distance calculation
       "        cos(radians(p.latitude)) * cos(radians(:latitude)) * " +
       "        cos(radians(:longitude) - radians(p.longitude)) + " +
-      "        sin(radians(p.latitude)) * sin(radians(:latitude)) " +
-      "      ) " +
-      "    ) ASC;")
+      "        sin(radians(p.latitude)) * sin(radians(:latitude)))) ASC;")
   List<Event> findNearbyEvents(@Param("longitude") final double userLongitude,
                                @Param("latitude") final double userLatitude,
                                @Param("sport_name") final List<String> sportNames,

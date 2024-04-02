@@ -2,6 +2,7 @@ package com.sportsmatch.dtos;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
 
@@ -9,13 +10,14 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Validated
 public class RequestEventDTO {
 
   private List<String> sportNames;
 
-  @NotBlank
+  @NotBlank(message = "Longitude is required")
   private double longitude;
 
-  @NotBlank
+  @NotBlank(message = "Latitude is required")
   private double latitude;
 }

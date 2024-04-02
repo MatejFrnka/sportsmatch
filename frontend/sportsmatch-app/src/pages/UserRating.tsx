@@ -19,47 +19,49 @@ export default function UserRating() {
   const [summary, setSummary] = useState<UserRatingStatsDTO>()
   const [ratings, setRatings] = useState<UserRatingDTO[]>([])
   const [page, setPage] = useState<number>(0)
-  const size = 8
+  const size = 1
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // Fetch user data
-        const userResponse = await UserControllerService.getUser(userId)
-        const userData: UserDTO = userResponse as UserDTO
-        setUser(userData)
-
-        // Fetch summary data
-        const summaryResponse = await RatingControllerService.getSummary(userId)
-        const summaryData: UserRatingStatsDTO =
-          summaryResponse as UserRatingStatsDTO
-        setSummary(summaryData)
-
-        // Fetch ratings data
-        const ratingResponse = await RatingControllerService.getAllByUser(
-          userId,
-          page,
-          size,
-        )
-        const ratingData: UserRatingDTO[] = ratingResponse as UserRatingDTO[]
-        setRatings(ratingData)
-        // setRatings((previousPage) => [...previousPage, ...ratingData]) append previous & new elements
-      } catch (error) {
-        console.error(error as ApiError)
-      }
-    }
-
     fetchData()
-  }, [userId, page])
+    console.log('Ratings:', ratings)
+  }, [page])
+
+  const fetchData = async () => {
+    try {
+      // Fetch user data
+      const userResponse = await UserControllerService.getUser(userId)
+      const userData: UserDTO = userResponse as UserDTO
+      setUser(userData)
+
+      // Fetch summary data
+      const summaryResponse = await RatingControllerService.getSummary(userId)
+      const summaryData: UserRatingStatsDTO =
+        summaryResponse as UserRatingStatsDTO
+      setSummary(summaryData)
+
+      // Fetch ratings data
+
+      const ratingResponse = await RatingControllerService.getAllByUser(
+        userId,
+        page,
+        size,
+      )
+
+      const ratingData: UserRatingDTO[] = ratingResponse as UserRatingDTO[]
+      setRatings((previousPage) => [...previousPage, ...ratingData])
+    } catch (error) {
+      console.error(error as ApiError)
+    }
+  }
 
   const loadMore = () => {
     const nextPage = page + 1
     setPage(nextPage)
   }
+
+  // console.log('Current Page:', page)
   // console.log('User', user)
   // console.log('Summary', summary)
-  console.log('Current Page', page)
-  console.log('Ratings', ratings)
   // todo update UserDTO add win and loss count
 
   return (

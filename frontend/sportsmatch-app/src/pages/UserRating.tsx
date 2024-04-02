@@ -56,25 +56,28 @@ export default function UserRating() {
   const loadMore = async () => {
     try {
       // Fetch ratings data for subsequent pages
+      const nextPage = page + 1
       const ratingsResponse = await RatingControllerService.getAllByUser(
         userId,
         {
-          page: page + 1,
+          page: nextPage,
           size,
           sort: ['createdAt,desc'],
         },
       )
       setRatings((prevRatings) => [...prevRatings, ...ratingsResponse])
-      setPage((prevPage) => prevPage + 1)
+      setPage(nextPage)
+      console.log('Ratings Response for Page', nextPage, ratingsResponse)
     } catch (error) {
       console.error(error as ApiError)
     }
   }
 
-  console.log('User', user)
-  console.log('Summary', summary)
-  console.log('Current Page', page)
-  console.log('Ratings', ratings)
+  // console.log('User', user)
+  // console.log('Summary', summary)
+  // console.log('Current Page', page)
+  // console.log(page)
+  // console.log('Ratings', ratings)
 
   return (
     <>

@@ -3,6 +3,10 @@ package com.sportsmatch;
 import com.sportsmatch.configs.InitProperties;
 import com.sportsmatch.models.*;
 import com.sportsmatch.repositories.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Random;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -10,10 +14,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.List;
 
 @AllArgsConstructor
 @SpringBootApplication
@@ -101,6 +101,17 @@ public class SportsmatchApplication implements CommandLineRunner {
     userEventRatingRepository.save(uer6);
     userEventRatingRepository.save(uer7);
     userEventRatingRepository.save(uer8);
+
+    for (int i = 8; i < 58; i++) {
+      UserEventRating uer =
+          UserEventRating.builder()
+              .event(events.get(7))
+              .player(users.get(9))
+              .opponent(users.get(0))
+              .userRating(ratings.get(i))
+              .build();
+      userEventRatingRepository.save(uer);
+    }
   }
 
   public List<Rating> addRatings() {
@@ -136,6 +147,14 @@ public class SportsmatchApplication implements CommandLineRunner {
     rating8.setStarRating(2);
     rating8.setTextRating("not so good");
     ratingRepository.save(rating8);
+
+    Random rand = new Random();
+    for (int i = 0; i < 50; i++) {
+      int randomNumber = rand.nextInt(5 - 1 + 1) + 1;
+      Rating rating =
+          Rating.builder().starRating(randomNumber).textRating("test rating " + i).build();
+      ratingRepository.save(rating);
+    }
     return ratingRepository.findAll();
   }
 

@@ -19,7 +19,7 @@ export default function UserRating() {
   const [summary, setSummary] = useState<UserRatingStatsDTO>()
   const [ratings, setRatings] = useState<UserRatingDTO[]>([])
   const [page, setPage] = useState<number>(0)
-  const size = 1
+  const size = 20
 
   useEffect(() => {
     const fetchData = async () => {

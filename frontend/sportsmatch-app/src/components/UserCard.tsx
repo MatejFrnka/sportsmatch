@@ -29,8 +29,10 @@ export default function UserCard({ user, summary }: UserCardProp) {
                   <li>
                     <h4>{user.name}</h4>
                   </li>
-                  <li>Prague, CZ</li>
-                  <li>0W 1L</li>
+                  {/* <li>Prague, CZ</li> */}
+                  <li>
+                    {user.win}W {user.loss}L
+                  </li>
                 </ul>
               </div>
               <div className="col-4 elo">

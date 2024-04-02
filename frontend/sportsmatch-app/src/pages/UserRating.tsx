@@ -34,44 +34,13 @@ export default function UserRating() {
         const summaryData: UserRatingStatsDTO =
           summaryResponse as UserRatingStatsDTO
         setSummary(summaryData)
-
-        // Fetch ratings data
-        const ratingsResponse = await RatingControllerService.getAllByUser(
-          userId,
-          {
-            page,
-            size,
-            sort: ['createdAt,desc'],
-          },
-        )
-        setRatings(ratingsResponse)
       } catch (error) {
         console.error(error as ApiError)
       }
     }
 
     fetchData()
-  }, [userId, page])
-
-  const loadMore = async () => {
-    try {
-      // Fetch ratings data for subsequent pages
-      const nextPage = page + 1
-      const ratingsResponse = await RatingControllerService.getAllByUser(
-        userId,
-        {
-          page: nextPage,
-          size,
-          sort: ['createdAt,desc'],
-        },
-      )
-      setRatings((prevRatings) => [...prevRatings, ...ratingsResponse])
-      setPage(nextPage)
-      console.log('Ratings Response for Page', nextPage, ratingsResponse)
-    } catch (error) {
-      console.error(error as ApiError)
-    }
-  }
+  }, [userId])
 
   // console.log('User', user)
   // console.log('Summary', summary)

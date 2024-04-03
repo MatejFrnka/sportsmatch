@@ -5,7 +5,6 @@ import com.sportsmatch.dtos.EventHistoryDTO;
 import com.sportsmatch.models.Event;
 import com.sportsmatch.models.EventPlayer;
 import com.sportsmatch.models.EventStatusOptions;
-import com.sportsmatch.models.Place;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;

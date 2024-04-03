@@ -167,9 +167,19 @@ public class EventService {
   }
 
 
-
+  /**
+   * Finds events near the provided location and filters them based on optional sport names filters, returning a page of event data transfer objects (DTOs).
+   *
+   * @param requestEventDTO containing the request parameters for filtering events.
+   * @param pageable        containing page and size
+   * @return a list of EventDTO representing Events entity and filtered by sport names is given, and coordinate.
+   */
   public List<EventDTO> getNearbyEvents(RequestEventDTO requestEventDTO, final Pageable pageable) {
-    List<Event> events = eventRepository.findNearbyEvents(requestEventDTO.getLongitude(), requestEventDTO.getLatitude(), requestEventDTO.getSportNames(), pageable);
+
+    // Convert the given sportNames to lowercase because of the native custom query
+    List<String> sportNamesWithLowerCase = requestEventDTO.getSportNames().stream().map(String::toLowerCase).toList();
+
+    List<Event> events = eventRepository.findNearbyEvents(requestEventDTO.getLongitude(), requestEventDTO.getLatitude(), sportNamesWithLowerCase, pageable);
 
     return events.stream().map(eventMapper::convertEventToEventDTO).collect(Collectors.toList());
   }

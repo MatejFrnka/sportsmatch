@@ -36,9 +36,9 @@ public interface EventRepository extends JpaRepository<Event, Long> {
 
 
   /**
-   * Finds events near the user location, optionally filtered by sport names.
-   <p>
-   * This method uses a native SQL query with a Haversine distance calculation to find events ordered by their distance from the user's location.
+   * <p>Finds events near the user location, optionally filtered by sport names.</p>
+   *
+   * <p>This method uses a native SQL query with a Haversine distance calculation to find events ordered by their distance from the user's location.</p>
    *
    * @param userLongitude user's longitude coordinate
    * @param userLatitude  user's latitude coordinate
@@ -54,9 +54,9 @@ public interface EventRepository extends JpaRepository<Event, Long> {
           + "JOIN sports s ON e.sport_id = s.id "
           + "JOIN places p ON e.place_id = p.id "
           + "WHERE (:sportNames IS NULL OR LOWER(s.name) IN(:sportNames)) "
-          + "ORDER BY ( " +
-          "      6371 * acos( " +     // Haversine distance calculation
-          "        cos(radians(p.latitude)) * cos(radians(:latitude)) * "
+          + "ORDER BY ( "
+          + "      6371 * acos( " // Haversine distance calculation
+          + "        cos(radians(p.latitude)) * cos(radians(:latitude)) * "
           + "        cos(radians(:longitude) - radians(p.longitude)) + "
           + "        sin(radians(p.latitude)) * sin(radians(:latitude))) "
           + "    ) ASC;")

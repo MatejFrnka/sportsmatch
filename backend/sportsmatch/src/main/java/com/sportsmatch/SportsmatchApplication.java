@@ -224,7 +224,7 @@ public class SportsmatchApplication implements CommandLineRunner {
     return sportRepository.findAll();
   }
 
-  public List<Place> addPlaces(){
+  public List<Place> addPlaces() {
     placeRepository.save(new Place("Kanizsa Aréna", "Hungary", 46.4618, 17.0102));
     placeRepository.save(new Place("AT&T Stadium Box", "USA", 32.7686, -96.711308));
     placeRepository.save(new Place("Parc des Princes", "France", 48.8413634, 2.2530693));

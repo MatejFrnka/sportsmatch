@@ -159,7 +159,7 @@ class RatingServiceTest extends BaseTest {
   void getUserRatingStatsReturnsCorrectAverageRating() {
     // Arrange:
     // Average rating
-    when(userEventRatingRepository.findAverageRating(anyLong())).thenReturn(2.6666);
+    when(userEventRatingRepository.findAverageRating(anyLong())).thenReturn(Optional.of(2.6666));
 
     // Act
     UserRatingStatsDTO result = ratingService.getUserRatingStats(1L);

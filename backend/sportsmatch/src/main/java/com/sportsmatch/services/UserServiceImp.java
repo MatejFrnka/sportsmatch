@@ -80,6 +80,8 @@ public class UserServiceImp implements UserService {
         .name(user.get().getName())
         .sports(sports)
         .elo(user.get().getRank())
+        .win(user.get().getWin())
+        .loss(user.get().getLoss())
         .build();
   }
 

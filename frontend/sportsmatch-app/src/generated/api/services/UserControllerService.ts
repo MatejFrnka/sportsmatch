@@ -23,18 +23,18 @@ export class UserControllerService {
         });
     }
     /**
-     * @param username
+     * @param id
      * @returns any OK
      * @throws ApiError
      */
     public static getUser(
-        username: string,
+        id: number,
     ): CancelablePromise<Record<string, any>> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/api/v1/user/get/{username}',
+            url: '/api/v1/user/get/{id}',
             path: {
-                'username': username,
+                'id': id,
             },
         });
     }

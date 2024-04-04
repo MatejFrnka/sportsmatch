@@ -13,7 +13,6 @@ import com.sportsmatch.repositories.EventRepository;
 import com.sportsmatch.repositories.SportRepository;
 import com.sportsmatch.repositories.UserRepository;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -196,7 +195,7 @@ public class EventService {
   public List<EventDTO> getNearbyEvents(RequestEventDTO requestEventDTO, final Pageable pageable) {
 
     // Convert the given sportNames to lowercase because of the native custom query
-    List<String> sportNamesWithLowerCase = requestEventDTO.getSportNames().stream().map(String::toLowerCase).toList();
+    List<String> sportNamesWithLowerCase = requestEventDTO.getSportsName().stream().map(String::toLowerCase).toList();
 
     List<Event> events = eventRepository.findNearbyEvents(requestEventDTO.getLongitude(), requestEventDTO.getLatitude(), sportNamesWithLowerCase, pageable);
 

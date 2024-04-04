@@ -17,7 +17,7 @@ import java.util.Set;
 public class Place {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @GeneratedValue
   public Long id;
 
   @NotBlank

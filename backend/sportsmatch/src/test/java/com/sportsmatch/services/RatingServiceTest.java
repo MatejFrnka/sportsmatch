@@ -3,6 +3,7 @@ package com.sportsmatch.services;
 import com.sportsmatch.BaseTest;
 import com.sportsmatch.dtos.EventDTO;
 import com.sportsmatch.dtos.RatingDTO;
+import com.sportsmatch.dtos.UserRatingStatsDTO;
 import com.sportsmatch.mappers.EventMapper;
 import com.sportsmatch.mappers.RatingMapper;
 import com.sportsmatch.models.*;
@@ -15,9 +16,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
@@ -102,9 +101,7 @@ class RatingServiceTest extends BaseTest {
     List<EventPlayer> eventPlayers = new ArrayList<>();
     EventPlayer eventPlayer = new EventPlayer();
     eventPlayers.add(eventPlayer);
-    lenient()
-        .when(eventPlayerRepository.findEventPlayersByPlayer(player))
-        .thenReturn(eventPlayers);
+    lenient().when(eventPlayerRepository.findEventPlayersByPlayer(player)).thenReturn(eventPlayers);
 
     // Event rating
     lenient()
@@ -136,9 +133,7 @@ class RatingServiceTest extends BaseTest {
     List<EventPlayer> eventPlayers = new ArrayList<>();
     EventPlayer eventPlayer = new EventPlayer();
     eventPlayers.add(eventPlayer);
-    lenient()
-        .when(eventPlayerRepository.findEventPlayersByPlayer(player))
-        .thenReturn(eventPlayers);
+    lenient().when(eventPlayerRepository.findEventPlayersByPlayer(player)).thenReturn(eventPlayers);
 
     // Event rating
     UserEventRating userEventRating = new UserEventRating();
@@ -158,5 +153,38 @@ class RatingServiceTest extends BaseTest {
 
     // Assert:
     assertEquals(0, unratedEvents.size());
+  }
+
+  @Test
+  void getUserRatingStatsReturnsCorrectAverageRating() {
+    // Arrange:
+    // Average rating
+    when(userEventRatingRepository.findAverageRating(anyLong())).thenReturn(Optional.of(2.6666));
+
+    // Act
+    UserRatingStatsDTO result = ratingService.getUserRatingStats(1L);
+
+    // Assert
+    assertEquals(2.7, result.getAverageRating());
+  }
+
+  @Test
+  void getUserRatingStatsReturnsMapOfStarRatings() {
+    // Arrange:
+    // Rating counts
+    List<Object[]> counts = new ArrayList<>();
+    counts.add(new Object[] {2, 2L});
+    counts.add(new Object[] {1, 1L});
+    when(userEventRatingRepository.findRatingsCount(anyLong())).thenReturn(counts);
+
+    // Act
+    UserRatingStatsDTO result = ratingService.getUserRatingStats(1L);
+
+    // Assert
+    assertEquals(1, result.getStarRatingCounts().get("1"));
+    assertEquals(2, result.getStarRatingCounts().get("2"));
+    assertEquals(0, result.getStarRatingCounts().get("3"));
+    assertEquals(0, result.getStarRatingCounts().get("4"));
+    assertEquals(0, result.getStarRatingCounts().get("5"));
   }
 }

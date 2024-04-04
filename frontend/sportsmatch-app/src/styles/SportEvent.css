@@ -5,9 +5,10 @@
 .event .col.left {
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: center;
   border-top-left-radius: 0.125em;
   border-bottom-left-radius: 0.125em;
+  background: white;
 }
 
 .event .col.right {

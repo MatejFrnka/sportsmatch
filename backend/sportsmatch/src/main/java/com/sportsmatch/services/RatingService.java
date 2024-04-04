@@ -2,6 +2,8 @@ package com.sportsmatch.services;
 
 import com.sportsmatch.dtos.EventDTO;
 import com.sportsmatch.dtos.RatingDTO;
+import com.sportsmatch.dtos.UserRatingDTO;
+import com.sportsmatch.dtos.UserRatingStatsDTO;
 import com.sportsmatch.mappers.EventMapper;
 import com.sportsmatch.mappers.RatingMapper;
 import com.sportsmatch.models.*;
@@ -10,8 +12,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.data.domain.Pageable;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -78,5 +84,30 @@ public class RatingService {
 
   private boolean isEventRated(Event event, User player) {
     return userEventRatingRepository.findUserEventRatingByEventAndPlayer(event, player).isPresent();
+  }
+
+  public UserRatingStatsDTO getUserRatingStats(Long id) {
+    UserRatingStatsDTO stats = new UserRatingStatsDTO();
+    List<Object[]> counts = userEventRatingRepository.findRatingsCount(id);
+    Map<String, Integer> ratingCounts = stats.getStarRatingCounts();
+    for (Object[] row : counts) {
+      String starRating = String.valueOf(row[0]);
+      Long count = (Long) row[1];
+      ratingCounts.put(starRating, count.intValue());
+    }
+
+    Optional<Double> userRatingAverage = userEventRatingRepository.findAverageRating(id);
+    if (userRatingAverage.isEmpty()) {
+      stats.setAverageRating(0.0);
+      return stats;
+    }
+
+    BigDecimal average = BigDecimal.valueOf(userRatingAverage.get());
+    stats.setAverageRating(average.setScale(1, RoundingMode.HALF_UP).doubleValue());
+    return stats;
+  }
+
+  public List<UserRatingDTO> getAllUserRatings(Long id, Pageable pageable) {
+    return userEventRatingRepository.findAllByOpponent(id, pageable);
   }
 }

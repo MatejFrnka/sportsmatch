@@ -17,7 +17,7 @@ import java.util.Set;
 public class Event {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @GeneratedValue
   private Long id;
 
   @Column(name = "date_start")
@@ -33,6 +33,8 @@ public class Event {
   private Integer maxElo;
 
   private String title;
+
+  private Boolean isRanksUpdated = false;
 
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "event")
   private Set<EventPlayer> players = new HashSet<>();

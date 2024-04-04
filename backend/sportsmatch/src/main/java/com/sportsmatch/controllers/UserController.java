@@ -18,6 +18,15 @@ public class UserController {
   private final ValidationService validationService;
   private final UserService userService;
 
+  @GetMapping("/get/{id}")
+  public ResponseEntity<?> getUser(@PathVariable Long id) {
+    try {
+      return ResponseEntity.ok().body(userService.getUserById(id));
+    } catch (ResponseStatusException e) {
+      return ResponseEntity.status(e.getStatusCode()).build();
+    }
+  }
+
   @PostMapping("/update")
   public ResponseEntity<?> updateInfo(
       @RequestBody @Valid UserInfoDTO userInfoDTO, BindingResult bindingResult) {

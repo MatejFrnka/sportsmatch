@@ -33,9 +33,11 @@ public class EventMapper {
     List<EventPlayer> eventPlayers = event.getPlayers().stream().toList();
     if (eventPlayers.size() > 0) {
       eventDTO.setPlayer1Id(eventPlayers.get(0).getPlayer().getId());
+      eventDTO.setPlayer1Name(eventPlayers.get(0).getPlayer().getName());
     }
     if (eventPlayers.size() > 1) {
       eventDTO.setPlayer2Id(eventPlayers.get(1).getPlayer().getId());
+      eventDTO.setPlayer2Name(eventPlayers.get(1).getPlayer().getName());
     }
     eventDTO.setSport(event.getSport().getName());
     eventDTO.setPlaceDTO(placeMapper.toDTO(event.getPlace()));

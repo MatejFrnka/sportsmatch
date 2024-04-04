@@ -13,5 +13,7 @@ export type EventDTO = {
     player1Id?: number;
     player2Id?: number;
     sport: string;
+    player1Name?: string;
+    player2Name?: string;
 };
 

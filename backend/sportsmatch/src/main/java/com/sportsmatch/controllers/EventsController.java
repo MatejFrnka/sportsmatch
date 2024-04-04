@@ -49,7 +49,6 @@ public class EventsController {
     return ResponseEntity.ok().body(listOfEvents);
   }
 
-
   /**
    * This endpoint returns the history of the finished events by the logged-in user.
    *
@@ -73,5 +72,15 @@ public class EventsController {
   public List<EventDTO> getNearbyEvents(@RequestBody RequestEventDTO requestEventDTO,
                                         final Pageable pageable) {
     return eventService.getNearbyEvents(requestEventDTO, pageable);
+  }
+
+  @PostMapping("/{id}/join")
+  public ResponseEntity<?> joinEvent(@PathVariable("id") Long id) {
+    try {
+      eventService.joinEvent(id);
+      return ResponseEntity.ok().build();
+    } catch (Exception e) {
+      return ResponseEntity.badRequest().body(e.getMessage());
+    }
   }
 }

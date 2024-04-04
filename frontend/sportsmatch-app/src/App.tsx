@@ -12,6 +12,7 @@ import PrivateRoute from './components/PrivateRoute'
 import NotFound from './pages/NotFound'
 import { OpenAPI } from './generated/api'
 import UserInfo from './pages/UserInfo'
+import UserRating from './pages/UserRating'
 
 function App() {
   OpenAPI.TOKEN = localStorage.getItem('token')!
@@ -19,6 +20,10 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route
+          path="/user/:id/ratings"
+          element={<Wrapper child={<UserRating />} />}
+        />
         <Route path="/login" element={<Wrapper child={<Login />} />} />
         <Route path="/signup" element={<Wrapper child={<Signup />} />} />
         <Route
@@ -26,11 +31,15 @@ function App() {
           element={<Wrapper child={<AllSportsList />} />}
         />
         <Route element={<PrivateRoute />}>
-          <Route path="/index" element={<Wrapper child={<Index />} />} />
+          <Route
+            path="/index"
+            element={
+              <Wrapper child={<Index />} acitvateCheckRatingModal={true} />
+            }
+          />
           <Route path="/user" element={<UserPage />}></Route>
           <Route path="/user-info" element={<Wrapper child={<UserInfo />} />} />
         </Route>
-        <Route path="/index" element={<Wrapper child={<Index />} />} />
         <Route path="/test" element={<Test />}>
           <Route index element={<Test />} />
           <Route path=":testId" element={<Test />} />

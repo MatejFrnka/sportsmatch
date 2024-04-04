@@ -1,22 +1,21 @@
 package com.sportsmatch.dtos;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class RequestEventDTO {
 
-  private List<String> sportNames = new ArrayList<>(); // must initialize for native query
-
+  private List<String> sportsName = new ArrayList<>();;
   private double longitude;
-
   private double latitude;
 }

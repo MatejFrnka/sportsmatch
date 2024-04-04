@@ -8,20 +8,10 @@ import {
   LuSettings2,
 } from 'react-icons/lu'
 import { Link } from 'react-router-dom'
+import { EventDTO } from '../generated/api/models/EventDTO'
 
 interface InProgressProps {
-  event: {
-    id: number
-    maxElo: number
-    minElo: number
-    dateEnd: string
-    dateStart: string
-    location: string
-    title: string
-    sport: string
-    playerOne: string
-    playerTwo?: string
-  }
+  event: EventDTO
 }
 
 function InProgress({ event }: InProgressProps) {
@@ -37,7 +27,7 @@ function InProgress({ event }: InProgressProps) {
               >
                 <LuSettings2 />
               </Link>
-              {event.playerTwo === null ? (
+              {event.player2Id === null ? (
                 <h1>
                   Matchmaking
                   <br /> in progress
@@ -51,9 +41,9 @@ function InProgress({ event }: InProgressProps) {
               <ul>
                 <li>
                   <LuSwords />{' '}
-                  {event.playerTwo === null
+                  {event.player2Id === null
                     ? 'Awaiting opponent...'
-                    : event.playerTwo}
+                    : event.player2Name}
                 </li>
                 <li>
                   <LuMapPin />

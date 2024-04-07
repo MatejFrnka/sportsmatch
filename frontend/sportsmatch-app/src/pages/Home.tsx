@@ -5,26 +5,14 @@ import {
   EventDTO,
   EventHistoryDTO,
   EventsControllerService,
-  ExSecuredEndpointService,
   OpenAPI,
-  UserInfoDTO,
 } from '../generated/api'
 
 function Home() {
   const page = 0
   const size = 4
   const [eventsHistory, setEventsHistory] = useState<EventHistoryDTO[]>([])
-  const [currentUser, setCurrentUser] = useState<UserInfoDTO>()
   const [upcomingMatch, setUpcomingMatch] = useState<EventDTO[]>([])
-
-  useEffect(() => {
-    OpenAPI.TOKEN = localStorage.getItem('token')!
-    const init = async () => {
-      const fetchCurrentUser = await ExSecuredEndpointService.getUserMainPage()
-      setCurrentUser(fetchCurrentUser as UserInfoDTO)
-    }
-    init()
-  }, [])
 
   useEffect(() => {
     OpenAPI.TOKEN = localStorage.getItem('token')!
@@ -51,7 +39,7 @@ function Home() {
       {upcomingMatch.length > 0 ? (
         <Match event={upcomingMatch[0]} />
       ) : (
-        <div>No upcomnig events</div>
+        <div className="row">No upcomnig events</div>
       )}
 
       {eventsHistory.length > 0 ? (

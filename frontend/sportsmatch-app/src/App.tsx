@@ -36,7 +36,7 @@ function App() {
 
         {/* private routes */}
         <Route element={<PrivateRoute />}>
-          <Route path="/home" element={<Wrapper child={<Home />} />} />
+          <Route path="/app" element={<Wrapper child={<Home />} />} />
           <Route path="/user" element={<UserPage />}></Route>
           <Route path="/user-info" element={<Wrapper child={<UserInfo />} />} />
           <Route

@@ -34,8 +34,6 @@ class EventServiceTest extends BaseTest {
 
   @BeforeEach
   void setUp() {
-    //    userService = mock(UserService.class);
-    //    eventService = new EventService(userService);
     loggedUser = new User();
     loggedUser = createUser("loggedUser");
     otherUser = new User();

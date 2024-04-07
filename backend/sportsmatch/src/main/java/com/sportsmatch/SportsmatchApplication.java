@@ -23,6 +23,7 @@ public class SportsmatchApplication implements CommandLineRunner {
 
   private final UserRepository userRepository;
   private final SportRepository sportRepository;
+  private final PlaceRepository placeRepository;
   private final SportUserRepository sportUserRepository;
   private final EventPlayerRepository eventPlayerRepository;
   private final EventRepository eventRepository;
@@ -43,10 +44,11 @@ public class SportsmatchApplication implements CommandLineRunner {
   }
 
   public void addData() {
+    List<Place> places = addPlaces();
     List<Sport> sports = addSports();
     List<User> users = addUsers();
     List<SportUser> sportUsers = addSportUsers(sports, users);
-    List<Event> events = addEvents(sports);
+    List<Event> events = addEvents(sports, places);
     List<EventPlayer> eventPlayers = addEventPlayers(events, users);
     List<Rating> ratings = addRatings();
     addUserEventRating(ratings, users, events);
@@ -178,7 +180,7 @@ public class SportsmatchApplication implements CommandLineRunner {
     return eventPlayerRepository.findAll();
   }
 
-  public List<Event> addEvents(List<Sport> sports) {
+  public List<Event> addEvents(List<Sport> sports, List<Place> places) {
     eventRepository.save(
         new Event(
             LocalDateTime.of(2024, 5, 1, 14, 30),
@@ -187,7 +189,8 @@ public class SportsmatchApplication implements CommandLineRunner {
             1200,
             2000,
             "Badminton match",
-            sports.get(0)));
+            sports.get(0),
+            places.get(0)));
     eventRepository.save(
         new Event(
             LocalDateTime.of(2024, 7, 10, 18, 0),
@@ -196,7 +199,8 @@ public class SportsmatchApplication implements CommandLineRunner {
             1500,
             2500,
             "Boxing event",
-            sports.get(1)));
+            sports.get(1),
+            places.get(1)));
     eventRepository.save(
         new Event(
             LocalDateTime.of(2024, 8, 5, 9, 0),
@@ -205,7 +209,8 @@ public class SportsmatchApplication implements CommandLineRunner {
             800,
             1600,
             "Table Tennis for beginners",
-            sports.get(2)));
+            sports.get(2),
+            places.get(2)));
     eventRepository.save(
         new Event(
             LocalDateTime.of(2024, 9, 20, 15, 0),
@@ -214,7 +219,8 @@ public class SportsmatchApplication implements CommandLineRunner {
             1400,
             2200,
             "Squash challenge",
-            sports.get(3)));
+            sports.get(3),
+            places.get(3)));
     eventRepository.save(
         new Event(
             LocalDateTime.of(2024, 6, 15, 10, 0),
@@ -223,7 +229,8 @@ public class SportsmatchApplication implements CommandLineRunner {
             1000,
             1800,
             "Tennis Open 1",
-            sports.get(4)));
+            sports.get(4),
+            places.get(4)));
     eventRepository.save(
         new Event(
             LocalDateTime.of(2024, 6, 15, 10, 0),
@@ -232,7 +239,8 @@ public class SportsmatchApplication implements CommandLineRunner {
             1000,
             1800,
             "Tennis Open 2",
-            sports.get(4)));
+            sports.get(4),
+            places.get(4)));
     eventRepository.save(
         new Event(
             LocalDateTime.of(2024, 6, 15, 10, 0),
@@ -241,7 +249,8 @@ public class SportsmatchApplication implements CommandLineRunner {
             1000,
             1800,
             "Tennis Open 3",
-            sports.get(4)));
+            sports.get(4),
+            places.get(4)));
     eventRepository.save(
         new Event(
             LocalDateTime.of(2024, 6, 15, 10, 0),
@@ -250,7 +259,8 @@ public class SportsmatchApplication implements CommandLineRunner {
             1000,
             1800,
             "Tennis Open 4",
-            sports.get(4)));
+            sports.get(4),
+            places.get(4)));
     return eventRepository.findAll();
   }
 
@@ -359,5 +369,16 @@ public class SportsmatchApplication implements CommandLineRunner {
     sportRepository.save(new Sport("Tennis", tennisEmoji, "./assets/sport-component-tennis.png"));
 
     return sportRepository.findAll();
+  }
+
+  public List<Place> addPlaces() {
+    placeRepository.save(new Place("Kanizsa Aréna", "Hungary", 46.4618, 17.0102));
+    placeRepository.save(new Place("AT&T Stadium Box", "USA", 32.7686, -96.711308));
+    placeRepository.save(new Place("Parc des Princes", "France", 48.8413634, 2.2530693));
+    placeRepository.save(new Place("San Siro", "Italy", 45.480290, 9.123080));
+    placeRepository.save(new Place("Burj Al Arab Helipad Tennis", "Dubai", 25.1411934, 55.1855516));
+    placeRepository.save(new Place("Old Trafford", "England", 53.464560, -2.289720));
+
+    return placeRepository.findAll();
   }
 }

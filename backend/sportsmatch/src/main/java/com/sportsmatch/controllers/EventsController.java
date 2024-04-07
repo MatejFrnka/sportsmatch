@@ -76,4 +76,14 @@ public class EventsController {
       return ResponseEntity.badRequest().body(e.getMessage());
     }
   }
+
+  /**
+   * This endpoint returns the upcoming matches of the logged-in user.
+   *
+   * @return a list of logged-in user's upcoming EventDTOs ordered by date ascending
+   */
+  @GetMapping("/upcoming-matches")
+  public List<EventDTO> getUpcomingMatches() {
+    return eventService.getUsersUpcomingEvents();
+  }
 }

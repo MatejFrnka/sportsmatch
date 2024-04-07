@@ -193,4 +193,18 @@ public class EventService {
       throw new Exception("Event has already two players.");
     }
   }
+
+  /**
+   * Returns the upcoming matches of the logged-in user.
+   *
+   * @return a list of logged-in user's upcoming EventDTOs ordered by date ascending
+   */
+  public List<EventDTO> getUsersUpcomingEvents() {
+    User loggedUser = userService.getUserFromContext();
+    return eventRepository
+        .findUpcomingEventsByUser(loggedUser.getId(), LocalDateTime.now())
+        .stream()
+        .map(eventMapper::convertEventToEventDTO)
+        .collect(Collectors.toList());
+  }
 }

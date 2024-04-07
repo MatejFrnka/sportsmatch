@@ -16,11 +16,11 @@ function EventHistoryItem({ eventHistoryDTO }: EventHistoryProps) {
         ? 'VICTORY'
         : eventHistoryDTO.userScore! == eventHistoryDTO.opponentScore!
           ? 'DRAW'
-          : 'LOSS'
+          : 'DEFEAT'
     if (eventHistoryDTO.status?.includes('MATCH')) {
       setEventStatus(matchResult)
     } else if (eventHistoryDTO.status?.includes('WAITING_FOR_RATING')) {
-      const result = matchResult + '(UNCONFIRMED)'
+      const result = matchResult + ' (UNCONFIRMED)'
       setEventStatus(result)
     } else if (eventHistoryDTO.status?.includes('MISMATCH')) {
       setEventStatus('SCORE MISMATCH')
@@ -45,7 +45,11 @@ function EventHistoryItem({ eventHistoryDTO }: EventHistoryProps) {
                 <div className="user-name">You</div>
               </div>
               <div className="user-score score">
-                <span>{eventHistoryDTO.userScore}</span>
+                <span>
+                  {eventHistoryDTO.status?.includes('MISMATCH')
+                    ? '?'
+                    : eventHistoryDTO.userScore}
+                </span>
               </div>
             </div>
             <div className="colon">
@@ -53,7 +57,11 @@ function EventHistoryItem({ eventHistoryDTO }: EventHistoryProps) {
             </div>
             <div className="opponent-side">
               <div className="opponent-score score">
-                <span>{eventHistoryDTO.opponentScore}</span>
+                <span>
+                  {eventHistoryDTO.status?.includes('MISMATCH')
+                    ? '?'
+                    : eventHistoryDTO.opponentScore}
+                </span>
               </div>
               <div className="profile">
                 <div className="opponent-avatar">

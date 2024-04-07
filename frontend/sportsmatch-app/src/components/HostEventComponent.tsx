@@ -8,6 +8,9 @@ import {
   EventsControllerService,
   EventDTO,
 } from '../generated/api'
+import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
+import { format } from 'date-fns'
 
 function HostEventComponent() {
   const [matchTitle, setMatchTitle] = useState('')
@@ -15,13 +18,17 @@ function HostEventComponent() {
   const [sportsOptions, setSportsOptions] = useState<SportDTO[]>([])
   const [selectRank, setSelectedRank] = useState('')
   const rankOptions = Array.from({ length: 20 }, (_, index) => ({
-    value: index * 500,
+    value: index * 500 + 1,
     label: `${index * 500 + 1} - ${(index + 1) * 500}`,
   }))
   const [selectOppGender, setSelectedOppGender] = useState('')
   const genderOptions = ['Male', 'Female']
   const [selectLocation, setSelectedLocation] = useState('')
   const [locationsOptions, setLocationOptions] = useState<PlaceDTO[]>([])
+  const [selectStartDateAndTime, setStartDateAndTime] = useState<Date | null>(
+    null,
+  )
+  const [selectEndDateAndTime, setEndDateAndTime] = useState<Date | null>(null)
 
   useEffect(() => {
     SportControllerService.getSports({
@@ -37,43 +44,32 @@ function HostEventComponent() {
 
   const handleHostEvent = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    console.log(selectRank)
+    const [minElo, maxElo] = selectRank
+      .split(' - ')
+      .map((str) => parseInt(str.trim(), 10))
+
+      console.log(selectRank)
+      console.log(minElo)
+      console.log(maxElo)
+
+    const formattedStartDate = selectStartDateAndTime
+      ? format(selectStartDateAndTime, "yyyy-MM-dd'T'HH:mm:ss")
+      : ''
+    const formattedEndDate = selectEndDateAndTime
+      ? format(selectEndDateAndTime, "yyyy-MM-dd'T'HH:mm:ss")
+      : ''
     const event: EventDTO = {
-      dateStart: string;
-      dateEnd: string;
-      location: string;
-      minElo: number;
-      maxElo: number;
-      title: string;
-      player1Id?: number;
-      sport: string;
-  };
+      dateStart: formattedStartDate,
+      dateEnd: formattedEndDate,
+      location: selectLocation,
+      minElo: minElo,
+      maxElo: maxElo,
+      title: matchTitle,
+      player1Id: 1,
+      sport: selectSport,
+    }
     EventsControllerService.addEvent(event)
-
-  //   const formData = {
-  //     matchTitle,
-  //     selectSport,
-  //     selectRank,
-  //     selectOppGender,
-  //     selectLocation,
-  //     selectDateAndTimeStart
-  //     selectDateAndTimeEnd
-  //   }
-
-  //   try {
-  //     const response = await fetch('/api/v1/event/', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify(formData),
-  //     })
-  //     if (!response.ok) {
-  //       throw new Error('Failed to create event')
-  //     }
-  //     console.log('Event created successfully!')
-  //   } catch (error) {
-  //     console.error('Error creating event: ', error)
-  //   }
   }
 
   const handleSportSelection = (
@@ -94,6 +90,12 @@ function HostEventComponent() {
   ) => {
     setSelectedLocation(event.target.value)
   }
+  const handleStartDateSelection = (date: Date | null) => {
+    setStartDateAndTime(date)
+  }
+  const handleEndDateSelection = (date: Date | null) => {
+    setEndDateAndTime(date)
+  }
 
   return (
     <div className={'centered-container'}>
@@ -102,6 +104,7 @@ function HostEventComponent() {
           <div className="host-event-input-box">
             <label htmlFor="match-title"></label>
             <input
+              id="match-title"
               type="text"
               placeholder="Match Title"
               value={matchTitle}
@@ -111,8 +114,14 @@ function HostEventComponent() {
           </div>
           <div className="host-event-input-box">
             <label htmlFor="sports"></label>
-            <select value={selectSport} onChange={handleSportSelection}>
-              <option value="" disabled>Select sport</option>
+            <select
+              id="sports"
+              value={selectSport}
+              onChange={handleSportSelection}
+            >
+              <option value="" disabled>
+                Select sport
+              </option>
               {sportsOptions.map((sport, index) => (
                 <option key={index} value={sport.name}>
                   {sport.name}
@@ -122,10 +131,12 @@ function HostEventComponent() {
           </div>
           <div className="host-event-input-box">
             <label htmlFor="rank"></label>
-            <select value={selectRank} onChange={handleRankSelection}>
-              <option value="" disabled>Select a lowest rank</option>
+            <select id="rank" value={selectRank} onChange={handleRankSelection}>
+              <option value="" disabled>
+                Select a rank
+              </option>
               {rankOptions.map((option, index) => (
-                <option key={index} value={option.value}>
+                <option key={index} value={option.label}>
                   {option.label}
                 </option>
               ))}
@@ -133,8 +144,14 @@ function HostEventComponent() {
           </div>
           <div className="host-event-input-box">
             <label htmlFor="gender"></label>
-            <select value={selectOppGender} onChange={handleOppGenderSelection}>
-              <option value="" disabled>Select opponent gender</option>
+            <select
+              id="gender"
+              value={selectOppGender}
+              onChange={handleOppGenderSelection}
+            >
+              <option value="" disabled>
+                Select opponent gender
+              </option>
               {genderOptions.map((gender, index) => (
                 <option key={index} value={gender}>
                   {gender}
@@ -144,14 +161,46 @@ function HostEventComponent() {
           </div>
           <div className="host-event-input-box">
             <label htmlFor="location"></label>
-            <select value={selectLocation} onChange={handleLocationSelection}>
-              <option value="" disabled>Select location</option>
+            <select
+              id="location"
+              value={selectLocation}
+              onChange={handleLocationSelection}
+            >
+              <option value="" disabled>
+                Select location
+              </option>
               {locationsOptions.map((location, index) => (
                 <option key={index} value={location.name}>
                   {location.name}
                 </option>
               ))}
             </select>
+          </div>
+          <div className="host-event-input-box">
+            <div className="date-picker">
+              <label htmlFor="date-start"></label>
+              <DatePicker
+                id="date-start"
+                placeholderText="Starting date"
+                selected={selectStartDateAndTime}
+                onChange={handleStartDateSelection}
+                showTimeSelect
+                dateFormat="yyyy-MM-dd HH:mm:ss"
+              />
+            </div>
+          </div>
+          <div className="host-event-input-box">
+            <div className="date-picker">
+              <label htmlFor="date-end"></label>
+              <DatePicker
+                id="date-end"
+                placeholderText="Ending date"
+                selected={selectEndDateAndTime}
+                onChange={handleEndDateSelection}
+                showTimeSelect
+                dateFormat="yyyy-MM-dd HH:mm:ss"
+              />
+            </div>
           </div>
           <div className="create-event">
             <button type="submit">Host Event</button>

@@ -50,3 +50,9 @@
 .wrapper-host-event button:hover {
   transform: scale(1.05);
 }
+
+.date-picker button {
+  background: none;
+  height: 32px;
+  width: 32px;
+}

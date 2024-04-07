@@ -16,6 +16,14 @@ function Home() {
 
   useEffect(() => {
     OpenAPI.TOKEN = localStorage.getItem('token')!
+    const fetchUpcomingMatch = async () => {
+      setUpcomingMatch(await EventsControllerService.getUpcomingMatches())
+    }
+    fetchUpcomingMatch()
+  }, [])
+
+  useEffect(() => {
+    OpenAPI.TOKEN = localStorage.getItem('token')!
     const fetchEvents = async () => {
       const response = await EventsControllerService.getEventsHistory(
         //did not work with sorting, has to be checked

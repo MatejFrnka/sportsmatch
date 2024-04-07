@@ -20,8 +20,8 @@ public class PlaceDTO {
   private String address;
 
   @NotNull
-  private Float latitude;
+  private Double latitude;
 
   @NotNull
-  private Float longitude;
+  private Double longitude;
 }

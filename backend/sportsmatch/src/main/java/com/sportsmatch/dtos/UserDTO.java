@@ -12,5 +12,7 @@ public class UserDTO {
 
   private String name;
   private Integer elo;
+  private Integer win;
+  private Integer loss;
   private List<SportDTO> sports;
 }

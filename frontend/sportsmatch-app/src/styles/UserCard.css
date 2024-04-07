@@ -1,0 +1,110 @@
+.user-card {
+  margin-top: 20px;
+  min-height: 230px;
+  background-color: #fff;
+  border-radius: 2px;
+  padding: 15px;
+}
+
+.col img {
+  width: 82px;
+  height: 104px;
+  border-radius: 10px;
+  outline: solid 3px var(--sm-orange);
+  object-fit: cover;
+}
+
+.col.profile-details {
+  display: flex;
+  gap: 10px;
+}
+
+.col.profile-details ul,
+li {
+  font-family: var( --sm-secondary-font);
+  color: var(--sm-orange);
+  list-style-type: none;
+  padding: 0;
+}
+
+.col.profile-details h4 {
+  font-family: var( --sm-secondary-font);
+  margin: 0;
+}
+
+.profile-border {
+  border: 1px solid var(--sm-orange);
+  opacity: 100%;
+  border-radius: 10px;
+  margin: 10px 0 10px 0;
+}
+
+.col-4.elo {
+  font-family: var( --sm-secondary-font);
+  display: flex;
+  flex-direction: column-reverse;
+  color: var(--sm-orange);
+}
+
+.col-4.elo h6 {
+  text-align: right;
+  margin: 0;
+}
+
+.col h6 {
+  font-family: var( --sm-secondary-font);
+  font-weight: 500;
+  color: var(--sm-orange);
+}
+
+.col-3 {
+  text-align: center;
+  flex-direction: column;
+  color: var(--sm-orange);
+}
+
+.col-3 p {
+  font-family: var( --sm-secondary-font);
+  margin: 0;
+}
+
+.col-3 h1 {
+  font-family: var( --sm-secondary-font);
+  font-size: 36px;
+  font-weight: 900;
+  margin: 0;
+}
+
+.star svg{
+  color: var(--sm-orange);
+  height: 0.8em;
+}
+
+.col-4.stars {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+}
+
+.row.star{
+  height: 12px;
+}
+
+.progress {
+  height: 5px;
+}
+
+.progress-bar {
+  background-color: var(--sm-orange);
+}
+
+.progbar {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin: 12px;
+}
+
+.row.profile-border {
+  padding-left: 15px;
+}

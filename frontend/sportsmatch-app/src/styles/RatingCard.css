@@ -1,0 +1,29 @@
+.col img.rated-img {
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+  object-fit: cover;
+}
+
+.rated-wrapper {
+  background-color: white;
+  padding: 15px;
+  margin: 15px 0 15px 0;
+}
+
+.rated-wrapper p {
+  margin: 0;
+}
+
+.row.rated-star svg {
+  color: var(--sm-orange);
+}
+
+.col.rated-name h5 {
+  color: var(--sm-orange);
+  margin: 0;
+}
+
+.row-rated {
+  gap: 0;
+}

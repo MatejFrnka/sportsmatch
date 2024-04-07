@@ -24,7 +24,7 @@ public interface UserEventRatingRepository extends JpaRepository<UserEventRating
 
   @Query(
       "SELECT AVG(r.starRating) FROM UserEventRating uer JOIN Rating r ON uer.userRating.id = r.id WHERE uer.opponent.id = :id")
-  Double findAverageRating(@Param("id") Long id);
+  Optional<Double> findAverageRating(@Param("id") Long id);
 
   @Query(
       "SELECT new com.sportsmatch.dtos.UserRatingDTO(uer.player.name, r.textRating, r.starRating, r.createdAt) FROM UserEventRating uer JOIN Rating r "

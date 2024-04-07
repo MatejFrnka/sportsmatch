@@ -27,7 +27,7 @@ public class SecurityConfig {
   @Value("${app.sportsmingle.frontend.url}")
   private String frontendUrl;
   private static final String[] WHITE_LIST_URL = {
-    "/api/v1/auth/**", "/h2-console/**", "/v3/api-docs", "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/api/v1/places/search"
+    "/api/v1/auth/**", "/h2-console/**", "/v3/api-docs", "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/api/v1/places/search", "/api/v1/event/nearby"
   };
   private final JwtAuthFilter jwtAuthFilter;
   private final AuthenticationProvider authenticationProvider;

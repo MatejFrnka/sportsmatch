@@ -40,8 +40,8 @@ public class PlaceServiceTest extends BaseTest {
     return PlaceDTO.builder()
         .name("Test Place")
         .address("Test Address")
-        .latitude(123.456F)
-        .longitude(789.012F)
+        .latitude(123.456)
+        .longitude(789.012)
         .build();
   }
 
@@ -88,8 +88,8 @@ public class PlaceServiceTest extends BaseTest {
     assertEquals(1, foundPlaces.size());
     assertEquals("Test Place", foundPlaces.get(0).getName());
     assertEquals("Test Address", foundPlaces.get(0).getAddress());
-    assertEquals(123.456F, foundPlaces.get(0).getLatitude());
-    assertEquals(789.012F, foundPlaces.get(0).getLongitude());
+    assertEquals(123.456D, foundPlaces.get(0).getLatitude());
+    assertEquals(789.012D, foundPlaces.get(0).getLongitude());
   }
 
   @Test

@@ -2,7 +2,6 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { Pageable } from '../models/Pageable';
 import type { RatingDTO } from '../models/RatingDTO';
 import type { UserRatingDTO } from '../models/UserRatingDTO';
 import type { UserRatingStatsDTO } from '../models/UserRatingStatsDTO';
@@ -43,13 +42,17 @@ export class RatingControllerService {
     }
     /**
      * @param id
-     * @param pageable
+     * @param page Zero-based page index (0..N)
+     * @param size The size of the page to be returned
+     * @param sort Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
      * @returns UserRatingDTO OK
      * @throws ApiError
      */
     public static getAllByUser(
         id: number,
-        pageable: Pageable,
+        page?: number,
+        size: number = 20,
+        sort?: Array<string>,
     ): CancelablePromise<Array<UserRatingDTO>> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -58,7 +61,9 @@ export class RatingControllerService {
                 'id': id,
             },
             query: {
-                'pageable': pageable,
+                'page': page,
+                'size': size,
+                'sort': sort,
             },
         });
     }

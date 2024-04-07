@@ -95,7 +95,14 @@ public class RatingService {
       Long count = (Long) row[1];
       ratingCounts.put(starRating, count.intValue());
     }
-    BigDecimal average = BigDecimal.valueOf(userEventRatingRepository.findAverageRating(id));
+
+    Optional<Double> userRatingAverage = userEventRatingRepository.findAverageRating(id);
+    if (userRatingAverage.isEmpty()) {
+      stats.setAverageRating(0.0);
+      return stats;
+    }
+
+    BigDecimal average = BigDecimal.valueOf(userRatingAverage.get());
     stats.setAverageRating(average.setScale(1, RoundingMode.HALF_UP).doubleValue());
     return stats;
   }

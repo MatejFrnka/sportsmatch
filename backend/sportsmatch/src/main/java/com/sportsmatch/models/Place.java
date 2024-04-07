@@ -2,8 +2,10 @@ package com.sportsmatch.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -24,9 +26,18 @@ public class Place {
   @NotBlank
   public String address;
 
-  @NotNull
-  public Float latitude;
+  public double latitude;
 
-  @NotNull
-  private Float longitude;
+  public double longitude;
+
+  @OneToMany(mappedBy = "place")
+  private Set<Event> events = new HashSet<>();
+
+
+  public Place(String name, String address, Double latitude, Double longitude) {
+    this.name = name;
+    this.address = address;
+    this.latitude = latitude;
+    this.longitude = longitude;
+  }
 }

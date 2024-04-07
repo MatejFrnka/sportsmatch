@@ -12,7 +12,7 @@ import com.sportsmatch.repositories.EventPlayerRepository;
 import com.sportsmatch.repositories.EventRepository;
 import com.sportsmatch.repositories.SportRepository;
 import com.sportsmatch.repositories.UserRepository;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -23,8 +23,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
-// @AllArgsConstructor
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class EventService {
   private final UserService userService;
   private final EventRepository eventRepository;
@@ -33,9 +32,6 @@ public class EventService {
   private final SportRepository sportRepository;
   private final EventPlayerRepository eventPlayerRepository;
 
-  //  public EventService(UserService userService) {
-  //    this.userService = userService;
-  //  }
 
   public Event getEventById(Long id) {
     return eventRepository
@@ -126,10 +122,12 @@ public class EventService {
    * Returns the checked status of the match (check the score is matching or missing).
    *
    * @param players who entered the event (2 playerEvent)
-   * @return the status of the match There is 4 option: - Invalid Player -> if one of the player
-   *     don't present. - Waiting for ratings -> if one of the players doesn't response with the
-   *     score information. - Match -> when both player submitted their result and it is match. -
-   *     Mismatch -> when both players have submitted their result and it isn't a match.
+   * @return the status of the match
+   *     There is 4 option:
+   *     - Invalid Player -> if one of the player don't present.
+   *     - Waiting for ratings -> if one of the players doesn't response with the score information.
+   *     - Match -> when both player submitted their result and it is match.
+   *     - Mismatch -> when both players have submitted their result, and it isn't a match.
    */
   public EventStatusOptions checkScoreMatch(Set<EventPlayer> players) {
 
@@ -169,12 +167,6 @@ public class EventService {
     }
   }
 
-  public List<EventDTO> filterEvent(RequestEventDTO requestEventDTO) {
-    return eventRepository.findAll().stream()
-        .map(eventMapper::convertEventToEventDTO)
-        .collect(Collectors.toList());
-  }
-
   public void joinEvent(Long id) throws Exception {
     Event event = getEventById(id);
     User loggedUser = userService.getUserFromContext();
@@ -192,6 +184,23 @@ public class EventService {
     } else {
       throw new Exception("Event has already two players.");
     }
+  }
+
+  /**
+   * Finds events near the provided location and filters them based on optional sport names filters, returning a page of event data transfer objects (DTOs).
+   *
+   * @param requestEventDTO containing the request parameters for filtering events.
+   * @param pageable        containing page and size
+   * @return a list of EventDTO representing Events entity and filtered by sport names is given, and coordinate.
+   */
+  public List<EventDTO> getNearbyEvents(RequestEventDTO requestEventDTO, final Pageable pageable) {
+
+    // Convert the given sportNames to lowercase because of the native custom query
+    List<String> sportNamesWithLowerCase = requestEventDTO.getSportsName().stream().map(String::toLowerCase).toList();
+
+    List<Event> events = eventRepository.findNearbyEvents(requestEventDTO.getLongitude(), requestEventDTO.getLatitude(), sportNamesWithLowerCase, pageable);
+
+    return events.stream().map(eventMapper::convertEventToEventDTO).collect(Collectors.toList());
   }
 
   /**

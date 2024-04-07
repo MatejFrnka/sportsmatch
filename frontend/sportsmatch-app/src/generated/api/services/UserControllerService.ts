@@ -22,4 +22,20 @@ export class UserControllerService {
             mediaType: 'application/json',
         });
     }
+    /**
+     * @param id
+     * @returns any OK
+     * @throws ApiError
+     */
+    public static getUser(
+        id: number,
+    ): CancelablePromise<Record<string, any>> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/v1/user/get/{id}',
+            path: {
+                'id': id,
+            },
+        });
+    }
 }

@@ -2,6 +2,7 @@ package com.sportsmatch.controllers;
 
 import com.sportsmatch.dtos.EventDTO;
 import com.sportsmatch.dtos.EventHistoryDTO;
+import com.sportsmatch.dtos.RequestEventDTO;
 import com.sportsmatch.models.Event;
 import com.sportsmatch.services.EventService;
 import jakarta.validation.Valid;
@@ -48,7 +49,6 @@ public class EventsController {
     return ResponseEntity.ok().body(listOfEvents);
   }
 
-
   /**
    * This endpoint returns the history of the finished events by the logged-in user.
    *
@@ -58,5 +58,29 @@ public class EventsController {
   @GetMapping("/event-history")
   public List<EventHistoryDTO> getEventsHistory(final Pageable pageable) {
     return eventService.getEventsHistory(pageable);
+  }
+
+
+  /**
+   * This endpoint returns list of Events sorted by distance from the given location. User can filter by sports.
+   *
+   * @param requestEventDTO it contains longitude and latitude and a list of sports for filter if given
+   * @param pageable        it contains the page and size for pagination
+   * @return a list of Events sorted by distance from the given location. User can filter by sports.
+   */
+  @GetMapping("/nearby")
+  public List<EventDTO> getNearbyEvents(@RequestBody RequestEventDTO requestEventDTO,
+                                        final Pageable pageable) {
+    return eventService.getNearbyEvents(requestEventDTO, pageable);
+  }
+
+  @PostMapping("/{id}/join")
+  public ResponseEntity<?> joinEvent(@PathVariable("id") Long id) {
+    try {
+      eventService.joinEvent(id);
+      return ResponseEntity.ok().build();
+    } catch (Exception e) {
+      return ResponseEntity.badRequest().body(e.getMessage());
+    }
   }
 }

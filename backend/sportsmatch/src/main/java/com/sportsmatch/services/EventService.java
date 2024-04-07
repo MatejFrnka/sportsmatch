@@ -2,6 +2,7 @@ package com.sportsmatch.services;
 
 import com.sportsmatch.dtos.EventDTO;
 import com.sportsmatch.dtos.EventHistoryDTO;
+import com.sportsmatch.dtos.RequestEventDTO;
 import com.sportsmatch.mappers.EventMapper;
 import com.sportsmatch.models.Event;
 import com.sportsmatch.models.EventPlayer;
@@ -12,7 +13,6 @@ import com.sportsmatch.repositories.EventRepository;
 import com.sportsmatch.repositories.SportRepository;
 import com.sportsmatch.repositories.UserRepository;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -24,18 +24,13 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
-@RequiredArgsConstructor
 public class EventService {
-  private UserService userService;
-  private EventRepository eventRepository;
-  private EventMapper eventMapper;
-  private UserRepository userRepository;
-  private SportRepository sportRepository;
-  private EventPlayerRepository eventPlayerRepository;
-
-  public EventService(UserService userService) {
-    this.userService = userService;
-  }
+  private final UserService userService;
+  private final EventRepository eventRepository;
+  private final EventMapper eventMapper;
+  private final UserRepository userRepository;
+  private final SportRepository sportRepository;
+  private final EventPlayerRepository eventPlayerRepository;
 
 
   public Event getEventById(Long id) {
@@ -108,7 +103,6 @@ public class EventService {
     eventRepository.deleteById(eventById.getId());
   }
 
-
   /**
    * Retrieves the event history of the logged-in user.
    *
@@ -118,8 +112,7 @@ public class EventService {
   public List<EventHistoryDTO> getEventsHistory(final Pageable pageable) {
     String loggedUserName = userService.getUserFromContext().getName();
 
-    return eventRepository.findEventsByUser(loggedUserName, LocalDateTime.now(), pageable)
-        .stream()
+    return eventRepository.findEventsByUser(loggedUserName, LocalDateTime.now(), pageable).stream()
         .map(event -> eventMapper.toDTO(event, loggedUserName, checkScoreMatch(event.getPlayers())))
         .collect(Collectors.toList());
   }
@@ -129,26 +122,27 @@ public class EventService {
    *
    * @param players who entered the event (2 playerEvent)
    * @return the status of the match
-   *        There is 4 option:
+   *     There is 4 option:
    *     - Invalid Player -> if one of the player don't present.
    *     - Waiting for ratings -> if one of the players doesn't response with the score information.
    *     - Match -> when both player submitted their result and it is match.
-   *     - Mismatch -> when both players have submitted their result and it isn't a match.
+   *     - Mismatch -> when both players have submitted their result, and it isn't a match.
    */
-
   public EventStatusOptions checkScoreMatch(Set<EventPlayer> players) {
 
     User loggedUser = userService.getUserFromContext();
 
-    EventPlayer loggedPlayer = players.stream()
-        .filter(p -> p.getPlayer().getName().equals(loggedUser.getName()))
-        .findFirst()
-        .orElse(null);
+    EventPlayer loggedPlayer =
+        players.stream()
+            .filter(p -> p.getPlayer().getName().equals(loggedUser.getName()))
+            .findFirst()
+            .orElse(null);
 
-    EventPlayer otherPlayer = players.stream()
-        .filter(p -> !Objects.equals(p.getPlayer().getName(), loggedUser.getName()))
-        .findFirst()
-        .orElse(null);
+    EventPlayer otherPlayer =
+        players.stream()
+            .filter(p -> !Objects.equals(p.getPlayer().getName(), loggedUser.getName()))
+            .findFirst()
+            .orElse(null);
 
     if (loggedPlayer == null || otherPlayer == null) {
       return EventStatusOptions.INVALID_PLAYER;
@@ -164,10 +158,47 @@ public class EventService {
     int otherPlayerOwnScore = otherPlayer.getMyScore();
     int otherPlayerLoggedScore = otherPlayer.getOpponentScore();
 
-    if (loggedPlayerOwnScore == otherPlayerLoggedScore && loggedPlayerOpponentScore == otherPlayerOwnScore) {
+    if (loggedPlayerOwnScore == otherPlayerLoggedScore
+        && loggedPlayerOpponentScore == otherPlayerOwnScore) {
       return EventStatusOptions.MATCH;
     } else {
       return EventStatusOptions.MISMATCH;
     }
+  }
+
+  public void joinEvent(Long id) throws Exception {
+    Event event = getEventById(id);
+    User loggedUser = userService.getUserFromContext();
+    Set<EventPlayer> eventPlayerSet = event.getPlayers();
+    if (eventPlayerSet.size() <= 1
+        && eventPlayerRepository.findEventPlayerByEventAndPlayer(event, loggedUser).isEmpty()) {
+      EventPlayer eventPlayer = new EventPlayer();
+      eventPlayer.setPlayer(loggedUser);
+      eventPlayer.setEvent(event);
+      eventPlayerRepository.save(eventPlayer);
+    } else if (eventPlayerRepository
+        .findEventPlayerByEventAndPlayer(event, loggedUser)
+        .isPresent()) {
+      throw new Exception("User " + loggedUser.getName() + " has already joined the event.");
+    } else {
+      throw new Exception("Event has already two players.");
+    }
+  }
+
+  /**
+   * Finds events near the provided location and filters them based on optional sport names filters, returning a page of event data transfer objects (DTOs).
+   *
+   * @param requestEventDTO containing the request parameters for filtering events.
+   * @param pageable        containing page and size
+   * @return a list of EventDTO representing Events entity and filtered by sport names is given, and coordinate.
+   */
+  public List<EventDTO> getNearbyEvents(RequestEventDTO requestEventDTO, final Pageable pageable) {
+
+    // Convert the given sportNames to lowercase because of the native custom query
+    List<String> sportNamesWithLowerCase = requestEventDTO.getSportsName().stream().map(String::toLowerCase).toList();
+
+    List<Event> events = eventRepository.findNearbyEvents(requestEventDTO.getLongitude(), requestEventDTO.getLatitude(), sportNamesWithLowerCase, pageable);
+
+    return events.stream().map(eventMapper::convertEventToEventDTO).collect(Collectors.toList());
   }
 }

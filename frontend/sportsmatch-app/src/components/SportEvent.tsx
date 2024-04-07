@@ -1,22 +1,23 @@
+import { EventDTO } from '../generated/api'
 import '../styles/SportEvent.css'
 import { LuMapPin, LuMedal, LuCalendarCheck, LuCalendarX } from 'react-icons/lu'
 
-interface SportEventProps {
-  event: {
-    id: number
-    maxElo: number
-    minElo: number
-    dateEnd: string
-    dateStart: string
-    location: string
-    title: string
-    sport: string
-    playerOne: string
-    playerTwo?: string
-  }
-}
+// interface SportEventProps {
+//   event: {
+//     id: number
+//     maxElo: number
+//     minElo: number
+//     dateEnd: string
+//     dateStart: string
+//     location: string
+//     title: string
+//     sport: string
+//     playerOne: string
+//     playerTwo?: string
+//   }
+// }
 
-function SportEvent({ event }: SportEventProps) {
+function SportEvent({ event }: { event: EventDTO }) {
   return (
     <>
       <div className="container-fluid">

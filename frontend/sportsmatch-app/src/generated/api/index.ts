@@ -13,9 +13,12 @@ export { EventHistoryDTO } from './models/EventHistoryDTO';
 export type { Pageable } from './models/Pageable';
 export type { PlaceDTO } from './models/PlaceDTO';
 export type { RatingDTO } from './models/RatingDTO';
+export type { RequestEventDTO } from './models/RequestEventDTO';
 export type { SportDTO } from './models/SportDTO';
 export type { UserDTO } from './models/UserDTO';
 export type { UserInfoDTO } from './models/UserInfoDTO';
+export type { UserRatingDTO } from './models/UserRatingDTO';
+export type { UserRatingStatsDTO } from './models/UserRatingStatsDTO';
 
 export { EventsControllerService } from './services/EventsControllerService';
 export { ExSecuredEndpointService } from './services/ExSecuredEndpointService';

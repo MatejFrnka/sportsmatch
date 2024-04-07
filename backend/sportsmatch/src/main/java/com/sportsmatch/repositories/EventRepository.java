@@ -21,15 +21,15 @@ public interface EventRepository extends JpaRepository<Event, Long> {
   /**
    * Retrieves events filtered by user and finished status.
    *
-   * @param name     the logged user's name to filter events by
+   * @param id     the logged user's id to filter events by
    * @param now      the current time to filter events by
    * @param pageable pagination information (page, size)
    * @return a list of events filtered by user and finished status
    */
   // =?1 =?2")
-  @Query("SELECT ep.event FROM EventPlayer ep WHERE ep.player.name = :name AND ep.event.dateEnd < :now")
+  @Query("SELECT ep.event FROM EventPlayer ep WHERE ep.player.id = :id AND ep.event.dateEnd < :now")
   List<Event> findEventsByUser(
-      @Param("name") String name,
+      @Param("id") Long id,
       @Param("now") LocalDateTime now,
       Pageable pageable
   );

@@ -115,8 +115,9 @@ public class EventService {
    */
   public List<EventHistoryDTO> getEventsHistory(final Pageable pageable) {
     String loggedUserName = userService.getUserFromContext().getName();
+    Long loggedUserId = userService.getUserFromContext().getId();
 
-    return eventRepository.findEventsByUser(loggedUserName, LocalDateTime.now(), pageable).stream()
+    return eventRepository.findEventsByUser(loggedUserId, LocalDateTime.now(), pageable).stream()
         .map(event -> eventMapper.toDTO(event, loggedUserName, checkScoreMatch(event.getPlayers())))
         .collect(Collectors.toList());
   }

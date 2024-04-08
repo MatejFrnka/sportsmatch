@@ -7,10 +7,12 @@ import {
   EventsControllerService,
   OpenAPI,
 } from '../generated/api'
+import { Link } from 'react-router-dom'
+import '../styles/UserPage.css'
 
 function Home() {
   const page = 0
-  const size = 4
+  const size = 3
   const [eventsHistory, setEventsHistory] = useState<EventHistoryDTO[]>([])
   const [upcomingMatch, setUpcomingMatch] = useState<EventDTO[]>([])
 
@@ -38,23 +40,52 @@ function Home() {
     fetchEvents()
   }, [])
 
-  //TO DO: render ca three EventHistoryItems
-  //TO DO: add an alternative view when there are no past events
-  //TO DO: add an alternative view when there are no upcoming events
-
   return (
     <>
-      {upcomingMatch.length > 0 ? (
-        <Match event={upcomingMatch[0]} />
-      ) : (
-        <div className="row">No upcomnig events</div>
-      )}
-
-      {eventsHistory.length > 0 ? (
-        <EventHistoryItem eventHistoryDTO={eventsHistory[0]} />
-      ) : (
-        <div>No past Events</div>
-      )}
+      <div className="container-sm">
+        <div className="user-page">
+          {upcomingMatch.length === 0 ? <hr /> : <></>}
+          <div className="row">
+            {upcomingMatch.length === 0 ? (
+              <div className="match-wrapper">
+                <div className="col">
+                  <p>No upcoming match</p>
+                  <Link to="#">Find or Host a Match</Link>
+                </div>
+              </div>
+            ) : (
+              <Match event={upcomingMatch[0]} />
+            )}
+          </div>
+          <div className="view-wrapper">
+            {upcomingMatch.length === 0 ? <hr /> : <></>}
+            <div className="row">
+              <div className="col">
+                <p>History</p>
+              </div>
+              <div className="col view">
+                <Link to="#">View all</Link>
+              </div>
+            </div>
+          </div>
+          <div className="history-wrapper">
+            <div className="row">
+              <div className="col">
+                {upcomingMatch.length === 0 ? (
+                  <p>No match history</p>
+                ) : (
+                  eventsHistory.map((e, index) => (
+                    <EventHistoryItem key={index} eventHistoryDTO={e} />
+                  ))
+                )}
+              </div>
+            </div>
+          </div>
+          <div className="nearby-wrapper">
+            <p>Nearby</p>
+          </div>
+        </div>
+      </div>
     </>
   )
 }

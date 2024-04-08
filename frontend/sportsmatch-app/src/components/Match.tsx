@@ -9,12 +9,25 @@ import {
 } from 'react-icons/lu'
 import { Link } from 'react-router-dom'
 import { EventDTO } from '../generated/api/models/EventDTO'
+import { useEffect, useState } from 'react'
+import { ExSecuredEndpointService, OpenAPI, UserDTO } from '../generated/api'
 
 interface InProgressProps {
   event: EventDTO
 }
 
 function InProgress({ event }: InProgressProps) {
+  const [currentUser, setCurrentUser] = useState<UserDTO>()
+  useEffect(() => {
+    OpenAPI.TOKEN = localStorage.getItem('token')!
+    const fetchUserInfo = async () => {
+      setCurrentUser(
+        (await ExSecuredEndpointService.getUserMainPage()) as UserDTO,
+      )
+    }
+    fetchUserInfo()
+  }, [])
+
   const eventDate = new Date(
     parseInt(event.dateStart[0]),
     parseInt(event.dateStart[1]),
@@ -59,11 +72,13 @@ function InProgress({ event }: InProgressProps) {
                   <LuSwords />{' '}
                   {event.player2Id === null
                     ? 'Awaiting opponent...'
-                    : event.player2Name}
+                    : event.player1Name === currentUser?.name
+                      ? event.player2Name
+                      : event.player1Name}
                 </li>
                 <li>
                   <LuMapPin />
-                  {event.location}
+                  {event.placeDTO?.name}
                 </li>
                 <li>
                   <LuMedal />
@@ -71,11 +86,23 @@ function InProgress({ event }: InProgressProps) {
                 </li>
                 <li>
                   <LuCalendarCheck />
-                  {eventDate + ', ' + eventStartTime}
+                  {eventDate.getDay() +
+                    '.' +
+                    eventDate.getMonth() +
+                    '.' +
+                    eventDate.getFullYear() +
+                    ', ' +
+                    eventStartTime()}
                 </li>
                 <li>
                   <LuCalendarX />
-                  {eventDate + ', ' + eventEndTime}
+                  {eventDate.getDay() +
+                    '.' +
+                    eventDate.getMonth() +
+                    '.' +
+                    eventDate.getFullYear() +
+                    ', ' +
+                    eventEndTime()}
                 </li>
               </ul>
             </div>

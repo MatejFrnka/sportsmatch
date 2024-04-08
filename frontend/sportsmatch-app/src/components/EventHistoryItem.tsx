@@ -17,7 +17,10 @@ function EventHistoryItem({ eventHistoryDTO }: EventHistoryProps) {
         : eventHistoryDTO.userScore! == eventHistoryDTO.opponentScore!
           ? 'DRAW'
           : 'DEFEAT'
-    if (eventHistoryDTO.status?.includes('MATCH')) {
+    if (
+      eventHistoryDTO.status?.includes('MATCH') &&
+      !eventHistoryDTO.status.includes('MIS')
+    ) {
       setEventStatus(matchResult)
     } else if (eventHistoryDTO.status?.includes('WAITING_FOR_RATING')) {
       const result = matchResult + ' (UNCONFIRMED)'

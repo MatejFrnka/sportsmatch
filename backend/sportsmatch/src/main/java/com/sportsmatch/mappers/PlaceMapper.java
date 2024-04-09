@@ -15,6 +15,7 @@ public class PlaceMapper {
    */
   public PlaceDTO toDTO(Place entity) {
     return PlaceDTO.builder()
+        .id(entity.getId())
         .name(entity.getName())
         .address(entity.getAddress())
         .latitude(entity.getLatitude())

@@ -2,6 +2,7 @@ package com.sportsmatch.controllers;
 
 import com.sportsmatch.dtos.EventDTO;
 import com.sportsmatch.dtos.EventHistoryDTO;
+import com.sportsmatch.dtos.HostEventDTO;
 import com.sportsmatch.dtos.RequestEventDTO;
 import com.sportsmatch.models.Event;
 import com.sportsmatch.services.EventService;
@@ -30,8 +31,8 @@ public class EventsController {
   }
 
   @PostMapping("")
-  public ResponseEntity<?> addEvent(@RequestBody @Valid EventDTO eventDTO) {
-    Event newEvent = eventService.createEvent(eventDTO);
+  public ResponseEntity<?> addEvent(@RequestBody @Valid HostEventDTO hostEventDTO) {
+    Event newEvent = eventService.createEvent(hostEventDTO);
     return ResponseEntity.status(HttpStatus.CREATED)
         .body(eventService.getEventDTObyEventId(newEvent.getId()));
   }

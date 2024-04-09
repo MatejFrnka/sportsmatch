@@ -2,6 +2,7 @@ package com.sportsmatch.mappers;
 
 import com.sportsmatch.dtos.EventDTO;
 import com.sportsmatch.dtos.EventHistoryDTO;
+import com.sportsmatch.dtos.HostEventDTO;
 import com.sportsmatch.models.Event;
 import com.sportsmatch.models.EventPlayer;
 import com.sportsmatch.models.EventStatusOptions;
@@ -44,9 +45,9 @@ public class EventMapper {
     return eventDTO;
   }
 
-  public Event convertEventDTOtoEvent(EventDTO eventDTO) {
+  public Event convertHostEventDTOtoEvent(HostEventDTO hostEventDTO) {
     modelMapper.typeMap(EventDTO.class, Event.class).addMappings(e -> e.skip(Event::setId));
-    return modelMapper.map(eventDTO, Event.class);
+    return modelMapper.map(hostEventDTO, Event.class);
   }
 
   /**

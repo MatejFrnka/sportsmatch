@@ -10,9 +10,7 @@ import {
 import { Link } from 'react-router-dom'
 import '../styles/UserPage.css'
 
-function Home() {
-  const page = 0
-  const size = 3
+function Home() {  
   const [eventsHistory, setEventsHistory] = useState<EventHistoryDTO[]>([])
   const [upcomingMatch, setUpcomingMatch] = useState<EventDTO[]>([])
 
@@ -28,13 +26,12 @@ function Home() {
     OpenAPI.TOKEN = localStorage.getItem('token')!
     const fetchEvents = async () => {
       const response = await EventsControllerService.getEventsHistory(
-        //did not work with sorting, has to be checked
-        page,
-        size,
+        0,
+        3,
+        ['event.dateEnd,desc'],
       )
       if (response && response.length > 0) {
-        setEventsHistory(response)
-        console.log(response)
+        setEventsHistory(response)        
       }
     }
     fetchEvents()

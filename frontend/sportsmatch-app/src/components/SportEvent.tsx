@@ -26,7 +26,7 @@ function SportEvent({ event }: { event: EventDTO }) {
             <div className="col left">
               <ul>
                 <li data-testid="luMapPin">
-                  <LuMapPin /> {event.location}
+                  <LuMapPin /> {event.placeDTO?.name}
                 </li>
                 <li data-testid="luMedal">
                   <LuMedal /> {event.minElo} - {event.maxElo}

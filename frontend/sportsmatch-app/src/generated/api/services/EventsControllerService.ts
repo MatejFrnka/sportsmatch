@@ -91,17 +91,20 @@ export class EventsControllerService {
     }
     /**
      * @param requestEventDto
-     * @returns any OK
+     * @param pageable
+     * @returns EventDTO OK
      * @throws ApiError
      */
     public static getNearbyEvents(
         requestEventDto: RequestEventDTO,
-    ): CancelablePromise<Record<string, any>> {
+        pageable: Pageable,
+    ): CancelablePromise<Array<EventDTO>> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/v1/event/nearby',
             query: {
                 'requestEventDTO': requestEventDto,
+                'pageable': pageable,
             },
         });
     }

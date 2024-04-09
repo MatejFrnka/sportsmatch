@@ -44,14 +44,11 @@ function HostEventComponent() {
 
   const handleHostEvent = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    console.log(selectRank)
+    console.log(selectLocation)
+
     const [minElo, maxElo] = selectRank
       .split(' - ')
       .map((str) => parseInt(str.trim(), 10))
-
-      console.log(selectRank)
-      console.log(minElo)
-      console.log(maxElo)
 
     const formattedStartDate = selectStartDateAndTime
       ? format(selectStartDateAndTime, "yyyy-MM-dd'T'HH:mm:ss")

@@ -35,5 +35,6 @@ public class EventDTO {
   private String player1Name;
   private String player2Name;
 
+  @NotNull
   private PlaceDTO placeDTO;
 }

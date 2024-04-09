@@ -6,6 +6,7 @@ import com.sportsmatch.dtos.RequestEventDTO;
 import com.sportsmatch.models.Event;
 import com.sportsmatch.services.EventService;
 import jakarta.validation.Valid;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -56,7 +57,7 @@ public class EventsController {
    * @return a list of finished EventHistoryDTO of the logged-in user
    */
   @GetMapping("/event-history")
-  public List<EventHistoryDTO> getEventsHistory(final Pageable pageable) {
+  public List<EventHistoryDTO> getEventsHistory(@ParameterObject final Pageable pageable) {
     return eventService.getEventsHistory(pageable);
   }
 
@@ -70,7 +71,7 @@ public class EventsController {
    */
   @GetMapping("/nearby")
   public List<EventDTO> getNearbyEvents(@RequestBody RequestEventDTO requestEventDTO,
-                                        final Pageable pageable) {
+                                        @ParameterObject final Pageable pageable) {
     return eventService.getNearbyEvents(requestEventDTO, pageable);
   }
 

@@ -3,6 +3,7 @@ package com.sportsmatch.controllers;
 import com.sportsmatch.dtos.SportDTO;
 import com.sportsmatch.services.SportService;
 import lombok.RequiredArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +25,7 @@ public class SportController {
    * @return paginated list of SportDTO
    */
   @GetMapping("/all")
-  public List<SportDTO> getSports(final Pageable pageable) {
+  public List<SportDTO> getSports(@ParameterObject final Pageable pageable) {
     return sportService.getAllSports(pageable);
   }
 }

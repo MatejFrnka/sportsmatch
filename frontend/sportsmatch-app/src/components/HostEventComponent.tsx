@@ -6,7 +6,7 @@ import {
   SportDTO,
   PlaceDTO,
   EventsControllerService,
-  EventDTO,
+  HostEventDTO,
 } from '../generated/api'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
@@ -23,7 +23,7 @@ function HostEventComponent() {
   }))
   const [selectOppGender, setSelectedOppGender] = useState('')
   const genderOptions = ['Male', 'Female']
-  const [selectLocation, setSelectedLocation] = useState('')
+  const [selectLocation, setSelectedLocation] = useState<PlaceDTO>()
   const [locationsOptions, setLocationOptions] = useState<PlaceDTO[]>([])
   const [selectStartDateAndTime, setStartDateAndTime] = useState<Date | null>(
     null,
@@ -56,14 +56,13 @@ function HostEventComponent() {
     const formattedEndDate = selectEndDateAndTime
       ? format(selectEndDateAndTime, "yyyy-MM-dd'T'HH:mm:ss")
       : ''
-    const event: EventDTO = {
+    const event: HostEventDTO = {
       dateStart: formattedStartDate,
       dateEnd: formattedEndDate,
-      location: selectLocation,
+      locationId: selectLocation?.id,
       minElo: minElo,
       maxElo: maxElo,
       title: matchTitle,
-      player1Id: 1,
       sport: selectSport,
     }
     EventsControllerService.addEvent(event)

@@ -2,6 +2,7 @@ package com.sportsmatch.services;
 
 import com.sportsmatch.dtos.EventDTO;
 import com.sportsmatch.dtos.EventHistoryDTO;
+import com.sportsmatch.dtos.HostEventDTO;
 import com.sportsmatch.dtos.RequestEventDTO;
 import com.sportsmatch.mappers.EventMapper;
 import com.sportsmatch.models.Event;
@@ -79,23 +80,24 @@ public class EventService {
     return eventPlayerRepository.save(eventPlayer);
   }
 
-  public Event createEvent(EventDTO eventDTO) {
-    Event newEvent = eventMapper.convertEventDTOtoEvent(eventDTO);
+  public Event createEvent(HostEventDTO hostEventDTO) {
+    userService.getUserFromContext();
+    Event newEvent = eventMapper.convertHostEventDTOtoEvent(hostEventDTO);
     newEvent.setSport(
         sportRepository
-            .findSportByName(eventDTO.getSport())
+            .findSportByName(hostEventDTO.getSport())
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST)));
     newEvent = eventRepository.save(newEvent);
 
-    Set<EventPlayer> players = new HashSet<>();
-    if (eventDTO.getPlayer1Id() != null) {
-      players.add(addPlayerToEvent(eventDTO.getPlayer1Id(), newEvent.getId()));
-    }
-    if (eventDTO.getPlayer2Id() != null) {
-      players.add(addPlayerToEvent(eventDTO.getPlayer2Id(), newEvent.getId()));
-    }
-
-    newEvent.setPlayers(players);
+//    Set<EventPlayer> players = new HashSet<>();
+//    if (hostEventDTO.getPlayer1Id() != null) {
+//      players.add(addPlayerToEvent(hostEventDTO.getPlayer1Id(), newEvent.getId()));
+//    }
+//    if (hostEventDTO.getPlayer2Id() != null) {
+//      players.add(addPlayerToEvent(hostEventDTO.getPlayer2Id(), newEvent.getId()));
+//    }
+//
+//    newEvent.setPlayers(players);
     return newEvent;
   }
 

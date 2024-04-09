@@ -10,7 +10,7 @@ import {
 import { Link } from 'react-router-dom'
 import '../styles/UserPage.css'
 
-function Home() {  
+function Home() {
   const [eventsHistory, setEventsHistory] = useState<EventHistoryDTO[]>([])
   const [upcomingMatch, setUpcomingMatch] = useState<EventDTO[]>([])
 
@@ -25,13 +25,11 @@ function Home() {
   useEffect(() => {
     OpenAPI.TOKEN = localStorage.getItem('token')!
     const fetchEvents = async () => {
-      const response = await EventsControllerService.getEventsHistory(
-        0,
-        3,
-        ['event.dateEnd,desc'],
-      )
+      const response = await EventsControllerService.getEventsHistory(0, 3, [
+        'event.dateEnd,desc',
+      ])
       if (response && response.length > 0) {
-        setEventsHistory(response)        
+        setEventsHistory(response)
       }
     }
     fetchEvents()

@@ -25,16 +25,6 @@ export class RatingControllerService {
         });
     }
     /**
-     * @returns any OK
-     * @throws ApiError
-     */
-    public static checkRating(): CancelablePromise<Record<string, any>> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/api/v1/rating/check',
-        });
-    }
-    /**
      * @param id
      * @returns UserRatingStatsDTO default response
      * @throws ApiError

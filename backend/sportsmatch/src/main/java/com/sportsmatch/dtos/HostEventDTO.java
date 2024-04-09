@@ -12,12 +12,24 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 public class HostEventDTO {
-  @NotNull private LocalDateTime dateStart;
-  @NotNull private LocalDateTime dateEnd;
-  @NotNull private Integer minElo;
-  @NotNull private Integer maxElo;
-  @NotBlank private String title;
+
+  private Long id;
+
+  @NotNull
+  private LocalDateTime dateStart;
+  @NotNull
+  private LocalDateTime dateEnd;
+  @NotNull
+  private Integer minElo;
+  @NotNull
+  private Integer maxElo;
+  @NotBlank
+  private String title;
+
   private Long player1Id;
-  @NotBlank private String sport;
-  @NotNull private PlaceDTO placeDTO;
+
+  @NotBlank
+  private String sport;
+  @NotNull
+  private PlaceDTO placeDTO;
 }

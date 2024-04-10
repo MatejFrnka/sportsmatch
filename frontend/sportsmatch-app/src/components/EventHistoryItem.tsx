@@ -18,14 +18,20 @@ function EventHistoryItem({ eventHistoryDTO }: EventHistoryProps) {
           ? 'DRAW'
           : 'DEFEAT'
     if (
-      eventHistoryDTO.status?.includes('MATCH') &&
-      !eventHistoryDTO.status.includes('MIS')
+      eventHistoryDTO.status?.includes(EventHistoryDTO.status.MATCH) &&
+      !eventHistoryDTO.status?.includes(EventHistoryDTO.status.MISMATCH)
     ) {
       setEventStatus(matchResult)
-    } else if (eventHistoryDTO.status?.includes('WAITING_FOR_RATING')) {
+    } else if (
+      eventHistoryDTO.status?.includes(
+        EventHistoryDTO.status.WAITING_FOR_RATING,
+      )
+    ) {
       const result = matchResult + ' (UNCONFIRMED)'
       setEventStatus(result)
-    } else if (eventHistoryDTO.status?.includes('MISMATCH')) {
+    } else if (
+      eventHistoryDTO.status?.includes(EventHistoryDTO.status.MISMATCH)
+    ) {
       setEventStatus('SCORE MISMATCH')
     }
   }, [
@@ -49,7 +55,9 @@ function EventHistoryItem({ eventHistoryDTO }: EventHistoryProps) {
               </div>
               <div className="user-score score">
                 <span>
-                  {eventHistoryDTO.status?.includes('MISMATCH')
+                  {eventHistoryDTO.status?.includes(
+                    EventHistoryDTO.status.MISMATCH,
+                  )
                     ? '?'
                     : eventHistoryDTO.userScore}
                 </span>
@@ -61,7 +69,9 @@ function EventHistoryItem({ eventHistoryDTO }: EventHistoryProps) {
             <div className="opponent-side">
               <div className="opponent-score score">
                 <span>
-                  {eventHistoryDTO.status?.includes('MISMATCH')
+                  {eventHistoryDTO.status?.includes(
+                    EventHistoryDTO.status.MISMATCH,
+                  )
                     ? '?'
                     : eventHistoryDTO.opponentScore}
                 </span>

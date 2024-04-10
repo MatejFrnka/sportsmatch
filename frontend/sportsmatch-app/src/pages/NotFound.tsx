@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import '../styles/Sport.css'
 
 export default function NotFound() {
-  const mainPageURL = '/mainpage'
+  const mainPageURL = '/'
   const navigate = useNavigate()
 
   return (

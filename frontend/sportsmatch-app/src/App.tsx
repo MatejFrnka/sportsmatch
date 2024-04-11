@@ -40,10 +40,7 @@ function App() {
           />
           <Route path="/user" element={<UserPage />}></Route>
           <Route path="/user-info" element={<Wrapper child={<UserInfo />} />} />
-          <Route
-            path="/host-event"
-            element={<Wrapper child={<HostEvent />} />}
-          />
+          <Route path="/host-event" element={<Wrapper child={<HostEvent/>} />}/>
         </Route>
         <Route path="/test" element={<Test />}>
           <Route index element={<Test />} />

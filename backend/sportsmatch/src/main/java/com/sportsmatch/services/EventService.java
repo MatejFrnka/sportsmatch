@@ -95,16 +95,6 @@ public class EventService {
         newEvent = eventRepository.save(newEvent);
         EventPlayer userPlayer = new EventPlayer(null, null, user, newEvent);
         eventPlayerRepository.save(userPlayer);
-
-//    Set<EventPlayer> players = new HashSet<>();
-//    if (hostEventDTO.getPlayer1Id() != null) {
-//      players.add(addPlayerToEvent(hostEventDTO.getPlayer1Id(), newEvent.getId()));
-//    }
-//    if (hostEventDTO.getPlayer2Id() != null) {
-//      players.add(addPlayerToEvent(hostEventDTO.getPlayer2Id(), newEvent.getId()));
-//    }
-//
-//    newEvent.setPlayers(players);
         return newEvent;
     }
 

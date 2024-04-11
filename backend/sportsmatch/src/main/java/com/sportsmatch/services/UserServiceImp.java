@@ -19,10 +19,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -70,7 +67,7 @@ public class UserServiceImp implements UserService {
     }
 
     List<EventPlayer> events = new ArrayList<>(user.get().getEventsPlayed());
-    List<SportDTO> sports = new ArrayList<>();
+    HashSet<SportDTO> sports = new HashSet<>();
     for (EventPlayer e : events) {
       rankService.updatePlayersRanks(e.getEvent());
       sports.add(sportMapper.toDTO(e.getEvent().getSport()));
@@ -78,7 +75,7 @@ public class UserServiceImp implements UserService {
 
     return UserDTO.builder()
         .name(user.get().getName())
-        .sports(sports)
+        .sports(sports.stream().toList())
         .elo(user.get().getRank())
         .win(user.get().getWin())
         .loss(user.get().getLoss())

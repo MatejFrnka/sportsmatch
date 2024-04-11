@@ -42,7 +42,7 @@ function HostEventComponent() {
     PlaceControllerService.searchPlaces('').then((response) =>
       setLocationOptions(response),
     )
-  }, [SportControllerService, PlaceControllerService])
+  })
 
   const handleHostEvent = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()

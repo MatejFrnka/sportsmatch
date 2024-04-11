@@ -118,6 +118,11 @@ export default function MainPage() {
     navigate('/app')
   }
 
+  const loadMore = () => {
+    const nextPage = page + 1
+    setPage(nextPage)
+  }
+
   return (
     <>
       <div className="container-fluid">
@@ -184,6 +189,13 @@ export default function MainPage() {
             </div>
           </div>
         </div>
+        {filteredEvent.length > 0 && (
+          <div className="row load-btn">
+            <div className="col">
+              <button onClick={loadMore}>Load More Events</button>
+            </div>
+          </div>
+        )}
       </div>
     </>
   )

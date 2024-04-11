@@ -56,3 +56,7 @@
   height: 32px;
   width: 32px;
 }
+
+.react-datepicker-wrapper {
+  width: 100%;
+}

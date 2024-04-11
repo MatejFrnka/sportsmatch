@@ -11,6 +11,7 @@ import {
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { format } from 'date-fns'
+import { useNavigate } from 'react-router-dom'
 
 function HostEventComponent() {
   const [matchTitle, setMatchTitle] = useState('')
@@ -29,6 +30,7 @@ function HostEventComponent() {
     null,
   )
   const [selectEndDateAndTime, setEndDateAndTime] = useState<Date | null>(null)
+  const navigate = useNavigate()
 
   useEffect(() => {
     SportControllerService.getSports({
@@ -65,7 +67,9 @@ function HostEventComponent() {
       title: matchTitle,
       sport: selectSport,
     }
-    EventsControllerService.addEvent(event)
+    EventsControllerService.addEvent(event).then((response) => {
+      navigate('/app')
+    })
   }
 
   const handleSportSelection = (
@@ -162,7 +166,7 @@ function HostEventComponent() {
               value={selectLocation}
               onChange={handleLocationSelection}
             >
-              <option value="" disabled>
+              <option value="" disabled selected>
                 Select location
               </option>
               {locationsOptions.map((location, index) => (

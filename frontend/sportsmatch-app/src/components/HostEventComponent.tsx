@@ -23,7 +23,7 @@ function HostEventComponent() {
   }))
   const [selectOppGender, setSelectedOppGender] = useState('')
   const genderOptions = ['Male', 'Female']
-  const [selectLocation, setSelectedLocation] = useState<PlaceDTO>()
+  const [selectLocation, setSelectedLocation] = useState<number>()
   const [locationsOptions, setLocationOptions] = useState<PlaceDTO[]>([])
   const [selectStartDateAndTime, setStartDateAndTime] = useState<Date | null>(
     null,
@@ -59,7 +59,7 @@ function HostEventComponent() {
     const event: HostEventDTO = {
       dateStart: formattedStartDate,
       dateEnd: formattedEndDate,
-      locationId: selectLocation?.id,
+      locationId: selectLocation,
       minElo: minElo,
       maxElo: maxElo,
       title: matchTitle,
@@ -84,7 +84,7 @@ function HostEventComponent() {
   const handleLocationSelection = (
     event: React.ChangeEvent<HTMLSelectElement>,
   ) => {
-    setSelectedLocation(event.target.value)
+    setSelectedLocation(parseInt(event.target.value))
   }
   const handleStartDateSelection = (date: Date | null) => {
     setStartDateAndTime(date)
@@ -166,7 +166,7 @@ function HostEventComponent() {
                 Select location
               </option>
               {locationsOptions.map((location, index) => (
-                <option key={index} value={location.name}>
+                <option key={index} value={location.id}>
                   {location.name}
                 </option>
               ))}

@@ -29,6 +29,8 @@ export default function MainPage() {
   const location = useLocation()
   const navigate = useNavigate()
   const { isOpen, toggle } = useModal()
+  const [page, setPage] = useState<number>(0)
+  const size = 20
 
   // handle sports name selected from sportButtoncomponent
   const handleSportSelectionChange = (selectedButtonSports: string[]) => {
@@ -57,22 +59,25 @@ export default function MainPage() {
         const requestEventDTO: RequestEventDTO = {
           sportsName: selectedSports,
         }
-        const response =
-          await EventsControllerService.getNearbyEvents(requestEventDTO)
-        if (!Array.isArray(response) && response.length === 0) {
+        const response = await EventsControllerService.getNearbyEvents(
+          requestEventDTO,
+          page,
+          size,
+        )
+        if (!Array.isArray(response) || response.length === 0) {
           throw new Error('Failed to fetch event data')
         }
         const data: EventDTO[] = response as EventDTO[]
         // set filtered events based on api response
         console.log(data)
-        setFilteredEvent(data)
+        setFilteredEvent(data as EventDTO[])
       } catch (error) {
         console.error(error as ApiError)
       }
     }
     // call the method
     fetchData()
-  }, [selectedSports])
+  }, [selectedSports, page])
 
   // handle join event pop up after cliking on the event
   const handleEventSelection = (e: EventDTO) => {

@@ -81,13 +81,15 @@ public class EventService {
   }
 
   public Event createEvent(HostEventDTO hostEventDTO) {
-    userService.getUserFromContext();
+    User user = userService.getUserFromContext();
     Event newEvent = eventMapper.convertHostEventDTOtoEvent(hostEventDTO);
     newEvent.setSport(
         sportRepository
             .findSportByName(hostEventDTO.getSport())
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST)));
     newEvent = eventRepository.save(newEvent);
+    EventPlayer userPlayer = new EventPlayer(null, null, user, newEvent);
+    eventPlayerRepository.save(userPlayer);
 
 //    Set<EventPlayer> players = new HashSet<>();
 //    if (hostEventDTO.getPlayer1Id() != null) {

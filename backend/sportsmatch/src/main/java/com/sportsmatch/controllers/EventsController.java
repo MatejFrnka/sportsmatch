@@ -44,7 +44,7 @@ public class EventsController {
   }
 
   @GetMapping("/upcoming-events")
-  public ResponseEntity<?> getUpcomingEvents(@RequestBody List<Long> sportsIds) {
+  public ResponseEntity<?> getUpcomingEvents(@RequestParam List<Long> sportsIds) {
     List<EventDTO> listOfEvents = eventService.getEventsBySports(sportsIds);
     return ResponseEntity.ok().body(listOfEvents);
   }
@@ -69,7 +69,7 @@ public class EventsController {
    * @return a list of Events sorted by distance from the given location. User can filter by sports.
    */
   @GetMapping("/nearby")
-  public List<EventDTO> getNearbyEvents(@RequestBody RequestEventDTO requestEventDTO,
+  public List<EventDTO> getNearbyEvents(@RequestParam RequestEventDTO requestEventDTO,
                                         final Pageable pageable) {
     return eventService.getNearbyEvents(requestEventDTO, pageable);
   }

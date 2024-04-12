@@ -49,7 +49,7 @@ export default function JoinEventComponent(p: JoinEventProps) {
               <p className="text-center">
                 You want to join <b>{p.event.sport}</b>
                 {' at ' +
-                  p.event.location +
+                  p.event.placeDTO?.name +
                   ' on ' +
                   date.toLocaleDateString('en', { month: 'long' }) +
                   ' ' +
@@ -90,7 +90,7 @@ export default function JoinEventComponent(p: JoinEventProps) {
               <div className="col-12">
                 <p className="join-event-message">
                   Your rank is too low/high to join <b>{p.event.sport}</b> at{' '}
-                  {p.event.location}
+                  {p.event.placeDTO?.name}
                 </p>
               </div>
             </div>

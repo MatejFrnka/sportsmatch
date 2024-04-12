@@ -57,9 +57,11 @@ export default function MainPage() {
         const requestEventDTO: RequestEventDTO = {
           sportsName: selectedSports,
         }
-        const response =
-          await EventsControllerService.getNearbyEvents(requestEventDTO)
-        if (!Array.isArray(response) && response.length === 0) {
+        const response = await EventsControllerService.getNearbyEvents(
+          requestEventDTO,
+          {},
+        )
+        if (!Array.isArray(response)) {
           throw new Error('Failed to fetch event data')
         }
         const data: EventDTO[] = response as EventDTO[]

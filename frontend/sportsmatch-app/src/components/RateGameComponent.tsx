@@ -127,7 +127,7 @@ export default function RateGameComponent(p: Props) {
                   {myEvent.dateEnd[3]}:{myEvent.dateEnd[4]}
                 </span>
                 <br />
-                <span>{myEvent.location}</span>{' '}
+                <span>{myEvent.placeDTO?.name}</span>{' '}
               </>
             ) : (
               <div></div>

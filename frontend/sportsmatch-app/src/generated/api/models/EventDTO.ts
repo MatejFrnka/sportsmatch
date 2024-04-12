@@ -2,11 +2,11 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { PlaceDTO } from './PlaceDTO';
 export type EventDTO = {
     id?: number;
     dateStart: string;
     dateEnd: string;
-    location: string;
     minElo: number;
     maxElo: number;
     title: string;
@@ -15,5 +15,6 @@ export type EventDTO = {
     sport: string;
     player1Name?: string;
     player2Name?: string;
+    placeDTO?: PlaceDTO;
 };
 

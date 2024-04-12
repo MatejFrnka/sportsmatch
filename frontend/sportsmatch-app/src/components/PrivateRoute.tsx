@@ -13,7 +13,7 @@ const PrivateRoute = () => {
         await ExSecuredEndpointService.getUserMainPage()
         setLoggedIn(true)
       } catch (error) {
-        const code = (error as ApiError).status        
+        const code = (error as ApiError).status
         if (code === 401 || code === 403) {
           localStorage.removeItem('token')
           setLoggedIn(false)

@@ -26,6 +26,8 @@
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.05);
     border: 2px solid var(--sm-secondary-orange);
     border-radius: 10px;
+    margin-top: 4px;
+    margin-bottom: 4px;
 }
 
 .user-side {

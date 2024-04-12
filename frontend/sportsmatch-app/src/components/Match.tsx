@@ -8,23 +8,42 @@ import {
   LuSettings2,
 } from 'react-icons/lu'
 import { Link } from 'react-router-dom'
+import { EventDTO } from '../generated/api/models/EventDTO'
+import { useEffect, useState } from 'react'
+import { ExSecuredEndpointService, OpenAPI, UserDTO } from '../generated/api'
 
 interface InProgressProps {
-  event: {
-    id: number
-    maxElo: number
-    minElo: number
-    dateEnd: string
-    dateStart: string
-    location: string
-    title: string
-    sport: string
-    playerOne: string
-    playerTwo?: string
-  }
+  event: EventDTO
 }
 
 function InProgress({ event }: InProgressProps) {
+  const [currentUser, setCurrentUser] = useState<UserDTO>()
+  useEffect(() => {
+    OpenAPI.TOKEN = localStorage.getItem('token')!
+    const fetchUserInfo = async () => {
+      setCurrentUser(
+        (await ExSecuredEndpointService.getUserMainPage()) as UserDTO,
+      )
+    }
+    fetchUserInfo()
+  }, [])
+
+  const eventDate = new Date(
+    parseInt(event.dateStart[0]),
+    parseInt(event.dateStart[1]),
+    parseInt(event.dateStart[2]),
+  )
+
+  const eventStartTime = () => {
+    const hour = event.dateStart[3]
+    const min = event.dateStart[4] === '0' ? '00' : event.dateStart[4]
+    return hour + ':' + (min.length === 1 ? min + '0' : min)
+  }
+  const eventEndTime = () => {
+    const hour = event.dateEnd[3]
+    const min = event.dateEnd[4] === '0' ? '00' : event.dateEnd[4]
+    return hour + ':' + (min.length === 1 ? min + '0' : min)
+  }
   return (
     <>
       <div className="container-fluid">
@@ -37,7 +56,7 @@ function InProgress({ event }: InProgressProps) {
               >
                 <LuSettings2 />
               </Link>
-              {event.playerTwo === null ? (
+              {event.player2Id === null ? (
                 <h1>
                   Matchmaking
                   <br /> in progress
@@ -51,13 +70,15 @@ function InProgress({ event }: InProgressProps) {
               <ul>
                 <li>
                   <LuSwords />{' '}
-                  {event.playerTwo === null
+                  {event.player2Id === null
                     ? 'Awaiting opponent...'
-                    : event.playerTwo}
+                    : event.player1Name === currentUser?.name
+                      ? event.player2Name
+                      : event.player1Name}
                 </li>
                 <li>
                   <LuMapPin />
-                  {event.location}
+                  {event.placeDTO?.name}
                 </li>
                 <li>
                   <LuMedal />
@@ -65,11 +86,23 @@ function InProgress({ event }: InProgressProps) {
                 </li>
                 <li>
                   <LuCalendarCheck />
-                  {event.dateStart}
+                  {eventDate.getDay() +
+                    '.' +
+                    eventDate.getMonth() +
+                    '.' +
+                    eventDate.getFullYear() +
+                    ', ' +
+                    eventStartTime()}
                 </li>
                 <li>
                   <LuCalendarX />
-                  {event.dateEnd}
+                  {eventDate.getDay() +
+                    '.' +
+                    eventDate.getMonth() +
+                    '.' +
+                    eventDate.getFullYear() +
+                    ', ' +
+                    eventEndTime()}
                 </li>
               </ul>
             </div>

@@ -18,14 +18,15 @@ public class SportMapper {
         .name(entity.getName())
         .emoji(entity.getEmoji())
         .backgroundUImageURL(entity.getBackgroundImageURL())
+        .id(entity.getId())
         .build();
   }
 
   public Sport toEntity(SportDTO sportDTO) {
     return Sport.builder()
-            .name(sportDTO.getName())
-            .emoji(sportDTO.getEmoji())
-            .backgroundImageURL(sportDTO.getBackgroundUImageURL())
-            .build();
+        .name(sportDTO.getName())
+        .emoji(sportDTO.getEmoji())
+        .backgroundImageURL(sportDTO.getBackgroundUImageURL())
+        .build();
   }
 }

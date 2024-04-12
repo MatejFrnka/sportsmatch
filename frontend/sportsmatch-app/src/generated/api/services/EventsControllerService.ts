@@ -74,6 +74,16 @@ export class EventsControllerService {
         });
     }
     /**
+     * @returns EventDTO OK
+     * @throws ApiError
+     */
+    public static getUpcomingMatches(): CancelablePromise<Array<EventDTO>> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/v1/event/upcoming-matches',
+        });
+    }
+    /**
      * @param sportsIds
      * @returns any OK
      * @throws ApiError
@@ -109,18 +119,24 @@ export class EventsControllerService {
         });
     }
     /**
-     * @param pageable
+     * @param page Zero-based page index (0..N)
+     * @param size The size of the page to be returned
+     * @param sort Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
      * @returns EventHistoryDTO OK
      * @throws ApiError
      */
     public static getEventsHistory(
-        pageable: Pageable,
+        page?: number,
+        size: number = 20,
+        sort?: Array<string>,
     ): CancelablePromise<Array<EventHistoryDTO>> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/v1/event/event-history',
             query: {
-                'pageable': pageable,
+                'page': page,
+                'size': size,
+                'sort': sort,
             },
         });
     }

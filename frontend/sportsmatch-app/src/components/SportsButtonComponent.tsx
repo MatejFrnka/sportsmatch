@@ -48,7 +48,7 @@ function SportsButtonComponent({
       setSports(
         (await SportControllerService.getSports({
           page: 0,
-          size: 20,
+          size: 5,
         })) as SportDTO[],
       )
     }

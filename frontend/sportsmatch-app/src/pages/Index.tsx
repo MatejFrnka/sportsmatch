@@ -11,7 +11,6 @@ import {
   EventsControllerService,
   ExSecuredEndpointService,
   OpenAPI,
-  RequestEventDTO,
   SportDTO,
 } from '../generated/api'
 import useModal from '../hooks/UseModal'
@@ -52,16 +51,13 @@ export default function MainPage() {
 
   useEffect(() => {
     const fetchData = async () => {
-      OpenAPI.TOKEN = localStorage.getItem('token')!
       try {
-        const requestEventDTO: RequestEventDTO = {
-          sportsName: selectedSports,
-        }
         const response = await EventsControllerService.getNearbyEvents(
-          requestEventDTO,
+          selectedSports,
           0,
-          20,
-          undefined,
+          0,
+          0,
+          5,
         )
         if (!Array.isArray(response)) {
           throw new Error('Failed to fetch event data')

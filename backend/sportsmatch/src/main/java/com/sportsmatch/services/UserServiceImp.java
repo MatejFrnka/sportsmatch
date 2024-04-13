@@ -66,12 +66,15 @@ public class UserServiceImp implements UserService {
       throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
 
+    Set<SportUser> sportUsers = user.get().getSportUsers();
+    List<Sport> sports = sportUsers.stream().map(SportUser::getSport).toList();
+
     List<EventPlayer> events = new ArrayList<>(user.get().getEventsPlayed());
-    HashSet<SportDTO> sports = new HashSet<>();
-    for (EventPlayer e : events) {
-      rankService.updatePlayersRanks(e.getEvent());
-      sports.add(sportMapper.toDTO(e.getEvent().getSport()));
-    }
+//    HashSet<SportDTO> sports = new HashSet<>();
+//    for (EventPlayer e : events) {
+//      rankService.updatePlayersRanks(e.getEvent());
+//      sports.add(sportMapper.toDTO(e.getEvent().getSport()));
+//    }
 
     return UserDTO.builder()
         .name(user.get().getName())

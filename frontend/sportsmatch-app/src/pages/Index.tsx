@@ -29,7 +29,7 @@ export default function MainPage() {
   const navigate = useNavigate()
   const { isOpen, toggle } = useModal()
   const [page, setPage] = useState<number>(0)
-  const size = 20
+  const size = 5
 
   // handle sports name selected from sportButtoncomponent
   const handleSportSelectionChange = (selectedButtonSports: string[]) => {
@@ -58,8 +58,8 @@ export default function MainPage() {
           selectedSports,
           0,
           0,
-          0,
-          5,
+          page,
+          size,
         )
         if (!Array.isArray(response)) {
           throw new Error('Failed to fetch event data')
@@ -67,7 +67,15 @@ export default function MainPage() {
         const data: EventDTO[] = response as EventDTO[]
         // set filtered events based on api response
         console.log(data)
-        setFilteredEvent(data as EventDTO[])
+        if (page === 0) {
+          setFilteredEvent(data as EventDTO[])
+        } else {
+          setFilteredEvent((previousPage) => [
+            ...previousPage,
+            ...(data as EventDTO[]),
+          ])
+        }
+        //setFilteredEvent(data as EventDTO[])
       } catch (error) {
         console.error(error as ApiError)
       }

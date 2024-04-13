@@ -2,9 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type SportDTO = {
-    name?: string;
-    emoji?: string;
-    backgroundUImageURL?: string;
+export type Pageable = {
+    page?: number;
+    size?: number;
+    sort?: Array<string>;
 };
 

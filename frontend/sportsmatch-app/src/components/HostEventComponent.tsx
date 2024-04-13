@@ -61,11 +61,11 @@ function HostEventComponent() {
     const event: HostEventDTO = {
       dateStart: formattedStartDate,
       dateEnd: formattedEndDate,
-      locationId: selectLocation,
       minElo: minElo,
       maxElo: maxElo,
       title: matchTitle,
       sport: selectSport,
+      locationId: selectLocation!,
     }
     EventsControllerService.addEvent(event).then((response) => {
       navigate('/app')

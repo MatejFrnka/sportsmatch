@@ -5,7 +5,6 @@ import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Wrapper from './pages/AppWrapper'
 import { AllSportsList } from './pages/AllSportsList'
-import UserPage from './pages/UserPage'
 import Index from './pages/Index'
 import PrivateRoute from './components/PrivateRoute'
 import NotFound from './pages/NotFound'
@@ -43,7 +42,6 @@ function App() {
             path="/user/:id/ratings"
             element={<Wrapper child={<UserRating />} />}
           />
-          <Route path="/user" element={<UserPage />}></Route>
           <Route path="/user-info" element={<Wrapper child={<UserInfo />} />} />
           <Route
             path="/host-event"

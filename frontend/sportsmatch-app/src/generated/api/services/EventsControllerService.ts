@@ -4,8 +4,6 @@
 /* eslint-disable */
 import type { EventDTO } from '../models/EventDTO';
 import type { EventHistoryDTO } from '../models/EventHistoryDTO';
-import type { Pageable } from '../models/Pageable';
-import type { RequestEventDTO } from '../models/RequestEventDTO';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
@@ -74,13 +72,25 @@ export class EventsControllerService {
         });
     }
     /**
+     * @param page Zero-based page index (0..N)
+     * @param size The size of the page to be returned
+     * @param sort Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
      * @returns EventDTO OK
      * @throws ApiError
      */
-    public static getUpcomingMatches(): CancelablePromise<Array<EventDTO>> {
+    public static getUpcomingMatches(
+        page?: number,
+        size: number = 20,
+        sort?: Array<string>,
+    ): CancelablePromise<Array<EventDTO>> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/v1/event/upcoming-matches',
+            query: {
+                'page': page,
+                'size': size,
+                'sort': sort,
+            },
         });
     }
     /**
@@ -100,21 +110,33 @@ export class EventsControllerService {
         });
     }
     /**
-     * @param requestEventDto
-     * @param pageable
+     * @param sportsName
+     * @param longitude
+     * @param latitude
+     * @param page Zero-based page index (0..N)
+     * @param size The size of the page to be returned
+     * @param sort Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
      * @returns EventDTO OK
      * @throws ApiError
      */
     public static getNearbyEvents(
-        requestEventDto: RequestEventDTO,
-        pageable: Pageable,
+        sportsName?: Array<string>,
+        longitude?: number,
+        latitude?: number,
+        page?: number,
+        size: number = 20,
+        sort?: Array<string>,
     ): CancelablePromise<Array<EventDTO>> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/v1/event/nearby',
             query: {
-                'requestEventDTO': requestEventDto,
-                'pageable': pageable,
+                'sportsName': sportsName,
+                'longitude': longitude,
+                'latitude': latitude,
+                'page': page,
+                'size': size,
+                'sort': sort,
             },
         });
     }

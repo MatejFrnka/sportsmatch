@@ -75,13 +75,25 @@ export class EventsControllerService {
         });
     }
     /**
+     * @param page Zero-based page index (0..N)
+     * @param size The size of the page to be returned
+     * @param sort Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
      * @returns EventDTO OK
      * @throws ApiError
      */
-    public static getUpcomingMatches(): CancelablePromise<Array<EventDTO>> {
+    public static getUpcomingMatches(
+        page?: number,
+        size: number = 20,
+        sort?: Array<string>,
+    ): CancelablePromise<Array<EventDTO>> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/v1/event/upcoming-matches',
+            query: {
+                'page': page,
+                'size': size,
+                'sort': sort,
+            },
         });
     }
     /**

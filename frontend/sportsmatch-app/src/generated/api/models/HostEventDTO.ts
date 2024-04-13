@@ -9,6 +9,6 @@ export type HostEventDTO = {
     maxElo: number;
     title: string;
     sport: string;
-    locationId?: number;
+    locationId: number;
 };
 

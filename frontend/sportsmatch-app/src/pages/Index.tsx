@@ -28,6 +28,8 @@ export default function MainPage() {
   const location = useLocation()
   const navigate = useNavigate()
   const { isOpen, toggle } = useModal()
+  const [page, setPage] = useState<number>(0)
+  const size = 5
 
   // handle sports name selected from sportButtoncomponent
   const handleSportSelectionChange = (selectedButtonSports: string[]) => {
@@ -56,8 +58,8 @@ export default function MainPage() {
           selectedSports,
           0,
           0,
-          0,
-          5,
+          page,
+          size,
         )
         if (!Array.isArray(response)) {
           throw new Error('Failed to fetch event data')
@@ -65,14 +67,22 @@ export default function MainPage() {
         const data: EventDTO[] = response as EventDTO[]
         // set filtered events based on api response
         console.log(data)
-        setFilteredEvent(data)
+        if (page === 0) {
+          setFilteredEvent(data as EventDTO[])
+        } else {
+          setFilteredEvent((previousPage) => [
+            ...previousPage,
+            ...(data as EventDTO[]),
+          ])
+        }
+        //setFilteredEvent(data as EventDTO[])
       } catch (error) {
         console.error(error as ApiError)
       }
     }
     // call the method
     fetchData()
-  }, [selectedSports])
+  }, [selectedSports, page])
 
   // handle join event pop up after cliking on the event
   const handleEventSelection = (e: EventDTO) => {
@@ -111,6 +121,11 @@ export default function MainPage() {
 
   const handleLetsPlay = () => {
     navigate('/app')
+  }
+
+  const loadMore = () => {
+    const nextPage = page + 1
+    setPage(nextPage)
   }
 
   return (
@@ -179,6 +194,13 @@ export default function MainPage() {
             </div>
           </div>
         </div>
+        {filteredEvent.length > 0 && (
+          <div className="row load-btn">
+            <div className="col">
+              <button onClick={loadMore}>Load More Events</button>
+            </div>
+          </div>
+        )}
       </div>
     </>
   )

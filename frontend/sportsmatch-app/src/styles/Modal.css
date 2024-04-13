@@ -1,6 +1,6 @@
 .modal-overlay {
     z-index: 9999;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
@@ -12,7 +12,9 @@
   }
 
   .modal-box {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background: transparent;
     width: 90%;
     height: 75%;    

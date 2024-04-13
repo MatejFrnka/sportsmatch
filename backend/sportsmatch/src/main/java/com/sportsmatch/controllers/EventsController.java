@@ -72,7 +72,7 @@ public class EventsController {
    */
   @GetMapping("/nearby")
   public List<EventDTO> getNearbyEvents(
-      @ParameterObject RequestEventDTO requestEventDTO, @ParameterObject final Pageable pageable) {
+          @ParameterObject RequestEventDTO requestEventDTO, @ParameterObject final Pageable pageable) {
     return eventService.getNearbyEvents(requestEventDTO, pageable);
   }
 

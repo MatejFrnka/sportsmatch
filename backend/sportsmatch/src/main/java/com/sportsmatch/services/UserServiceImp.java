@@ -1,13 +1,13 @@
 package com.sportsmatch.services;
 
+import com.sportsmatch.dtos.SportDTO;
 import com.sportsmatch.dtos.UserDTO;
+import com.sportsmatch.dtos.UserInfoDTO;
 import com.sportsmatch.mappers.SportMapper;
 import com.sportsmatch.mappers.UserMapper;
 import com.sportsmatch.models.*;
 import com.sportsmatch.repositories.SportRepository;
 import com.sportsmatch.repositories.UserRepository;
-import com.sportsmatch.dtos.SportDTO;
-import com.sportsmatch.dtos.UserInfoDTO;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,6 +16,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -67,18 +68,20 @@ public class UserServiceImp implements UserService {
     }
 
     Set<SportUser> sportUsers = user.get().getSportUsers();
-    List<Sport> sports = sportUsers.stream().map(SportUser::getSport).toList();
+
+    List<SportDTO> userSports = sportUsers.stream()
+        .map(SportUser::getSport)
+        .map(sportMapper::toDTO)
+        .toList();
 
     List<EventPlayer> events = new ArrayList<>(user.get().getEventsPlayed());
-//    HashSet<SportDTO> sports = new HashSet<>();
-//    for (EventPlayer e : events) {
-//      rankService.updatePlayersRanks(e.getEvent());
-//      sports.add(sportMapper.toDTO(e.getEvent().getSport()));
-//    }
+    for (EventPlayer e : events) {
+      rankService.updatePlayersRanks(e.getEvent());
+    }
 
     return UserDTO.builder()
         .name(user.get().getName())
-        .sports(sports.stream().toList())
+        .sports(userSports)
         .elo(user.get().getRank())
         .win(user.get().getWin())
         .loss(user.get().getLoss())

@@ -106,7 +106,7 @@ class UserServiceImpTest extends BaseTest {
     Sport sport = new Sport();
     sport.setId(1L);
     sport.setName("Tennis");
-    sport.setEmoji("🎾");
+    sport.setEmoji("");
     sport.setBackgroundImageURL("./assets/sport-component-tennis.png");
 
     // SportUser
@@ -125,17 +125,16 @@ class UserServiceImpTest extends BaseTest {
     sports.add(sportDTO);
 
     // Event
-    Event event = mock(Event.class);
+    Event event = new Event();
     event.setSport(sport);
 
-    EventPlayer eventPlayer = mock(EventPlayer.class);
-
-    when(eventPlayer.getEvent()).thenReturn(event);
-    when(eventPlayer.getEvent().getSport()).thenReturn(sport);
+    // EventPlayer (no need to mock)
+    EventPlayer eventPlayer = new EventPlayer();
+    eventPlayer.setEvent(event); // Set the event directly
 
     user.getEventsPlayed().add(eventPlayer);
 
-    doNothing().when(rankService).updatePlayersRanks(event);
+    // No need to mock eventPlayer.getEvent()
 
     UserDTO expectedUserDTO =
         UserDTO.builder().name(user.getName()).elo(user.getRank()).sports(sports).build();

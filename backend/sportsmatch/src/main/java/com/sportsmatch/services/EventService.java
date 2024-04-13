@@ -102,13 +102,13 @@ public class EventService {
         eventRepository.deleteById(eventById.getId());
     }
 
-    /**
-     * Retrieves the event history of the logged-in user.
-     *
-     * @param pageable contains the pagination information (page, size)
-     * @return a list of EventHistoryDTOs representing the logged-in user's event history
-     */
-    public List<EventHistoryDTO> getEventsHistory(final Pageable pageable) {
+  /**
+   * Retrieves the event history of the logged-in user.
+   *
+   * @param pageable contains the pagination information (page, size)
+   * @return a list of EventHistoryDTOs representing the logged-in user's event history$ ../gradlew clean checkStyleMain -info
+   */
+  public List<EventHistoryDTO> getEventsHistory(final Pageable pageable) {
         String loggedUserName = userService.getUserFromContext().getName();
 
         return eventRepository.findEventsByUser(loggedUserName, LocalDateTime.now(), pageable)

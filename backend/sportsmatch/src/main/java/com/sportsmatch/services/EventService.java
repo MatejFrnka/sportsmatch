@@ -109,14 +109,13 @@ public class EventService {
    * @return a list of EventHistoryDTOs representing the logged-in user's event history$ ../gradlew clean checkStyleMain -info
    */
   public List<EventHistoryDTO> getEventsHistory(final Pageable pageable) {
-        String loggedUserName = userService.getUserFromContext().getName();
+    String loggedUserName = userService.getUserFromContext().getName();
+    Long loggedUserId = userService.getUserFromContext().getId();
 
-        return eventRepository.findEventsByUser(loggedUserName, LocalDateTime.now(), pageable)
-            .stream()
-            .map(event -> eventMapper.toDTO(event, loggedUserName,
-                checkScoreMatch(event.getPlayers())))
-            .collect(Collectors.toList());
-    }
+    return eventRepository.findEventsByUser(loggedUserId, LocalDateTime.now(), pageable).stream()
+        .map(event -> eventMapper.toDTO(event, loggedUserName, checkScoreMatch(event.getPlayers())))
+        .collect(Collectors.toList());
+  }
 
     /**
      * Returns the checked status of the match (check the score is matching or missing).
@@ -204,6 +203,20 @@ public class EventService {
             requestEventDTO.getLatitude(), sportNamesWithLowerCase, pageable);
 
         return events.stream().map(eventMapper::convertEventToEventDTO)
+            .collect(Collectors.toList());
+    }
+
+    /**
+     * Returns the upcoming matches of the logged-in user.
+     *
+     * @return a list of logged-in user's upcoming EventDTOs ordered by date ascending
+     */
+    public List<EventDTO> getUsersUpcomingEvents(Pageable pageable) {
+        User loggedUser = userService.getUserFromContext();
+        return eventRepository
+            .findUpcomingEventsByUser(loggedUser.getId(), LocalDateTime.now(), pageable)
+            .stream()
+            .map(eventMapper::convertEventToEventDTO)
             .collect(Collectors.toList());
     }
 }

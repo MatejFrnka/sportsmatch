@@ -19,8 +19,6 @@ public class EventDTO {
   private LocalDateTime dateStart;
   @NotNull
   private LocalDateTime dateEnd;
-  @NotBlank
-  private String location;
   @NotNull
   private Integer minElo;
   @NotNull

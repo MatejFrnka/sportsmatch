@@ -57,9 +57,11 @@ export default function MainPage() {
         const requestEventDTO: RequestEventDTO = {
           sportsName: selectedSports,
         }
-        const response =
-          await EventsControllerService.getNearbyEvents(requestEventDTO)
-        if (!Array.isArray(response) && response.length === 0) {
+        const response = await EventsControllerService.getNearbyEvents(
+          requestEventDTO,
+          {},
+        )
+        if (!Array.isArray(response)) {
           throw new Error('Failed to fetch event data')
         }
         const data: EventDTO[] = response as EventDTO[]
@@ -109,6 +111,10 @@ export default function MainPage() {
     fetchUsersRank()
   })
 
+  const handleLetsPlay = () => {
+    navigate('/app')
+  }
+
   return (
     <>
       <div className="container-fluid">
@@ -118,7 +124,7 @@ export default function MainPage() {
               <h2>Find, Match, Play Now!</h2>
               <p>Your Next Challenge Awaits.</p>
               <label htmlFor="play-btn"></label>
-              <button>Let’s play!</button>
+              <button onClick={handleLetsPlay}>Let’s play!</button>
             </div>
           </div>
         </div>

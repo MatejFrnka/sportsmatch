@@ -6,5 +6,6 @@ export type SportDTO = {
     name?: string;
     emoji?: string;
     backgroundUImageURL?: string;
+    id?: number;
 };
 

@@ -1,18 +1,24 @@
 import { render, screen } from '@testing-library/react'
 import SportEvent from './SportEvent'
+import { EventDTO } from '../generated/api'
 
 describe('SportEvent', async () => {
-  const mockEvent = {
+  const mockEvent: EventDTO = {
     id: 1,
     maxElo: 2000,
     minElo: 1800,
     dateEnd: '2024-01-27',
     dateStart: '2024-01-26',
-    location: 'Test Location',
+    placeDTO: {
+      name: 'Test Location',
+      address: 'address',
+      latitude: 51,
+      longitude: 30,
+    },
     title: 'Test Event',
     sport: 'Test Sport',
-    playerOne: 'Player One',
-    playerTwo: 'Player Two',
+    player1Name: 'Player One',
+    player2Name: 'Player Two',
   }
   it('renders the component with correct data', () => {
     render(<SportEvent event={mockEvent} />)
@@ -34,7 +40,7 @@ describe('SportEvent', async () => {
   })
 
   it('renders the component without playerTwo when it is not provided', () => {
-    const { playerTwo, ...mockEventWithoutPlayerTwo } = mockEvent
+    const { player2Id, ...mockEventWithoutPlayerTwo } = mockEvent
 
     render(<SportEvent event={mockEventWithoutPlayerTwo} />)
 

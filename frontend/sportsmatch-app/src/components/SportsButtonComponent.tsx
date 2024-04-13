@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import '../styles/NewUserComponent.css'
 import { useNavigate } from 'react-router-dom'
+import { SportControllerService, SportDTO } from '../generated/api'
 
 function SportsButtonComponent({
   onSportSelectionChange,
@@ -40,82 +41,30 @@ function SportsButtonComponent({
     navigate('/allsports', { state: { selectedButtonSports } })
   }
 
+  const [sports, setSports] = useState<SportDTO[]>([])
+
+  useEffect(() => {
+    const fetchSports = async () => {
+      setSports((await SportControllerService.getSports(0, 5)) as SportDTO[])
+    }
+    fetchSports()
+  }, [])
+
   return (
     <div className="wrapper">
       <p>Select your sports</p>
       <div className="sports-container">
-        <label>
-          <input
-            type="checkbox"
-            className="sports-checkbox"
-            checked={selectedButtonSports.includes('Tennis')}
-            onChange={() => handleCheckboxChange('Tennis')}
-          />
-          <span className="sports-button">🥎 Tennis</span>
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            className="sports-checkbox"
-            checked={selectedButtonSports.includes('Gym')}
-            onChange={() => handleCheckboxChange('Gym')}
-          />
-          <span className="sports-button">🏋 Gym</span>
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            className="sports-checkbox"
-            checked={selectedButtonSports.includes('Golf')}
-            onChange={() => handleCheckboxChange('Golf')}
-          />
-          <span className="sports-button">🏌🏽 Golf</span>
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            className="sports-checkbox"
-            checked={selectedButtonSports.includes('Bowling')}
-            onChange={() => handleCheckboxChange('Bowling')}
-          />
-          <span className="sports-button">🎳 Bowling</span>
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            className="sports-checkbox"
-            checked={selectedButtonSports.includes('Running')}
-            onChange={() => handleCheckboxChange('Running')}
-          />
-          <span className="sports-button">🏃 Running</span>
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            className="sports-checkbox"
-            checked={selectedButtonSports.includes('Bicycle')}
-            onChange={() => handleCheckboxChange('Bicycle')}
-          />
-          <span className="sports-button">🚴‍♀️ Bicycle</span>
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            className="sports-checkbox"
-            checked={selectedButtonSports.includes('Boxing')}
-            onChange={() => handleCheckboxChange('Boxing')}
-          />
-          <span className="sports-button">🥊 Boxing</span>
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            className="sports-checkbox"
-            checked={selectedButtonSports.includes('Ping pong')}
-            onChange={() => handleCheckboxChange('Ping pong')}
-          />
-          <span className="sports-button">🏓 Ping pong</span>
-        </label>
+        {sports.map((s, index) => (
+          <label key={index}>
+            <input
+              type="checkbox"
+              className="sports-checkbox"
+              checked={selectedButtonSports.includes(s.name!)}
+              onChange={() => handleCheckboxChange(s.name!)}
+            />
+            <span className="sports-button">{s.emoji + ' ' + s.name}</span>
+          </label>
+        ))}
         <label>
           <input
             className="more-sports-button"

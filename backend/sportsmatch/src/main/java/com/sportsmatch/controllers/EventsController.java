@@ -45,7 +45,7 @@ public class EventsController {
   }
 
   @GetMapping("/upcoming-events")
-  public ResponseEntity<?> getUpcomingEvents(@RequestParam List<Long> sportsIds) {
+  public ResponseEntity<?> getUpcomingEvents(@RequestBody List<Long> sportsIds) {
     List<EventDTO> listOfEvents = eventService.getEventsBySports(sportsIds);
     return ResponseEntity.ok().body(listOfEvents);
   }
@@ -61,17 +61,18 @@ public class EventsController {
     return eventService.getEventsHistory(pageable);
   }
 
-
   /**
-   * This endpoint returns list of Events sorted by distance from the given location. User can filter by sports.
+   * This endpoint returns list of Events sorted by distance from the given location. User can
+   * filter by sports.
    *
-   * @param requestEventDTO it contains longitude and latitude and a list of sports for filter if given
-   * @param pageable        it contains the page and size for pagination
+   * @param requestEventDTO it contains longitude and latitude and a list of sports for filter if
+   *     given
+   * @param pageable it contains the page and size for pagination
    * @return a list of Events sorted by distance from the given location. User can filter by sports.
    */
   @GetMapping("/nearby")
-  public List<EventDTO> getNearbyEvents(@RequestParam RequestEventDTO requestEventDTO,
-                                        final Pageable pageable) {
+  public List<EventDTO> getNearbyEvents(
+      @ParameterObject RequestEventDTO requestEventDTO, @ParameterObject final Pageable pageable) {
     return eventService.getNearbyEvents(requestEventDTO, pageable);
   }
 
@@ -91,7 +92,7 @@ public class EventsController {
    * @return a list of logged-in user's upcoming EventDTOs ordered by date ascending
    */
   @GetMapping("/upcoming-matches")
-  public List<EventDTO> getUpcomingMatches(@ParameterObject final Pageable pageable) {
-    return eventService.getUsersUpcomingEvents(pageable);
+  public List<EventDTO> getUpcomingMatches() {
+    return eventService.getUsersUpcomingEvents();
   }
 }

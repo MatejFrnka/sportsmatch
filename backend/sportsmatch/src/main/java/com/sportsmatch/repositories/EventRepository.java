@@ -32,7 +32,7 @@ public interface EventRepository extends JpaRepository<Event, Long> {
       @Param("id") Long id, @Param("now") LocalDateTime now, Pageable pageable);
 
   @Query("SELECT ep.event FROM EventPlayer ep WHERE ep.player.id = :id AND ep.event.dateStart > :now ORDER BY ep.event.dateEnd ASC")
-  List<Event> findUpcomingEventsByUser(@Param("id") Long id, @Param("now") LocalDateTime now, Pageable pageable);
+  List<Event> findUpcomingEventsByUser(@Param("id") Long id, @Param("now") LocalDateTime now);
 
 
 
@@ -51,7 +51,7 @@ public interface EventRepository extends JpaRepository<Event, Long> {
    * @return list of events filtered by sport names if given, and order by distance from the user's given location
    */
   @Query(nativeQuery = true, value =
-      "SELECT e.id, e.date_start, e.date_end, e.min_elo, e.max_elo, e.title, e.sport_id, e.place_id "
+      "SELECT e.id, e.date_start, e.date_end, e.min_elo, e.max_elo, e.title, e.is_rank_updated, e.sport_id, e.place_id "
           + "FROM events e "
           + "JOIN sports s ON e.sport_id = s.id "
           + "JOIN places p ON e.place_id = p.id "

@@ -59,7 +59,9 @@ export default function MainPage() {
         }
         const response = await EventsControllerService.getNearbyEvents(
           requestEventDTO,
-          {},
+          0,
+          20,
+          undefined,
         )
         if (!Array.isArray(response)) {
           throw new Error('Failed to fetch event data')

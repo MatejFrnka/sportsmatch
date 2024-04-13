@@ -45,12 +45,7 @@ function SportsButtonComponent({
 
   useEffect(() => {
     const fetchSports = async () => {
-      setSports(
-        (await SportControllerService.getSports({
-          page: 0,
-          size: 5,
-        })) as SportDTO[],
-      )
+      setSports((await SportControllerService.getSports(0, 5)) as SportDTO[])
     }
     fetchSports()
   }, [])

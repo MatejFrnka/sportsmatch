@@ -11,7 +11,6 @@ export type { AuthRequestDTO } from './models/AuthRequestDTO';
 export type { EventDTO } from './models/EventDTO';
 export { EventHistoryDTO } from './models/EventHistoryDTO';
 export type { HostEventDTO } from './models/HostEventDTO';
-export type { Pageable } from './models/Pageable';
 export type { PlaceDTO } from './models/PlaceDTO';
 export type { RatingDTO } from './models/RatingDTO';
 export type { RequestEventDTO } from './models/RequestEventDTO';

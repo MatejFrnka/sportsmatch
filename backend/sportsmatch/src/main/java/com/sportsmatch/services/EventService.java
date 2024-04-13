@@ -213,10 +213,10 @@ public class EventService {
    *
    * @return a list of logged-in user's upcoming EventDTOs ordered by date ascending
    */
-  public List<EventDTO> getUsersUpcomingEvents(Pageable pageable) {
+  public List<EventDTO> getUsersUpcomingEvents() {
     User loggedUser = userService.getUserFromContext();
     return eventRepository
-        .findUpcomingEventsByUser(loggedUser.getId(), LocalDateTime.now(), pageable)
+        .findUpcomingEventsByUser(loggedUser.getId(), LocalDateTime.now())
         .stream()
         .map(eventMapper::convertEventToEventDTO)
         .collect(Collectors.toList());

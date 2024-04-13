@@ -72,6 +72,8 @@ public class EventsController {
   @GetMapping("/nearby")
   public List<EventDTO> getNearbyEvents(@RequestBody RequestEventDTO requestEventDTO,
                                         @ParameterObject final Pageable pageable) {
+  public List<EventDTO> getNearbyEvents(@RequestParam RequestEventDTO requestEventDTO,
+                                        final Pageable pageable) {
     return eventService.getNearbyEvents(requestEventDTO, pageable);
   }
 
@@ -83,5 +85,15 @@ public class EventsController {
     } catch (Exception e) {
       return ResponseEntity.badRequest().body(e.getMessage());
     }
+  }
+
+  /**
+   * This endpoint returns the upcoming matches of the logged-in user.
+   *
+   * @return a list of logged-in user's upcoming EventDTOs ordered by date ascending
+   */
+  @GetMapping("/upcoming-matches")
+  public List<EventDTO> getUpcomingMatches(@ParameterObject final Pageable pageable) {
+    return eventService.getUsersUpcomingEvents(pageable);
   }
 }

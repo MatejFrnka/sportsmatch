@@ -5,7 +5,6 @@ import com.sportsmatch.dtos.SportDTO;
 import com.sportsmatch.mappers.SportMapper;
 import com.sportsmatch.models.Sport;
 import com.sportsmatch.repositories.SportRepository;
-import com.sportsmatch.services.SportServiceImp;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -46,8 +45,8 @@ class SportServiceImpTest extends BaseTest {
     List<Sport> sports = Arrays.asList(sport1, sport2);
     Page<Sport> sportsPage = new PageImpl<>(sports, pageable, sports.size());
 
-    SportDTO sportDTO1 = new SportDTO("Football", footballEmoji, "urlFootball");
-    SportDTO sportDTO2 = new SportDTO("Basketball", basketballEmoji, "urlBasketball");
+    SportDTO sportDTO1 = new SportDTO("Football", footballEmoji, "urlFootball", 1L);
+    SportDTO sportDTO2 = new SportDTO("Basketball", basketballEmoji, "urlBasketball", 2L);
 
     when(sportMapper.toDTO(sport1)).thenReturn(sportDTO1);
     when(sportMapper.toDTO(sport2)).thenReturn(sportDTO2);

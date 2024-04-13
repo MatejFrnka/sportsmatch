@@ -7,7 +7,6 @@ export type EventDTO = {
     id?: number;
     dateStart: string;
     dateEnd: string;
-    location: string;
     minElo: number;
     maxElo: number;
     title: string;

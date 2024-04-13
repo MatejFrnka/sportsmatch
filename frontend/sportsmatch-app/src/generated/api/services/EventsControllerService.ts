@@ -4,7 +4,6 @@
 /* eslint-disable */
 import type { EventDTO } from '../models/EventDTO';
 import type { EventHistoryDTO } from '../models/EventHistoryDTO';
-import type { Pageable } from '../models/Pageable';
 import type { RequestEventDTO } from '../models/RequestEventDTO';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -91,33 +90,48 @@ export class EventsControllerService {
     }
     /**
      * @param requestEventDto
-     * @returns any OK
+     * @param page Zero-based page index (0..N)
+     * @param size The size of the page to be returned
+     * @param sort Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+     * @returns EventDTO OK
      * @throws ApiError
      */
     public static getNearbyEvents(
         requestEventDto: RequestEventDTO,
-    ): CancelablePromise<Record<string, any>> {
+        page?: number,
+        size: number = 20,
+        sort?: Array<string>,
+    ): CancelablePromise<Array<EventDTO>> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/v1/event/nearby',
             query: {
                 'requestEventDTO': requestEventDto,
+                'page': page,
+                'size': size,
+                'sort': sort,
             },
         });
     }
     /**
-     * @param pageable
+     * @param page Zero-based page index (0..N)
+     * @param size The size of the page to be returned
+     * @param sort Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
      * @returns EventHistoryDTO OK
      * @throws ApiError
      */
     public static getEventsHistory(
-        pageable: Pageable,
+        page?: number,
+        size: number = 20,
+        sort?: Array<string>,
     ): CancelablePromise<Array<EventHistoryDTO>> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/v1/event/event-history',
             query: {
-                'pageable': pageable,
+                'page': page,
+                'size': size,
+                'sort': sort,
             },
         });
     }

@@ -28,14 +28,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
   private final TokenRepository tokenRepository;
 
   @Override
-  protected boolean shouldNotFilter(@NonNull HttpServletRequest request) {
-    String[] whiteListUrl = {
-      "/api/v1/auth/", "/api/v1/places/search", "/api/v1/event/nearby", "/api/v1/sports/all"
-    };
-    return Arrays.stream(whiteListUrl).anyMatch(u -> u.contains(request.getRequestURI()));
-  }
-
-  @Override
   protected void doFilterInternal(
       @NonNull HttpServletRequest request,
       @NonNull HttpServletResponse response,
@@ -56,7 +48,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
       jwt = authHeader.substring(7);
       userEmail = jwtService.extractUserName(jwt);
     } catch (Exception e) {
-      response.setStatus(HttpStatus.UNAUTHORIZED.value());
+      filterChain.doFilter(request, response);
       return;
     }
 

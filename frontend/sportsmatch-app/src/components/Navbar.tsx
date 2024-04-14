@@ -19,7 +19,7 @@ function Navbar() {
         setLoggedIn(true)
       } catch (error) {
         const code = (error as ApiError).status
-        if (code === 400) {
+        if (code === 401) {
           localStorage.removeItem('token')
           setLoggedIn(false)
         }

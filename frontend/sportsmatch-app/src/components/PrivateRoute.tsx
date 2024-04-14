@@ -4,26 +4,33 @@ import { OpenAPI, ExSecuredEndpointService, ApiError } from '../generated/api'
 
 const PrivateRoute = () => {
   const requestedUrl = window.location.pathname
-  const [isLoggedIn, setLoggedIn] = useState<boolean>(false)
+  const [isAuthorized, setAuthorized] = useState<boolean>(true)
+
+  useEffect(() => {
+    if (!localStorage.getItem('token')) {
+      setAuthorized(false)
+    }
+  },[])
 
   useEffect(() => {
     const init = async () => {
-      OpenAPI.TOKEN = localStorage.getItem('token')!
-      try {
-        await ExSecuredEndpointService.getUserMainPage()
-        setLoggedIn(true)
-      } catch (error) {
-        const code = (error as ApiError).status
-        if (code === 401 || code === 403) {
-          localStorage.removeItem('token')
-          setLoggedIn(false)
+      if (localStorage.getItem('token')) {
+        OpenAPI.TOKEN = localStorage.getItem('token')!
+        try {
+          await ExSecuredEndpointService.getUserMainPage()
+        } catch (error) {
+          const code = (error as ApiError).status
+          if (code === 401 || code === 403) {
+            localStorage.removeItem('token')
+            setAuthorized(false)
+          }
         }
       }
     }
     init()
   }, [])
 
-  if (isLoggedIn) {
+  if (isAuthorized) {
     return <Outlet />
   } else {
     return <Navigate to={'/login'} state={requestedUrl} />

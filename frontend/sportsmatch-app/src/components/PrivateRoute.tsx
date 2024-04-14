@@ -10,7 +10,7 @@ const PrivateRoute = () => {
     if (!localStorage.getItem('token')) {
       setAuthorized(false)
     }
-  },[])
+  }, [])
 
   useEffect(() => {
     const init = async () => {

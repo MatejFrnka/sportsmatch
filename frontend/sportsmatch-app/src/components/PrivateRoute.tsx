@@ -20,7 +20,7 @@ const PrivateRoute = () => {
           await ExSecuredEndpointService.getUserMainPage()
         } catch (error) {
           const code = (error as ApiError).status
-          if (code === 401 || code === 403) {
+          if (code === 400) {
             localStorage.removeItem('token')
             setAuthorized(false)
           }

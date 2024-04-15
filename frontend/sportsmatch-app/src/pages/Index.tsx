@@ -32,6 +32,7 @@ export default function MainPage() {
   const size = 5
 
   console.log(`query`, searchQuery)
+  console.log(filteredEvent)
 
   // handle sports name selected from sportButtoncomponent
   const handleSportSelectionChange = (selectedButtonSports: string[]) => {

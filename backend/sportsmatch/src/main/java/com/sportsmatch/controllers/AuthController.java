@@ -58,7 +58,7 @@ public class AuthController {
     try {
       return ResponseEntity.ok().body(userService.getMyRank());
     } catch (ResponseStatusException e) {
-      return ResponseEntity.badRequest().body(e.getStatusCode());
+      return new ResponseEntity<>(e.getMessage(), e.getStatusCode());
     }
   }
 }

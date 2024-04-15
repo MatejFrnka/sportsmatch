@@ -70,8 +70,8 @@ class PlaceControllerTest extends BaseTest {
     mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/places/add")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(placeDTO)))
-        // Verify that the response status is 403 Forbidden
-        .andExpect(MockMvcResultMatchers.status().isForbidden());
+        // Verify that the response status is 401 Forbidden
+        .andExpect(MockMvcResultMatchers.status().isUnauthorized());
   }
 
   @Test

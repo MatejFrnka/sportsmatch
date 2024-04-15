@@ -7,8 +7,8 @@ describe('SportEvent', async () => {
     id: 1,
     maxElo: 2000,
     minElo: 1800,
-    dateEnd: '27-01-2024 17:00',
-    dateStart: '26-01-2024 15:00',
+    dateEnd: '27.01.2024 17:00',
+    dateStart: '26.01.2024 15:00',
     placeDTO: {
       name: 'Test Location',
       address: 'address',

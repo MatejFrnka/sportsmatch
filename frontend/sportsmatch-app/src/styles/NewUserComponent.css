@@ -125,6 +125,8 @@
 }
 
 .sports-button {
+  font-family: var(--sm-primary-font);
+  font-size: var(--sm-text-content);
   display: inline-block;
   width: 100%;
   padding: 0.625em;

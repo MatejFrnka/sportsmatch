@@ -32,5 +32,5 @@
 .join-event-message {
     padding: 0;
     margin-right: 0;
-    font-size: var(--sm-text-size);
+    font-size: var(--sm-text-content);
 }

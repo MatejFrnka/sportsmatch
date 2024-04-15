@@ -19,9 +19,10 @@
   --sm-btn-size-regular: 3.125em;
   --sm-btn-size-small: 1.875em;
 
-  --sm-h1-size: 3em;
-  --sm-h2-size: 1em;
-  --sm-text-size: 1em;
+  /* font-sizes */
+  --sm-h1-heading: 3em;
+  --sm-text-content: 1em
+
 }
 
 svg {

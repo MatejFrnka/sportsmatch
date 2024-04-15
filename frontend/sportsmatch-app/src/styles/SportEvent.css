@@ -49,5 +49,6 @@
 
 .event ul li {
   color: #393939;
-  font-size: 0.78em;
+  font-family: var(--sm-primary-font);
+  font-size: var(--sm-text-content);
 }

@@ -2,20 +2,13 @@ import { EventDTO } from '../generated/api'
 import '../styles/SportEvent.css'
 import { LuMapPin, LuMedal, LuCalendarCheck, LuCalendarX } from 'react-icons/lu'
 
-// interface SportEventProps {
-//   event: {
-//     id: number
-//     maxElo: number
-//     minElo: number
-//     dateEnd: string
-//     dateStart: string
-//     location: string
-//     title: string
-//     sport: string
-//     playerOne: string
-//     playerTwo?: string
-//   }
-// }
+const formatDate = (dateArray: string) => {
+  const [year, month, day, hours, minutes] = dateArray
+  const formattedDate = `${day.toString().padStart(2, '0')}-${month
+    .toString()
+    .padStart(2, '0')}-${year} ${hours}:${minutes.toString().padStart(2, '0')}`
+  return formattedDate
+}
 
 function SportEvent({ event }: { event: EventDTO }) {
   return (
@@ -33,11 +26,11 @@ function SportEvent({ event }: { event: EventDTO }) {
                 </li>
                 <li data-testid="luCalendarCheck">
                   <LuCalendarCheck />
-                  {event.dateStart}
+                  {formatDate(event.dateStart)}
                 </li>
                 <li data-testid="luCalendarX">
                   <LuCalendarX />
-                  {event.dateEnd}
+                  {formatDate(event.dateEnd)}
                 </li>
               </ul>
             </div>

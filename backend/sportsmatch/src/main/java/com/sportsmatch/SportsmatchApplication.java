@@ -233,8 +233,8 @@ public class SportsmatchApplication implements CommandLineRunner {
             places.get(4)));
     eventRepository.save(
         new Event(
-            LocalDateTime.of(2024, 6, 15, 10, 0),
-            LocalDateTime.of(2024, 6, 15, 12, 0),
+            LocalDateTime.of(2023, 6, 15, 10, 0),
+            LocalDateTime.of(2023, 6, 15, 12, 0),
             "Prague Stvanice",
             1000,
             1800,
@@ -243,8 +243,8 @@ public class SportsmatchApplication implements CommandLineRunner {
             places.get(4)));
     eventRepository.save(
         new Event(
-            LocalDateTime.of(2024, 6, 15, 10, 0),
-            LocalDateTime.of(2024, 6, 15, 12, 0),
+            LocalDateTime.of(2023, 6, 15, 10, 0),
+            LocalDateTime.of(2023, 6, 15, 12, 0),
             "Prague Stvanice",
             1000,
             1800,
@@ -253,8 +253,8 @@ public class SportsmatchApplication implements CommandLineRunner {
             places.get(4)));
     eventRepository.save(
         new Event(
-            LocalDateTime.of(2024, 6, 15, 10, 0),
-            LocalDateTime.of(2024, 6, 15, 12, 0),
+            LocalDateTime.of(2023, 6, 15, 10, 0),
+            LocalDateTime.of(2023, 6, 15, 12, 0),
             "Prague Stvanice",
             1000,
             1800,

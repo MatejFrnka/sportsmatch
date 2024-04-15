@@ -15,7 +15,6 @@
 .event-wrapper .col {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   min-height: 24.688em;
   min-width: 24.688em;

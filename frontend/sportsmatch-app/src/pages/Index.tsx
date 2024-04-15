@@ -31,6 +31,8 @@ export default function MainPage() {
   const [page, setPage] = useState<number>(0)
   const size = 5
 
+  console.log(`query`, searchQuery)
+
   // handle sports name selected from sportButtoncomponent
   const handleSportSelectionChange = (selectedButtonSports: string[]) => {
     setSelectedSports(selectedButtonSports)
@@ -49,6 +51,9 @@ export default function MainPage() {
     navigate(location.pathname, { state: undefined })
     setSelectedSports([])
     setClearFilters(true)
+    setTimeout(() => {
+      setClearFilters(false);
+    }, 100);
   }
 
   useEffect(() => {
@@ -66,7 +71,6 @@ export default function MainPage() {
         }
         const data: EventDTO[] = response as EventDTO[]
         // set filtered events based on api response
-        console.log(data)
         if (page === 0) {
           setFilteredEvent(data as EventDTO[])
         } else {
@@ -98,10 +102,6 @@ export default function MainPage() {
     }
     toggle()
   }
-
-  console.log(`all sport selected:`, location.state)
-  console.log(`sport button selected:`, selectedSports)
-  console.log(`query`, searchQuery)
 
   // retrieving users rank
   useEffect(() => {

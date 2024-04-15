@@ -24,6 +24,8 @@
 
 .match li{
   color: #fff;
+  font-family: var(--sm-primary-font);
+  font-size: var(--sm-text-content);
 }
 
 .match .col svg {
@@ -32,7 +34,7 @@
 
 .match h1 {
   font-family: var(--sm-secondary-font);
-  font-size: 2.5em !important;
+  font-size: var(--sm-h1-heading);
   font-weight: 900;
   color: var(--sm-white);
 }

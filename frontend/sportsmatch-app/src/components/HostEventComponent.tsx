@@ -33,10 +33,7 @@ function HostEventComponent() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    SportControllerService.getSports({
-      page: 1,
-      size: 1000,
-    }).then((response) => {
+    SportControllerService.getSports().then((response) => {
       setSportsOptions(response)
     })
     PlaceControllerService.searchPlaces('').then((response) =>

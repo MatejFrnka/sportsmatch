@@ -17,10 +17,10 @@ public class EventDTO {
   private Long id;
 
   @NotNull
-  @JsonFormat(pattern = "dd-MM-yyyy HH:mm")
+  @JsonFormat(pattern = "dd.MM.yyyy HH:mm")
   private LocalDateTime dateStart;
   @NotNull
-  @JsonFormat(pattern = "dd-MM-yyyy HH:mm")
+  @JsonFormat(pattern = "dd.MM.yyyy HH:mm")
   private LocalDateTime dateEnd;
   @NotNull
   private Integer minElo;

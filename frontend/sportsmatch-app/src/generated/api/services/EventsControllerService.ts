@@ -4,8 +4,6 @@
 /* eslint-disable */
 import type { EventDTO } from '../models/EventDTO';
 import type { EventHistoryDTO } from '../models/EventHistoryDTO';
-import type { RequestEventDTO } from '../models/RequestEventDTO';
-import type { HostEventDTO } from '../models/HostEventDTO';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
@@ -112,7 +110,9 @@ export class EventsControllerService {
         });
     }
     /**
-     * @param requestEventDto
+     * @param sportsName
+     * @param longitude
+     * @param latitude
      * @param page Zero-based page index (0..N)
      * @param size The size of the page to be returned
      * @param sort Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
@@ -120,7 +120,9 @@ export class EventsControllerService {
      * @throws ApiError
      */
     public static getNearbyEvents(
-        requestEventDto: RequestEventDTO,
+        sportsName?: Array<string>,
+        longitude?: number,
+        latitude?: number,
         page?: number,
         size: number = 20,
         sort?: Array<string>,
@@ -129,7 +131,9 @@ export class EventsControllerService {
             method: 'GET',
             url: '/api/v1/event/nearby',
             query: {
-                'requestEventDTO': requestEventDto,
+                'sportsName': sportsName,
+                'longitude': longitude,
+                'latitude': latitude,
                 'page': page,
                 'size': size,
                 'sort': sort,

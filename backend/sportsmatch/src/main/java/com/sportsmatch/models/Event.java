@@ -16,9 +16,7 @@ import java.util.Set;
 @AllArgsConstructor
 public class Event {
 
-  @Id
-  @GeneratedValue
-  private Long id;
+  @Id @GeneratedValue private Long id;
 
   @Column(name = "date_start")
   private LocalDateTime dateStart;
@@ -34,6 +32,7 @@ public class Event {
 
   private String title;
 
+  @Column(name = "is_rank_updated")
   private Boolean isRanksUpdated = false;
 
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "event")
@@ -42,8 +41,7 @@ public class Event {
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "event")
   private Set<UserEventRating> ratings = new HashSet<>();
 
-  @ManyToOne
-  private Sport sport;
+  @ManyToOne private Sport sport;
 
   @ManyToOne
   @JoinColumn(name = "place_id")

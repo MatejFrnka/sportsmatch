@@ -21,15 +21,17 @@
 
   /* font-sizes */
   --sm-h1-heading: 3em;
-  --sm-text-content: 1em
-
+  --sm-text-content: 1em;
+  --sm-text-medium-content: 1.2em;
 }
 
 svg {
   color: var(--sm-white);
 }
 
-body, html, #root {
+body,
+html,
+#root {
   height: 100%;
   margin: 0;
   padding: 0;

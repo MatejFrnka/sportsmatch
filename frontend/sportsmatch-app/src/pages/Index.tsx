@@ -52,8 +52,8 @@ export default function MainPage() {
     setSelectedSports([])
     setClearFilters(true)
     setTimeout(() => {
-      setClearFilters(false);
-    }, 100);
+      setClearFilters(false)
+    }, 100)
   }
 
   useEffect(() => {

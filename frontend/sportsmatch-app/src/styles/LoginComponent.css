@@ -20,7 +20,7 @@
 
 .wrapper-login h1 {
   color: #e85f29;
-  font-size: 36px;
+  font-size: var(--sm-h1-heading);
   text-align: center;
 }
 
@@ -36,13 +36,13 @@
   height: 100%;
   border: 1px solid rgba(65, 58, 58, 0.2);
   border-radius: 40px;
-  font-size: 13px;
+  font-size: var(--sm-text-content);
   padding: 20px 45px 20px 20px;
 }
 
 .login-input-box input::placeholder {
   color: #ccc;
-  font-size: 15px;
+  font-size: var(--sm-text-content);
 }
 
 .login-input-box input:focus {
@@ -54,14 +54,14 @@
   right: 20px;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 16px;
+  font-size: var(--sm-text-content);
   color: #a1a0a0;
 }
 
 .login-remember-forgot {
   display: flex;
   justify-content: space-between;
-  font-size: 14px;
+  font-size: var(--sm-text-content);
   margin: -15px 0 15px;
 }
 
@@ -97,7 +97,8 @@
   border-radius: 40px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   cursor: pointer;
-  font-size: 16px;
+  font-family: var(--sm-primary-font);
+  font-size: var(--sm-text-content);
   color: #fff;
   font-weight: 600;
 }
@@ -107,7 +108,7 @@
 }
 
 .login-register-link {
-  font-size: 14px;
+  font-size: var(--sm-text-content);
   text-align: center;
   margin: 20px 0 15px;
 }
@@ -152,7 +153,7 @@
   top: 17px;
   left: 40%;
   transform: translateY(-50%);
-  font-size: 22px;
+  font-size: var(--sm-text-content);
 }
 
 .fb-icon {
@@ -161,7 +162,7 @@
   top: 20px;
   left: 40%;
   transform: translateY(-50%);
-  font-size: 25px;
+  font-size: var(--sm-text-content);
 }
 
 .alt-login-text {
@@ -172,5 +173,5 @@
 
 .error-message {
   color: red;
-  font-size: small;
+  font-size: var(--sm-text-content);
 }

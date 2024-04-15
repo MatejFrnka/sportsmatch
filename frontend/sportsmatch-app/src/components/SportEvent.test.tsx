@@ -7,8 +7,8 @@ describe('SportEvent', async () => {
     id: 1,
     maxElo: 2000,
     minElo: 1800,
-    dateEnd: '2024-01-27',
-    dateStart: '2024-01-26',
+    dateEnd: [2024, 9, 20, 17, 0],
+    dateStart: [2024, 9, 20, 15, 0],
     placeDTO: {
       name: 'Test Location',
       address: 'address',
@@ -20,16 +20,35 @@ describe('SportEvent', async () => {
     player1Name: 'Player One',
     player2Name: 'Player Two',
   }
+
+  const formatDate = (dateArray: string) => {
+    const [year, month, day, hours, minutes] = dateArray
+    const formattedDate = `${day.toString().padStart(2, '0')}-${month
+      .toString()
+      .padStart(
+        2,
+        '0',
+      )}-${year} ${hours}:${minutes.toString().padStart(2, '0')}`
+    return formattedDate
+  }
+
   it('renders the component with correct data', () => {
     render(<SportEvent event={mockEvent} />)
+
+    // Convert dateStart and dateEnd arrays to formatted strings
+    const formattedDateStart = formatDate(mockEvent.dateStart)
+    const formattedDateEnd = formatDate(mockEvent.dateEnd)
+
+    console.log('formattedDateStart:', formattedDateStart)
+    console.log('formattedDateEnd:', formattedDateEnd)
 
     // Assert that the rendered component contains the expected data
     expect(screen.getByText(`Test Location`)).toBeInTheDocument()
     expect(
       screen.getByText(`${mockEvent.minElo} - ${mockEvent.maxElo}`),
     ).toBeInTheDocument()
-    expect(screen.getByText(`${mockEvent.dateStart}`)).toBeInTheDocument()
-    expect(screen.getByText(`${mockEvent.dateEnd}`)).toBeInTheDocument()
+    expect(screen.getByText(formattedDateStart)).toBeInTheDocument()
+    expect(screen.getByText(formattedDateEnd)).toBeInTheDocument()
     expect(screen.getByText(mockEvent.title)).toBeInTheDocument()
 
     // Check for the presence of react-icons

@@ -11,6 +11,7 @@ import NotFound from './pages/NotFound'
 import { OpenAPI } from './generated/api'
 import UserInfo from './pages/UserInfo'
 import UserRating from './pages/UserRating'
+import HostEvent from './pages/HostEvent'
 
 function App() {
   OpenAPI.TOKEN = localStorage.getItem('token')!
@@ -40,6 +41,11 @@ function App() {
           <Route
             path="/user/:id/ratings"
             element={<Wrapper child={<UserRating />} />}
+          />
+          <Route path="/user-info" element={<Wrapper child={<UserInfo />} />} />
+          <Route
+            path="/host-event"
+            element={<Wrapper child={<HostEvent />} />}
           />
         </Route>
       </Routes>

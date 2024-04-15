@@ -10,6 +10,7 @@ export type { OpenAPIConfig } from './core/OpenAPI';
 export type { AuthRequestDTO } from './models/AuthRequestDTO';
 export type { EventDTO } from './models/EventDTO';
 export { EventHistoryDTO } from './models/EventHistoryDTO';
+export type { HostEventDTO } from './models/HostEventDTO';
 export type { PlaceDTO } from './models/PlaceDTO';
 export type { RatingDTO } from './models/RatingDTO';
 export type { SportDTO } from './models/SportDTO';

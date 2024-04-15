@@ -2,14 +2,17 @@ package com.sportsmatch.services;
 
 import com.sportsmatch.dtos.EventDTO;
 import com.sportsmatch.dtos.EventHistoryDTO;
+import com.sportsmatch.dtos.HostEventDTO;
 import com.sportsmatch.dtos.RequestEventDTO;
 import com.sportsmatch.mappers.EventMapper;
 import com.sportsmatch.models.Event;
 import com.sportsmatch.models.EventPlayer;
 import com.sportsmatch.models.EventStatusOptions;
+import com.sportsmatch.models.Place;
 import com.sportsmatch.models.User;
 import com.sportsmatch.repositories.EventPlayerRepository;
 import com.sportsmatch.repositories.EventRepository;
+import com.sportsmatch.repositories.PlaceRepository;
 import com.sportsmatch.repositories.SportRepository;
 import com.sportsmatch.repositories.UserRepository;
 import lombok.AllArgsConstructor;
@@ -31,7 +34,7 @@ public class EventService {
   private final UserRepository userRepository;
   private final SportRepository sportRepository;
   private final EventPlayerRepository eventPlayerRepository;
-
+  private final PlaceRepository placeRepository;
 
   public Event getEventById(Long id) {
     return eventRepository
@@ -79,23 +82,18 @@ public class EventService {
     return eventPlayerRepository.save(eventPlayer);
   }
 
-  public Event createEvent(EventDTO eventDTO) {
-    Event newEvent = eventMapper.convertEventDTOtoEvent(eventDTO);
+  public Event createEvent(HostEventDTO hostEventDTO) {
+    User user = userService.getUserFromContext();
+    Event newEvent = eventMapper.convertHostEventDTOtoEvent(hostEventDTO);
+    Place place = placeRepository.findById(hostEventDTO.getLocationId()).orElseThrow();
+    newEvent.setPlace(place);
     newEvent.setSport(
         sportRepository
-            .findSportByName(eventDTO.getSport())
+            .findSportByName(hostEventDTO.getSport())
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST)));
     newEvent = eventRepository.save(newEvent);
-
-    Set<EventPlayer> players = new HashSet<>();
-    if (eventDTO.getPlayer1Id() != null) {
-      players.add(addPlayerToEvent(eventDTO.getPlayer1Id(), newEvent.getId()));
-    }
-    if (eventDTO.getPlayer2Id() != null) {
-      players.add(addPlayerToEvent(eventDTO.getPlayer2Id(), newEvent.getId()));
-    }
-
-    newEvent.setPlayers(players);
+    EventPlayer userPlayer = new EventPlayer(null, null, user, newEvent);
+    eventPlayerRepository.save(userPlayer);
     return newEvent;
   }
 
@@ -107,7 +105,8 @@ public class EventService {
    * Retrieves the event history of the logged-in user.
    *
    * @param pageable contains the pagination information (page, size)
-   * @return a list of EventHistoryDTOs representing the logged-in user's event history
+   * @return a list of EventHistoryDTOs representing the logged-in user's event history$ ../gradlew
+   *     clean checkStyleMain -info
    */
   public List<EventHistoryDTO> getEventsHistory(final Pageable pageable) {
     String loggedUserName = userService.getUserFromContext().getName();
@@ -122,12 +121,10 @@ public class EventService {
    * Returns the checked status of the match (check the score is matching or missing).
    *
    * @param players who entered the event (2 playerEvent)
-   * @return the status of the match
-   *     There is 4 option:
-   *     - Invalid Player -> if one of the player don't present.
-   *     - Waiting for ratings -> if one of the players doesn't response with the score information.
-   *     - Match -> when both player submitted their result and it is match.
-   *     - Mismatch -> when both players have submitted their result, and it isn't a match.
+   * @return the status of the match There is 4 option: - Invalid Player -> if one of the player
+   *     don't present. - Waiting for ratings -> if one of the players doesn't response with the
+   *     score information. - Match -> when both player submitted their result and it is match. -
+   *     Mismatch -> when both players have submitted their result, and it isn't a match.
    */
   public EventStatusOptions checkScoreMatch(Set<EventPlayer> players) {
 
@@ -187,18 +184,26 @@ public class EventService {
   }
 
   /**
-   * Finds events near the provided location and filters them based on optional sport names filters, returning a page of event data transfer objects (DTOs).
+   * Finds events near the provided location and filters them based on optional sport names filters,
+   * returning a page of event data transfer objects (DTOs).
    *
    * @param requestEventDTO containing the request parameters for filtering events.
-   * @param pageable        containing page and size
-   * @return a list of EventDTO representing Events entity and filtered by sport names is given, and coordinate.
+   * @param pageable containing page and size
+   * @return a list of EventDTO representing Events entity and filtered by sport names is given, and
+   *     coordinate.
    */
   public List<EventDTO> getNearbyEvents(RequestEventDTO requestEventDTO, final Pageable pageable) {
 
     // Convert the given sportNames to lowercase because of the native custom query
-    List<String> sportNamesWithLowerCase = requestEventDTO.getSportsName().stream().map(String::toLowerCase).toList();
+    List<String> sportNamesWithLowerCase =
+        requestEventDTO.getSportsName().stream().map(String::toLowerCase).toList();
 
-    List<Event> events = eventRepository.findNearbyEvents(requestEventDTO.getLongitude(), requestEventDTO.getLatitude(), sportNamesWithLowerCase, pageable);
+    List<Event> events =
+        eventRepository.findNearbyEvents(
+            requestEventDTO.getLongitude(),
+            requestEventDTO.getLatitude(),
+            sportNamesWithLowerCase,
+            pageable);
 
     return events.stream().map(eventMapper::convertEventToEventDTO).collect(Collectors.toList());
   }

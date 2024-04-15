@@ -11,9 +11,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class EventDTO {
-
-  private Long id;
+public class HostEventDTO {
 
   @NotNull
   private LocalDateTime dateStart;
@@ -25,14 +23,8 @@ public class EventDTO {
   private Integer maxElo;
   @NotBlank
   private String title;
-
-  private Long player1Id;
-  private Long player2Id;
-  @NotBlank private String sport;
-
-  private String player1Name;
-  private String player2Name;
-
+  @NotBlank
+  private String sport;
   @NotNull
-  private PlaceDTO placeDTO;
+  private Long locationId;
 }

@@ -4,6 +4,7 @@
 /* eslint-disable */
 import type { EventDTO } from '../models/EventDTO';
 import type { EventHistoryDTO } from '../models/EventHistoryDTO';
+import type { HostEventDTO } from '../models/HostEventDTO';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
@@ -14,7 +15,7 @@ export class EventsControllerService {
      * @throws ApiError
      */
     public static addEvent(
-        requestBody: EventDTO,
+        requestBody: HostEventDTO,
     ): CancelablePromise<Record<string, any>> {
         return __request(OpenAPI, {
             method: 'POST',

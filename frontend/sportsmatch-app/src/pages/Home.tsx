@@ -35,8 +35,6 @@ function Home() {
     fetchEvents()
   }, [])
 
-  console.log(eventsHistory)
-  console.log(upcomingMatch)
   return (
     <>
       <div className="container-sm">

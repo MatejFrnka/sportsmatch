@@ -27,24 +27,7 @@ function InProgress({ event }: InProgressProps) {
     }
     fetchUserInfo()
   }, [])
-
-  // const eventDate = new Date(
-  //   parseInt(event.dateStart[0]),
-  //   parseInt(event.dateStart[1]),
-  //   parseInt(event.dateStart[2]),
-  // )
-
-  // const eventStartTime = () => {
-  //   const hour = event.dateStart[3]
-  //   const min = event.dateStart[4] === '0' ? '00' : event.dateStart[4]
-  //   return hour + ':' + (min.length === 1 ? min + '0' : min)
-  // }
-  // const eventEndTime = () => {
-  //   const hour = event.dateEnd[3]
-  //   const min = event.dateEnd[4] === '0' ? '00' : event.dateEnd[4]
-  //   return hour + ':' + (min.length === 1 ? min + '0' : min)
-  // }
-
+  
   return (
     <>
       <div className="container-fluid">

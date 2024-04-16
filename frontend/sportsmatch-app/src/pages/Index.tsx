@@ -31,9 +31,6 @@ export default function MainPage() {
   const [page, setPage] = useState<number>(0)
   const size = 5
 
-  console.log(`query`, searchQuery)
-  console.log(filteredEvent)
-
   // handle sports name selected from sportButtoncomponent
   const handleSportSelectionChange = (selectedButtonSports: string[]) => {
     setSelectedSports(selectedButtonSports)

@@ -27,7 +27,7 @@ function InProgress({ event }: InProgressProps) {
     }
     fetchUserInfo()
   }, [])
-  
+
   return (
     <>
       <div className="container-fluid">

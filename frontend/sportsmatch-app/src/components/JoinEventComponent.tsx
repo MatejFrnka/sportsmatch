@@ -24,17 +24,17 @@ export default function JoinEventComponent(p: JoinEventProps) {
     }
   }
 
-  const date = new Date(
-    parseInt(p.event.dateStart[0]),
-    parseInt(p.event.dateStart[1]),
-    parseInt(p.event.dateStart[2]),
-  )
-
-  const eventTime = () => {
-    const hour = p.event.dateStart[3]
-    const min = p.event.dateStart[4] == '0' ? '00' : p.event.dateStart[4]
-    return hour + ':' + min
+  const getDateAndTime = (type: string) => {
+    const dateStart: string[] = p.event.dateStart.split(' ')
+    if (type === 'date') {
+      return dateStart[0]
+    } else if (type === 'time') {
+      return dateStart[1]
+    } else {
+      return null
+    }
   }
+
   return (
     <>
       {p.isInRank ? (
@@ -51,32 +51,32 @@ export default function JoinEventComponent(p: JoinEventProps) {
                 {' at ' +
                   p.event.placeDTO?.name +
                   ' on ' +
-                  date.toLocaleDateString('en', { month: 'long' }) +
-                  ' ' +
-                  date.getDay() +
-                  ', ' +
-                  date.getFullYear() +
+                  getDateAndTime('date') +
                   ', at ' +
-                  eventTime() +
+                  getDateAndTime('time') +
                   '?'}
               </p>
             </div>
           </div>
           <div className="row">
-            <div className="col-12">
-              <button
-                className="join-event-btn-orange"
-                onClick={handleJoinEvent}
-              >
-                Join
-              </button>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-12">
-              <button className="join-event-btn-grey" onClick={p.toggle}>
-                Cancel
-              </button>
+            <div className="col">
+              <div className="row">
+                <div className="col-12">
+                  <button
+                    className="join-event-btn-orange"
+                    onClick={handleJoinEvent}
+                  >
+                    Join
+                  </button>
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-12">
+                  <button className="join-event-btn-grey" onClick={p.toggle}>
+                    Cancel
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>

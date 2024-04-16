@@ -36,7 +36,7 @@
     width: 100%;
     border: 1px solid rgba(65, 58, 58, 0.2);
     border-radius: 40px;
-    font-size: 1rem;
+    font-size: var(--sm-text-content);
     padding: 0.5rem 0.5rem 0.5rem 2.5rem;
 }
 
@@ -63,6 +63,6 @@ button {
     border-radius: 40px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     cursor: pointer;
-    font-size: 1rem;
+    font-size: var(--sm-text-content);
     color: var(--sm-white);
 }

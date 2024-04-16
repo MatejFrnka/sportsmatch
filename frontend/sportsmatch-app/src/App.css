@@ -19,16 +19,19 @@
   --sm-btn-size-regular: 3.125em;
   --sm-btn-size-small: 1.875em;
 
-  --sm-h1-size: 3em;
-  --sm-h2-size: 1em;
-  --sm-text-size: 1em;
+  /* font-sizes */
+  --sm-h1-heading: 3em;
+  --sm-text-content: 1em;
+  --sm-text-medium-content: 1.2em;
 }
 
 svg {
   color: var(--sm-white);
 }
 
-body, html, #root {
+body,
+html,
+#root {
   height: 100%;
   margin: 0;
   padding: 0;

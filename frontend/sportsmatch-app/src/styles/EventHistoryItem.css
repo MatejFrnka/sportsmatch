@@ -5,7 +5,7 @@
     display: grid;
     color: var(--sm-secondary-orange);
     font-weight: bold;
-    font-size: 16px;
+    font-size: var(--sm-text-content);
     text-align: center;
     grid-column: 2;
     padding: 9px 9px 0 9px;
@@ -21,7 +21,7 @@
     grid-template-columns: 8fr 0.5fr 8fr;
     width: 100%;
     min-height: 106px;
-    font-size: 10px;
+    font-size: var(--sm-text-content);
     background-color: var(--sm-primary-bg);
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.05);
     border: 2px solid var(--sm-secondary-orange);
@@ -52,7 +52,7 @@
     height: 35px;
     color: var(--sm-secondary-orange);
     font-weight: bold;
-    font-size: 16px;
+    font-size: var(--sm-text-content);
     grid-row: 1;
     display: grid;
 }
@@ -100,7 +100,7 @@
 .match-status {
     color: var(--sm-secondary-orange);
     font-weight: bold;
-    font-size: 12px;;
+    font-size: var(--sm-text-content);
     position: relative;
     padding: 4px 4px 8px 8px;
     letter-spacing: 10%;

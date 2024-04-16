@@ -1,5 +1,6 @@
 package com.sportsmatch.dtos;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -16,8 +17,10 @@ public class EventDTO {
   private Long id;
 
   @NotNull
+  @JsonFormat(pattern = "dd.MM.yyyy HH:mm")
   private LocalDateTime dateStart;
   @NotNull
+  @JsonFormat(pattern = "dd.MM.yyyy HH:mm")
   private LocalDateTime dateEnd;
   @NotNull
   private Integer minElo;

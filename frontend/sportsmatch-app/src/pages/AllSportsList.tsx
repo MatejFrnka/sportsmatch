@@ -35,7 +35,7 @@ export function AllSportsList() {
   ]
 
   // this url should be dynamic
-  const url = '/index'
+  const url = '/'
   const location = useLocation()
   const selectedButtonSports = location.state.selectedButtonSports
 

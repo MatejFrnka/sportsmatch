@@ -58,7 +58,7 @@
   border-radius: 40px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   cursor: pointer;
-  font-size: 18px;
+  font-size: var(--sm-text-medium-content);
   color: #fff;
   font-weight: 400;
   margin: 20px 0;

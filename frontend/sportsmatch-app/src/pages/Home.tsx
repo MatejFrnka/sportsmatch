@@ -66,7 +66,7 @@ function Home() {
           <div className="history-wrapper">
             <div className="row">
               <div className="col">
-                {upcomingMatch.length === 0 ? (
+                {eventsHistory.length === 0 ? (
                   <p>No match history</p>
                 ) : (
                   eventsHistory.map((e, index) => (

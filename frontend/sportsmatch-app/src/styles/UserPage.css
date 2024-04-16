@@ -15,7 +15,6 @@
 .event-wrapper .col {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   min-height: 24.688em;
   min-width: 24.688em;
@@ -33,4 +32,12 @@
 
 .user-page .nearby-wrapper p {
   color: var(--sm-orange);
+}
+
+.view-wrapper {
+  margin: 0.625em 0 0.625em 0;
+}
+
+.nearby-wrapper {
+  margin: 0.625em 0 0.625em 0;
 }

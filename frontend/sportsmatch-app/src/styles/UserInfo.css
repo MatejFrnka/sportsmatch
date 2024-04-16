@@ -7,6 +7,7 @@
 }
 
 .row.user-input input {
+  font-size: var(--sm-text-content);
   margin-top: 1.875em;
   height: 3.125em;
   width: 100%;
@@ -27,6 +28,7 @@
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
+  font-size: var(--sm-text-content);
   height: 10.5em;
   width: 8.75em;
   background-color: var(--sm-orange);
@@ -45,6 +47,7 @@ input.submit {
   border: none;
   border-radius: 2.5em;
   color: white;
+  font-size: var(--sm-text-content);
 }
 
 .submit {
@@ -64,9 +67,14 @@ input.submit {
 }
 
 .gender-card p {
+  font-size: var(--sm-text-content);
   margin: 0;
 }
 
 .alert {
   margin-top: 1.875em;
+}
+
+.gender-card.unselected-gen img {
+  outline: none;
 }

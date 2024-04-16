@@ -38,7 +38,7 @@ function SportsButtonComponent({
 
   const navigate = useNavigate()
   const handleMoreSportsButton = () => {
-    navigate('/allsports', { state: { selectedButtonSports } })
+    navigate('/all-sports', { state: { selectedButtonSports } })
   }
 
   const [sports, setSports] = useState<SportDTO[]>([])

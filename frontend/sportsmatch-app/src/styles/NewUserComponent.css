@@ -2,7 +2,7 @@
 
 .newUser-wrapper h1 {
   color: #e85f29;
-  font-size: 36px;
+  font-size: var(--sm-h1-heading);
   text-align: center;
 }
 
@@ -19,13 +19,13 @@
   height: 100%;
   border: 1px solid rgba(65, 58, 58, 0.2);
   border-radius: 40px;
-  font-size: 13px;
+  font-size: var(--sm-text-content);
   padding: 20px 45px 20px 20px;
 }
 
 .newUser-input-box input::placeholder {
   color: #ccc;
-  font-size: 15px;
+  font-size: var(--sm-text-content);
 }
 
 .newUser-input-box input:focus {
@@ -36,19 +36,19 @@
   position: absolute;
   right: 20px;
   top: 50%;
-  font-size: 16px;
+  font-size: var(--sm-text-content);
   color: #a1a0a0;
 }
 
 .wrapper .gender {
-  font-size: 16px;
+  font-size: var(--sm-text-content);
   margin: -15px 0 15px;
 }
 
 .male-female {
   display: flex;
   justify-content: space-between;
-  font-size: 14px;
+  font-size: var(--sm-text-content);
   margin: 10px 15px 15px;
 }
 
@@ -107,7 +107,7 @@
   border-radius: 40px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   cursor: pointer;
-  font-size: 16px;
+  font-size: var(--sm-text-content);
   color: #fff;
   font-weight: 600;
   margin: 20px 0;
@@ -125,6 +125,8 @@
 }
 
 .sports-button {
+  font-family: var(--sm-primary-font);
+  font-size: var(--sm-text-content);
   display: inline-block;
   width: 100%;
   padding: 0.625em;

@@ -18,7 +18,7 @@ function App() {
   OpenAPI.TOKEN = localStorage.getItem('token')!
 
   useEffect(() => {
-    document.title = "SPORTS MINGLE"
+    document.title = 'SPORTS MINGLE'
   })
 
   return (

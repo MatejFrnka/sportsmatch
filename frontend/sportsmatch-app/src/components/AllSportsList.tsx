@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { SportControllerService, SportDTO } from '../generated/api'
 import '../App.css'
 import '../styles/Sport.css'
-import { SearchBar } from '../components/SearchBar'
+import { SearchBar } from './SearchBar'
 
 interface AllSportsProps {
   selectedButtonSports: string[] // contains selected buttons from the parent element

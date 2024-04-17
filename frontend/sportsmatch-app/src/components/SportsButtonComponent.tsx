@@ -1,7 +1,9 @@
 import { useCallback, useEffect, useState } from 'react'
 import '../styles/NewUserComponent.css'
-import { useNavigate } from 'react-router-dom'
 import { SportControllerService, SportDTO } from '../generated/api'
+import Modal from './Modal'
+import useModal from '../hooks/UseModal'
+import { AllSportsList } from './AllSportsList'
 
 function SportsButtonComponent({
   onSportSelectionChange,
@@ -11,6 +13,7 @@ function SportsButtonComponent({
   clearFilters?: boolean
 }) {
   const [selectedButtonSports, setselectedButtonSports] = useState<string[]>([])
+  const { isOpen, toggle } = useModal()
 
   useEffect(() => {
     if (clearFilters) {
@@ -36,13 +39,15 @@ function SportsButtonComponent({
     memoizedOnSportSelectionChange(selectedButtonSports)
   }, [selectedButtonSports, memoizedOnSportSelectionChange])
 
-  const navigate = useNavigate()
+  // opens the more sports popup window
   const handleMoreSportsButton = () => {
-    navigate('/all-sports', { state: { selectedButtonSports } })
+    toggle()
   }
 
+  // sports from the backend
   const [sports, setSports] = useState<SportDTO[]>([])
 
+  // fetching sports from the backend
   useEffect(() => {
     const fetchSports = async () => {
       setSports((await SportControllerService.getSports(0, 5)) as SportDTO[])
@@ -73,7 +78,15 @@ function SportsButtonComponent({
             onClick={handleMoreSportsButton}
           />
         </label>
-        {/* <button id="more-sports-button">.&nbsp;&nbsp;.&nbsp;&nbsp;.</button> */}
+        <Modal isOpen={isOpen} preventClosing={false} toggle={toggle}>
+          <AllSportsList
+            selectedButtonSports={selectedButtonSports}
+            toggle={toggle}
+            onSelect={(s: string[]) => {
+              setselectedButtonSports(s)
+            }}
+          />
+        </Modal>
       </div>
     </div>
   )

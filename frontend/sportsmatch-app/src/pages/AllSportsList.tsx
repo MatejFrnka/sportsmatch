@@ -1,79 +1,52 @@
-import React, { useState } from 'react'
-import { SportDTO } from '../generated/api'
+import React, { useEffect, useState } from 'react'
+import { SportControllerService, SportDTO } from '../generated/api'
 import '../App.css'
 import '../styles/Sport.css'
-import { useLocation, useNavigate } from 'react-router-dom'
 import { SearchBar } from '../components/SearchBar'
 
-export function AllSportsList() {
-  const sampleSports: SportDTO[] = [
-    {
-      name: 'Badminton',
-      emoji: '🏸',
-      backgroundUImageURL: './assets/sport-component-badminton.png',
-    },
-    {
-      name: 'Tennis',
-      emoji: '🎾',
-      backgroundUImageURL: './assets/sport-component-tennis.png',
-    },
-    {
-      name: 'Boxing',
-      emoji: '🥊',
-      backgroundUImageURL: './assets/sport-component-boxing.png',
-    },
-    {
-      name: 'Table Tennis',
-      emoji: '🏓',
-      backgroundUImageURL: './assets/sport-component-table-tennis.png',
-    },
-    {
-      name: 'Squash',
-      emoji: '🥎',
-      backgroundUImageURL: './assets/sport-component-squash.png',
-    },
-  ]
+interface AllSportsProps {
+  selectedButtonSports: string[] // contains selected buttons from the parent element
+  toggle: () => void
+  onSelect: (sports: string[]) => void // passes back selected buttons to the parent element
+}
 
-  // this url should be dynamic
-  const url = '/'
-  const location = useLocation()
-  const selectedButtonSports = location.state.selectedButtonSports
+export function AllSportsList(p: AllSportsProps) {
+  // fetching sports from the backend
+  const [allSports, setAllSports] = useState<SportDTO[]>([])
+  useEffect(() => {
+    const fetchSports = async () => {
+      setAllSports(
+        (await SportControllerService.getSports(0, 999)) as SportDTO[],
+      )
+    }
+    fetchSports()
+  }, [])
 
-  console.log(location.state)
-
-  interface SportState {
-    sport: SportDTO
-    selected: boolean
-  }
-
-  const navigate = useNavigate()
-
-  const [sportsState, setSportsState] = useState<SportState[]>(
-    sampleSports.map((sport) => ({
-      sport,
-      selected: selectedButtonSports.includes(sport.name),
-    })),
-  )
+  // handling the searchbar
   const [searchQuery, setSearchQuery] = useState('')
-
-  const handleSportSelection = (sport: SportState) => {
-    const index = sportsState.indexOf(sport)
-    const updatedSportsState = [...sportsState]
-    updatedSportsState[index].selected = !updatedSportsState[index].selected
-    setSportsState(updatedSportsState)
+  const [selectedSports, setSelectedSports] = useState<string[]>(
+    p.selectedButtonSports,
+  )
+  // handling cliking on the sport button
+  const handleSportSelection = (buttonText: string) => {
+    setSelectedSports((prevState) => {
+      if (prevState.includes(buttonText)) {
+        return prevState.filter((button) => button !== buttonText)
+      } else {
+        return [...prevState, buttonText]
+      }
+    })
   }
 
-  const handleFinishSelection = () => {
-    const selectedSports = sportsState
-      .filter((s) => s.selected)
-      .map((s) => s.sport)
-    navigate(url, { state: selectedSports })
+  // handling passing the selected sports to the parent and closses the window
+  const handleFinishSelection = (sports: string[]) => {
+    p.onSelect(sports)
+    p.toggle()
   }
 
-  const sportList: React.ReactElement[] = sportsState
-    .filter((s) =>
-      s.sport.name?.toLowerCase().includes(searchQuery.toLowerCase()),
-    )
+  // rendering sports filtered by the query from the searchbar
+  const sportList: React.ReactElement[] = allSports
+    .filter((s) => s.name?.toLowerCase().includes(searchQuery.toLowerCase()))
     .map((currentSport, index) => {
       return (
         <div
@@ -81,23 +54,27 @@ export function AllSportsList() {
           className={`checkbox-wrapper text-center
         `}
           style={{
-            backgroundImage: `url(${currentSport.sport.backgroundUImageURL})`,
+            backgroundImage: `url(${currentSport.backgroundUImageURL})`,
           }}
         >
           <div className="row">
             <div
-              className={`col ${currentSport.selected ? 'selected' : 'unselected'}`}
+              className={`col ${
+                selectedSports.includes(currentSport.name!)
+                  ? 'selected'
+                  : 'unselected'
+              }`}
             >
               <label>
                 <input
                   className="checkbox"
                   type="checkbox"
-                  checked={currentSport.selected}
+                  checked={selectedSports.includes(currentSport.name!)}
                   onChange={() => {
-                    handleSportSelection(currentSport)
+                    handleSportSelection(currentSport.name!)
                   }}
                 />
-                <span>{currentSport.sport.name}</span>
+                <span>{currentSport.name}</span>
               </label>
             </div>
           </div>
@@ -116,9 +93,11 @@ export function AllSportsList() {
         {sportList}
         <div className="row">
           <div className="col">
-            <button type="submit" onClick={handleFinishSelection}>
-              Selected sports{' '}
-              {sportsState.filter((sport) => sport.selected).length}
+            <button
+              type="submit"
+              onClick={() => handleFinishSelection(selectedSports)}
+            >
+              Selected sports {selectedSports.length}
             </button>
           </div>
         </div>
@@ -126,31 +105,3 @@ export function AllSportsList() {
     </>
   )
 }
-
-export const sampleSports: SportDTO[] = [
-  {
-    name: 'Badminton',
-    emoji: '🏸',
-    backgroundUImageURL: './assets/sport-component-badminton.png',
-  },
-  {
-    name: 'Tennis',
-    emoji: '🎾',
-    backgroundUImageURL: './assets/sport-component-tennis.png',
-  },
-  {
-    name: 'Boxing',
-    emoji: '🥊',
-    backgroundUImageURL: './assets/sport-component-boxing.png',
-  },
-  {
-    name: 'Table Tennis',
-    emoji: '🏓',
-    backgroundUImageURL: './assets/sport-component-table-tennis.png',
-  },
-  {
-    name: 'Squash',
-    emoji: '🥎',
-    backgroundUImageURL: './assets/sport-component-squash.png',
-  },
-]

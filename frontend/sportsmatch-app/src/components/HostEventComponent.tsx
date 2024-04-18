@@ -21,6 +21,7 @@ import useModal from '../hooks/UseModal'
 import SportEvent from './SportEvent'
 import Modal from './Modal'
 import JoinEventComponent from './JoinEventComponent'
+import { SearchBar } from './SearchBar'
 
 function HostEventComponent() {
   const [matchTitle, setMatchTitle] = useState('')
@@ -45,6 +46,9 @@ function HostEventComponent() {
   const { isOpen, toggle } = useModal()
   const [usersRank, setUsersRank] = useState(0)
   const [userIsInRank, setUserIsInRank] = useState(false)
+  const [searchQuery, setSearchQuery] = useState<string>('') // no implementation yet
+  
+  console.log(searchQuery)
 
   useEffect(() => {
     SportControllerService.getSports().then((response) => {
@@ -278,6 +282,15 @@ function HostEventComponent() {
                   <button type="submit">Host Event</button>
                 </div>
               </form>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col search">
+            <SearchBar
+              onChange={(query: string) => {
+                setSearchQuery(query)
+              }}
+            />
             </div>
           </div>
           <Modal isOpen={isOpen} toggle={toggle} preventClosing={true}>

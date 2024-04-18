@@ -37,8 +37,9 @@ function Home() {
 
   return (
     <>
-      <div className="container-sm">
-        <div className="user-page">
+    <div className="row">
+      <div className="col">
+      <div className="user-page">
           {upcomingMatch.length === 0 ? <hr /> : <></>}
           <div className="row">
             {upcomingMatch.length === 0 ? (
@@ -81,6 +82,7 @@ function Home() {
           </div>
         </div>
       </div>
+    </div>
     </>
   )
 }

@@ -162,143 +162,153 @@ function HostEventComponent() {
   })
 
   return (
-    <div className={'centered-container'}>
-      <div className="wrapper-host-event">
-        <form className="form-host-event" onSubmit={handleHostEvent}>
-          <div className="host-event-input-box">
-            <label htmlFor="match-title"></label>
-            <input
-              id="match-title"
-              type="text"
-              placeholder="Match Title"
-              value={matchTitle}
-              onChange={(e) => setMatchTitle(e.target.value)}
-              required
-            />
-          </div>
-          <div className="host-event-input-box">
-            <label htmlFor="sports"></label>
-            <select
-              id="sports"
-              value={selectSport}
-              onChange={handleSportSelection}
-            >
-              <option value="" disabled>
-                Select sport
-              </option>
-              {sportsOptions.map((sport, index) => (
-                <option key={index} value={sport.name}>
-                  {sport.name}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="host-event-input-box">
-            <label htmlFor="rank"></label>
-            <select id="rank" value={selectRank} onChange={handleRankSelection}>
-              <option value="" disabled>
-                Select a rank
-              </option>
-              {rankOptions.map((option, index) => (
-                <option key={index} value={option.label}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="host-event-input-box">
-            <label htmlFor="gender"></label>
-            <select
-              id="gender"
-              value={selectOppGender}
-              onChange={handleOppGenderSelection}
-            >
-              <option value="" disabled>
-                Select opponent gender
-              </option>
-              {genderOptions.map((gender, index) => (
-                <option key={index} value={gender}>
-                  {gender}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="host-event-input-box">
-            <label htmlFor="location"></label>
-            <select
-              id="location"
-              defaultValue={'select location'}
-              value={selectLocation}
-              onChange={handleLocationSelection}
-            >
-              <option value="select location" disabled>
-                Select location
-              </option>
-              {locationsOptions.map((location, index) => (
-                <option key={index} value={location.id}>
-                  {location.name}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="host-event-input-box">
-            <div className="date-picker">
-              <label htmlFor="date-start"></label>
-              <DatePicker
-                id="date-start"
-                placeholderText="Starting date"
-                selected={selectStartDateAndTime}
-                onChange={handleStartDateSelection}
-                showTimeSelect
-                dateFormat="yyyy-MM-dd HH:mm:ss"
-              />
-            </div>
-          </div>
-          <div className="host-event-input-box">
-            <div className="date-picker">
-              <label htmlFor="date-end"></label>
-              <DatePicker
-                id="date-end"
-                placeholderText="Ending date"
-                selected={selectEndDateAndTime}
-                onChange={handleEndDateSelection}
-                showTimeSelect
-                dateFormat="yyyy-MM-dd HH:mm:ss"
-              />
-            </div>
-          </div>
-          <div className="create-event">
-            <button type="submit">Host Event</button>
-          </div>
-        </form>
-      </div>
-      <Modal isOpen={isOpen} toggle={toggle} preventClosing={true}>
-        <JoinEventComponent
-          toggle={toggle}
-          isInRank={userIsInRank}
-          event={selectedEvent!}
-        />
-      </Modal>
+    <>
       <div className="row">
         <div className="col">
-          <div className="nearby-events-container">
-            {nearbyEvents.length === 0 ? (
-              <LoadingSpinner />
-            ) : (
-              nearbyEvents.map((event, index) => (
-                <div
-                  className="nearby-events"
-                  key={index}
-                  onClick={() => handleEventSelection(event)}
-                >
-                  <SportEvent event={event} />
+          <div className="row">
+            <div className="col">
+              <form className="form-host-event" onSubmit={handleHostEvent}>
+                <div className="host-event-input-box">
+                  <label htmlFor="match-title"></label>
+                  <input
+                    id="match-title"
+                    type="text"
+                    placeholder="Match Title"
+                    value={matchTitle}
+                    onChange={(e) => setMatchTitle(e.target.value)}
+                    required
+                  />
                 </div>
-              ))
-            )}
+                <div className="host-event-input-box">
+                  <label htmlFor="sports"></label>
+                  <select
+                    id="sports"
+                    value={selectSport}
+                    onChange={handleSportSelection}
+                  >
+                    <option value="" disabled>
+                      Select sport
+                    </option>
+                    {sportsOptions.map((sport, index) => (
+                      <option key={index} value={sport.name}>
+                        {sport.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div className="host-event-input-box">
+                  <label htmlFor="rank"></label>
+                  <select
+                    id="rank"
+                    value={selectRank}
+                    onChange={handleRankSelection}
+                  >
+                    <option value="" disabled>
+                      Select a rank
+                    </option>
+                    {rankOptions.map((option, index) => (
+                      <option key={index} value={option.label}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div className="host-event-input-box">
+                  <label htmlFor="gender"></label>
+                  <select
+                    id="gender"
+                    value={selectOppGender}
+                    onChange={handleOppGenderSelection}
+                  >
+                    <option value="" disabled>
+                      Select opponent gender
+                    </option>
+                    {genderOptions.map((gender, index) => (
+                      <option key={index} value={gender}>
+                        {gender}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div className="host-event-input-box">
+                  <label htmlFor="location"></label>
+                  <select
+                    id="location"
+                    defaultValue={'select location'}
+                    value={selectLocation}
+                    onChange={handleLocationSelection}
+                  >
+                    <option value="select location" disabled>
+                      Select location
+                    </option>
+                    {locationsOptions.map((location, index) => (
+                      <option key={index} value={location.id}>
+                        {location.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div className="host-event-input-box">
+                  <div className="date-picker">
+                    <label htmlFor="date-start"></label>
+                    <DatePicker
+                      id="date-start"
+                      placeholderText="Starting date"
+                      selected={selectStartDateAndTime}
+                      onChange={handleStartDateSelection}
+                      showTimeSelect
+                      dateFormat="yyyy-MM-dd HH:mm:ss"
+                    />
+                  </div>
+                </div>
+                <div className="host-event-input-box">
+                  <div className="date-picker">
+                    <label htmlFor="date-end"></label>
+                    <DatePicker
+                      id="date-end"
+                      placeholderText="Ending date"
+                      selected={selectEndDateAndTime}
+                      onChange={handleEndDateSelection}
+                      showTimeSelect
+                      dateFormat="yyyy-MM-dd HH:mm:ss"
+                    />
+                  </div>
+                </div>
+                <div className="create-event">
+                  <button type="submit">Host Event</button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <Modal isOpen={isOpen} toggle={toggle} preventClosing={true}>
+            <JoinEventComponent
+              toggle={toggle}
+              isInRank={userIsInRank}
+              event={selectedEvent!}
+            />
+          </Modal>
+          <div className="row">
+            <div className="col">
+              <div className="nearby-events-container">
+                {nearbyEvents.length === 0 ? (
+                  <LoadingSpinner />
+                ) : (
+                  nearbyEvents.map((event, index) => (
+                    <div
+                      className="nearby-events"
+                      key={index}
+                      onClick={() => handleEventSelection(event)}
+                    >
+                      <SportEvent event={event} />
+                    </div>
+                  ))
+                )}
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }
 

@@ -7,11 +7,20 @@ import {
   PlaceDTO,
   EventsControllerService,
   HostEventDTO,
+  EventDTO,
+  ApiError,
+  OpenAPI,
+  ExSecuredEndpointService,
 } from '../generated/api'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { format } from 'date-fns'
 import { useNavigate } from 'react-router-dom'
+import LoadingSpinner from './LoadingSpinner'
+import useModal from '../hooks/UseModal'
+import SportEvent from './SportEvent'
+import Modal from './Modal'
+import JoinEventComponent from './JoinEventComponent'
 
 function HostEventComponent() {
   const [matchTitle, setMatchTitle] = useState('')
@@ -31,6 +40,11 @@ function HostEventComponent() {
   )
   const [selectEndDateAndTime, setEndDateAndTime] = useState<Date | null>(null)
   const navigate = useNavigate()
+  const [nearbyEvents, setNearbyEvents] = useState<EventDTO[]>([])
+  const [selectedEvent, setSelectedEvent] = useState<EventDTO>()
+  const { isOpen, toggle } = useModal()
+  const [usersRank, setUsersRank] = useState(0)
+  const [userIsInRank, setUserIsInRank] = useState(false)
 
   useEffect(() => {
     SportControllerService.getSports().then((response) => {
@@ -39,7 +53,7 @@ function HostEventComponent() {
     PlaceControllerService.searchPlaces('').then((response) =>
       setLocationOptions(response),
     )
-  },[])
+  }, [])
 
   const handleHostEvent = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -92,6 +106,60 @@ function HostEventComponent() {
   const handleEndDateSelection = (date: Date | null) => {
     setEndDateAndTime(date)
   }
+
+  // get nearby events
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await EventsControllerService.getNearbyEvents(
+          undefined,
+          undefined,
+          undefined,
+          undefined,
+          999,
+        )
+        if (!Array.isArray(response)) {
+          throw new Error('Failed to fetch event data')
+        }
+        const data: EventDTO[] = response as EventDTO[]
+        setNearbyEvents(data)
+      } catch (error) {
+        console.error(error as ApiError)
+      }
+    }
+    fetchData()
+  }, [nearbyEvents])
+
+  // handle join event pop up after cliking on the event
+  const handleEventSelection = (e: EventDTO) => {
+    window.scrollTo(0, 0)
+    if (isOpen) {
+      toggle()
+    }
+    setSelectedEvent(e)
+    if (usersRank >= e.minElo && usersRank <= e.maxElo) {
+      setUserIsInRank(true)
+    } else {
+      setUserIsInRank(false)
+    }
+    toggle()
+  }
+
+  // retrieving users rank
+  useEffect(() => {
+    const fetchUsersRank = async () => {
+      OpenAPI.TOKEN = localStorage.getItem('token')!
+      try {
+        const response = await ExSecuredEndpointService.getUserMainPage()
+        if (response) {
+          setUsersRank(response.elo)
+        }
+      } catch (error) {
+        console.error(error as ApiError)
+      }
+    }
+    fetchUsersRank()
+  })
 
   return (
     <div className={'centered-container'}>
@@ -203,6 +271,32 @@ function HostEventComponent() {
             <button type="submit">Host Event</button>
           </div>
         </form>
+      </div>
+      <Modal isOpen={isOpen} toggle={toggle} preventClosing={true}>
+        <JoinEventComponent
+          toggle={toggle}
+          isInRank={userIsInRank}
+          event={selectedEvent!}
+        />
+      </Modal>
+      <div className="row">
+        <div className="col">
+          <div className="nearby-events-container">
+            {nearbyEvents.length === 0 ? (
+              <LoadingSpinner />
+            ) : (
+              nearbyEvents.map((event, index) => (
+                <div
+                  className="nearby-events"
+                  key={index}
+                  onClick={() => handleEventSelection(event)}
+                >
+                  <SportEvent event={event} />
+                </div>
+              ))
+            )}
+          </div>
+        </div>
       </div>
     </div>
   )

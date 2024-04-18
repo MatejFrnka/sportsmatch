@@ -4,7 +4,6 @@ import Home from './pages/Home'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Wrapper from './pages/AppWrapper'
-import { AllSportsList } from './pages/AllSportsList'
 import Index from './pages/Index'
 import PrivateRoute from './components/PrivateRoute'
 import NotFound from './pages/NotFound'
@@ -32,10 +31,6 @@ function App() {
           element={
             <Wrapper child={<Index />} acitvateCheckRatingModal={true} />
           }
-        />
-        <Route
-          path="/all-sports"
-          element={<Wrapper child={<AllSportsList />} />}
         />
         <Route path="/*" element={<NotFound />}></Route>
 

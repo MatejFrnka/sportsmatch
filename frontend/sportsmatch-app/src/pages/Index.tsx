@@ -11,7 +11,6 @@ import {
   EventsControllerService,
   ExSecuredEndpointService,
   OpenAPI,
-  SportDTO,
 } from '../generated/api'
 import useModal from '../hooks/UseModal'
 import Modal from '../components/Modal'
@@ -31,21 +30,15 @@ export default function MainPage() {
   const [page, setPage] = useState<number>(0)
   const size = 5
 
-  console.log(`query`, searchQuery)
+  // search bar is not yet implemented
+  useEffect(() => {
+    console.log(`query`, searchQuery)
+  }, [searchQuery])
 
   // handle sports name selected from sportButtoncomponent
   const handleSportSelectionChange = (selectedButtonSports: string[]) => {
     setSelectedSports(selectedButtonSports)
   }
-
-  // handles sports name from location.state of allSportsList
-  useEffect(() => {
-    if (location.state) {
-      const sports: SportDTO[] = location.state
-      const sportNames = sports.map((sport) => sport.name || '')
-      setSelectedSports(sportNames)
-    }
-  }, [location.state])
 
   const clear = () => {
     navigate(location.pathname, { state: undefined })

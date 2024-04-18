@@ -12,9 +12,14 @@ import { OpenAPI } from './generated/api'
 import UserInfo from './pages/UserInfo'
 import UserRating from './pages/UserRating'
 import HostEvent from './pages/HostEvent'
+import { useEffect } from 'react'
 
 function App() {
   OpenAPI.TOKEN = localStorage.getItem('token')!
+
+  useEffect(() => {
+    document.title = 'SPORTS MINGLE'
+  })
 
   return (
     <BrowserRouter>

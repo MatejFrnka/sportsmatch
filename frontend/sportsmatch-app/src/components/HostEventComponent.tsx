@@ -47,7 +47,7 @@ function HostEventComponent() {
   const [usersRank, setUsersRank] = useState(0)
   const [userIsInRank, setUserIsInRank] = useState(false)
   const [searchQuery, setSearchQuery] = useState<string>('') // no implementation yet
-  
+
   console.log(searchQuery)
 
   useEffect(() => {
@@ -286,11 +286,11 @@ function HostEventComponent() {
           </div>
           <div className="row">
             <div className="col search">
-            <SearchBar
-              onChange={(query: string) => {
-                setSearchQuery(query)
-              }}
-            />
+              <SearchBar
+                onChange={(query: string) => {
+                  setSearchQuery(query)
+                }}
+              />
             </div>
           </div>
           <Modal isOpen={isOpen} toggle={toggle} preventClosing={true}>

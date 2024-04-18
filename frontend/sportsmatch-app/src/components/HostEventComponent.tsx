@@ -39,11 +39,10 @@ function HostEventComponent() {
     PlaceControllerService.searchPlaces('').then((response) =>
       setLocationOptions(response),
     )
-  })
+  },[])
 
   const handleHostEvent = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    console.log(selectLocation)
 
     const [minElo, maxElo] = selectRank
       .split(' - ')
@@ -160,10 +159,11 @@ function HostEventComponent() {
             <label htmlFor="location"></label>
             <select
               id="location"
+              defaultValue={'select location'}
               value={selectLocation}
               onChange={handleLocationSelection}
             >
-              <option value="" disabled selected>
+              <option value="select location" disabled>
                 Select location
               </option>
               {locationsOptions.map((location, index) => (

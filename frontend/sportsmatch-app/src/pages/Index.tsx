@@ -34,9 +34,13 @@ export default function MainPage() {
     setSelectedSports(selectedButtonSports)
   }
 
+  // setting the page to 0 when selected sports change to clear the filteredEvent
+  useEffect(() => {
+    setPage(0)
+  }, [selectedSports])
+
   const clear = () => {
     setPage(0)
-    setFilteredEvent([])
     setSelectedSports([])
     setClearFilters(true)
     setTimeout(() => {

@@ -21,7 +21,7 @@
   position: relative;
   width: 100%;
   height: 40px;
-  margin: 5px 0;
+  margin: 10px 0;
 }
 
 .host-event-input-box input,
@@ -30,7 +30,10 @@
   height: 100%;
   border-radius: 40px;
   font-size: 13px;
-  padding: 10px 20px;
+  padding: 10px;
+  border: none;
+  outline: solid var(--sm-orange) 2px;
+  border-right: 10px solid transparent;
 }
 
 .wrapper-host-event button {

@@ -290,6 +290,7 @@ function HostEventComponent() {
                 onChange={(query: string) => {
                   setSearchQuery(query)
                 }}
+                placeholder="search"
               />
             </div>
           </div>

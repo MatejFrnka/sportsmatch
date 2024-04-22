@@ -1,6 +1,7 @@
 package com.sportsmatch.auth;
 
 import com.sportsmatch.repositories.TokenRepository;
+import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -45,16 +46,25 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     try {
       jwt = authHeader.substring(7);
       userEmail = jwtService.extractUserName(jwt);
-    } catch (Exception e) {
-      filterChain.doFilter(request, response);
-      return;
-    }
-
-    if (isUserAuthenticated(userEmail)) {
       UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
-      if (jwtService.isTokenValid(jwt, userDetails) && !tokenRepository.existsByToken(jwt)) {
-        updateSecurityContext(request, userDetails);
+
+      // Check user authentication
+      if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+        // Validate the token
+        if (jwtService.isTokenValid(jwt, userDetails)) {
+          if (!tokenRepository.existsByToken(jwt)) {
+            // Token is valid, update security context
+            updateSecurityContext(request, userDetails);
+          }
+        } else {
+          // Token is invalid or expired
+          response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid or expired token");
+          return;
+        }
       }
+    } catch (JwtException e) {
+      response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid token");
+      return;
     }
     filterChain.doFilter(request, response);
   }
@@ -65,10 +75,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     }
     String[] tokenParts = authHeader.split(" ");
     return !authHeader.startsWith("Bearer ") || tokenParts.length != 2;
-  }
-
-  public boolean isUserAuthenticated(String userEmail) {
-    return userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null;
   }
 
   public void updateSecurityContext(HttpServletRequest request, UserDetails userDetails) {

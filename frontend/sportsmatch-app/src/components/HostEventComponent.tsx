@@ -128,7 +128,7 @@ function HostEventComponent() {
       }
     }
     fetchData()
-  }, [nearbyEvents])
+  }, [])
 
   // handle join event pop up after cliking on the event
   const handleEventSelection = (e: EventDTO) => {

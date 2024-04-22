@@ -29,7 +29,7 @@ public class SecurityConfig {
   @Value("${app.sportsmingle.frontend.url}")
   private String frontendUrl;
 
-  private static final String[] API_WHITE_LIST_URL = {
+  static final String[] API_WHITE_LIST_URL = {
     "/api/v1/auth/**", "/api/v1/places/search", "/api/v1/event/nearby", "/api/v1/sports/all"
   };
 
@@ -40,10 +40,6 @@ public class SecurityConfig {
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http.csrf(AbstractHttpConfigurer::disable)
-        .exceptionHandling(
-            (exception) ->
-                exception.authenticationEntryPoint(
-                    new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
         .headers(h -> h.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
         .authorizeHttpRequests(
             r -> {

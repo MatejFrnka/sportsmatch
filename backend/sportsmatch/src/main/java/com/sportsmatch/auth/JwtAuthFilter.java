@@ -28,10 +28,10 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
   @Override
   protected void doFilterInternal(
-      @NonNull HttpServletRequest request,
-      @NonNull HttpServletResponse response,
-      @NonNull FilterChain filterChain)
-      throws ServletException, IOException {
+          @NonNull HttpServletRequest request,
+          @NonNull HttpServletResponse response,
+          @NonNull FilterChain filterChain)
+          throws ServletException, IOException {
 
     final String authHeader = request.getHeader("Authorization");
 
@@ -40,47 +40,45 @@ public class JwtAuthFilter extends OncePerRequestFilter {
       return;
     }
 
-    final String jwt;
-    final String userEmail;
-
     try {
-      jwt = authHeader.substring(7);
-      userEmail = jwtService.extractUserName(jwt);
+      final String jwt = authHeader.substring(7);
+      final String userEmail = jwtService.extractUserName(jwt);
       UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
 
-      // Check user authentication
-      if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-        // Validate the token
-        if (jwtService.isTokenValid(jwt, userDetails)) {
-          if (!tokenRepository.existsByToken(jwt)) {
-            // Token is valid, update security context
-            updateSecurityContext(request, userDetails);
-          }
-        } else {
-          // Token is invalid or expired
-          response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid or expired token");
-          return;
+      if (isAuthenticationNeeded(userEmail) && jwtService.isTokenValid(jwt, userDetails)) {
+        if (!tokenRepository.existsByToken(jwt)) {
+          updateSecurityContext(request, userDetails);
         }
+      } else {
+        sendUnauthorizedError(response, "Invalid or expired token");
+        return;
       }
     } catch (JwtException e) {
-      response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid token");
+      sendUnauthorizedError(response, "Invalid token");
       return;
     }
+
     filterChain.doFilter(request, response);
   }
 
   public boolean isBearerTokenNotPresent(String authHeader) {
-    if (authHeader == null) {
-      return true;
-    }
+    if (authHeader == null) return true;
     String[] tokenParts = authHeader.split(" ");
     return !authHeader.startsWith("Bearer ") || tokenParts.length != 2;
   }
 
-  public void updateSecurityContext(HttpServletRequest request, UserDetails userDetails) {
+  private boolean isAuthenticationNeeded(String userEmail) {
+    return userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null;
+  }
+
+  private void updateSecurityContext(HttpServletRequest request, UserDetails userDetails) {
     UsernamePasswordAuthenticationToken authToken =
-        new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+            new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
     authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
     SecurityContextHolder.getContext().setAuthentication(authToken);
+  }
+
+  private void sendUnauthorizedError(HttpServletResponse response, String errorMessage) throws IOException {
+    response.sendError(HttpServletResponse.SC_UNAUTHORIZED, errorMessage);
   }
 }

@@ -81,7 +81,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
       }
     } else {
       sendUnauthorizedError(response, "Invalid or expired token");
-      return;
     }
   }
 

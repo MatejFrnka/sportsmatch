@@ -3,7 +3,7 @@ import SportEvent from '../components/SportEvent'
 import LoadingSpinner from '../components/LoadingSpinner'
 import { SearchBar } from '../components/SearchBar'
 import { useEffect, useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import '../styles/Index.css'
 import {
   ApiError,
@@ -17,31 +17,30 @@ import Modal from '../components/Modal'
 import JoinEventComponent from '../components/JoinEventComponent'
 
 export default function MainPage() {
-  const [searchQuery, setSearchQuery] = useState<string>('') // no implementation yet
+  const [searchQuery, setSearchQuery] = useState<string>('')
   const [filteredEvent, setFilteredEvent] = useState<EventDTO[]>([])
   const [selectedSports, setSelectedSports] = useState<string[]>([])
   const [clearFilters, setClearFilters] = useState<boolean>(false)
   const [selectedEvent, setSelectedEvent] = useState<EventDTO>()
   const [usersRank, setUsersRank] = useState(0)
   const [userIsInRank, setUserIsInRank] = useState(false)
-  const location = useLocation()
   const navigate = useNavigate()
   const { isOpen, toggle } = useModal()
   const [page, setPage] = useState<number>(0)
-  const size = 5
-
-  // search bar is not yet implemented
-  useEffect(() => {
-    console.log(`query`, searchQuery)
-  }, [searchQuery])
+  const size = 3
 
   // handle sports name selected from sportButtoncomponent
   const handleSportSelectionChange = (selectedButtonSports: string[]) => {
     setSelectedSports(selectedButtonSports)
   }
 
+  // setting the page to 0 when selected sports change to clear the filteredEvent
+  useEffect(() => {
+    setPage(0)
+  }, [selectedSports])
+
   const clear = () => {
-    navigate(location.pathname, { state: undefined })
+    setPage(0)
     setSelectedSports([])
     setClearFilters(true)
     setTimeout(() => {
@@ -83,7 +82,6 @@ export default function MainPage() {
 
   // handle join event pop up after cliking on the event
   const handleEventSelection = (e: EventDTO) => {
-    window.scrollTo(0, 0)
     if (isOpen) {
       toggle()
     }
@@ -158,6 +156,7 @@ export default function MainPage() {
               onChange={(query: string) => {
                 setSearchQuery(query)
               }}
+              placeholder="Find your place"
             />
           </div>
         </div>
@@ -174,15 +173,21 @@ export default function MainPage() {
               {filteredEvent.length === 0 ? (
                 <LoadingSpinner />
               ) : (
-                filteredEvent.map((event, index) => (
-                  <div
-                    className="nearby-events"
-                    key={index}
-                    onClick={() => handleEventSelection(event)}
-                  >
-                    <SportEvent event={event} />
-                  </div>
-                ))
+                filteredEvent
+                  .filter((e) =>
+                    e.placeDTO.name
+                      .toLowerCase()
+                      .includes(searchQuery.toLowerCase()),
+                  )
+                  .map((event, index) => (
+                    <div
+                      className="nearby-events"
+                      key={index}
+                      onClick={() => handleEventSelection(event)}
+                    >
+                      <SportEvent event={event} />
+                    </div>
+                  ))
               )}
             </div>
           </div>

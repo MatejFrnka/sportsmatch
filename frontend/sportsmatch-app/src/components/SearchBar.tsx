@@ -3,6 +3,7 @@ import '../styles/Sport.css'
 
 interface Params {
   onChange: (query: string) => void
+  placeholder: string
 }
 
 export function SearchBar(p: Params) {
@@ -16,7 +17,7 @@ export function SearchBar(p: Params) {
         <TbSearch className="search-icon" />
         <input
           type="text"
-          placeholder="Find your sports"
+          placeholder={p.placeholder}
           className="input-search"
           onChange={handleSearch}
         />

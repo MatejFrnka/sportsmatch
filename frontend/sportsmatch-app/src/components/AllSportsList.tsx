@@ -89,6 +89,7 @@ export function AllSportsList(p: AllSportsProps) {
           onChange={(query: string) => {
             setSearchQuery(query)
           }}
+          placeholder="Find your sport"
         />
         {sportList}
         <div className="row">

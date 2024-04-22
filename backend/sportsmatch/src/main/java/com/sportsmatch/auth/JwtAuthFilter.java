@@ -54,7 +54,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     }
 
     if (isBearerTokenNotPresent(authHeader)) {
-      sendUnauthorizedError(response, "Token not present or expired token");
+      sendUnauthorizedError(response, "Token not present");
       return;
     }
 

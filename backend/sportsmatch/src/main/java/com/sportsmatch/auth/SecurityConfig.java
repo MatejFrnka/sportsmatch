@@ -41,8 +41,8 @@ public class SecurityConfig {
         .headers(h -> h.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
         .authorizeHttpRequests(
             r -> {
-              r.requestMatchers("/api/v1/**").authenticated();
               r.requestMatchers(API_WHITE_LIST_URL).permitAll();
+              r.requestMatchers("/api/v1/**").authenticated();
               r.anyRequest().permitAll();
             })
         .sessionManagement(s -> s.sessionCreationPolicy(STATELESS))

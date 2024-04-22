@@ -86,7 +86,9 @@ public class JwtAuthFilter extends OncePerRequestFilter {
   }
 
   public boolean isBearerTokenNotPresent(String authHeader) {
-    if (authHeader == null) return true;
+    if (authHeader == null) {
+      return true;
+    }
     String[] tokenParts = authHeader.split(" ");
     return !authHeader.startsWith("Bearer ") || tokenParts.length != 2;
   }

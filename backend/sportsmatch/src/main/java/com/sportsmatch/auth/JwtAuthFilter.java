@@ -75,7 +75,12 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     final String userEmail = jwtService.extractUserName(jwt);
     UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
 
-    if (isAuthenticationNeeded(userEmail) && jwtService.isTokenValid(jwt, userDetails)) {
+    if (!isAuthenticationNeeded(userEmail)) {
+      // No authentication needed for this request
+      return;
+    }
+
+    if (jwtService.isTokenValid(jwt, userDetails)) {
       if (!tokenRepository.existsByToken(jwt)) {
         updateSecurityContext(request, userDetails);
       }

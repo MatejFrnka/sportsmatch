@@ -10,6 +10,7 @@ import lombok.*;
 @Builder
 public class UserDTO {
 
+  private Long id;
   private String name;
   private Integer elo;
   private Integer win;

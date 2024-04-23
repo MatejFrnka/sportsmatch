@@ -4,6 +4,7 @@
 /* eslint-disable */
 import type { SportDTO } from './SportDTO';
 export type UserDTO = {
+    id?: number;
     name?: string;
     elo?: number;
     win?: number;

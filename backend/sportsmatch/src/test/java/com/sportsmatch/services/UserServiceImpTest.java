@@ -3,35 +3,50 @@ package com.sportsmatch.services;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
-
 import com.sportsmatch.BaseTest;
 import com.sportsmatch.dtos.SportDTO;
 import com.sportsmatch.dtos.UserDTO;
 import com.sportsmatch.dtos.UserInfoDTO;
 import com.sportsmatch.mappers.SportMapper;
+import com.sportsmatch.mappers.UserMapper;
 import com.sportsmatch.models.*;
+import com.sportsmatch.repositories.SportRepository;
 import com.sportsmatch.repositories.UserRepository;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @ExtendWith(MockitoExtension.class)
 class UserServiceImpTest extends BaseTest {
 
   @Mock private UserRepository userRepository;
+  @Mock private SportRepository sportRepository;
   @Mock private SportMapper sportMapper;
   @Mock private SecurityContext securityContext;
   @Mock private RankService rankService;
-  @InjectMocks private UserServiceImp userServiceImp;
+  @Mock private PasswordEncoder passwordEncoder;
+  private UserServiceImp userServiceImp;
+
+  @BeforeEach
+  void initialize() {
+    userServiceImp =
+        new UserServiceImp(
+            userRepository,
+            sportMapper,
+            sportRepository,
+            new UserMapper(passwordEncoder, sportMapper),
+            rankService);
+  }
 
   @Test
   void updateUserInfo() {

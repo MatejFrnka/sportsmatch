@@ -33,6 +33,7 @@ public class UserMapper {
             .map(sportMapper::toDTO)
             .toList();
     return UserDTO.builder()
+            .id(user.getId())
             .name(user.getName())
             .sports(userSports)
             .elo(user.getRank())

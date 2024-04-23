@@ -10,22 +10,27 @@ function Navbar() {
   const loggedOutUserImgUrl = 'pictures/unknown-user-placeholder.png'
 
   const [isLoggedIn, setLoggedIn] = useState<boolean>(false)
+  const [userId, setUserId] = useState<number>()
 
   useEffect(() => {
-    const init = async () => {
-      OpenAPI.TOKEN = localStorage.getItem('token')!
-      try {
-        await ExSecuredEndpointService.getUserMainPage()
-        setLoggedIn(true)
-      } catch (error) {
-        const code = (error as ApiError).status
-        if (code === 401) {
-          localStorage.removeItem('token')
-          setLoggedIn(false)
+    if (localStorage.getItem('token')) {
+      const init = async () => {
+        OpenAPI.TOKEN = localStorage.getItem('token')!
+        try {
+          const user = await ExSecuredEndpointService.getUserMainPage()
+          console.log(user)
+          setUserId(user.id)
+          setLoggedIn(true)
+        } catch (error) {
+          const code = (error as ApiError).status
+          if (code === 401) {
+            localStorage.removeItem('token')
+            setLoggedIn(false)
+          }
         }
       }
+      init()
     }
-    init()
   }, [])
 
   return (
@@ -52,7 +57,10 @@ function Navbar() {
                 id="collapsible-nav-dropdown"
               >
                 <NavDropdown.Item href="/">Home</NavDropdown.Item>
-                <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
+                {/* <NavDropdown.Item href="/profile">Profile</NavDropdown.Item> */}
+                <NavDropdown.Item href={`/user/${userId}/ratings`}>
+                  Profile
+                </NavDropdown.Item>
               </NavDropdown>
             ) : (
               <NavDropdown

@@ -26,11 +26,6 @@ public class GlobalExceptionHandler {
     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
   }
 
-  @ExceptionHandler(NullPointerException.class)
-  public ResponseEntity<?> handleNullPointerException(NullPointerException e) {
-    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-  }
-
   @ExceptionHandler(AuthenticationException.class)
   public ResponseEntity<?> handleAuthenticationException(AuthenticationException e) {
     return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());

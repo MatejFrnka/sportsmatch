@@ -3,7 +3,6 @@ package com.sportsmatch.services;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
-
 import com.sportsmatch.BaseTest;
 import com.sportsmatch.dtos.SportDTO;
 import com.sportsmatch.dtos.UserDTO;

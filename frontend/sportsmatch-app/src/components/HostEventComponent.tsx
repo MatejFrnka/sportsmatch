@@ -9,8 +9,6 @@ import {
   HostEventDTO,
   EventDTO,
   ApiError,
-  OpenAPI,
-  ExSecuredEndpointService,
 } from '../generated/api'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
@@ -44,8 +42,6 @@ function HostEventComponent() {
   const [nearbyEvents, setNearbyEvents] = useState<EventDTO[]>([])
   const [selectedEvent, setSelectedEvent] = useState<EventDTO>()
   const { isOpen, toggle } = useModal()
-  const [usersRank, setUsersRank] = useState(0)
-  const [userIsInRank, setUserIsInRank] = useState(false)
   const [searchQuery, setSearchQuery] = useState<string>('') // no implementation yet
 
   console.log(searchQuery)
@@ -132,38 +128,16 @@ function HostEventComponent() {
       }
     }
     fetchData()
-  }, [nearbyEvents])
+  }, [])
 
   // handle join event pop up after cliking on the event
   const handleEventSelection = (e: EventDTO) => {
-    window.scrollTo(0, 0)
     if (isOpen) {
       toggle()
     }
     setSelectedEvent(e)
-    if (usersRank >= e.minElo && usersRank <= e.maxElo) {
-      setUserIsInRank(true)
-    } else {
-      setUserIsInRank(false)
-    }
     toggle()
   }
-
-  // retrieving users rank
-  useEffect(() => {
-    const fetchUsersRank = async () => {
-      OpenAPI.TOKEN = localStorage.getItem('token')!
-      try {
-        const response = await ExSecuredEndpointService.getUserMainPage()
-        if (response) {
-          setUsersRank(response.elo)
-        }
-      } catch (error) {
-        console.error(error as ApiError)
-      }
-    }
-    fetchUsersRank()
-  })
 
   return (
     <>
@@ -295,11 +269,7 @@ function HostEventComponent() {
             </div>
           </div>
           <Modal isOpen={isOpen} toggle={toggle} preventClosing={true}>
-            <JoinEventComponent
-              toggle={toggle}
-              isInRank={userIsInRank}
-              event={selectedEvent!}
-            />
+            <JoinEventComponent toggle={toggle} event={selectedEvent!} />
           </Modal>
           <div className="row">
             <div className="col">

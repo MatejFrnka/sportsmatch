@@ -5,13 +5,7 @@ import { SearchBar } from '../components/SearchBar'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import '../styles/Index.css'
-import {
-  ApiError,
-  EventDTO,
-  EventsControllerService,
-  ExSecuredEndpointService,
-  OpenAPI,
-} from '../generated/api'
+import { ApiError, EventDTO, EventsControllerService } from '../generated/api'
 import useModal from '../hooks/UseModal'
 import Modal from '../components/Modal'
 import JoinEventComponent from '../components/JoinEventComponent'
@@ -22,8 +16,6 @@ export default function MainPage() {
   const [selectedSports, setSelectedSports] = useState<string[]>([])
   const [clearFilters, setClearFilters] = useState<boolean>(false)
   const [selectedEvent, setSelectedEvent] = useState<EventDTO>()
-  const [usersRank, setUsersRank] = useState(0)
-  const [userIsInRank, setUserIsInRank] = useState(false)
   const navigate = useNavigate()
   const { isOpen, toggle } = useModal()
   const [page, setPage] = useState<number>(0)
@@ -86,29 +78,8 @@ export default function MainPage() {
       toggle()
     }
     setSelectedEvent(e)
-    if (usersRank >= e.minElo && usersRank <= e.maxElo) {
-      setUserIsInRank(true)
-    } else {
-      setUserIsInRank(false)
-    }
     toggle()
   }
-
-  // retrieving users rank
-  useEffect(() => {
-    const fetchUsersRank = async () => {
-      OpenAPI.TOKEN = localStorage.getItem('token')!
-      try {
-        const response = await ExSecuredEndpointService.getUserMainPage()
-        if (response) {
-          setUsersRank(response.elo)
-        }
-      } catch (error) {
-        console.error(error as ApiError)
-      }
-    }
-    fetchUsersRank()
-  })
 
   const handleLetsPlay = () => {
     navigate('/app')
@@ -161,11 +132,7 @@ export default function MainPage() {
           </div>
         </div>
         <Modal isOpen={isOpen} toggle={toggle} preventClosing={true}>
-          <JoinEventComponent
-            toggle={toggle}
-            isInRank={userIsInRank}
-            event={selectedEvent!}
-          />
+          <JoinEventComponent toggle={toggle} event={selectedEvent!} />
         </Modal>
         <div className="row">
           <div className="col">

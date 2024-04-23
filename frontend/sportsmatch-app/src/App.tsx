@@ -14,6 +14,7 @@ import HostEvent from './pages/HostEvent'
 import { useEffect } from 'react'
 
 function App() {
+  OpenAPI.BASE = import.meta.env.VITE_BACKEND_URL
   OpenAPI.TOKEN = localStorage.getItem('token')!
 
   useEffect(() => {

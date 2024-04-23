@@ -50,16 +50,35 @@ public class UserController {
     }
   }
 
+  /**
+   * These endpoint return with the newly uploaded profile image ID.
+   *
+   * @param file the profile image file to upload.
+   * @return with the newly uploaded profile image ID
+   * @throws IOException if an I/O error occurs while reading the file.
+   */
   @PostMapping("/image")
   public ResponseEntity<Long> uploadProfileImage(@RequestParam("image") MultipartFile file) throws IOException {
     return ResponseEntity.status(HttpStatus.CREATED).body(userService.uploadProfileImage(file));
   }
 
+
+  /**
+   * These endpoint where logged-in user can delete their profile image.
+   *
+   * @param id ID unique identifier for profile image.
+   */
   @DeleteMapping("/image/{id}")
   public void deleteProfileImage(@PathVariable Long id) {
     userService.deleteProfileImage(id);
   }
 
+  /**
+   * There endpoint where logged-in user can download profile picture by the given id.
+   *
+   * @param id ID unique identifier for profile image.
+   * @return the profile picture by the given id.
+   */
   @GetMapping("/image/{id}")
   public ResponseEntity<ByteArrayResource> downloadProfileImage(@PathVariable Long id) {
     Image image = userService.downloadProfileImage(id);

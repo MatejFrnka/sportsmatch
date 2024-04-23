@@ -21,7 +21,7 @@ public class ImageService {
    *
    * @param file image file to upload.
    * @return ID of the uploaded image.
-   * @throws IOException if an I/O error occurs while reading the file
+   * @throws IOException if an I/O error occurs while reading the file.
    */
   public Long uploadImage(MultipartFile file) throws IOException {
     Image newImage = Image.builder()

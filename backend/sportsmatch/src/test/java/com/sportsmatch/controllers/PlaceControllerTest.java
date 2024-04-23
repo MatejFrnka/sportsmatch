@@ -2,7 +2,12 @@ package com.sportsmatch.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sportsmatch.BaseTest;
+import com.sportsmatch.auth.JwtService;
 import com.sportsmatch.dtos.PlaceDTO;
+import com.sportsmatch.models.Gender;
+import com.sportsmatch.models.Role;
+import com.sportsmatch.models.User;
+import com.sportsmatch.repositories.UserRepository;
 import com.sportsmatch.services.PlaceService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,20 +29,20 @@ import java.util.List;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-
 @ExtendWith(SpringExtension.class)
 @AutoConfigureMockMvc
 @SpringBootTest
 class PlaceControllerTest extends BaseTest {
 
-  @Autowired
-  private MockMvc mockMvc;
+  @Autowired private MockMvc mockMvc;
 
-  @Autowired
-  private ObjectMapper objectMapper;
+  @Autowired private ObjectMapper objectMapper;
 
-  @MockBean
-  private PlaceService placeService;
+  @Autowired private JwtService jwtService;
+
+  @Autowired private UserRepository userRepository;
+
+  @MockBean private PlaceService placeService;
 
   PlaceDTO createPlaceDTO1() {
     return PlaceDTO.builder()
@@ -67,9 +72,11 @@ class PlaceControllerTest extends BaseTest {
         .thenReturn(ResponseEntity.ok("Place added successfully"));
 
     // Perform a POST request to add a new place without authentication
-    mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/places/add")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(objectMapper.writeValueAsString(placeDTO)))
+    mockMvc
+        .perform(
+            MockMvcRequestBuilders.post("/api/v1/places/add")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(placeDTO)))
         // Verify that the response status is 401 Forbidden
         .andExpect(MockMvcResultMatchers.status().isUnauthorized());
   }
@@ -84,10 +91,25 @@ class PlaceControllerTest extends BaseTest {
     when(placeService.addNewPlace(any(PlaceDTO.class)))
         .thenReturn(ResponseEntity.ok("Place successfully added"));
 
+    // Create User
+    User user =
+        User.builder()
+            .email("testuser@mail.com")
+            .password("password")
+            .name("testuser")
+            .gender(Gender.MALE)
+            .role(Role.USER)
+            .build();
+    userRepository.save(user);
+    String token = jwtService.generateToken(user);
+
     // Perform a POST request to add a new place with authentication
-    mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/places/add")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(objectMapper.writeValueAsString(placeDTO)))
+    mockMvc
+        .perform(
+            MockMvcRequestBuilders.post("/api/v1/places/add")
+                .header("Authorization", "Bearer " + token)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(placeDTO)))
         // Verify that the response status is 200 OK
         .andExpect(MockMvcResultMatchers.status().isOk())
         // Verify that the response content contains the expected success message
@@ -105,16 +127,19 @@ class PlaceControllerTest extends BaseTest {
     when(placeService.searchPlaces(any(String.class))).thenReturn(expectedPlaces);
 
     // Perform a GET request to search for places with a name parameter "test"
-    mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/places/search")
-            .param("name", "test")
-            .contentType(MediaType.APPLICATION_JSON))
+    mockMvc
+        .perform(
+            MockMvcRequestBuilders.get("/api/v1/places/search")
+                .param("name", "test")
+                .contentType(MediaType.APPLICATION_JSON))
 
         // Verify the response is an array
         .andExpect(MockMvcResultMatchers.jsonPath("$").isArray())
-        // Verify the name of the first place in the response matches the name of the first expected place
+        // Verify the name of the first place in the response matches the name of the first expected
+        // place
         .andExpect(MockMvcResultMatchers.jsonPath("$[0].name").value("Test Place Name1"))
-        // Verify the name of the second place in the response matches the name of the second expected place
+        // Verify the name of the second place in the response matches the name of the second
+        // expected place
         .andExpect(MockMvcResultMatchers.jsonPath("$[1].name").value("Test Place Name2"));
-
   }
 }

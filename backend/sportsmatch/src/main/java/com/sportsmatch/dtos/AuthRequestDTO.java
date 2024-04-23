@@ -14,6 +14,7 @@ public class AuthRequestDTO {
 
   @NotNull(message = "Email address is required.")
   @Email(message = "Please provide a valid email address")
+  @NotBlank(message = "email cannot be blank")
   private String email;
 
   @NotBlank(message = "Password cannot be blank")

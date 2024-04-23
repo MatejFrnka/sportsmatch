@@ -15,8 +15,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -30,6 +32,7 @@ public class UserServiceImp implements UserService {
   private final SportMapper sportMapper;
   private final SportRepository sportRepository;
   private final UserMapper userMapper;
+  private final ImageService imageService;
   private final RankService rankService;
 
   /**
@@ -96,6 +99,43 @@ public class UserServiceImp implements UserService {
     user.setGender(Gender.valueOf(userInfoDTO.getGender().toUpperCase()));
     linkUserWithSport(userInfoDTO, user);
     userRepository.save(user);
+  }
+
+
+  /**
+   * Uploads a profile image for logged-in user.
+   *
+   * @param image the profile image file to upload.
+   * @return ID of the uploaded profile image.
+   * @throws IOException if an I/O error occurs while reading the image file.
+   */
+  public Long uploadProfileImage(MultipartFile image) throws IOException {
+    User loggedUser = getUserFromContext();
+    loggedUser.setImageId(imageService.uploadImage(image));
+    return loggedUser.getImageId();
+  }
+
+  /**
+   * Delete a profile image for logged-in user.
+   *
+   * @param id ID of the uploaded profile image.
+   */
+  @Override
+  public void deleteProfileImage(Long id) {
+    User loggedUser = getUserFromContext();
+    loggedUser.setImageId(null);
+    imageService.deleteImage(id);
+  }
+
+  /**
+   * Download a profile image by the given ID for logged-in user.
+   *
+   * @param id ID of the image that will be downloaded.
+   * @return an image by the given id.
+   */
+  @Override
+  public Image downloadProfileImage(Long id) {
+    return imageService.downloadImage(id);
   }
 
   private void parseUserDateOfBirth(UserInfoDTO userInfoDTO, User user) {

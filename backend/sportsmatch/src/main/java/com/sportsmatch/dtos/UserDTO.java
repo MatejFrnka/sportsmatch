@@ -15,4 +15,5 @@ public class UserDTO {
   private Integer win;
   private Integer loss;
   private List<SportDTO> sports;
+  private Integer imageId;
 }

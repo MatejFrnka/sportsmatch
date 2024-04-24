@@ -46,7 +46,7 @@ function Navbar() {
               />
             </Link>
           </div>
-          <div className="col-2 align-items-center">
+          <div className="col-2 align-items-center avatar-icon">
             {isLoggedIn ? (
               <NavDropdown
                 title={

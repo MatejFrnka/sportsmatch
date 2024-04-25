@@ -30,4 +30,6 @@ public interface UserEventRatingRepository extends JpaRepository<UserEventRating
       "SELECT new com.sportsmatch.dtos.UserRatingDTO(uer.player.name, r.textRating, r.starRating, r.createdAt) FROM UserEventRating uer JOIN Rating r "
           + "ON uer.userRating.id = r.id WHERE uer.opponent.id = :id ORDER BY r.createdAt DESC")
   List<UserRatingDTO> findAllByOpponent(@Param("id") Long id, Pageable pageable);
+
+  boolean existsByPlayerAndEvent(User player, Event event);
 }

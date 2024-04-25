@@ -15,8 +15,6 @@ import java.util.Optional;
 @Repository
 public interface EventPlayerRepository extends JpaRepository<EventPlayer, Long> {
 
-  EventPlayer findEventPlayerById(Long id);
-
   Optional<EventPlayer> findEventPlayerByPlayer(User player);
 
   List<EventPlayer> findEventPlayersByEvent(Event event);

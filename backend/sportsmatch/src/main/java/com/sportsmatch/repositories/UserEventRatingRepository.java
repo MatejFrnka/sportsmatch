@@ -15,7 +15,6 @@ import java.util.Optional;
 
 @Repository
 public interface UserEventRatingRepository extends JpaRepository<UserEventRating, Long> {
-  Optional<UserEventRating> findUserEventRatingByEventAndPlayer(Event event, User player);
 
   @Query(
       "SELECT r.starRating, COUNT(r.starRating) FROM UserEventRating uer JOIN Rating r ON uer.userRating.id = r.id "

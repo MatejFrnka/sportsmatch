@@ -33,4 +33,6 @@ public class RatingDTO {
   @NotNull(message = "Opponent score cannot be null")
   @Min(value = 0, message = "Opponent score must be at least 0")
   private Integer opponentScore;
+
+  private Long eventId;
 }

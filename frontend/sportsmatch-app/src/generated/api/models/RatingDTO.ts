@@ -8,5 +8,6 @@ export type RatingDTO = {
     eventStarRating: number;
     myScore: number;
     opponentScore: number;
+    eventId?: number;
 };
 

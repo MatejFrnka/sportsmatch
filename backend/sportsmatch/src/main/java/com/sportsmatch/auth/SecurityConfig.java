@@ -28,7 +28,11 @@ public class SecurityConfig {
   private String frontendUrl;
 
   static final String[] API_WHITE_LIST_URL = {
-    "/api/v1/auth/**", "/api/v1/places/search", "/api/v1/event/nearby", "/api/v1/sports/all"
+    "/api/v1/auth/login",
+    "/api/v1/auth/register",
+    "/api/v1/places/search",
+    "/api/v1/event/nearby",
+    "/api/v1/sports/all"
   };
 
   private final JwtAuthFilter jwtAuthFilter;

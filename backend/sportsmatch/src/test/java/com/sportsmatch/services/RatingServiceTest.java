@@ -16,6 +16,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -95,25 +96,33 @@ class RatingServiceTest extends BaseTest {
     // Arrange:
     // Authentication and Player
     User player = new User();
+    player.setId(1L);
     when(userService.getUserFromContext()).thenReturn(player);
 
-    // Event player
-    List<EventPlayer> eventPlayers = new ArrayList<>();
-    EventPlayer eventPlayer = new EventPlayer();
-    eventPlayers.add(eventPlayer);
-    lenient().when(eventPlayerRepository.findEventPlayersByPlayer(player)).thenReturn(eventPlayers);
+    // EventPlayers
+    EventPlayer eventPlayer1 = mock(EventPlayer.class);
+    EventPlayer eventPlayer2 = mock(EventPlayer.class);
+    Set<EventPlayer> eventPlayers = new HashSet<>();
+    eventPlayers.add(eventPlayer1);
+    eventPlayers.add(eventPlayer2);
 
-    // Event rating
-    lenient()
-        .when(
-            userEventRatingRepository.findUserEventRatingByEventAndPlayer(
-                eventPlayer.getEvent(), player))
-        .thenReturn(Optional.empty());
+    // Event
+    List<Event> pastEvents = new ArrayList<>();
+    Event event = new Event();
+    event.setPlayers(eventPlayers);
+
+    // Find player's past events
+    pastEvents.add(event);
+    when(eventPlayerRepository.findPastEventsByPlayer(anyLong(), any(LocalDateTime.class)))
+        .thenReturn(pastEvents);
+
+    // Check if event is rated
+    when(userEventRatingRepository.existsByPlayerAndEvent(any(User.class), any(Event.class)))
+        .thenReturn(false);
 
     // Mapping
-    Event event = new Event();
     EventDTO eventDTO = new EventDTO();
-    lenient().when(eventMapper.convertEventToEventDTO(event)).thenReturn(eventDTO);
+    when(eventMapper.convertEventToEventDTO(event)).thenReturn(eventDTO);
 
     // Act:
     List<EventDTO> unratedEvents = ratingService.findUnratedEvents();
@@ -127,26 +136,13 @@ class RatingServiceTest extends BaseTest {
     // Arrange:
     // Authentication and Player
     User player = new User();
+    player.setId(1L);
     when(userService.getUserFromContext()).thenReturn(player);
 
-    // Event player
-    List<EventPlayer> eventPlayers = new ArrayList<>();
-    EventPlayer eventPlayer = new EventPlayer();
-    eventPlayers.add(eventPlayer);
-    lenient().when(eventPlayerRepository.findEventPlayersByPlayer(player)).thenReturn(eventPlayers);
-
-    // Event rating
-    UserEventRating userEventRating = new UserEventRating();
-    lenient()
-        .when(
-            userEventRatingRepository.findUserEventRatingByEventAndPlayer(
-                eventPlayer.getEvent(), player))
-        .thenReturn(Optional.of(userEventRating));
-
-    // Mapping
-    Event event = new Event();
-    EventDTO eventDTO = new EventDTO();
-    lenient().when(eventMapper.convertEventToEventDTO(event)).thenReturn(eventDTO);
+    // Event
+    List<Event> pastEvents = new ArrayList<>();
+    when(eventPlayerRepository.findPastEventsByPlayer(anyLong(), any(LocalDateTime.class)))
+        .thenReturn(pastEvents);
 
     // Act:
     List<EventDTO> unratedEvents = ratingService.findUnratedEvents();

@@ -16,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -72,18 +73,17 @@ public class RatingService {
 
   public List<EventDTO> findUnratedEvents() {
     User player = userService.getUserFromContext();
-    List<EventPlayer> playersEvents = eventPlayerRepository.findEventPlayersByPlayer(player);
-    List<Event> unratedEvents =
-        playersEvents.stream()
-            .map(EventPlayer::getEvent)
-            .filter(e -> !isEventRated(e, player))
-            .toList();
 
-    return unratedEvents.stream().map(eventMapper::convertEventToEventDTO).toList();
-  }
-
-  private boolean isEventRated(Event event, User player) {
-    return userEventRatingRepository.findUserEventRatingByEventAndPlayer(event, player).isPresent();
+    return eventPlayerRepository
+        // fetching user's past events
+        .findPastEventsByPlayer(player.getId(), LocalDateTime.now())
+        .stream()
+        // checking if there are two players in the event
+        .filter(e -> e.getPlayers().size() > 1)
+        // checking if user has already rated
+        .filter(e -> !userEventRatingRepository.existsByPlayerAndEvent(player, e))
+        .map(eventMapper::convertEventToEventDTO)
+        .toList();
   }
 
   public UserRatingStatsDTO getUserRatingStats(Long id) {

@@ -42,6 +42,7 @@ class RatingServiceTest extends BaseTest {
             .eventStarRating(2)
             .myScore(10)
             .opponentScore(9)
+            .eventId(1L)
             .build();
 
     // Authentication and Player
@@ -50,7 +51,8 @@ class RatingServiceTest extends BaseTest {
 
     // EventPlayer
     EventPlayer eventPlayer = mock(EventPlayer.class);
-    when(eventPlayerRepository.findEventPlayerByPlayer(any())).thenReturn(Optional.of(eventPlayer));
+    when(eventPlayerRepository.findEventPlayerByPlayerAndEventId(any(), any()))
+        .thenReturn(Optional.of(eventPlayer));
 
     // Opponent
     Event event = mock(Event.class);

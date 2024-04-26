@@ -86,8 +86,8 @@ export default function RateGameComponent(p: Props) {
       eventStarRating: matchRating as number,
       myScore: userScore,
       opponentScore: opponentScore,
+      eventId: myEvent?.id!,
     }
-    console.log(rating)
 
     try {
       await RatingControllerService.addRating(rating)

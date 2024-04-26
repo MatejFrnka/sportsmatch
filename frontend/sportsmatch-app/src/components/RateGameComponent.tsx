@@ -86,7 +86,7 @@ export default function RateGameComponent(p: Props) {
       eventStarRating: matchRating as number,
       myScore: userScore,
       opponentScore: opponentScore,
-      eventId: myEvent?.id!,
+      eventId: myEvent!.id!,
     }
 
     try {

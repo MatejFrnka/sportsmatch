@@ -34,7 +34,7 @@ public class RatingService {
 
   public void addRating(RatingDTO ratingDTO) {
     User player = userService.getUserFromContext();
-    EventPlayer eventPlayer = getEventPlayer(player);
+    EventPlayer eventPlayer = getEventPlayer(player, ratingDTO.getEventId());
     User opponent = findOpponent(eventPlayer, player);
     Rating userRating = ratingMapper.toUserRatingEntity(ratingDTO);
     Rating eventRating = ratingMapper.toEventRatingEntity(ratingDTO);
@@ -55,9 +55,9 @@ public class RatingService {
     userEventRatingRepository.save(userEventRating);
   }
 
-  private EventPlayer getEventPlayer(User player) {
+  private EventPlayer getEventPlayer(User player, Long eventId) {
     Optional<EventPlayer> eventPlayerOptional =
-        eventPlayerRepository.findEventPlayerByPlayer(player);
+        eventPlayerRepository.findEventPlayerByPlayerAndEventId(player, eventId);
     return eventPlayerOptional.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
   }
 

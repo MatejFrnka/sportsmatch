@@ -34,7 +34,7 @@ export default function RateGameComponent(p: Props) {
         console.error(error as ApiError)
       }
     }
-    init()    
+    init()
   })
 
   useEffect(() => {
@@ -114,7 +114,8 @@ export default function RateGameComponent(p: Props) {
             {myEvent ? (
               <>
                 <span>
-                  {'on ' + getDateAndTime('date', myEvent.dateStart) +
+                  {'on ' +
+                    getDateAndTime('date', myEvent.dateStart) +
                     ' at ' +
                     getDateAndTime('time', myEvent.dateStart) +
                     ' - ' +

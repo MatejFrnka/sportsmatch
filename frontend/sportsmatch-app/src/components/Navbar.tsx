@@ -6,8 +6,8 @@ import { NavDropdown } from 'react-bootstrap'
 import { OpenAPI, ExSecuredEndpointService, ApiError } from '../generated/api'
 
 function Navbar() {
-  const loggedInUserImgUrl = 'pictures/michael-dam-mEZ3PoFGs_k-unsplash.jpg'
-  const loggedOutUserImgUrl = 'pictures/unknown-user-placeholder.png'
+  const loggedInUserImgUrl = '/assets/michael-dam-mEZ3PoFGs_k-unsplash.jpg'
+  const loggedOutUserImgUrl = '/assets/unknown-user-placeholder.png'
 
   const [isLoggedIn, setLoggedIn] = useState<boolean>(false)
   const [userId, setUserId] = useState<number>()

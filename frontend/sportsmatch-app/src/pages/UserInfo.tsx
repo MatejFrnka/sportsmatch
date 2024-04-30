@@ -119,7 +119,7 @@ export default function UserInfo() {
                     checked={selectedGender === 'male'}
                     onChange={() => handleSelectGender('male')}
                   />
-                  <img src="../pictures/man.svg" alt="man" />
+                  <img src="/assets/man.svg" alt="man" />
                   <p>Male</p>
                 </label>
               </div>
@@ -138,7 +138,7 @@ export default function UserInfo() {
                     checked={selectedGender === 'female'}
                     onChange={() => handleSelectGender('female')}
                   />
-                  <img src="../pictures/woman.svg" alt="man" />
+                  <img src="/assets/woman.svg" alt="man" />
                   <p>Female</p>
                 </label>
               </div>

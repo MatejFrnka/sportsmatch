@@ -68,8 +68,8 @@ export default function RateGameComponent(p: Props) {
     return daysOfTheWeek[dateIndex]
   }
 
-  const userProfilePicture = 'pictures/unknown-user-placeholder.png'
-  const opponentProfilePicture = 'pictures/unknown-user-placeholder.png'
+  const userProfilePicture = 'assets/unknown-user-placeholder.png'
+  const opponentProfilePicture = 'assets/unknown-user-placeholder.png'
 
   const [userScore, setUserScore] = useState(0)
   const [opponentScore, setOpponentScore] = useState(0)

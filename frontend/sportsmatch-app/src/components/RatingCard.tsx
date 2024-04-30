@@ -15,7 +15,7 @@ export default function RatingCard({ rating }: RatingCardProps) {
           <div className="col-2">
             <img
               className="rated-img"
-              src="\pictures\jeffrey-keenan-pUhxoSapPFA-unsplash.jpg"
+              src="\assets\jeffrey-keenan-pUhxoSapPFA-unsplash.jpg"
             />
           </div>
           <div className="col">

@@ -24,7 +24,7 @@ export default function UserCard({ user, summary }: UserCardProp) {
           <div className="user-card">
             <div className="row">
               <div className="col profile-details">
-                <img src="\assets\michael-dam-mEZ3PoFGs_k-unsplash.jpg" />
+                <img src="/assets/michael-dam-mEZ3PoFGs_k-unsplash.jpg" />
                 <ul>
                   <li>
                     <h4>{user.name}</h4>

@@ -53,23 +53,8 @@ export default function RateGameComponent(p: Props) {
     init()
   }, [])
 
-  const dayOfTheWeek = (year: number, month: number, day: number) => {
-    const daysOfTheWeek = [
-      'Sunday',
-      'Monday',
-      'Tuesday',
-      'Wednesday',
-      'Thursday',
-      'Friday',
-      'Saturday',
-    ]
-    const date = new Date(year, month - 1, day)
-    const dateIndex = date.getDay()
-    return daysOfTheWeek[dateIndex]
-  }
-
-  const userProfilePicture = 'assets/unknown-user-placeholder.png'
-  const opponentProfilePicture = 'assets/unknown-user-placeholder.png'
+  const userProfilePicture = '/assets/unknown-user-placeholder.png'
+  const opponentProfilePicture = '/assets/unknown-user-placeholder.png'
 
   const [userScore, setUserScore] = useState(0)
   const [opponentScore, setOpponentScore] = useState(0)
@@ -106,6 +91,18 @@ export default function RateGameComponent(p: Props) {
     const value = parseInt(e.target.value) || 0
     setOpponentScore(value)
   }
+
+  const getDateAndTime = (type: string, date: string) => {
+    const dateStart: string[] = date.split(' ')
+    if (type === 'date') {
+      return dateStart[0]
+    } else if (type === 'time') {
+      return dateStart[1]
+    } else {
+      return null
+    }
+  }
+
   return (
     <>
       <div className="container-sm rate-game-window-wrapper">
@@ -117,14 +114,12 @@ export default function RateGameComponent(p: Props) {
             {myEvent ? (
               <>
                 <span>
-                  {dayOfTheWeek(
-                    parseInt(myEvent.dateStart[0]),
-                    parseInt(myEvent.dateStart[1]),
-                    parseInt(myEvent.dateStart[2]),
-                  )}
-                  , {myEvent.dateStart[3]}:{myEvent.dateStart[4]}
-                  {' - '}
-                  {myEvent.dateEnd[3]}:{myEvent.dateEnd[4]}
+                  {'on ' +
+                    getDateAndTime('date', myEvent.dateStart) +
+                    ' at ' +
+                    getDateAndTime('time', myEvent.dateStart) +
+                    ' - ' +
+                    getDateAndTime('time', myEvent.dateEnd)}
                 </span>
                 <br />
                 <span>{myEvent.placeDTO?.name}</span>{' '}

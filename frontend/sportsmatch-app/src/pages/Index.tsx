@@ -47,6 +47,7 @@ export default function MainPage() {
           selectedSports,
           0,
           0,
+          searchQuery,
           page,
           size,
         )
@@ -70,7 +71,7 @@ export default function MainPage() {
     }
     // call the method
     fetchData()
-  }, [selectedSports, page])
+  }, [selectedSports, page, searchQuery])
 
   // handle join event pop up after cliking on the event
   const handleEventSelection = (e: EventDTO) => {
@@ -140,21 +141,15 @@ export default function MainPage() {
               {filteredEvent.length === 0 ? (
                 <LoadingSpinner />
               ) : (
-                filteredEvent
-                  .filter((e) =>
-                    e.placeDTO.name
-                      .toLowerCase()
-                      .includes(searchQuery.toLowerCase()),
-                  )
-                  .map((event, index) => (
-                    <div
-                      className="nearby-events"
-                      key={index}
-                      onClick={() => handleEventSelection(event)}
-                    >
-                      <SportEvent event={event} />
-                    </div>
-                  ))
+                filteredEvent.map((event, index) => (
+                  <div
+                    className="nearby-events"
+                    key={index}
+                    onClick={() => handleEventSelection(event)}
+                  >
+                    <SportEvent event={event} />
+                  </div>
+                ))
               )}
             </div>
           </div>

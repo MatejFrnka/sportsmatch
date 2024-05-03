@@ -43,7 +43,8 @@ const useLocation = (options: LocationOptions = {}) => {
       setLocation((prevState) => ({
         ...prevState,
         error:
-          'Geolocation is not supported by your browser or not available in the current environment',
+          'Geolocation is not supported by your browser or not available in the current' +
+          ' environment',
       }))
       return
     }

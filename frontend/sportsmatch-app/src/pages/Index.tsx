@@ -74,7 +74,13 @@ export default function MainPage() {
     }
     // call the method
     fetchData()
-  }, [selectedSports, page, searchQuery, userCoords.latitude, userCoords.longitude])
+  }, [
+    selectedSports,
+    page,
+    searchQuery,
+    userCoords.latitude,
+    userCoords.longitude,
+  ])
 
   // handle join event pop up after cliking on the event
   const handleEventSelection = (e: EventDTO) => {

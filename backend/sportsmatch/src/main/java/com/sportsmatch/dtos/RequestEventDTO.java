@@ -19,4 +19,5 @@ public class RequestEventDTO {
   private List<String> sportsName = new ArrayList<>();
   private double longitude;
   private double latitude;
+  private String placeName;
 }

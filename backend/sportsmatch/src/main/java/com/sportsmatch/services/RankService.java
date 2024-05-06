@@ -91,6 +91,11 @@ public class RankService {
     EventPlayer firstPlayer = null;
 
     for (EventPlayer e : event.getPlayers()) {
+
+      if (e.getMyScore() == null || e.getOpponentScore() == null) {
+        return false;
+      }
+
       int myScore = e.getMyScore();
       int opponentScore = e.getOpponentScore();
 

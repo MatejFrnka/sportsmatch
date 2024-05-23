@@ -203,6 +203,10 @@ public class EventService {
             requestEventDTO.getLongitude(),
             requestEventDTO.getLatitude(),
             sportNamesWithLowerCase,
+            requestEventDTO.getPlaceName() == null
+                ? ""
+                : requestEventDTO.getPlaceName().toLowerCase(),
+            LocalDateTime.now(),
             pageable);
 
     return events.stream().map(eventMapper::convertEventToEventDTO).collect(Collectors.toList());

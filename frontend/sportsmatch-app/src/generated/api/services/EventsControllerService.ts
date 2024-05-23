@@ -102,6 +102,7 @@ export class EventsControllerService {
      * @param sportsName
      * @param longitude
      * @param latitude
+     * @param placeName
      * @param page Zero-based page index (0..N)
      * @param size The size of the page to be returned
      * @param sort Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
@@ -112,6 +113,7 @@ export class EventsControllerService {
         sportsName?: Array<string>,
         longitude?: number,
         latitude?: number,
+        placeName?: string,
         page?: number,
         size: number = 20,
         sort?: Array<string>,
@@ -123,6 +125,7 @@ export class EventsControllerService {
                 'sportsName': sportsName,
                 'longitude': longitude,
                 'latitude': latitude,
+                'placeName': placeName,
                 'page': page,
                 'size': size,
                 'sort': sort,

@@ -9,6 +9,7 @@ import { ApiError, EventDTO, EventsControllerService } from '../generated/api'
 import useModal from '../hooks/UseModal'
 import Modal from '../components/Modal'
 import JoinEventComponent from '../components/JoinEventComponent'
+import useLocation from '../hooks/UseLocation'
 
 export default function MainPage() {
   const [searchQuery, setSearchQuery] = useState<string>('')
@@ -20,6 +21,8 @@ export default function MainPage() {
   const { isOpen, toggle } = useModal()
   const [page, setPage] = useState<number>(0)
   const size = 3
+
+  const userCoords = useLocation().coords
 
   // handle sports name selected from sportButtoncomponent
   const handleSportSelectionChange = (selectedButtonSports: string[]) => {
@@ -45,8 +48,9 @@ export default function MainPage() {
       try {
         const response = await EventsControllerService.getNearbyEvents(
           selectedSports,
-          0,
-          0,
+          userCoords.longitude || undefined,
+          userCoords.latitude || undefined,
+          searchQuery,
           page,
           size,
         )
@@ -70,7 +74,13 @@ export default function MainPage() {
     }
     // call the method
     fetchData()
-  }, [selectedSports, page])
+  }, [
+    selectedSports,
+    page,
+    searchQuery,
+    userCoords.latitude,
+    userCoords.longitude,
+  ])
 
   // handle join event pop up after cliking on the event
   const handleEventSelection = (e: EventDTO) => {
@@ -140,21 +150,15 @@ export default function MainPage() {
               {filteredEvent.length === 0 ? (
                 <LoadingSpinner />
               ) : (
-                filteredEvent
-                  .filter((e) =>
-                    e.placeDTO.name
-                      .toLowerCase()
-                      .includes(searchQuery.toLowerCase()),
-                  )
-                  .map((event, index) => (
-                    <div
-                      className="nearby-events"
-                      key={index}
-                      onClick={() => handleEventSelection(event)}
-                    >
-                      <SportEvent event={event} />
-                    </div>
-                  ))
+                filteredEvent.map((event, index) => (
+                  <div
+                    className="nearby-events"
+                    key={index}
+                    onClick={() => handleEventSelection(event)}
+                  >
+                    <SportEvent event={event} />
+                  </div>
+                ))
               )}
             </div>
           </div>

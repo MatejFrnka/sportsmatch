@@ -1,7 +1,7 @@
 {
   "name": "sportsmatch-app",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.0.1-SNAPSHOT",
   "type": "module",
   "scripts": {
     "dev": "vite",

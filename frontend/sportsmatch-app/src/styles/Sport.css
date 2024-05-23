@@ -1,0 +1,68 @@
+
+.checkbox {
+    appearance: none;    
+}
+
+.checkbox-wrapper .row {
+    margin: 0.75em 0;
+    font-size: 1.5rem;
+    background-clip: content-box;
+    background-size: cover;
+    border-radius: var(--sm-border-radius);
+    min-height: 48px;
+    font-weight: 900;
+}
+
+.checkbox-wrapper .col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.563em;
+}
+
+
+.selected {
+    color: var(--sm-orange);
+    background: linear-gradient(0deg, rgba(249, 248, 245, 0.6), rgba(249, 248, 245, 0.6));   
+}
+
+.unselected {
+    color: var(--sm-white);
+    background: linear-gradient(0deg, var(--sm-orange-overlay),var(--sm-orange-overlay));
+}
+
+.input-search {
+    height: inherit;
+    width: 100%;
+    border: 1px solid rgba(65, 58, 58, 0.2);
+    border-radius: 40px;
+    font-size: var(--sm-text-content);
+    padding: 0.5rem 0.5rem 0.5rem 2.5rem;
+}
+
+.search-icon {
+    position: absolute;
+    top: .5rem;
+    left: 1.5rem;
+    color: #4a494f;
+    font-size: 1.5rem;
+}
+
+.submit-button {
+    position: sticky;
+    bottom: 2rem;
+    left: 0;
+}
+
+button {
+    width: 100%;
+    height: 2rem;
+    background: var(--sm-orange);
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    font-size: var(--sm-text-content);
+    color: var(--sm-white);
+}

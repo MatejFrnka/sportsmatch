@@ -1,0 +1,18 @@
+.sport-checkbox input {
+    appearance: none;
+  }
+  
+  .sport-checkbox {
+    font-size: 0.75em;
+    padding: 5px;
+    border-radius: 2.5em;
+    color: white;
+  }
+
+  .sport-checkbox.unselected-btn {
+    background-color: var(--sm-dark);
+  }
+
+  .sport-checkbox.selected-btn {
+    background-color: var(--sm-orange);
+  }

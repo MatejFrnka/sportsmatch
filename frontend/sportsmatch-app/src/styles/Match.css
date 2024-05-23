@@ -1,0 +1,45 @@
+
+.match .row {
+  box-shadow: var(--sm-border-shadow);
+  background: linear-gradient(0deg,var(--sm-orange-overlay),var(--sm-orange-overlay)),url(./assets/InProgress.png);
+  background-clip: content-box;
+  background-size: cover;
+  border-radius: var(--sm-border-radius);
+  min-height: 395px;
+}
+
+.match .col {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0.563em;  
+}
+
+.match .col ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  color: #fff;
+}
+
+.match li{
+  color: #fff;
+  font-family: var(--sm-primary-font);
+  font-size: var(--sm-text-content);
+}
+
+.match .col svg {
+  margin-right: 0.5em;
+}
+
+.match h1 {
+  font-family: var(--sm-secondary-font);
+  font-size: var(--sm-h1-heading);
+  font-weight: 900;
+  color: var(--sm-white);
+}
+
+.match .overlap {
+  padding-top: 0.563em;
+  padding-right: 0.563em;
+}

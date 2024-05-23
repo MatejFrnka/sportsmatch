@@ -1,14 +1,23 @@
 package com.sportsmatch.controllers;
 
 import com.sportsmatch.dtos.UserInfoDTO;
+import com.sportsmatch.models.Image;
 import com.sportsmatch.services.UserService;
 import com.sportsmatch.services.ValidationService;
+import com.sportsmatch.util.ImageUtils;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.io.IOException;
 
 @RestController
 @RequiredArgsConstructor
@@ -39,5 +48,45 @@ public class UserController {
     } catch (ResponseStatusException e) {
       return ResponseEntity.status(e.getStatusCode()).build();
     }
+  }
+
+  /**
+   * These endpoint return with the newly uploaded profile image ID.
+   *
+   * @param file the profile image file to upload.
+   * @return with the newly uploaded profile image ID
+   * @throws IOException if an I/O error occurs while reading the file.
+   */
+  @PostMapping("/image")
+  public ResponseEntity<Long> uploadProfileImage(@RequestParam("image") MultipartFile file) throws IOException {
+    return ResponseEntity.status(HttpStatus.CREATED).body(userService.uploadProfileImage(file));
+  }
+
+
+  /**
+   * These endpoint where logged-in user can delete their profile image.
+   *
+   * @param id ID unique identifier for profile image.
+   */
+  @DeleteMapping("/image/{id}")
+  public void deleteProfileImage(@PathVariable Long id) {
+    userService.deleteProfileImage(id);
+  }
+
+  /**
+   * There endpoint where logged-in user can download profile picture by the given id.
+   *
+   * @param id ID unique identifier for profile image.
+   * @return the profile picture by the given id.
+   */
+  @GetMapping("/image/{id}")
+  public ResponseEntity<ByteArrayResource> downloadProfileImage(@PathVariable Long id) {
+    Image image = userService.downloadProfileImage(id);
+
+    return ResponseEntity.ok()
+        .contentType(MediaType.parseMediaType(image.getType()))
+        .header(HttpHeaders.CONTENT_DISPOSITION,
+            "image; filename=\"" + image.getName() + "\"")
+        .body(new ByteArrayResource(ImageUtils.decompressImage(image.getImageData())));
   }
 }

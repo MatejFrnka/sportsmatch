@@ -43,6 +43,8 @@ public class User implements UserDetails {
 
   private Integer totalPlayed = 0;
 
+  private Long imageId;
+
   @Enumerated(EnumType.STRING)
   private Role role;
 
